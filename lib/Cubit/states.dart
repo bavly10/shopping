@@ -13,4 +13,7 @@ class ShopChanged extends ShopStates {
 class ChangeIndexTabs extends ShopStates {
 
 }
+class ChangeAppBar extends ShopStates {
+
+}
 

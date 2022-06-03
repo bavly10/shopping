@@ -4,5 +4,7 @@
    "main": "Main",
    "customer": "Trading",
    "cart": "My Cart",
-   "Store": "Store"
+   "Store": "Store",
+   "home": "Home",
+   "search": "Search..."
 }

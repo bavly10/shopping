@@ -65,4 +65,9 @@ class ShopCubit extends Cubit<ShopStates> {
     currentindex = index;
     emit(ChangeIndexTabs());
   }
+  bool changeAppBar=true;
+  void changeSearchAppBar(){
+    changeAppBar=!changeAppBar;
+    emit(ChangeAppBar());
+  }
 }
