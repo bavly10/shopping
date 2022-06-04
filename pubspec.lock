@@ -385,13 +385,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.27.3"
-  sa_v1_migration:
-    dependency: transitive
-    description:
-      name: sa_v1_migration
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.1.2"
   shared_preferences:
     dependency: "direct main"
     description:
@@ -454,7 +447,7 @@ packages:
       name: simple_animations
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.5.1"
+    version: "4.0.2"
   sky_engine:
     dependency: transitive
     description: flutter
@@ -509,20 +502,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.1.1"
-  supercharged:
-    dependency: transitive
-    description:
-      name: supercharged
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.12.0"
-  supercharged_dart:
-    dependency: transitive
-    description:
-      name: supercharged_dart
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.4.0"
   synchronized:
     dependency: transitive
     description:
