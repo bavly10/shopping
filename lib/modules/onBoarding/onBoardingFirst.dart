@@ -62,7 +62,7 @@ class OnBoardingFirst extends StatelessWidget {
               const Spacer(),
               Padding(
                 padding: const EdgeInsets.all(16.0),
-                child: BlueButton(title: "ابدأ التسوق",
+                child: BlueButton(title: "ابدأ التسوق",hight:0.08 ,width: 0.80,icon: Icons.arrow_back,
                     onpress:(){
                       navigateToFinish(context, OnBoardingScreen());
                     }),

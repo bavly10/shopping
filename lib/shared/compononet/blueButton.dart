@@ -3,8 +3,10 @@ import 'package:shopping/shared/my_colors.dart';
 
 class BlueButton extends StatelessWidget {
   final String title;
+  final double hight,width;
   final Function onpress;
-  const BlueButton({Key? key, required this.title,required this.onpress}) : super(key: key);
+  final IconData icon;
+  const BlueButton({Key? key, required this.title,required this.onpress,required this.hight,required this.width,required this.icon}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -14,15 +16,15 @@ class BlueButton extends StatelessWidget {
         onPressed:()=>onpress(),
         child: Container(
           decoration: BoxDecoration(borderRadius: BorderRadius.circular(45.00),color: myBlue),
-          height: MediaQuery.of(context).size.height*0.08,
-          width: MediaQuery.of(context).size.width*0.80,
+          height: MediaQuery.of(context).size.height*hight,
+          width: MediaQuery.of(context).size.width*width,
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Row(
               children: [
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Icon(Icons.arrow_back,color: myWhite,),
+                  padding: const EdgeInsets.all(6.0),
+                  child: Icon(icon,color: myWhite,),
                 ),
                 Spacer(),
                 Padding(

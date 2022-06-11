@@ -10,6 +10,7 @@ import 'package:shopping/Cubit/my_observer.dart';
 import 'package:shopping/Cubit/states.dart';
 import 'package:shopping/modules/Splash_screen/animation_Splash/main.dart';
 import 'package:shopping/modules/Splash_screen/splash.dart';
+import 'package:shopping/modules/signup/signup.dart';
 import 'package:shopping/shared/localization/set_localization.dart';
 import 'package:shopping/shared/my_colors.dart';
 import 'package:shopping/shared/shared_prefernces.dart';
@@ -78,7 +79,7 @@ class MyApp extends StatelessWidget {
               primarySwatch: Colors.amber,
             ),
             themeMode: ThemeMode.light,
-            home: SplashScreen(),
+            home: Signup(),
             //// HomeServices(),
             builder: EasyLoading.init(),
           );

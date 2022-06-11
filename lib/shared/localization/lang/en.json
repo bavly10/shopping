@@ -6,5 +6,7 @@
    "cart": "My Cart",
    "Store": "Store",
    "home": "Home",
-   "search": "Search..."
+   "signup1": "please do\nFill in your store information",
+   "signup2": "Create a new account"
+
 }

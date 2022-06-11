@@ -37,7 +37,7 @@ class onBoardingItem extends StatelessWidget {
           ),
         ),
         const Spacer(),
-        BlueButton(title: onBoardingModel.title, onpress: (){
+        BlueButton(title: onBoardingModel.title,hight:0.08 ,width: 0.80,icon: Icons.arrow_back, onpress: (){
           navigateTo(context, const MainScreen());
         })
       ],
