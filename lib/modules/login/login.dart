@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shopping/Cubit/cubit.dart';
 import 'package:shopping/Cubit/states.dart';
-import 'package:shopping/modules/signup/signup.dart';
 import 'package:shopping/shared/compononet/blueButton.dart';
 import 'package:shopping/shared/compononet/componotents.dart';
 import 'package:shopping/shared/compononet/textField.dart';
 import 'package:shopping/shared/localization/translate.dart';
 import 'package:shopping/shared/my_colors.dart';
+
+import 'signup/signup.dart';
 
 class Login extends StatelessWidget {
    TextEditingController emailcontroller=TextEditingController();

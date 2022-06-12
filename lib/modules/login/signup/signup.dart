@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:shopping/modules/signup/tabs/first_screen.dart';
-import 'package:shopping/modules/signup/tabs/four_screen.dart';
-import 'package:shopping/modules/signup/tabs/second_screen.dart';
-import 'package:shopping/modules/signup/tabs/third_screen.dart';
+import 'package:shopping/modules/login/signup/tabs/first_screen.dart';
+import 'package:shopping/modules/login/signup/tabs/four_screen.dart';
+import 'package:shopping/modules/login/signup/tabs/second_screen.dart';
+import 'package:shopping/modules/login/signup/tabs/third_screen.dart';
+
 import 'package:shopping/shared/compononet/blueButton.dart';
 import 'package:shopping/shared/localization/translate.dart';
 import 'package:shopping/shared/my_colors.dart';
