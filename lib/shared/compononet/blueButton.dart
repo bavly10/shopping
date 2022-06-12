@@ -5,8 +5,8 @@ class BlueButton extends StatelessWidget {
   final String title;
   final double hight,width;
   final Function onpress;
-  final IconData icon;
-  const BlueButton({Key? key, required this.title,required this.onpress,required this.hight,required this.width,required this.icon}) : super(key: key);
+   IconData? icon;
+   BlueButton({Key? key, required this.title,required this.onpress,required this.hight,required this.width,this.icon}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -21,15 +21,16 @@ class BlueButton extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Row(
+           mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                if (icon!=null)
+                    Icon(
+                      icon,
+                      color: myWhite,
+                    ),
                 Padding(
-                  padding: const EdgeInsets.all(6.0),
-                  child: Icon(icon,color: myWhite,),
-                ),
-                Spacer(),
-                Padding(
-                  padding: const EdgeInsets.only(right: 25.0),
-                  child: Text(title,style: TextStyle(color: myWhite,fontSize: 18,fontWeight: FontWeight.bold),),
+                  padding: const EdgeInsets.only(right:20),
+                  child: Text(title,style: TextStyle(color: myWhite,fontSize: 18,fontWeight: FontWeight.bold,),),
                 ),
               ],
             ),
