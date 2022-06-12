@@ -8,11 +8,11 @@ class FirstScreen extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        MyTextField(label: "Name",controller: controller,prefix: Icons.account_circle,type: TextInputType.text),
+        MyTextField(label: "Name",controller: controller,prefix: Icons.account_circle,type: TextInputType.text, obcure: false,),
         const SizedBox(height: 25,),
-        MyTextField(label: "Email",controller: controller,prefix: Icons.account_circle,type: TextInputType.text),
+        MyTextField(label: "Email",controller: controller,prefix: Icons.account_circle,type: TextInputType.text,obcure: false),
         const SizedBox(height: 25,),
-        MyTextField(label: "Password",controller: controller,prefix: Icons.account_circle,type: TextInputType.text),
+        MyTextField(label: "Password",controller: controller,prefix: Icons.account_circle,type: TextInputType.text,obcure: false),
       ],
     );
   }

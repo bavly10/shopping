@@ -2,18 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 class MyTextField extends StatelessWidget {
   late TextEditingController controller;
-  late TextInputType type;
+   TextInputType? type;
   void Function(String)? onSubmit;
   void Function()? onTap;
   String? Function(String?)? validate;
   late String label;
   IconData? prefix;
   IconData? suffix;
+ late bool obcure;
   void Function()? suffixPressed;
   MyTextField({
     Key? key,
     required this.controller,
-    required this.type,
+     this.type,
+     required this.obcure,
      this.onSubmit,
     this.onTap,
     this.validate,
@@ -36,6 +38,7 @@ class MyTextField extends StatelessWidget {
             )
           ]),
           child: TextFormField(
+            obscureText: obcure,
             keyboardType: type,
             onChanged: (value) {},
             onTap: () {},

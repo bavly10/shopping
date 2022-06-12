@@ -6,6 +6,14 @@
    "cart": "My Cart",
    "Store": "Store",
    "home": "Home",
+   "search": "Search...",
+   "loginText1":"Please Sign in First",
+   "loginText2":"Sign in",
+   "hintogin": "example@example.com",
+   "hintpassword": "Password",
+   "ForgetPassword": "ForgetPassword",
+   "text1": "didn't have an account?",
+   "signup": "Signup",
    "signup1": "please do\nFill in your store information",
    "signup2": "Create a new account"
 
