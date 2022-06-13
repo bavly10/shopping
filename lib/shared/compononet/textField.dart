@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:shopping/shared/my_colors.dart';
 class MyTextField extends StatelessWidget {
   late TextEditingController controller;
    TextInputType? type;
@@ -45,6 +46,7 @@ class MyTextField extends StatelessWidget {
             validator: (value) {},
             controller: controller,
             decoration: InputDecoration(
+              suffix: InkWell(onTap:suffixPressed,child: Icon(suffix,size: 20,color: myBlack,)),
                 fillColor: HexColor('#FFFFFF'),
                 filled: true,
                 prefixIcon: Icon(

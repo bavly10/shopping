@@ -8,9 +8,10 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:shopping/Cubit/cubit.dart';
 import 'package:shopping/Cubit/my_observer.dart';
 import 'package:shopping/Cubit/states.dart';
-import 'package:shopping/modules/Splash_screen/animation_Splash/main.dart';
 import 'package:shopping/modules/Splash_screen/splash.dart';
-import 'package:shopping/modules/login/login.dart';
+import 'package:shopping/modules/login/cubit/cubit.dart';
+import 'package:shopping/modules/login/login/login.dart';
+import 'package:shopping/modules/login/signup/signup.dart';
 import 'package:shopping/shared/localization/set_localization.dart';
 import 'package:shopping/shared/my_colors.dart';
 import 'package:shopping/shared/shared_prefernces.dart';
@@ -30,12 +31,12 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (context) => ShopCubit()),
+        BlocProvider(create: (context) => LoginCubit()),
       ],
       child: BlocBuilder<ShopCubit, ShopStates>(
         builder: (context, state) {
           final cubit = ShopCubit.get(context);
           return MaterialApp(
-
             locale: cubit.locale_cubit,
           localizationsDelegates: const [
             SetLocalztion.localizationsDelegate,
@@ -79,8 +80,8 @@ class MyApp extends StatelessWidget {
               primarySwatch: Colors.amber,
             ),
             themeMode: ThemeMode.light,
-            home: Animation_Splash(),
-            //// HomeServices(),
+            home: SplashScreen(),
+            //// SplashScreen(),
             builder: EasyLoading.init(),
           );
         },
