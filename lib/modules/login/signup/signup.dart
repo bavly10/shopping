@@ -72,14 +72,14 @@ class Signup extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-         if (LoginCubit.get(context).changepager!=0)BlueButton(title: "Previous",hight:0.08 ,width: 0.35,icon:Icons.arrow_back,
+         if (LoginCubit.get(context).changepager!=0)BlueButton(title:mytranslate(context,"prev"),hight:0.08 ,width: 0.35,icon:Icons.arrow_back,
             onpress:(){
               pagecontroller.animateToPage(pagecontroller.page!.toInt() - 1,
                   duration: const Duration(milliseconds: 400),
                   curve: Curves.easeIn
               );
             }),
-        LoginCubit.get(context).lastIndex?BlueButton(title: "Finish",hight:0.09 ,width: 0.30,icon:Icons.done_all, onpress:(){}):BlueButton(title: "Next",hight:0.09 ,width: 0.30,
+        LoginCubit.get(context).lastIndex?BlueButton(title:mytranslate(context,"finish"),hight:0.09 ,width: 0.30,icon:Icons.done_all, onpress:(){}):BlueButton(title:mytranslate(context,"next"),hight:0.09 ,width: 0.30,
             onpress:(){
               pagecontroller.animateToPage(pagecontroller.page!.toInt() + 1,
                   duration: const Duration(milliseconds: 400),

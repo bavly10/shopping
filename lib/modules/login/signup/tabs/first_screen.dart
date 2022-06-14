@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shopping/shared/compononet/textField.dart';
+import 'package:shopping/shared/localization/translate.dart';
 
 class FirstScreen extends StatelessWidget {
  TextEditingController controller=TextEditingController();
@@ -8,11 +9,11 @@ class FirstScreen extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        MyTextField(label: "Name",controller: controller,prefix: Icons.account_circle,type: TextInputType.text, obcure: false,),
+        MyTextField(label:mytranslate(context,"Name"),controller: controller,prefix: Icons.account_circle,type: TextInputType.text, obcure: false,),
         const SizedBox(height: 25,),
-        MyTextField(label: "Email",controller: controller,prefix: Icons.account_circle,type: TextInputType.text,obcure: false),
+        MyTextField(label:mytranslate(context,"hintogin"),controller: controller,prefix: Icons.account_circle,type: TextInputType.text,obcure: false),
         const SizedBox(height: 25,),
-        MyTextField(label: "Password",controller: controller,prefix: Icons.account_circle,type: TextInputType.text,obcure: false),
+        MyTextField(label:mytranslate(context,"hintpassword"),controller: controller,prefix: Icons.account_circle,type: TextInputType.text,obcure: false),
       ],
     );
   }

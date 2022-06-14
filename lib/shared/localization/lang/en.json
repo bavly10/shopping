@@ -15,6 +15,20 @@
    "text1": "didn't have an account?",
    "signup": "Signup",
    "signup1": "please do\nFill in your store information",
-   "signup2": "Create a new account"
+   "signup2": "Create a new account",
+   "name": "Name",
+   "mobile": "Mobile Number",
+   "address": "Address",
+   "map": "Add your store location on the map",
+   "namestore": "Name Of Store",
+   "men": "Men",
+   "Women": "Women",
+   "baby": "Baby",
+   "hintfour": "Upload your store logo,\n make sure that the image is of high quality and clear",
+   "gallery": "Browse from gallery",
+   "prev": "Previous",
+   "next": "Next",
+   "finish": "Finish"
+
 
 }

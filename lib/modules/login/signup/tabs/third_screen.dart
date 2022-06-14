@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shopping/modules/login/cubit/cubit.dart';
 import 'package:shopping/shared/compononet/borderSignup.dart';
 import 'package:shopping/shared/compononet/textField.dart';
+import 'package:shopping/shared/localization/translate.dart';
 
 import '../../cubit/state.dart';
 
@@ -15,7 +16,7 @@ class ThirdScreen extends StatelessWidget {
         return Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            MyTextField(label: "Name Of Store",controller: controller,prefix: Icons.account_circle,type: TextInputType.text, obcure: false,),
+            MyTextField(label:mytranslate(context,"namestore"),controller: controller,prefix: Icons.account_circle,type: TextInputType.text, obcure: false,),
             const SizedBox(height: 25,),
             myRow(context)
           ],
@@ -32,17 +33,17 @@ class ThirdScreen extends StatelessWidget {
           InkWell(
             onTap: (){
               LoginCubit.get(context).getChangeColorMen();
-            },child: BorderSignup(color: LoginCubit.get(context).changeColorMen,lable: "Men"),
+            },child: BorderSignup(color: LoginCubit.get(context).changeColorMen,lable:mytranslate(context,"men")),
           ),
           InkWell(
             onTap: (){
               LoginCubit.get(context).getChangeColorWomen();
-            },child: BorderSignup(color: LoginCubit.get(context).changeColorWomen,lable: "Women"),
+            },child: BorderSignup(color: LoginCubit.get(context).changeColorWomen,lable:mytranslate(context,"Women")),
           ),
           InkWell(
             onTap: (){
               LoginCubit.get(context).getChangeColorBaby();
-            },child: BorderSignup(color: LoginCubit.get(context).changeColorBaby,lable: "Baby"),
+            },child: BorderSignup(color: LoginCubit.get(context).changeColorBaby,lable:mytranslate(context,"baby")),
           ),
         ],
       ),

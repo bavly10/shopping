@@ -5,6 +5,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:shopping/modules/login/cubit/cubit.dart';
 import 'package:shopping/modules/login/cubit/state.dart';
+import 'package:shopping/shared/localization/translate.dart';
 import 'package:shopping/shared/my_colors.dart';
 
 class FourScreen extends StatelessWidget {
@@ -18,7 +19,7 @@ class FourScreen extends StatelessWidget {
         return Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children:  [
-            const Text("قم برفع شعار متجرك , تأكد من \nان الصورة ذات جودة عالية وواضحة"),
+             Text(mytranslate(context,"hintfour")),
            const SizedBox(height:10,),
             InkWell(onTap: (){
               LoginCubit.get(context).getImageBloc(ImageSource.gallery);
@@ -31,7 +32,7 @@ class FourScreen extends StatelessWidget {
                 children: [
                   Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: Text("تصفح من المعرض",style: TextStyle(color: myWhite,fontSize: 20,fontWeight: FontWeight.bold),),
+                    child: Text(mytranslate(context,"gallery"),style: TextStyle(color: myWhite,fontSize: 20,fontWeight: FontWeight.bold),),
                   ),
                   const SizedBox(width: 15,),
                   Padding(
