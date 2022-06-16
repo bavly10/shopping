@@ -16,4 +16,7 @@ class ChangeIndexTabs extends ShopStates {
 class ChangeAppBar extends ShopStates {
 
 }
+class ChangeIndexBar extends ShopStates {
+
+}
 

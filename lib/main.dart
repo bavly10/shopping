@@ -9,6 +9,7 @@ import 'package:shopping/Cubit/cubit.dart';
 import 'package:shopping/Cubit/my_observer.dart';
 import 'package:shopping/Cubit/states.dart';
 import 'package:shopping/model/shppingCompany/CompanyShpping.dart';
+import 'package:shopping/modules/Deatils_screen/deatillsScreen.dart';
 import 'package:shopping/modules/Splash_screen/splash.dart';
 import 'package:shopping/modules/login/cubit/cubit.dart';
 import 'package:shopping/modules/login/login/login.dart';
@@ -81,7 +82,7 @@ class MyApp extends StatelessWidget {
               primarySwatch: Colors.amber,
             ),
             themeMode: ThemeMode.light,
-            home: ShippingCompany(),
+            home:  DetailsScreen(),
             //// SplashScreen(),
             builder: EasyLoading.init(),
           );
