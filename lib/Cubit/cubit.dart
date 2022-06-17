@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shopping/Cubit/states.dart';
+import 'package:shopping/modules/cart/cart.dart';
 import 'package:shopping/modules/login/login/login.dart';
 import 'package:shopping/modules/login/main.dart';
 import 'package:shopping/modules/mainScreen/screen/HomeScreen.dart';
-import 'package:shopping/modules/mainScreen/screen/cart.dart';
 import 'package:shopping/shared/shared_prefernces.dart';
 import 'package:http/http.dart' as http;
 
@@ -54,7 +54,7 @@ class ShopCubit extends Cubit<ShopStates> {
   List<Widget> screen = [
     const HomeScreen(),
     const Products(),
-    const Cart(),
+    CartScreen(),
     MainLogin()
   ];
 

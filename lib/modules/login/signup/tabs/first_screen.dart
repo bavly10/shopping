@@ -9,7 +9,7 @@ class FirstScreen extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        MyTextField(label:mytranslate(context,"Name"),controller: controller,prefix: Icons.account_circle,type: TextInputType.text, obcure: false,),
+        MyTextField(label:mytranslate(context,"name"),controller: controller,prefix: Icons.account_circle,type: TextInputType.text, obcure: false,),
         const SizedBox(height: 25,),
         MyTextField(label:mytranslate(context,"hintogin"),controller: controller,prefix: Icons.account_circle,type: TextInputType.text,obcure: false),
         const SizedBox(height: 25,),

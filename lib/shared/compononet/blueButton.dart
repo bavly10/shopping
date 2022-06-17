@@ -15,7 +15,7 @@ class BlueButton extends StatelessWidget {
       child: TextButton(
         onPressed:()=>onpress(),
         child: Container(
-          decoration: BoxDecoration(borderRadius: BorderRadius.circular(45.00),color: myBlue),
+          decoration: BoxDecoration(borderRadius: BorderRadius.circular(10.00),color: myBlue),
           height: MediaQuery.of(context).size.height*hight,
           width: MediaQuery.of(context).size.width*width,
           child: Padding(

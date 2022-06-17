@@ -34,11 +34,8 @@ class FourScreen extends StatelessWidget {
                     padding: const EdgeInsets.all(8.0),
                     child: Text(mytranslate(context,"gallery"),style: TextStyle(color: myWhite,fontSize: 20,fontWeight: FontWeight.bold),),
                   ),
-                  const SizedBox(width: 15,),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Icon(MdiIcons.cameraAccount,size: 35,color: myWhite,),
-                  )
+                  const SizedBox(width: 5,),
+                  Icon(MdiIcons.cameraAccount,size: 35,color: myWhite,)
                 ],
               ),
             ),),
