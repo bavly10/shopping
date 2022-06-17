@@ -8,12 +8,13 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:shopping/Cubit/cubit.dart';
 import 'package:shopping/Cubit/my_observer.dart';
 import 'package:shopping/Cubit/states.dart';
-import 'package:shopping/model/shppingCompany/CompanyShpping.dart';
 import 'package:shopping/modules/Deatils_screen/deatillsScreen.dart';
 import 'package:shopping/modules/Splash_screen/splash.dart';
 import 'package:shopping/modules/login/cubit/cubit.dart';
 import 'package:shopping/modules/login/login/login.dart';
 import 'package:shopping/modules/login/signup/signup.dart';
+import 'package:shopping/modules/shppingCompany/CompanyShpping.dart';
+import 'package:shopping/shared/diohelper/dioHelpoer.dart';
 import 'package:shopping/shared/localization/set_localization.dart';
 import 'package:shopping/shared/my_colors.dart';
 import 'package:shopping/shared/shared_prefernces.dart';
@@ -23,6 +24,7 @@ import 'package:shopping/shared/shared_prefernces.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   Bloc.observer = MyBlocObserver();
+  DioHelper.init();
   await CashHelper.init();
   runApp( MyApp());
 }
@@ -82,7 +84,7 @@ class MyApp extends StatelessWidget {
               primarySwatch: Colors.amber,
             ),
             themeMode: ThemeMode.light,
-            home:  DetailsScreen(),
+            home:   ShippingCompany(),
             //// SplashScreen(),
             builder: EasyLoading.init(),
           );

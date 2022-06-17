@@ -107,7 +107,7 @@ class DetailsScreen extends StatelessWidget {
           const Padding(
             padding: EdgeInsets.all(8.0),
             child:  SizedBox(width: double.infinity
-                ,child: Text("هودي رياضي مصمم للارتداء كل يوم في جميع الأوقات. يمكن تنسيقه مع البنطلون الرياضي من تشكيلة اكتيف",style: TextStyle(fontSize: 18,height: 1.8,color:Colors.blueGrey),textDirection:TextDirection.rtl,)),
+                ,child: Text("هودي رياضي مصمم للارتداء كل يوم في جميع الأوقات. يمكن تنسيقه ميمكن تنسيقه مع البنطلون الرياضي من تشكيلة اكتيف",style: TextStyle(fontSize: 18,height: 1.8,color:Colors.blueGrey),textDirection:TextDirection.rtl,)),
           ),
           Row(
             children: [

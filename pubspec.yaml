@@ -33,10 +33,8 @@ dependencies:
     sdk: flutter         # Add this line
   bloc: ^7.0.0
   flutter_bloc: ^7.0.1
-  http:
   shared_preferences:
   flutter_lints: ^1.0.0
-  dio:
   material_design_icons_flutter: 5.0.6295
   flutter_launcher_icons: ^0.9.0
   carousel_slider: ^4.0.0
@@ -47,7 +45,7 @@ dependencies:
   simple_animations: ^4.0.2
   hexcolor: ^2.0.7
   image_picker: ^0.8.5
-
+  dio: ^4.0.6
 
 dev_dependencies:
   flutter_test:

@@ -41,20 +41,23 @@ class ShippingCompany extends StatelessWidget {
             Row(
             crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(
-                  width: 140,height:150,
-                  child: CachedNetworkImage(
-                    imageUrl: x.img!,
-                    imageBuilder: (context, imageProvider) => Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(25.0),
-                        image: DecorationImage(
-                            image: imageProvider,
-                            fit: BoxFit.cover,),
+                Flexible(
+                  flex: 3,
+                  child: SizedBox(
+                    width: 250,height:150,
+                    child: CachedNetworkImage(
+                      imageUrl: x.img!,
+                      imageBuilder: (context, imageProvider) => Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(25.0),
+                          image: DecorationImage(
+                              image: imageProvider,
+                              fit: BoxFit.cover,),
+                        ),
                       ),
+                      placeholder: (context, url) => const CircularProgressIndicator(),
+                      errorWidget: (context, url, error) => const Icon(Icons.error),
                     ),
-                    placeholder: (context, url) => const CircularProgressIndicator(),
-                    errorWidget: (context, url, error) => const Icon(Icons.error),
                   ),
                 ),
                const SizedBox(width:25,),
@@ -62,25 +65,30 @@ class ShippingCompany extends StatelessWidget {
                   padding: const EdgeInsets.only(top:55.0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Text(x.title!),
+                      const SizedBox(height: 5,),
                       Text(x.location!),
                     ],
                   ),
                 ),
                 const Spacer(),
-                SizedBox(
-                  height: 160,
-                  child: Column(
-                    children: [
-                      const Text("mawk3 rasmy"),
-                      Spacer(),
-                     TextButton(onPressed: (){}, child: Container(
-                       width:80,
-                       decoration: BoxDecoration(borderRadius: BorderRadius.circular(35),color: myBlue),
-                       child: Center(child: Text("Connect",style: TextStyle(color: myWhite,fontWeight: FontWeight.bold),),),
-                     ))
-                    ],
+                Flexible(
+                  flex: 3,
+                  child: SizedBox(
+                    height: 160,
+                    child: Column(
+                      children: [
+                        const Text("mawk3 rasmy"),
+                        Spacer(),
+                       TextButton(onPressed: (){}, child: Container(
+                         width:80,
+                         decoration: BoxDecoration(borderRadius: BorderRadius.circular(35),color: myBlue),
+                         child: Center(child: Text("Connect",style: TextStyle(color: myWhite,fontWeight: FontWeight.bold),),),
+                       ))
+                      ],
+                    ),
                   ),
                 ),
               ],
