@@ -85,7 +85,7 @@ class MyApp extends StatelessWidget {
               primarySwatch: Colors.amber,
             ),
             themeMode: ThemeMode.light,
-            home:   SplashScreen(),
+            home: SplashScreen(),
             //// SplashScreen(),
             builder: EasyLoading.init(),
           );
