@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shopping/Cubit/cubit.dart';
@@ -14,6 +15,7 @@ class OnBoardingFirst extends StatelessWidget {
     return BlocBuilder<ShopCubit,ShopStates>(
       builder: (ctx,state){
         final cubit=ShopCubit.get(context);
+        final splashModel=ShopCubit.get(context).splashModel;
         return Scaffold(
           appBar:  AppBar(
             elevation: 0,
@@ -47,16 +49,22 @@ class OnBoardingFirst extends StatelessWidget {
           ),
           body: Column(
             children: [
-              Image(
+              SizedBox(
+                width: double.infinity,
                 height: MediaQuery.of(context).size.height*0.50,
-                width: double.infinity,
-                image: const ExactAssetImage("assets/shopimg.png"),
-              ),
-              const SizedBox(height: 5,),
-              Image(
-                height: MediaQuery.of(context).size.height*0.10,
-                width: double.infinity,
-                image: const ExactAssetImage("assets/logo.png"),
+                child: CachedNetworkImage(
+                  imageUrl: splashModel!.data!.splash.toString(),
+                  imageBuilder: (context, imageProvider) => Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(25.0),
+                      image: DecorationImage(
+                        image: imageProvider,
+                        fit: BoxFit.cover,),
+                    ),
+                  ),
+                  placeholder: (context, url) => const CircularProgressIndicator(),
+                  errorWidget: (context, url, error) => const Icon(Icons.error),
+                ),
               ),
               const SizedBox(height: 5,),
               const Spacer(),

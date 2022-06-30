@@ -11,12 +11,13 @@ class ShopChanged extends ShopStates {
 
 }
 class ChangeIndexTabs extends ShopStates {
-
 }
 class ChangeAppBar extends ShopStates {
-
 }
 class ChangeIndexBar extends ShopStates {
-
 }
+class LoadingSplash extends ShopStates {
+}
+class DoneSplash extends ShopStates {}
+class ErrorSplash extends ShopStates {}
 

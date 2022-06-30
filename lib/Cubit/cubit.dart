@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shopping/Cubit/states.dart';
+import 'package:shopping/model/splash.dart';
 import 'package:shopping/modules/cart/cart.dart';
 import 'package:shopping/modules/login/login/login.dart';
 import 'package:shopping/modules/login/main.dart';
 import 'package:shopping/modules/mainScreen/screen/HomeScreen.dart';
+import 'package:shopping/shared/compononet/printFullText.dart';
+import 'package:shopping/shared/diohelper/dioHelpoer.dart';
+import 'package:shopping/shared/network.dart';
 import 'package:shopping/shared/shared_prefernces.dart';
 import 'package:http/http.dart' as http;
 
@@ -21,9 +25,11 @@ class ShopCubit extends Cubit<ShopStates> {
     Locale currentLocale = await setLocale(lang.lang_Code);
     changLocale(currentLocale);
   }
+
   changLocale(Locale currentLocale) {
     locale_cubit = currentLocale;
   }
+
   Future<Locale> locale(String lang) async {
     switch (lang) {
       case "en":
@@ -72,5 +78,18 @@ class ShopCubit extends Cubit<ShopStates> {
   void getDetailsIndex(index){
     detailsIndex=index;
     emit(ChangeIndexBar());
+  }
+
+SplashModel? splashModel;
+  Future<void> getSplashData()async{
+    emit(LoadingSplash());
+    DioHelper.getData(url: splash).then((value) {
+      splashModel=SplashModel.fromJson(value.data);
+      print("done Splash model ${splashModel!.status}");
+      emit(DoneSplash());
+    }).catchError((onError){
+      print(onError.toString());
+      emit(ErrorSplash());
+    });
   }
 }

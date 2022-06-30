@@ -1,26 +1,39 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:shopping/modules/mainScreen/mainScreen.dart';
-import 'package:shopping/modules/onBoarding/onBoarding_screen.dart';
 import 'package:shopping/shared/compononet/blueButton.dart';
 import 'package:shopping/shared/compononet/componotents.dart';
-import 'package:shopping/shared/compononet/tsClip.dart';
+import 'package:shopping/shared/localization/translate.dart';
 import 'package:shopping/shared/my_colors.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 class onBoardingItem extends StatelessWidget {
-  final OnBoardingModel onBoardingModel;
+  String splashModel;
+  String lable;
   final PageController index;
   final int lisIndex;
-  onBoardingItem({Key? key, required this.onBoardingModel,required this.index,required this.lisIndex}) : super(key: key);
+  onBoardingItem({Key? key, required this.splashModel,required this.index,required this.lisIndex,required this.lable}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Container(
-            height: MediaQuery.of(context).size.height *.30,
-            width:double.infinity,
-            decoration: BoxDecoration(borderRadius: BorderRadius.circular(45.0),image: DecorationImage(image: ExactAssetImage(onBoardingModel.image,))),
+        SizedBox(
+          height: MediaQuery.of(context).size.height*0.50,
+          width: double.infinity,
+          child: CachedNetworkImage(
+            imageUrl: splashModel,
+            imageBuilder: (context, imageProvider) => Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(25.0),
+                image: DecorationImage(
+                  image: imageProvider,
+                  fit: BoxFit.cover,),
+              ),
+            ),
+            placeholder: (context, url) => const CircularProgressIndicator(),
+            errorWidget: (context, url, error) => const Icon(Icons.error),
+          ),
         ),
         Padding(
           padding: const EdgeInsets.all(16.0),
@@ -37,7 +50,7 @@ class onBoardingItem extends StatelessWidget {
           ),
         ),
         const Spacer(),
-        BlueButton(title: onBoardingModel.title,hight:0.08 ,width: 0.80,icon: Icons.arrow_back, onpress: (){
+        BlueButton(title:mytranslate(context, lable),hight:0.08 ,width: 0.80,icon: Icons.arrow_back, onpress: (){
           navigateTo(context, const MainScreen());
         })
       ],
