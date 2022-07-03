@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shopping/modules/login/cubit/cubit.dart';
+import 'package:shopping/modules/login/cubit/state.dart';
 import 'package:shopping/shared/compononet/borderSignup.dart';
 import 'package:shopping/shared/compononet/textField.dart';
 import 'package:shopping/shared/localization/translate.dart';
 
-import '../../cubit/state.dart';
-
 class ThirdScreen extends StatelessWidget {
-  TextEditingController controller=TextEditingController();
+  static TextEditingController storecotroller=TextEditingController();
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<LoginCubit,LoginStates>(
@@ -16,7 +15,7 @@ class ThirdScreen extends StatelessWidget {
         return Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            MyTextField(label:mytranslate(context,"namestore"),controller: controller,prefix: Icons.account_circle,type: TextInputType.text, obcure: false,),
+            MyTextField(label:mytranslate(context,"namestore"),controller: storecotroller,prefix: Icons.account_circle,type: TextInputType.text, obcure: false,),
             const SizedBox(height: 25,),
             myRow(context)
           ],

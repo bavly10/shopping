@@ -1,6 +1,8 @@
-import 'dart:io';
 
+import 'dart:io';
+import 'package:http_parser/http_parser.dart';
 import 'package:bloc/bloc.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
@@ -9,6 +11,8 @@ import 'package:shopping/modules/login/signup/tabs/first_screen.dart';
 import 'package:shopping/modules/login/signup/tabs/four_screen.dart';
 import 'package:shopping/modules/login/signup/tabs/second_screen.dart';
 import 'package:shopping/modules/login/signup/tabs/third_screen.dart';
+import 'package:shopping/shared/diohelper/dioHelpoer.dart';
+import 'package:shopping/shared/network.dart';
 
 
 class LoginCubit extends Cubit<LoginStates> {
@@ -16,11 +20,12 @@ class LoginCubit extends Cubit<LoginStates> {
 
   static LoginCubit get(context) => BlocProvider.of(context);
 // ignore: non_constant_identifier_names
+
   List<Widget> myList=[
     FirstScreen(),
     SecondScreen(),
     ThirdScreen(),
-    FourScreen(),
+    const FourScreen(),
   ];
 
   bool changeSCreen=true;
@@ -79,6 +84,7 @@ class LoginCubit extends Cubit<LoginStates> {
       imagee = File(pickedFile.path);
       emit(TakeImage_State());
       print("image selected");
+
     } else {
       print("no image selected");
     }
@@ -87,6 +93,36 @@ class LoginCubit extends Cubit<LoginStates> {
     imagee = null;
     emit(DeleteImage_State());
     print("image Deleted");
+  }
+  MultipartFile? mFile;
+ getname()async{
+  mFile=  await MultipartFile.fromFile(imagee!.path, filename:imagee!.path.split('/').last);
+}
+  void signUp()async{
+    await getname();
+    Map<String,dynamic> data={
+      "name_ar":"dwadwad",
+      "name_en":"s",
+      "email":"dawdwad@gmail.com",
+      "password":"64456321351",
+      "phone":0516165,
+      "address":"SecondScreen.addresscontroller.text,",
+      "longitude":456,
+      "latitude":468456,
+      "title_ar":"ThirdScreen.storecotroller.text",
+      "title_en":"s",
+      "male":1,
+      "female":0,
+      "baby":0,
+      "logo":imagee!.readAsBytesSync()
+    };
+
+    DioHelper.postData(url: signup, data:data).then((value) {
+      print(value.data.toString());
+      print("done");
+    }).catchError((error){
+      print(error.toString());
+    });
   }
 
 }

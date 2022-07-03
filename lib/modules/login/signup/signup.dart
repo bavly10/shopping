@@ -2,15 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shopping/modules/login/cubit/cubit.dart';
 import 'package:shopping/modules/login/cubit/state.dart';
-import 'package:shopping/modules/login/login/login.dart';
 import 'package:shopping/shared/compononet/blueButton.dart';
-import 'package:shopping/shared/compononet/componotents.dart';
 import 'package:shopping/shared/compononet/rowLogin.dart';
 import 'package:shopping/shared/localization/translate.dart';
 import 'package:shopping/shared/my_colors.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
-// ignore: must_be_immutable
 class Signup extends StatelessWidget {
   var pageController = PageController();
   Signup({Key? key}) : super(key: key);
@@ -79,7 +76,9 @@ class Signup extends StatelessWidget {
                   curve: Curves.easeIn
               );
             }),
-        LoginCubit.get(context).lastIndex?BlueButton(title:mytranslate(context,"finish"),hight:0.09 ,width: 0.30,icon:Icons.done_all, onpress:(){}):BlueButton(title:mytranslate(context,"next"),hight:0.09 ,width: 0.30,
+        LoginCubit.get(context).lastIndex?BlueButton(title:mytranslate(context,"finish"),hight:0.09 ,width: 0.30,icon:Icons.done_all, onpress:(){
+          LoginCubit.get(context).signUp();
+        }):BlueButton(title:mytranslate(context,"next"),hight:0.09 ,width: 0.30,
             onpress:(){
               pagecontroller.animateToPage(pagecontroller.page!.toInt() + 1,
                   duration: const Duration(milliseconds: 400),

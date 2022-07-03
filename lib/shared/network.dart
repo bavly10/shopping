@@ -1,5 +1,6 @@
+String baseApi="https://kash5tak.com/api/";
 String splash="/images-start";
-String Signup="/sign-up";
+String signup="/sign-up";
 String login ="/login";
 String logout ="/logout";
 String category="/categories";

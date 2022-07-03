@@ -6,15 +6,16 @@ import 'package:shopping/shared/my_colors.dart';
 
 class SecondScreen extends StatelessWidget {
    SecondScreen({Key? key}) : super(key: key);
-  TextEditingController controller=TextEditingController();
+   static TextEditingController mobilecontroller=TextEditingController();
+   static TextEditingController addresscontroller=TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        MyTextField(label:mytranslate(context,"mobile"),controller: controller,prefix: Icons.account_circle,type: TextInputType.text, obcure: false,),
+        MyTextField(label:mytranslate(context,"mobile"),controller: mobilecontroller,prefix: Icons.account_circle,type: TextInputType.text, obcure: false,),
         const SizedBox(height: 25,),
-        MyTextField(label:mytranslate(context,"address"),controller: controller,prefix: Icons.account_circle,type: TextInputType.text,obcure: false),
+        MyTextField(label:mytranslate(context,"address"),controller: addresscontroller,prefix: Icons.account_circle,type: TextInputType.text,obcure: false),
         const SizedBox(height: 25,),
         location(context)
 
