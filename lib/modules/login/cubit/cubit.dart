@@ -1,4 +1,3 @@
-
 import 'dart:io';
 import 'package:http_parser/http_parser.dart';
 import 'package:bloc/bloc.dart';
@@ -14,40 +13,41 @@ import 'package:shopping/modules/login/signup/tabs/third_screen.dart';
 import 'package:shopping/shared/diohelper/dioHelpoer.dart';
 import 'package:shopping/shared/network.dart';
 
-
 class LoginCubit extends Cubit<LoginStates> {
   LoginCubit() : super(Shop_InitalState());
 
   static LoginCubit get(context) => BlocProvider.of(context);
 // ignore: non_constant_identifier_names
 
-  List<Widget> myList=[
+  List<Widget> myList = [
     FirstScreen(),
     SecondScreen(),
     ThirdScreen(),
     const FourScreen(),
   ];
 
-  bool changeSCreen=true;
-  void getChangeSCreen(){
-    changeSCreen=!changeSCreen;
+  bool changeSCreen = true;
+  void getChangeSCreen() {
+    changeSCreen = !changeSCreen;
     emit(ShopChangeSCreens());
   }
 
-  bool changeColorMen=false;
-  bool changeColorWomen=false;
-  bool changeColorBaby=false;
+  bool changeColorMen = false;
+  bool changeColorWomen = false;
+  bool changeColorBaby = false;
 
-  void getChangeColorMen(){
-    changeColorMen=!changeColorMen;
+  void getChangeColorMen() {
+    changeColorMen = !changeColorMen;
     emit(ShopChangeSCreens());
   }
-  void getChangeColorWomen(){
-    changeColorWomen=!changeColorWomen;
+
+  void getChangeColorWomen() {
+    changeColorWomen = !changeColorWomen;
     emit(ShopChangeColorsWomMen());
   }
-  void getChangeColorBaby(){
-    changeColorBaby=!changeColorBaby;
+
+  void getChangeColorBaby() {
+    changeColorBaby = !changeColorBaby;
     emit(ShopChangeColorsBaby());
   }
 
@@ -56,25 +56,28 @@ class LoginCubit extends Cubit<LoginStates> {
     changepager = val;
     emit(ShopChangeNext());
   }
-  bool lastIndex=false;
-  void getLastIndex(val){
-    if (val == myList.length-1) {
-      lastIndex=true;
+
+  bool lastIndex = false;
+  void getLastIndex(val) {
+    if (val == myList.length - 1) {
+      lastIndex = true;
       emit(ShopChangelast());
-    }else{
-      lastIndex=false;
+    } else {
+      lastIndex = false;
       emit(ShopChangedone());
     }
   }
+
   IconData iconVisiblity = Icons.visibility;
 
   bool isPassword = true;
   void changPasswordVisibilty() {
     isPassword = !isPassword;
     iconVisiblity =
-    isPassword ? Icons.visibility : Icons.visibility_off_outlined;
+        isPassword ? Icons.visibility : Icons.visibility_off_outlined;
     emit(ShopChangeiconpassword());
   }
+
   final picker = ImagePicker();
   var pickedFile;
   File? imagee;
@@ -84,45 +87,51 @@ class LoginCubit extends Cubit<LoginStates> {
       imagee = File(pickedFile.path);
       emit(TakeImage_State());
       print("image selected");
-
     } else {
       print("no image selected");
     }
   }
+
   deleteImageBlocLogin() {
     imagee = null;
     emit(DeleteImage_State());
     print("image Deleted");
   }
-  MultipartFile? mFile;
- getname()async{
-  mFile=  await MultipartFile.fromFile(imagee!.path, filename:imagee!.path.split('/').last);
-}
-  void signUp()async{
-    await getname();
-    Map<String,dynamic> data={
-      "name_ar":"dwadwad",
-      "name_en":"s",
-      "email":"dawdwad@gmail.com",
-      "password":"64456321351",
-      "phone":0516165,
-      "address":"SecondScreen.addresscontroller.text,",
-      "longitude":456,
-      "latitude":468456,
-      "title_ar":"ThirdScreen.storecotroller.text",
-      "title_en":"s",
-      "male":1,
-      "female":0,
-      "baby":0,
-      "logo":imagee!.readAsBytesSync()
-    };
 
-    DioHelper.postData(url: signup, data:data).then((value) {
+  MultipartFile? mFile;
+  getname() async {
+    mFile = await MultipartFile.fromFile(imagee!.path,
+        filename: imagee!.path.split('/').last);
+  }
+
+  void signUp() async {
+    await getname();
+
+    // Map<String, dynamic> data = {
+    FormData formData = FormData.fromMap({
+      "name_ar": "dwadwad",
+      "name_en": "s",
+      "email": "smsm91022@gmail.com",
+      "password": "64456321351",
+      "phone": 0516165,
+      "address": "SecondScreen.addresscontroller.text,",
+      "longitude": 456,
+      "latitude": 468456,
+      "title_ar": "ThirdScreen.storecotroller.text",
+      "title_en": "s",
+      "male": 1,
+      "female": 0,
+      "baby": 0,
+      "logo": await MultipartFile.fromFile(imagee!.path,
+          filename: mFile.toString(), contentType: MediaType("png", "jpg")),
+    });
+
+    DioHelper.postData1(url: signup, data: formData).then((value) {
       print(value.data.toString());
+      // print(value.toString());
       print("done");
-    }).catchError((error){
+    }).catchError((error) {
       print(error.toString());
     });
   }
-
 }
