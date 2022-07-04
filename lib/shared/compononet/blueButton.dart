@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:shopping/shared/my_colors.dart';
 
 class BlueButton extends StatelessWidget {
-  final String title;
+  final Widget title;
   final double hight,width;
   final Function onpress;
    IconData? icon;
@@ -30,8 +30,7 @@ class BlueButton extends StatelessWidget {
                     ),
                 Padding(
                   padding: const EdgeInsets.only(right:20),
-                  child: Text(title,style: TextStyle(color: myWhite,fontSize: 18,fontWeight: FontWeight.bold,),),
-                ),
+                  child: title,),
               ],
             ),
           ),

@@ -5,6 +5,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:shopping/model/responceModel.dart';
 import 'package:shopping/modules/login/cubit/state.dart';
 import 'package:shopping/modules/login/signup/tabs/first_screen.dart';
 import 'package:shopping/modules/login/signup/tabs/four_screen.dart';
@@ -33,21 +34,40 @@ class LoginCubit extends Cubit<LoginStates> {
   }
 
   bool changeColorMen = false;
+  int colorMen = 0;
   bool changeColorWomen = false;
+  int colorWomen = 0;
   bool changeColorBaby = false;
+  int colorBaby = 0;
 
   void getChangeColorMen() {
     changeColorMen = !changeColorMen;
+    if(changeColorMen) {
+      colorMen = 1;
+    }else{
+      colorMen = 0;
+    }
     emit(ShopChangeSCreens());
   }
 
   void getChangeColorWomen() {
     changeColorWomen = !changeColorWomen;
+    if(changeColorWomen){
+    colorWomen = 1;
+    }else{
+    colorWomen = 0;
+    }
     emit(ShopChangeColorsWomMen());
   }
 
   void getChangeColorBaby() {
     changeColorBaby = !changeColorBaby;
+
+    if(changeColorBaby){
+    colorBaby = 1;
+    }else{
+    colorBaby = 0;
+    }
     emit(ShopChangeColorsBaby());
   }
 
@@ -99,38 +119,33 @@ class LoginCubit extends Cubit<LoginStates> {
   }
 
   MultipartFile? mFile;
-  getname() async {
-    mFile = await MultipartFile.fromFile(imagee!.path,
-        filename: imagee!.path.split('/').last);
-  }
-
+  ResponseModel? res;
   void signUp() async {
-    await getname();
-
-    // Map<String, dynamic> data = {
-    FormData formData = FormData.fromMap({
-      "name_ar": "dwadwad",
+    emit(LoadingSignupState());
+     FormData formData = FormData.fromMap({
+      "name_ar": FirstScreen.namecontroller.text,
       "name_en": "s",
-      "email": "smsm91022@gmail.com",
-      "password": "64456321351",
-      "phone": 0516165,
-      "address": "SecondScreen.addresscontroller.text,",
+      "email": FirstScreen.emailcontroller.text,
+      "password": FirstScreen.passcontroller.text,
+      "phone": SecondScreen.mobilecontroller.text,
+      "address": SecondScreen.addresscontroller.text,
       "longitude": 456,
       "latitude": 468456,
-      "title_ar": "ThirdScreen.storecotroller.text",
+      "title_ar": ThirdScreen.storecotroller.text,
       "title_en": "s",
-      "male": 1,
-      "female": 0,
-      "baby": 0,
+      "male": colorMen,
+      "female": colorWomen,
+      "baby": colorBaby,
       "logo": await MultipartFile.fromFile(imagee!.path,
           filename: mFile.toString(), contentType: MediaType("png", "jpg")),
     });
-
     DioHelper.postData1(url: signup, data: formData).then((value) {
       print(value.data.toString());
-      // print(value.toString());
-      print("done");
+      res=ResponseModel.fromJson(value.data);
+      emit(SucessSignupState(res!));
+
     }).catchError((error) {
+      emit(ErrorSignupState(error.toString()));
       print(error.toString());
     });
   }

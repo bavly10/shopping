@@ -43,7 +43,7 @@ class Login extends StatelessWidget {
                 const SizedBox(height: 25,),
                 TextButton(onPressed: (){}, child: Text(mytranslate(context, "ForgetPassword"),style: TextStyle(color: myBlue,decoration: TextDecoration.underline,fontWeight: FontWeight.bold),)),
                 const SizedBox(height: 25,),
-                BlueButton(onpress: (){},title: mytranslate(context, "loginText2"), hight: 0.08, width: 0.80,),
+                BlueButton(onpress: (){},title:Text( mytranslate(context, "loginText2",),style: TextStyle(color: myWhite,fontSize: 18,fontWeight: FontWeight.bold)), hight: 0.08, width: 0.80,),
                 const SizedBox(height: 25,),
                 MyRowLogin(lable1: "text1", lable2: "signup", ontab: (){LoginCubit.get(context).getChangeSCreen();})
               ],

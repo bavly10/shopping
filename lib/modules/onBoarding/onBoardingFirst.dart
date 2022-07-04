@@ -8,6 +8,8 @@ import 'package:shopping/modules/onBoarding/onBoarding_screen.dart';
 import 'package:shopping/shared/compononet/blueButton.dart';
 import 'package:shopping/shared/compononet/componotents.dart';
 
+import '../../shared/my_colors.dart';
+
 class OnBoardingFirst extends StatelessWidget {
   const OnBoardingFirst({Key? key}) : super(key: key);
   @override
@@ -70,7 +72,7 @@ class OnBoardingFirst extends StatelessWidget {
               const Spacer(),
               Padding(
                 padding: const EdgeInsets.all(16.0),
-                child: BlueButton(title: "ابدأ التسوق",hight:0.08 ,width: 0.80,icon: Icons.arrow_back,
+                child: BlueButton(title: Text("ابدا التسوق",style: TextStyle(color: myWhite,fontSize: 18,fontWeight: FontWeight.bold)),hight:0.08 ,width: 0.80,icon: Icons.arrow_back,
                     onpress:(){
                       navigateToFinish(context, OnBoardingScreen());
                     }),

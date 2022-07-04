@@ -50,7 +50,7 @@ class onBoardingItem extends StatelessWidget {
           ),
         ),
         const Spacer(),
-        BlueButton(title:mytranslate(context, lable),hight:0.08 ,width: 0.80,icon: Icons.arrow_back, onpress: (){
+        BlueButton(title:Text(mytranslate(context, lable),style: TextStyle(color: myWhite,fontSize: 18,fontWeight: FontWeight.bold)),hight:0.08 ,width: 0.80,icon: Icons.arrow_back, onpress: (){
           navigateTo(context, const MainScreen());
         })
       ],

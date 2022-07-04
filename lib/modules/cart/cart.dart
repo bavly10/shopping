@@ -66,7 +66,7 @@ class CartScreen extends StatelessWidget {
                         Text("${d.toStringAsFixed(2)} L.E"),
                       ],
                     ),
-                    BlueButton(title: "Confirm Order", onpress: (){}, hight: 0.07, width: 0.80)
+                    BlueButton(title:Text( "Confirm Order",style: TextStyle(color: myWhite,fontSize: 18,fontWeight: FontWeight.bold),) ,onpress: (){}, hight: 0.07, width: 0.80)
                   ],
                 ),
               ),

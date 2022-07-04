@@ -161,7 +161,7 @@ class DetailsScreen extends StatelessWidget {
             child: Center(child: Text(size,style: TextStyle(fontSize: 22,fontWeight: FontWeight.bold,color: myBlue),),),
           ),
         ),
-        BlueButton(title: "إضافة الي السلة", onpress: (){}, hight: 0.08, width: 0.50),
+        BlueButton(title: Text("إضافة الي السلة",style: TextStyle(color: myWhite,fontSize: 18,fontWeight: FontWeight.bold)), onpress: (){}, hight: 0.08, width: 0.50),
       ],
     );
    }
