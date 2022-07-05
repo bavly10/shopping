@@ -58,7 +58,7 @@ class Signup extends StatelessWidget {
               Center(child: mySmooth(cubit.myList),),
               const SizedBox(height: 15,),
               buttonNP(pageController,context,state is LoadingSignupState),
-              MyRowLogin(lable1: "text1", lable2: "signup", ontab: (){LoginCubit.get(context).getChangeSCreen();})
+              MyRowLogin(lable1: "text1", lable2: "signin", ontab: (){LoginCubit.get(context).getChangeSCreen();})
             ],),
           ),
         );

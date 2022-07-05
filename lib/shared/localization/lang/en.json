@@ -29,6 +29,7 @@
    "prev": "Previous",
    "next": "Next",
    "finish": "Finish",
-   "errorregister": "Or maybe email is used,try another one"
+   "errorregister": "Or maybe email is used,try another one",
+   "signin":"Sign in"
 
 }

@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shopping/model/responceModel.dart';
+import 'package:shopping/model/userModel.dart';
 import 'package:shopping/modules/login/cubit/state.dart';
 import 'package:shopping/modules/login/signup/tabs/first_screen.dart';
 import 'package:shopping/modules/login/signup/tabs/four_screen.dart';
@@ -13,6 +14,7 @@ import 'package:shopping/modules/login/signup/tabs/second_screen.dart';
 import 'package:shopping/modules/login/signup/tabs/third_screen.dart';
 import 'package:shopping/shared/diohelper/dioHelpoer.dart';
 import 'package:shopping/shared/network.dart';
+import 'package:shopping/shared/shared_prefernces.dart';
 
 class LoginCubit extends Cubit<LoginStates> {
   LoginCubit() : super(Shop_InitalState());
@@ -143,9 +145,30 @@ class LoginCubit extends Cubit<LoginStates> {
       print(value.data.toString());
       res=ResponseModel.fromJson(value.data);
       emit(SucessSignupState(res!));
-
     }).catchError((error) {
       emit(ErrorSignupState(error.toString()));
+      print(error.toString());
+    });
+  }
+
+  LoginModel? loginModel;
+  void getLogin(String email,String pass){
+    emit(LoadingLoginState());
+    Map<String,dynamic> map={
+      "email":email,
+      "password":pass
+    };
+    DioHelper.postData(url: login, data: map).then((value){
+      loginModel=LoginModel.fromJson(value.data);
+      if(loginModel!.status==true){
+        emit(SucessLoginState(loginModel!));
+        CashHelper.putData("tokenUser", loginModel!.data!.token);
+        print(loginModel!.data!.token);
+      }
+      else{
+        emit(ErrorLoginState(loginModel!.errorCode.toString()));
+      }
+    }).catchError((error){
       print(error.toString());
     });
   }
