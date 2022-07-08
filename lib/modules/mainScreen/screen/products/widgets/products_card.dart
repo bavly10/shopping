@@ -33,7 +33,7 @@ class ProductCard extends StatelessWidget {
           ),
         ),
         const Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: EdgeInsets.all(8.0),
           child: Align(
             alignment: Alignment.topLeft,
             child: Image(
@@ -65,7 +65,7 @@ class ProductCard extends StatelessWidget {
                 ),
               ),
               const Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding:  EdgeInsets.all(8.0),
                 child: Text(
                   'يوجد الوان مختلفه',
                   overflow: TextOverflow.ellipsis,
@@ -92,12 +92,6 @@ class ProductCard extends StatelessWidget {
           ),
         ),
       ]),
-
-      /*   
-              
-              SizedBox(
-                width: 10,
-              ),*/
     );
   }
 }

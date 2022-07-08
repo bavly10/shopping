@@ -35,7 +35,7 @@ class MyApp extends StatelessWidget {
     SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom]);
     return MultiBlocProvider(
       providers: [
-        BlocProvider(create: (context) => ShopCubit()..getSplashData()),
+        BlocProvider(create: (context) => ShopCubit()..getSplashData()..getCategoriesData()),
         BlocProvider(create: (context) => LoginCubit()),
       ],
       child: BlocBuilder<ShopCubit, ShopStates>(

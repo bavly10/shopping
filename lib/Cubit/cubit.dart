@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shopping/Cubit/states.dart';
+import 'package:shopping/model/categoryModel.dart';
 import 'package:shopping/model/splash.dart';
 import 'package:shopping/modules/cart/cart.dart';
 import 'package:shopping/modules/login/main.dart';
@@ -90,6 +91,19 @@ class ShopCubit extends Cubit<ShopStates> {
     }).catchError((onError) {
       print(onError.toString());
       emit(ErrorSplash());
+    });
+  }
+  ////////////////////////////////////////////
+  CategoryModel? categoryModel;
+  Future<void> getCategoriesData() async {
+    emit(LoadingCat());
+    DioHelper.getData(url: category).then((value) {
+      categoryModel = CategoryModel.fromJson(value.data);
+      print("done Cat model ${splashModel!.status}");
+      emit(DoneCat());
+    }).catchError((onError) {
+      print(onError.toString());
+      emit(ErrorCat());
     });
   }
 }

@@ -18,6 +18,10 @@ class ChangeIndexBar extends ShopStates {
 }
 class LoadingSplash extends ShopStates {
 }
+class LoadingCat extends ShopStates {
+}
 class DoneSplash extends ShopStates {}
+class DoneCat extends ShopStates {}
 class ErrorSplash extends ShopStates {}
+class ErrorCat extends ShopStates {}
 
