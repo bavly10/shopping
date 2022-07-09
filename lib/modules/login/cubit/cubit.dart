@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shopping/model/responceModel.dart';
-import 'package:shopping/model/userModel.dart';
+import 'package:shopping/model/CustomerModel.dart';
 import 'package:shopping/modules/login/cubit/state.dart';
 import 'package:shopping/modules/login/signup/tabs/first_screen.dart';
 import 'package:shopping/modules/login/signup/tabs/four_screen.dart';
@@ -151,7 +151,7 @@ class LoginCubit extends Cubit<LoginStates> {
     });
   }
 
-  LoginModel? loginModel;
+  CustomerModel? loginModel;
   void getLogin(String email,String pass){
     emit(LoadingLoginState());
     Map<String,dynamic> map={
@@ -159,7 +159,7 @@ class LoginCubit extends Cubit<LoginStates> {
       "password":pass
     };
     DioHelper.postData(url: login, data: map).then((value){
-      loginModel=LoginModel.fromJson(value.data);
+      loginModel=CustomerModel.fromJson(value.data);
       if(loginModel!.status==true){
         emit(SucessLoginState(loginModel!));
         CashHelper.putData("tokenUser", loginModel!.data!.token);

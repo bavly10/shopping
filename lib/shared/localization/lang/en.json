@@ -30,6 +30,15 @@
    "next": "Next",
    "finish": "Finish",
    "errorregister": "Or maybe email is used,try another one",
-   "signin":"Sign in"
+   "signin":"Sign in",
+   "namepro": "Name of product",
+   "typepro": "Type Of Product",
+   "price": "Price",
+   "amount": "Availble Amount Of product",
+   "describe": "Describe of Product",
+   "size": "Required sizes",
+   "imagepro": "Image Of Product",
+   "save": "Save",
+   "addpro": "Add Product"
 
 }

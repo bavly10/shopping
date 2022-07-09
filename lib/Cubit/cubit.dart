@@ -1,8 +1,13 @@
+import 'dart:io';
+
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:shopping/Cubit/states.dart';
 import 'package:shopping/model/categoryModel.dart';
 import 'package:shopping/model/splash.dart';
+import 'package:shopping/model/CustomerModel.dart';
 import 'package:shopping/modules/cart/cart.dart';
 import 'package:shopping/modules/login/main.dart';
 import 'package:shopping/modules/mainScreen/screen/HomeScreen.dart';
@@ -94,6 +99,191 @@ class ShopCubit extends Cubit<ShopStates> {
     });
   }
   ////////////////////////////////////////////
+
+  // void createProduct(
+  //     {required String userid,
+  //     required String tittleAr,
+  //     required String tittleEn,
+  //     required String CategoryId,
+  //     required double price,
+  //     required many,
+  //     required String descAr,
+  //     required String descEn,
+  //     required bool s,
+  //     required bool m,
+  //     required bool l,
+  //     required bool xl,
+  //     required bool twoXl,
+  //     required bool threexl,
+  //     required bool fourxl}) async {
+  //   // Map<String, dynamic> data = {
+  //   FormData formData = FormData.fromMap({
+  //     "userid": 8,
+  //     "tittle_ar": "shoes",
+  //     "tittle_en": "shoes",
+  //     "cateogry_id": 1,
+  //     "price": 100,
+  //     "many": 111,
+  //     "desc_ar": "jbcxhjvhjxvchjvj",
+  //     "desc_en": "jjkshkjkjjg",
+  //     "s": 1,
+  //     "m": 1,
+  //     "l": 1,
+  //     "xl": 1,
+  //     "two_xl": 1,
+  //     "three_xl": 1,
+  //     "four_xl": 1
+  //   });
+  //   Map<String, dynamic> header = {
+  //     "auth-token":
+  //         "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2thc2g1dGFrLmNvbS9hcGkvbG9naW4iLCJpYXQiOjE2NTcxNDE2MjQsImV4cCI6MTY1NzE0NTIyNCwibmJmIjoxNjU3MTQxNjI0LCJqdGkiOiJ2ejVBeGN0RWU3STNleDVyIiwic3ViIjoiOCIsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.umGXqggLQVA_-wkcF_oRnBge-FfJr4oXGVE2ZW16CnU"
+  //   };
+
+  //   DioHelper.postData1(url: signup, data: formData, option: header)
+  //       .then((value) {
+  //     debugPrint(value.data.toString());
+  //     // print(value.toString());
+  //     print("done");
+  //   }).catchError((error) {
+  //     print(error.toString());
+  //   });
+  // }
+
+
+
+  void create() async {
+    //getname();
+    FormData formData = FormData.fromMap({
+      "userid": 4,
+      "tittle_ar": "shoes",
+      "tittle_en": "shoes",
+      "cateogry_id": 10,
+      "price": 100,
+      "many": 111,
+      "desc_ar": "jbcxhjvhjxvchjvj",
+      "desc_en": "jjkshkjkjjg",
+      "s": 1,
+      "m": 1,
+      "l": 1,
+      "xl": 1,
+      "two_xl": 1,
+      "three_xl": 1,
+      "four_xl": 1,
+      "image": //imageFileList
+      [
+        for (var file in imageFileList!)
+          {
+            await MultipartFile.fromFileSync(
+              file.path,
+            )
+          }
+      ]
+    });
+
+    Map<String, dynamic> header = {
+      "auth-token":
+"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2thc2g1dGFrLmNvbS9hcGkvbG9naW4iLCJpYXQiOjE2NTczODczNTgsImV4cCI6MTY1NzM5MDk1OCwibmJmIjoxNjU3Mzg3MzU4LCJqdGkiOiJtT0hjQUJndXlQV3JIdGhYIiwic3ViIjoiNCIsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.tQ-Juhi1rxBIHRG_PTxDZGQcoQHJylu8Ew-_IbUZ1Bs"
+    };
+
+    DioHelper.postData1(url: createProduct, data: formData, option: header)
+        .then((value) {
+      debugPrint(value.data.toString());
+
+      print("done");
+    }).catchError((error) {
+      print(error.toString());
+    });
+  }
+
+  bool m = false;
+  bool l = false;
+  bool xl = false;
+  bool two_xl = false;
+  bool three_xl = false;
+  bool four_xl = false;
+
+  bool s = false;
+
+  void changeSChecked(bool v) {
+    s = !s;
+    s = v;
+
+    emit(ChangeCheckedState());
+  }
+
+  void changeThreeXlChecked(bool v) {
+    three_xl = !three_xl;
+    three_xl = v;
+
+    emit(ChangeCheckedState());
+  }
+
+  void change4XlChecked(bool v) {
+    four_xl = !four_xl;
+    four_xl = v;
+
+    emit(ChangeCheckedState());
+  }
+
+  void changelChecked(bool v) {
+    l = !l;
+    l = v;
+
+    emit(ChangeCheckedState());
+  }
+
+  void changexlChecked(bool v) {
+    xl = !xl;
+    xl = v;
+
+    emit(ChangeCheckedState());
+  }
+
+  void changetwoXlChecked(bool v) {
+    two_xl = !two_xl;
+    two_xl = v;
+
+    emit(ChangeCheckedState());
+  }
+
+  void changetwoMChecked(bool v) {
+    m = !m;
+    m = v;
+    print(m);
+
+    emit(ChangeCheckedState());
+  }
+
+  List<File> images=[];
+  final pickers = ImagePicker();
+  var pickedFile;
+  File? imagee;
+  Future getImageBloc(ImageSource src) async {
+    pickedFile = await pickers.pickImage(source: src, imageQuality: 50);
+    if (pickedFile != null) {
+      imagee = File(pickedFile.path);
+      images.add(imagee!);
+      emit(TakeImage_State());
+      print("image selected");
+    } else {
+      print("no image selected");
+    }
+  }
+
+  List<XFile>? imageFileList = [];
+  final ImagePicker imagePicker = ImagePicker();
+
+  void selectImages() async {
+    final List<XFile>? selectedImages = await imagePicker.pickMultiImage();
+    if (selectedImages!.isNotEmpty) {
+      imageFileList!.addAll(selectedImages);
+      emit(TakeImage_State());
+      print("3dma noob");
+    }else{
+      print("3dma zft");
+    }
+  }
+  //////////////////////////
   CategoryModel? categoryModel;
   Future<void> getCategoriesData() async {
     emit(LoadingCat());
@@ -106,10 +296,25 @@ class ShopCubit extends Cubit<ShopStates> {
       emit(ErrorCat());
     });
   }
-
+  /////////////
   int? selected;
   void getselected(int x){
     selected=x;
     emit(ChangeSelcect());
   }
+  //////////////////////////////////
+  CustomerModel? customerModel;
+  void getCustomerData(catId) {
+    emit(LoadingCustomer());
+    Map<String,dynamic> data={"category_id":catId};
+    DioHelper.postData(url: getCustomer,data:data).then((value) {
+      customerModel = CustomerModel.fromJson(value.data);
+      print("done Cat model ${splashModel!.status}");
+      emit(DoneCustomer());
+    }).catchError((onError) {
+      print(onError.toString());
+      emit(ErrorCustomer());
+    });
+  }
+
 }

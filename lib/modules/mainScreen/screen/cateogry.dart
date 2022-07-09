@@ -38,6 +38,7 @@ class CategoryScreen extends StatelessWidget {
     return InkWell(
       onTap: (){
         ShopCubit.get(context).getselected(x);
+         ShopCubit.get(context).getCustomerData(item.id);
         print(item.id);
       },
       child: Padding(

@@ -27,8 +27,16 @@ class DioHelper {
 
   static Future<Response> postData1(
       {required String url,
-      Map<String, dynamic>? query,
-      required FormData data}) async {
-    return await dio.post(url, queryParameters: query, data: data);
+        Map<String, dynamic>? query,
+        Map<String, dynamic>? option,
+        required FormData data}) async {
+    return await dio.post(
+      url,
+      queryParameters: query,
+      data: data,
+      options: Options(
+        headers: option,
+      ),
+    );
   }
 }

@@ -14,6 +14,7 @@ import 'package:shopping/modules/cart/cart.dart';
 import 'package:shopping/modules/login/cubit/cubit.dart';
 import 'package:shopping/modules/login/login/login.dart';
 import 'package:shopping/modules/login/signup/signup.dart';
+import 'package:shopping/modules/mainScreen/screen/products/create_product.dart';
 import 'package:shopping/modules/shppingCompany/CompanyShpping.dart';
 import 'package:shopping/shared/diohelper/dioHelpoer.dart';
 import 'package:shopping/shared/localization/set_localization.dart';
@@ -85,7 +86,7 @@ class MyApp extends StatelessWidget {
               primarySwatch: Colors.amber,
             ),
             themeMode: ThemeMode.light,
-            home: SplashScreen(),
+            home: CreateProduct(),
             //// SplashScreen(),
             builder: EasyLoading.init(),
           );

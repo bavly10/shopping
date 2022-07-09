@@ -1,10 +1,7 @@
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:clickable_list_wheel_view/clickable_list_wheel_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shopping/Cubit/cubit.dart';
 import 'package:shopping/Cubit/states.dart';
-import 'package:shopping/model/categoryModel.dart';
 import 'package:shopping/modules/mainScreen/screen/cateogry.dart';
 import 'package:shopping/shared/compononet/arrowBack.dart';
 import 'package:shopping/shared/localization/translate.dart';

@@ -1,11 +1,11 @@
 import 'dart:convert';
 
-LoginModel loginModelFromJson(String str) => LoginModel.fromJson(json.decode(str));
+CustomerModel loginModelFromJson(String str) => CustomerModel.fromJson(json.decode(str));
 
-String loginModelToJson(LoginModel data) => json.encode(data.toJson());
+String loginModelToJson(CustomerModel data) => json.encode(data.toJson());
 
-class LoginModel {
-  LoginModel({
+class CustomerModel {
+  CustomerModel({
     this.status,
     this.msg,
     this.data,
@@ -16,7 +16,7 @@ class LoginModel {
   String? msg;
   UserModel? data;
   int? errorCode;
-  factory LoginModel.fromJson(Map<String, dynamic> json) => LoginModel(
+  factory CustomerModel.fromJson(Map<String, dynamic> json) => CustomerModel(
     status: json["status"],
     msg: json["msg"],
     errorCode: json["error-code"]== null?null:json["error-code"],

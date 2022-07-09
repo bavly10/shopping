@@ -1,5 +1,5 @@
 import 'package:shopping/model/responceModel.dart';
-import 'package:shopping/model/userModel.dart';
+import 'package:shopping/model/CustomerModel.dart';
 
 abstract class LoginStates {}
 
@@ -18,7 +18,7 @@ class DeleteImage_State extends LoginStates {}
 class LoadingSignupState extends LoginStates {}
 class LoadingLoginState extends LoginStates {}
 class SucessLoginState extends LoginStates {
-  final LoginModel response;
+  final CustomerModel response;
   SucessLoginState(this.response);}
 class SucessSignupState extends LoginStates {
   final ResponseModel response;
