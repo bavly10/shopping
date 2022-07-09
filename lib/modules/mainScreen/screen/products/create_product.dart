@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:hexcolor/hexcolor.dart';
@@ -15,6 +16,7 @@ class CreateProduct extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var w;
     var nameProduct = TextEditingController();
     var typeProduct = TextEditingController();
     var priceProduct = TextEditingController();
@@ -266,24 +268,8 @@ class CreateProduct extends StatelessWidget {
               //     ),
               // children: [
               Stack(alignment: Alignment.bottomRight, children: [
-                Expanded(
-                  child: Container(
-                      decoration: ShopCubit.get(context).images.isEmpty
-                          ? BoxDecoration(
-                              color: HexColor('#707070'),
-                              shape: BoxShape.rectangle,
-                              borderRadius: BorderRadius.circular(20))
-                          : BoxDecoration(
-                              image: DecorationImage(
-                                image:
-                                    FileImage(ShopCubit.get(context).imagee!),
-                                fit: BoxFit.cover,
-                              ),
-                            )),
-                ),
                 InkWell(
                   onTap: (() {
-                    // ShopCubit.get(context).pickFiles(['jpg', 'png'], true);
                     ShopCubit.get(context).selectImages();
                   }),
                   child: CircleAvatar(
@@ -344,9 +330,9 @@ class CreateProduct extends StatelessWidget {
                         shape: BoxShape.rectangle,
                         borderRadius: BorderRadius.circular(20)),
                     child: MaterialButton(
-                      onPressed: () {
+                      onPressed: () async{
+
                         cubit.create();
-                        //  if (formKey.currentState!.validate()) {}
                       },
                       child: Text(
                         mytranslate(context, "save"),

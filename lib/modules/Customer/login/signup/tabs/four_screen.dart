@@ -3,8 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import 'package:shopping/modules/login/cubit/cubit.dart';
-import 'package:shopping/modules/login/cubit/state.dart';
+import 'package:shopping/modules/Customer/login/cubit/cubit.dart';
+import 'package:shopping/modules/Customer/login/cubit/state.dart';
 import 'package:shopping/shared/localization/translate.dart';
 import 'package:shopping/shared/my_colors.dart';
 

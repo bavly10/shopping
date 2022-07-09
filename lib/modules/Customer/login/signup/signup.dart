@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:shopping/modules/login/cubit/cubit.dart';
-import 'package:shopping/modules/login/cubit/state.dart';
+import 'package:shopping/modules/Customer/login/cubit/cubit.dart';
+import 'package:shopping/modules/Customer/login/cubit/state.dart';
 import 'package:shopping/shared/compononet/blueButton.dart';
 import 'package:shopping/shared/compononet/dialog.dart';
 import 'package:shopping/shared/compononet/rowLogin.dart';
