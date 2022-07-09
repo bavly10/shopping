@@ -24,4 +24,5 @@ class DoneSplash extends ShopStates {}
 class DoneCat extends ShopStates {}
 class ErrorSplash extends ShopStates {}
 class ErrorCat extends ShopStates {}
+class ChangeSelcect extends ShopStates {}
 

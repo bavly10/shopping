@@ -1,14 +1,16 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:clickable_list_wheel_view/clickable_list_wheel_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shopping/Cubit/cubit.dart';
 import 'package:shopping/Cubit/states.dart';
 import 'package:shopping/model/categoryModel.dart';
+import 'package:shopping/modules/mainScreen/screen/cateogry.dart';
 import 'package:shopping/shared/compononet/arrowBack.dart';
 import 'package:shopping/shared/localization/translate.dart';
+import 'package:shopping/shared/my_colors.dart';
 import 'package:simple_animations/simple_animations.dart';
 
-import '../../../shared/my_colors.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -24,7 +26,10 @@ class HomeScreen extends StatelessWidget {
             children: [
               cubit.changeAppBar ? myAppBar(context) : myAppBarSearch(context),
               const SizedBox(height: 15,),
-              cat(context),
+              // ignore: prefer_const_constructors
+              CategoryScreen(),
+              const SizedBox(height: 5,),
+              const Divider(height: 1,color: Colors.black,)
             ],
           ),
         );
@@ -72,10 +77,7 @@ class HomeScreen extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(12.0),
       child: PlayAnimation<double>(
-        tween: Tween(begin: 0.0, end: MediaQuery
-            .of(context)
-            .size
-            .width * 0.75),
+        tween: Tween(begin: 0.0, end: MediaQuery.of(context).size.width * 0.75),
         duration: const Duration(seconds: 1),
         delay: const Duration(milliseconds: 20),
         curve: Curves.easeOut,
@@ -129,66 +131,4 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  Widget cat(context) {
-    final list = ShopCubit
-        .get(context)
-        .categoryModel;
-    return Container(
-      height: 150,
-      width: double.infinity,
-      child: SingleChildScrollView(
-        physics: BouncingScrollPhysics(),
-        scrollDirection: Axis.horizontal,
-        child: ListView.builder(
-          physics: const NeverScrollableScrollPhysics(),
-          shrinkWrap: true,
-          reverse: true,
-          scrollDirection: Axis.horizontal,
-          itemBuilder: (ctx, index) => buildCate(list!.data![index],context),
-          itemCount: list!.data!.length,
-        ),
-      ),
-    );
-  }
-
-  Widget buildCate(CatItem item,context) {
-    return Padding(
-      padding: const EdgeInsets.all(10.0),
-      child: GestureDetector(
-        onTap: (){
-          print(item.id);
-        },
-        child: Container(
-          decoration: BoxDecoration(
-            color:Colors.grey[400],
-            borderRadius: BorderRadius.circular(25.0),
-          ),
-          padding: const EdgeInsets.only(top: 8.0,right: 8.0,left: 8.0),
-          child: Column(
-            children: [
-              SizedBox(
-                height: 70,
-                width:70,
-                child: CachedNetworkImage(
-                  imageUrl: "${item.logo}",
-                  imageBuilder: (context, imageProvider) => Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10.0),
-                      image: DecorationImage(
-                        image: imageProvider,
-                        fit: BoxFit.cover,),
-                    ),
-                  ),
-                  placeholder: (context, url) => const CircularProgressIndicator(),
-                  errorWidget: (context, url, error) => const Icon(Icons.error),
-                ),
-              ),
-              const SizedBox(height: 10,),
-              Text("${item.title}",style: const TextStyle(fontSize: 14,fontWeight: FontWeight.bold),),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
 }

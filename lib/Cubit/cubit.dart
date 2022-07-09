@@ -106,4 +106,10 @@ class ShopCubit extends Cubit<ShopStates> {
       emit(ErrorCat());
     });
   }
+
+  int? selected;
+  void getselected(int x){
+    selected=x;
+    emit(ChangeSelcect());
+  }
 }
