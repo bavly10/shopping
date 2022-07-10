@@ -100,7 +100,18 @@ class ShopCubit extends Cubit<ShopStates> {
   }
   ////////////////////////////////////////////
 
-  Future create() async {
+  Future create(img) async {
+    Map<dynamic,dynamic> imag={
+      "logo":[
+        for (var file in imageFileList)
+        {
+         MultipartFile.fromFileSync(file.path)
+        }
+        ]
+    };
+    Map<String, dynamic> header = {
+      "auth-token":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2thc2g1dGFrLmNvbS9hcGkvbG9naW4iLCJpYXQiOjE2NTc0NzU1MzAsImV4cCI6MTY1NzQ3OTEzMCwibmJmIjoxNjU3NDc1NTMwLCJqdGkiOiI3TkFlNDRmZHRRVlNGNVVLIiwic3ViIjoiNCIsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.SHai9sFdyzkBXlr0CaALdtgUMtEZwDCiQ9lBK4_E2DM"
+    };
     FormData formData = FormData.fromMap({
       "user_id": 4,
       "title_ar": "x shoe",
@@ -117,22 +128,8 @@ class ShopCubit extends Cubit<ShopStates> {
       "two_xl": 1,
       "three_xl": 1,
       "four_xl": 1,
-      "image":
-      [
-        for (var file in imageFileList)
-          {
-            await MultipartFile.fromFileSync(
-              file.path,
-            )
-          }
-      ]
+      "image[]":img
     });
-
-    Map<String, dynamic> header = {
-      "auth-token":
-"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2thc2g1dGFrLmNvbS9hcGkvbG9naW4iLCJpYXQiOjE2NTczODczNTgsImV4cCI6MTY1NzM5MDk1OCwibmJmIjoxNjU3Mzg3MzU4LCJqdGkiOiJtT0hjQUJndXlQV3JIdGhYIiwic3ViIjoiNCIsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.tQ-Juhi1rxBIHRG_PTxDZGQcoQHJylu8Ew-_IbUZ1Bs"
-    };
-
     DioHelper.postData1(url: createProduct, data: formData, option: header)
         .then((value) {
       debugPrint(value.data.toString());

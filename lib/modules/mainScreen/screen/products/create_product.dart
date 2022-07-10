@@ -331,8 +331,11 @@ class CreateProduct extends StatelessWidget {
                         borderRadius: BorderRadius.circular(20)),
                     child: MaterialButton(
                       onPressed: () async{
-
-                        cubit.create();
+                        List y=[];
+                        for (var x in ShopCubit.get(context).imageFileList){
+                         y.add(MultipartFile.fromFileSync(x.path));
+                        }
+                        cubit.create(y);
                       },
                       child: Text(
                         mytranslate(context, "save"),
