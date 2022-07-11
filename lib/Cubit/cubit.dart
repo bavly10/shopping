@@ -15,6 +15,7 @@ import 'package:shopping/shared/diohelper/dioHelpoer.dart';
 import 'package:shopping/shared/network.dart';
 import 'package:shopping/shared/shared_prefernces.dart';
 
+import '../model/shippingcompanies.dart';
 import '../modules/mainScreen/screen/products/products.dart';
 
 class ShopCubit extends Cubit<ShopStates> {
@@ -86,6 +87,80 @@ class ShopCubit extends Cubit<ShopStates> {
     emit(ChangeIndexBar());
   }
 
+  //////////////////////create product/////////
+  void createProducts(
+      {required int userid,
+      String? tittleAr,
+      String? tittleEn,
+      required int categoryId,
+      required dynamic price,
+      required many,
+      String? descAr,
+      String? descEn,
+      required bool s,
+      required bool m,
+      required bool l,
+      required bool xl,
+      required bool twoXl,
+      required bool threexl,
+      required bool fourxl,
+      img}) async {
+    Map<dynamic, dynamic> imag = {
+      "logo": [
+        for (var file in imageFileList) {MultipartFile.fromFileSync(file.path)}
+      ]
+    };
+    Map<String, dynamic> header = {
+      "auth-token":
+          "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2thc2g1dGFrLmNvbS9hcGkvbG9naW4iLCJpYXQiOjE2NTc0OTAwODMsImV4cCI6MTY1NzQ5MzY4MywibmJmIjoxNjU3NDkwMDgzLCJqdGkiOiJIeVZscThaWUxqWVROUHliIiwic3ViIjoiOCIsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.hdH4MeJtffoVmD1cW0XYYwSoG1ks9o-Qmdod1PZUkfE"
+    };
+    FormData formData = FormData.fromMap({
+      "user_id": userid,
+      "title_ar": tittleAr ?? "",
+      "title_en": tittleEn ?? "",
+      "category_id": categoryModel,
+      "price": price,
+      "many": many,
+      "desc_ar": descAr ?? "",
+      "desc_en": descEn ?? "",
+      "s": s,
+      "m": m,
+      "l": l,
+      "xl": xl,
+      "two_xl": two_xl,
+      "three_xl": three_xl,
+      "four_xl": four_xl,
+      "image[]": img
+    });
+
+    DioHelper.postData1(url: createProduct, data: formData, option: header)
+        .then((value) {
+      debugPrint(value.data.toString());
+      print("done");
+    }).catchError((error) {
+      print(error.toString());
+    });
+  }
+
+  ///////////////Get Shipping////////////
+  ShippingModel? shippingModel;
+  Future<void> getShippingData() async {
+    emit(GettingShippingDataLoadingState());
+    Map<String, dynamic> header = {
+      "auth-token":
+          "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2thc2g1dGFrLmNvbS9hcGkvbG9naW4iLCJpYXQiOjE2NTc0ODQ2NzAsImV4cCI6MTY1NzQ4ODI3MCwibmJmIjoxNjU3NDg0NjcwLCJqdGkiOiI2VFRkT0RDamRMcVlzdmtyIiwic3ViIjoiOCIsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.T7rKIwpMcluhMI-Zi5qgAec_ceJ8ha4JjHb2u6rdjPU"
+    };
+    DioHelper.getData(url: ship, option: header).then((value) {
+      shippingModel = ShippingModel.fromJson(value.data);
+      print(shippingModel.toString());
+      print(value.data);
+      emit(GettingShippingDataSueccesState());
+    }).catchError((onError) {
+      print(onError.toString());
+      emit(GettingShippingDataErrorState());
+    });
+  }
+
   SplashModel? splashModel;
   Future<void> getSplashData() async {
     emit(LoadingSplash());
@@ -101,16 +176,14 @@ class ShopCubit extends Cubit<ShopStates> {
   ////////////////////////////////////////////
 
   Future create(img) async {
-    Map<dynamic,dynamic> imag={
-      "logo":[
-        for (var file in imageFileList)
-        {
-         MultipartFile.fromFileSync(file.path)
-        }
-        ]
+    Map<dynamic, dynamic> imag = {
+      "logo": [
+        for (var file in imageFileList) {MultipartFile.fromFileSync(file.path)}
+      ]
     };
     Map<String, dynamic> header = {
-      "auth-token":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2thc2g1dGFrLmNvbS9hcGkvbG9naW4iLCJpYXQiOjE2NTc0NzU1MzAsImV4cCI6MTY1NzQ3OTEzMCwibmJmIjoxNjU3NDc1NTMwLCJqdGkiOiI3TkFlNDRmZHRRVlNGNVVLIiwic3ViIjoiNCIsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.SHai9sFdyzkBXlr0CaALdtgUMtEZwDCiQ9lBK4_E2DM"
+      "auth-token":
+          "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2thc2g1dGFrLmNvbS9hcGkvbG9naW4iLCJpYXQiOjE2NTc0NzU1MzAsImV4cCI6MTY1NzQ3OTEzMCwibmJmIjoxNjU3NDc1NTMwLCJqdGkiOiI3TkFlNDRmZHRRVlNGNVVLIiwic3ViIjoiNCIsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.SHai9sFdyzkBXlr0CaALdtgUMtEZwDCiQ9lBK4_E2DM"
     };
     FormData formData = FormData.fromMap({
       "user_id": 4,
@@ -128,7 +201,7 @@ class ShopCubit extends Cubit<ShopStates> {
       "two_xl": 1,
       "three_xl": 1,
       "four_xl": 1,
-      "image[]":img
+      "image[]": img
     });
     DioHelper.postData1(url: createProduct, data: formData, option: header)
         .then((value) {
@@ -198,7 +271,6 @@ class ShopCubit extends Cubit<ShopStates> {
     emit(ChangeCheckedState());
   }
 
-
   List<XFile> imageFileList = [];
   final ImagePicker imagePicker = ImagePicker();
 
@@ -208,10 +280,11 @@ class ShopCubit extends Cubit<ShopStates> {
       imageFileList.addAll(selectedImages);
       emit(TakeImage_State());
       print("3dma noob");
-    }else{
+    } else {
       print("3dma zft");
     }
   }
+
   //////////////////////////
   CategoryModel? categoryModel;
   Future<void> getCategoriesData() async {
@@ -224,18 +297,20 @@ class ShopCubit extends Cubit<ShopStates> {
       emit(ErrorCat());
     });
   }
+
   /////////////
   int? selected;
-  void getselected(int x){
-    selected=x;
+  void getselected(int x) {
+    selected = x;
     emit(ChangeSelcect());
   }
+
   //////////////////////////////////
   CustomerModel? customerModel;
   void getCustomerData(catId) {
     emit(LoadingCustomer());
-    Map<String,dynamic> data={"category_id":catId};
-    DioHelper.postData(url: getCustomer,data:data).then((value) {
+    Map<String, dynamic> data = {"category_id": catId};
+    DioHelper.postData(url: getCustomer, data: data).then((value) {
       customerModel = CustomerModel.fromJson(value.data);
       print("done Cat model ${splashModel!.status}");
       emit(DoneCustomer());
@@ -244,5 +319,4 @@ class ShopCubit extends Cubit<ShopStates> {
       emit(ErrorCustomer());
     });
   }
-
 }

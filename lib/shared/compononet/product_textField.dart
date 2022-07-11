@@ -40,20 +40,6 @@ class MyProTextField extends StatelessWidget {
           validator: (value) {},
           controller: controller,
           decoration: InputDecoration(
-              suffix: InkWell(
-                  onTap: suffixPressed,
-                  child: Icon(
-                    suffix,
-                    size: 20,
-                    color: myBlack,
-                  )),
-              //fillColor: HexColor('#FFFFFF'),
-              //  filled: true,
-              prefixIcon: Icon(
-                prefix,
-                color: HexColor('#0065FC'),
-              ),
-              //focusColor: HexColor('#0063FF'),
               border: OutlineInputBorder(
                 borderRadius: const BorderRadius.all(
                   Radius.circular(45.0),
