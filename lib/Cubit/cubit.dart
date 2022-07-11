@@ -218,7 +218,6 @@ class ShopCubit extends Cubit<ShopStates> {
     emit(LoadingCat());
     DioHelper.getData(url: category).then((value) {
       categoryModel = CategoryModel.fromJson(value.data);
-      print("done Cat model ${splashModel!.status}");
       emit(DoneCat());
     }).catchError((onError) {
       print(onError.toString());
