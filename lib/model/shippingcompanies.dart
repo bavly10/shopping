@@ -1,20 +1,59 @@
-class CompanyShipping{
-  final String? id,url,img,title,location,phone;
+class ShippingModel {
+  bool? status;
+  String? msg;
+  List<Data>? data;
 
-  CompanyShipping(
-      {this.id, this.url, this.img, this.title, this.location, this.phone});
+  ShippingModel({this.status, this.msg, this.data});
 
-  factory CompanyShipping.fromJson(Map<String, dynamic> json) => CompanyShipping(
-    id: json["id"],
-    url: json["premium"],
-    img: json["URLLink"],
-    title: json["Name"],
-    location: json["Name"],
-    phone: json["Name"],
-  );
+  ShippingModel.fromJson(Map<String, dynamic> json) {
+    status = json['status'];
+    msg = json['msg'];
+    if (json['data'] != null) {
+      data = <Data>[];
+      json['data'].forEach((v) {
+        data!.add(Data.fromJson(v));
+      });
+    }
+  }
 
-  static List<CompanyShipping> company=[
-    CompanyShipping(url: "https://translate.google.com",phone: "0231435132",id: "1",title: "أرامكس",location: "السعودية, جدة",img: "https://static.remove.bg/remove-bg-web/eb1bb48845c5007c3ec8d72ce7972fc8b76733b1/assets/start-1abfb4fe2980eabfbbaaa4365a0692539f7cd2725f324f904565a9a744f8e214.jpg",),
-    CompanyShipping(url: "https://www.youtube.com",phone: "0231435132",id: "2",title: "فيدكس",location: "السعودية, جدة",img: "https://helpx.adobe.com/content/dam/help/en/stock/how-to/visual-reverse-image-search/jcr_content/main-pars/image/visual-reverse-image-search-v2_intro.jpg",),
-  ];
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['status'] = this.status;
+    data['msg'] = this.msg;
+    if (this.data != null) {
+      data['data'] = this.data!.map((v) => v.toJson()).toList();
+    }
+    return data;
+  }
+}
+
+class Data {
+  int? id;
+  String? title;
+  String? desc;
+  String? logo;
+  String? link;
+  String? phone;
+
+  Data({this.id, this.title, this.desc, this.logo, this.link, this.phone});
+
+  Data.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    title = json['title'];
+    desc = json['desc'];
+    logo = json['logo'];
+    link = json['link'];
+    phone = json['phone'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = id;
+    data['title'] = title;
+    data['desc'] = desc;
+    data['logo'] = logo;
+    data['link'] = link;
+    data['phone'] = phone;
+    return data;
+  }
 }

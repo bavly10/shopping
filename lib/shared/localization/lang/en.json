@@ -7,8 +7,8 @@
    "Store": "Store",
    "home": "Home",
    "search": "Search...",
-   "loginText1":"Please Sign in First",
-   "loginText2":"Sign in",
+   "loginText1": "Please Sign in First",
+   "loginText2": "Sign in",
    "hintogin": "example@example.com",
    "hintpassword": "Password",
    "ForgetPassword": "ForgetPassword",
@@ -30,7 +30,7 @@
    "next": "Next",
    "finish": "Finish",
    "errorregister": "Or maybe email is used,try another one",
-   "signin":"Sign in",
+   "signin": "Sign in",
    "namepro": "Name of product",
    "typepro": "Type Of Product",
    "price": "Price",
@@ -39,6 +39,8 @@
    "size": "Required sizes",
    "imagepro": "Image Of Product",
    "save": "Save",
-   "addpro": "Add Product"
-
+   "addpro": "Add Product",
+   "connect": "connect",
+   "verify": "verification",
+   "note": "Press Verification To Connect"
 }

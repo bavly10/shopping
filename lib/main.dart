@@ -8,29 +8,35 @@ import 'package:shopping/Cubit/cubit.dart';
 import 'package:shopping/Cubit/my_observer.dart';
 import 'package:shopping/Cubit/states.dart';
 import 'package:shopping/modules/Customer/login/cubit/cubit.dart';
-import 'package:shopping/modules/mainScreen/screen/products/create_product.dart';
+import 'package:shopping/modules/mainScreen/screen/create_product.dart';
+
 import 'package:shopping/modules/shppingCompany/CompanyShpping.dart';
 import 'package:shopping/shared/diohelper/dioHelpoer.dart';
 import 'package:shopping/shared/localization/set_localization.dart';
 import 'package:shopping/shared/my_colors.dart';
 import 'package:shopping/shared/shared_prefernces.dart';
 
-
+import 'modules/Splash_screen/splash.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   Bloc.observer = MyBlocObserver();
   DioHelper.init();
   await CashHelper.init();
-  runApp( MyApp());
+  runApp(MyApp());
 }
+
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom]);
     return MultiBlocProvider(
       providers: [
-        BlocProvider(create: (context) => ShopCubit()..getSplashData()..getCategoriesData()),
+        BlocProvider(
+            create: (context) => ShopCubit()
+              ..getSplashData()
+              ..getCategoriesData()
+              ..getShippingData()),
         BlocProvider(create: (context) => LoginCubit()),
       ],
       child: BlocBuilder<ShopCubit, ShopStates>(
@@ -38,12 +44,12 @@ class MyApp extends StatelessWidget {
           final cubit = ShopCubit.get(context);
           return MaterialApp(
             locale: cubit.locale_cubit,
-          localizationsDelegates: const [
-            SetLocalztion.localizationsDelegate,
-            GlobalMaterialLocalizations.delegate,
-            GlobalWidgetsLocalizations.delegate,
-            GlobalCupertinoLocalizations.delegate,
-          ],
+            localizationsDelegates: const [
+              SetLocalztion.localizationsDelegate,
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
+            ],
             localeResolutionCallback: (deviceLocal, supportedLocales) {
               for (var local in supportedLocales) {
                 if (local.languageCode == deviceLocal!.languageCode &&
@@ -80,8 +86,7 @@ class MyApp extends StatelessWidget {
               primarySwatch: Colors.amber,
             ),
             themeMode: ThemeMode.light,
-            home: CreateProduct(),
-            //// SplashScreen(),
+            home: CreateProduct(), //SplashScreen(),
             builder: EasyLoading.init(),
           );
         },
