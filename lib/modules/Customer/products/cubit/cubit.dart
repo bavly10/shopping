@@ -5,6 +5,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:shopping/model/categoryModel.dart';
 import 'package:shopping/modules/Customer/products/cubit/states.dart';
 import 'package:shopping/shared/diohelper/dioHelpoer.dart';
+import 'package:shopping/shared/localization/translate.dart';
 import 'package:shopping/shared/network.dart';
 
 class ProductCubit extends Cubit<ProductStates> {
@@ -21,26 +22,53 @@ class ProductCubit extends Cubit<ProductStates> {
     emit(Changestate());
   }
 
-
-
   List<XFile> imageFileList = [];
   final ImagePicker imagePicker = ImagePicker();
 
-  void selectImages() async {
+  void selectImages(context) async {
     final List<XFile>? selectedImages = await imagePicker.pickMultiImage();
     if (selectedImages!.isNotEmpty) {
-      imageFileList.addAll(selectedImages);
-      emit(TakeImage_State());
-      print("3dma noob");
+      if (selectedImages.length <= 6 && imageFileList.length <= 6) {
+        imageFileList.addAll(selectedImages);
+        emit(TakeImage_State());
+        print("3dma noob");
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(
+              mytranslate(context, "exceed"),
+            ),
+            padding: const EdgeInsets.all(8),
+            duration: const Duration(milliseconds: 3000),
+          ),
+        );
+      }
     } else {
       print("3dma zft");
     }
   }
 
 // ignore: non_constant_identifier_names
-  Future create( { int? userid, String? tittleAr, String? tittleEn,  int? categoryId, price,many, String? descAr, String? descEn,  int? s, int? m,  int? l, int? xl,  int? twoXl,  int? threexl,  int? fourxl, img}) async {
+  Future create(
+      {int? userid,
+      String? tittleAr,
+      String? tittleEn,
+      int? categoryId,
+      price,
+      many,
+      String? descAr,
+      String? descEn,
+      int? s,
+      int? m,
+      int? l,
+      int? xl,
+      int? twoXl,
+      int? threexl,
+      int? fourxl,
+      img}) async {
     Map<String, dynamic> header = {
-      "auth-token":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2thc2g1dGFrLmNvbS9hcGkvbG9naW4iLCJpYXQiOjE2NTc2NDE5NzksImV4cCI6MTY1NzY0NTU3OSwibmJmIjoxNjU3NjQxOTc5LCJqdGkiOiJ2QjFJVFNpa29CU09EQ3huIiwic3ViIjoiNCIsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.WGmF1cFFDVxCAM8mmxK7BpbUnbKOYCeCpdqRski8Szk",
+      "auth-token":
+          "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2thc2g1dGFrLmNvbS9hcGkvbG9naW4iLCJpYXQiOjE2NTc2NjA1MzUsImV4cCI6MTY1NzY2NDEzNSwibmJmIjoxNjU3NjYwNTM1LCJqdGkiOiJiRDlIeUp5MkZCZDZFNWxWIiwic3ViIjoiOCIsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.7mvfUqcfvPQWIVpQ0AhsXUs_0VDxEVSTb2nALnCPUvY",
     };
     FormData formData = FormData.fromMap({
       "user_id": userid,
@@ -49,8 +77,8 @@ class ProductCubit extends Cubit<ProductStates> {
       "category_id": cat_id,
       "price": price,
       "many": many,
-      "desc_ar": descAr??"",
-      "desc_en": descEn??"",
+      "desc_ar": descAr ?? "",
+      "desc_en": descEn ?? "",
       "s": s,
       "m": m,
       "l": l,
@@ -68,63 +96,101 @@ class ProductCubit extends Cubit<ProductStates> {
       print(error.toString());
     });
   }
-  bool s = false;
-  bool m = false;
-  bool l = false;
-  bool xl = false;
-  bool two_xll = false;
-  bool three_xll = false;
-  bool four_xll = false;
 
+  int s = 0;
+  int m = 0;
+  int l = 0;
+  int xl = 0;
+  int two_xll = 0;
+  int three_xll = 0;
+  int four_xll = 0;
+  bool sm = false;
+  bool me = false;
+  bool la = false;
+  bool xla = false;
+  bool two_xlla = false;
+  bool three_xlla = false;
+  bool four_xlla = false;
 
   void changeSChecked(bool v) {
-    s = !s;
-    s = v;
+    sm = !sm;
+    sm = v;
+    if (v == true) {
+      s = 1;
+    } else {
+      s = 0;
+    }
+
     emit(ChangeCheckedState());
   }
 
   void changeThreeXlChecked(bool v) {
-    three_xll = !three_xll;
-    three_xll = v;
+    three_xlla = !three_xlla;
+    three_xlla = v;
+    if (v == true) {
+      three_xll = 1;
+    } else {
+      three_xll = 0;
+    }
 
     emit(ChangeCheckedsState());
   }
 
   void change4XlChecked(bool v) {
-    four_xll = !four_xll;
-    four_xll = v;
-
+    four_xlla = !four_xlla;
+    if (v == true) {
+      four_xll = 1;
+    } else {
+      four_xll = 0;
+    }
     emit(ChangeCheckedssState());
   }
 
   void changelChecked(bool v) {
-    l = !l;
-    l = v;
+    la = !la;
+    la = v;
+    if (v == true) {
+      l = 1;
+    } else {
+      l = 0;
+    }
 
     emit(ChangeCheckedSssstate());
   }
 
   void changexlChecked(bool v) {
-    xl = !xl;
-    xl = v;
+    xla = !xla;
+    xla = v;
+    if (v == true) {
+      xl = 1;
+    } else {
+      xl = 0;
+    }
 
     emit(ChangeCheckedSsxtate());
   }
 
   void changetwoXlChecked(bool v) {
-    two_xll = !two_xll;
-    two_xll = v;
+    two_xlla = !two_xlla;
+    two_xlla = v;
+    if (v == true) {
+      two_xll = 1;
+    } else {
+      two_xll = 0;
+    }
 
     emit(ChangeCheckedSswtate());
   }
 
   void changetwoMChecked(bool v) {
-    m = !m;
-    m = v;
-    print(m);
+    me = !me;
+    me = v;
+    if (v == true) {
+      m = 1;
+    } else {
+      m = 0;
+    }
 
     emit(ChangeCheckedSsztate());
   }
-
-
 }

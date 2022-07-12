@@ -43,5 +43,11 @@
    "connect": "connect",
    "verify": "verification",
    "note": "Press Verification To Connect",
-   "service": "Product"
+   "service": "Product",
+   "exceed": "    You Should Choose Six Images Only!",
+   "images": "Images",
+   "choose": "You Choosed:",
+   "select": "Choose Images",
+   "yet": "No Element  Selected Yet",
+   "type": "Choose The Type"
 }
