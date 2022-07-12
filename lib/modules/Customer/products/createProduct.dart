@@ -295,9 +295,9 @@ class CreatePro extends StatelessWidget {
                               ),
                             ),
                             Checkbox(
-                                value: cubit.two_xl,
+                                value: cubit.two_xll,
                                 onChanged: (value) {
-                                  ShopCubit.get(context)
+                                  ProductCubit.get(context)
                                       .changetwoXlChecked(value!);
                                 },
                                 activeColor: myBlue),
@@ -309,7 +309,7 @@ class CreatePro extends StatelessWidget {
                               ),
                             ),
                             Checkbox(
-                                value: cubit.three_xl,
+                                value: cubit.three_xll,
                                 onChanged: (value) {
                                   cubit.changeThreeXlChecked(value!);
                                 },
@@ -325,7 +325,7 @@ class CreatePro extends StatelessWidget {
                               ),
                             ),
                             Checkbox(
-                                value: cubit.four_xl,
+                                value: cubit.four_xll,
                                 onChanged: (value) {
                                   cubit.change4XlChecked(value!);
                                 },
@@ -346,30 +346,25 @@ class CreatePro extends StatelessWidget {
                                 onPressed: () async {
                                   print(typeProduct.text.toString());
                                   List y = [];
-                                  for (var x in ShopCubit.get(context).imageFileList) {
+                                  for (var x in ProductCubit.get(context).imageFileList) {
                                     y.add(MultipartFile.fromFileSync(x.path));
                                   }
-                                  if (form.currentState!.validate()) {
-                                    cubit.create(
-                                      userid: 8,
-                                      categoryId: 10,
+                                    cubit.create(userid: 4,
                                       price: priceProduct.text,
-                                      many: amountProduct.text,
-                                      s: cubit.s,
-                                      m: cubit.m,
-                                      l: cubit.l,
-                                      xl: cubit.xl,
-                                      twoXl: cubit.two_xl,
-                                      threexl: cubit.three_xl,
-                                      fourxl: cubit.four_xl,
-                                      img: y,
                                       descAr: describeProduct.text,
-                                      descEn: describeProduct.text,
+                                      descEn: "dawdwa",
+                                      many: amountProduct.text,
                                       tittleAr: nameProduct.text,
-                                      tittleEn: nameProduct.text,
-
+                                      tittleEn: "dwadwad",
+                                      s: 0,
+                                      m: 0,
+                                      l: 1,
+                                      xl: 1,
+                                      fourxl: 1,
+                                      twoXl: 1,
+                                      threexl: 1,
+                                      img: y,
                                     );
-                                  }
                                 },
                                 child: Text(
                                   mytranslate(context, "save"),
