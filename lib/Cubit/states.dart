@@ -39,6 +39,12 @@ class ErrorCustomer extends ShopStates {}
 class TakeImage_State extends ShopStates {}
 
 class ChangeCheckedState extends ShopStates {}
+class ChangeCheckedsState extends ShopStates {}
+class ChangeCheckedssState extends ShopStates {}
+class ChangeCheckedSssstate extends ShopStates {}
+class ChangeCheckedSsxtate extends ShopStates {}
+class ChangeCheckedSswtate extends ShopStates {}
+class ChangeCheckedSsztate extends ShopStates {}
 
 class GettingShippingDataSueccesState extends ShopStates {}
 

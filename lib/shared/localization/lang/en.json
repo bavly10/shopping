@@ -42,5 +42,6 @@
    "addpro": "Add Product",
    "connect": "connect",
    "verify": "verification",
-   "note": "Press Verification To Connect"
+   "note": "Press Verification To Connect",
+   "service": "Product"
 }

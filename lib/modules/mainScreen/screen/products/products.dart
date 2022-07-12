@@ -8,9 +8,9 @@ import 'package:shopping/Cubit/states.dart';
 import 'package:shopping/modules/mainScreen/screen/products/widgets/products_card.dart';
 import 'package:shopping/shared/compononet/arrowBack.dart';
 import 'package:shopping/shared/localization/translate.dart';
+import 'package:shopping/shared/my_colors.dart';
 import 'package:simple_animations/stateless_animation/play_animation.dart';
 
-import '../../../../shared/my_colors.dart';
 
 class Products extends StatelessWidget {
   const Products({Key? key}) : super(key: key);

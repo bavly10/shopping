@@ -88,59 +88,7 @@ class ShopCubit extends Cubit<ShopStates> {
   }
 
   //////////////////////create product/////////
-  void createProducts(
-      {required int userid,
-      String? tittleAr,
-      String? tittleEn,
-      required int categoryId,
-      required dynamic price,
-      required many,
-      String? descAr,
-      String? descEn,
-      required bool s,
-      required bool m,
-      required bool l,
-      required bool xl,
-      required bool twoXl,
-      required bool threexl,
-      required bool fourxl,
-      img}) async {
-    Map<dynamic, dynamic> imag = {
-      "logo": [
-        for (var file in imageFileList) {MultipartFile.fromFileSync(file.path)}
-      ]
-    };
-    Map<String, dynamic> header = {
-      "auth-token":
-          "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2thc2g1dGFrLmNvbS9hcGkvbG9naW4iLCJpYXQiOjE2NTc0OTAwODMsImV4cCI6MTY1NzQ5MzY4MywibmJmIjoxNjU3NDkwMDgzLCJqdGkiOiJIeVZscThaWUxqWVROUHliIiwic3ViIjoiOCIsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.hdH4MeJtffoVmD1cW0XYYwSoG1ks9o-Qmdod1PZUkfE"
-    };
-    FormData formData = FormData.fromMap({
-      "user_id": userid,
-      "title_ar": tittleAr ?? "",
-      "title_en": tittleEn ?? "",
-      "category_id": categoryModel,
-      "price": price,
-      "many": many,
-      "desc_ar": descAr ?? "",
-      "desc_en": descEn ?? "",
-      "s": s,
-      "m": m,
-      "l": l,
-      "xl": xl,
-      "two_xl": two_xl,
-      "three_xl": three_xl,
-      "four_xl": four_xl,
-      "image[]": img
-    });
 
-    DioHelper.postData1(url: createProduct, data: formData, option: header)
-        .then((value) {
-      debugPrint(value.data.toString());
-      print("done");
-    }).catchError((error) {
-      print(error.toString());
-    });
-  }
 
   ///////////////Get Shipping////////////
   ShippingModel? shippingModel;
@@ -232,35 +180,35 @@ class ShopCubit extends Cubit<ShopStates> {
     three_xl = !three_xl;
     three_xl = v;
 
-    emit(ChangeCheckedState());
+    emit(ChangeCheckedsState());
   }
 
   void change4XlChecked(bool v) {
     four_xl = !four_xl;
     four_xl = v;
 
-    emit(ChangeCheckedState());
+    emit(ChangeCheckedssState());
   }
 
   void changelChecked(bool v) {
     l = !l;
     l = v;
 
-    emit(ChangeCheckedState());
+    emit(ChangeCheckedSssstate());
   }
 
   void changexlChecked(bool v) {
     xl = !xl;
     xl = v;
 
-    emit(ChangeCheckedState());
+    emit(ChangeCheckedSsxtate());
   }
 
   void changetwoXlChecked(bool v) {
     two_xl = !two_xl;
     two_xl = v;
 
-    emit(ChangeCheckedState());
+    emit(ChangeCheckedSswtate());
   }
 
   void changetwoMChecked(bool v) {
@@ -268,7 +216,7 @@ class ShopCubit extends Cubit<ShopStates> {
     m = v;
     print(m);
 
-    emit(ChangeCheckedState());
+    emit(ChangeCheckedSsztate());
   }
 
   List<XFile> imageFileList = [];

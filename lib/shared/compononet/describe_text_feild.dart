@@ -5,12 +5,8 @@ import 'package:shopping/shared/my_colors.dart';
 class MyDescribeTextField extends StatelessWidget {
   late TextEditingController controller;
   TextInputType? type;
-  void Function(String)? onSubmit;
-  void Function()? onTap;
   String? Function(String?)? validate;
   late String label;
-  IconData? prefix;
-  IconData? suffix;
 
   void Function()? suffixPressed;
   int? maxline;
@@ -18,13 +14,8 @@ class MyDescribeTextField extends StatelessWidget {
       {Key? key,
       required this.controller,
       this.type,
-      this.onSubmit,
-      this.onTap,
       this.validate,
       required this.label,
-      this.prefix,
-      this.suffix,
-      this.suffixPressed,
       this.maxline})
       : super(key: key);
 
