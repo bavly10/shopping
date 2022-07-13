@@ -65,7 +65,7 @@ class ShopCubit extends Cubit<ShopStates> {
 
   int currentindex = 0;
   List<Widget> screen = [
-    const HomeScreen(),
+     HomeScreen(),
     const Products(),
     CartScreen(),
     MainLogin()
@@ -149,8 +149,12 @@ class ShopCubit extends Cubit<ShopStates> {
     Map<String, dynamic> data = {"category_id": catId};
     DioHelper.postData(url: getCustomer, data: data).then((value) {
       prosCustomerModel = ProsCustomerModel.fromJson(value.data);
-      print("done prosCustomer ${prosCustomerModel!.status}");
-      emit(DoneProCustomerState());
+      if(prosCustomerModel!.data!.isEmpty){
+        emit(emptyProCustomerState());
+      }else{
+        print("done prosCustomer ${prosCustomerModel!.status}");
+        emit(DoneProCustomerState());
+      }
     }).catchError((onError) {
       print(onError.toString());
       emit(ErrorProCustomerState());

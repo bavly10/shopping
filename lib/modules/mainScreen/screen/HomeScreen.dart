@@ -11,11 +11,11 @@ import 'package:simple_animations/simple_animations.dart';
 
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({Key? key}) : super(key: key);
-
+   HomeScreen({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ShopCubit, ShopStates>(
+    return BlocConsumer<ShopCubit, ShopStates>(
+      listener: (ctx,state){},
       builder: (ctx, state) {
         final cubit = ShopCubit.get(context);
         return Scaffold(
@@ -30,7 +30,10 @@ class HomeScreen extends StatelessWidget {
                 CategoryScreen(),
                 const SizedBox(height: 5,),
                 const Divider(height: 1,color: Colors.black,),
-               state is LoadingProCustomerState? const CircularProgressIndicator():CustomerScreen(),
+              if(state is LoadingProCustomerState)const CircularProgressIndicator(),
+              if(state is DoneProCustomerState) CustomerScreen(),
+              if(state is emptyProCustomerState)const Text("No data"),
+
               ],
             ),
           ),

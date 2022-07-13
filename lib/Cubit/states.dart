@@ -49,4 +49,5 @@ class GettingShippingDataErrorState extends ShopStates {}
 class GettingShippingDataLoadingState extends ShopStates {}
 class LoadingProCustomerState extends ShopStates {}
 class DoneProCustomerState extends ShopStates {}
+class emptyProCustomerState extends ShopStates {}
 class ErrorProCustomerState extends ShopStates {}
