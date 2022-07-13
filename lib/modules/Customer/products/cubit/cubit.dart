@@ -58,17 +58,10 @@ class ProductCubit extends Cubit<ProductStates> {
       many,
       String? descAr,
       String? descEn,
-      int? s,
-      int? m,
-      int? l,
-      int? xl,
-      int? twoXl,
-      int? threexl,
-      int? fourxl,
       img}) async {
     Map<String, dynamic> header = {
       "auth-token":
-          "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2thc2g1dGFrLmNvbS9hcGkvbG9naW4iLCJpYXQiOjE2NTc2NjA1MzUsImV4cCI6MTY1NzY2NDEzNSwibmJmIjoxNjU3NjYwNTM1LCJqdGkiOiJiRDlIeUp5MkZCZDZFNWxWIiwic3ViIjoiOCIsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.7mvfUqcfvPQWIVpQ0AhsXUs_0VDxEVSTb2nALnCPUvY",
+      "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2thc2g1dGFrLmNvbS9hcGkvbG9naW4iLCJpYXQiOjE2NTc3MzYxNjksImV4cCI6MTY1ODM0MDk2OSwibmJmIjoxNjU3NzM2MTY5LCJqdGkiOiJVRDZuZkFIN3VWVVdyTWtNIiwic3ViIjoiNCIsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.ryNTe54vJLTFJlk2JF1bAizNMo6XGPaAWkk_vZdlqpw"
     };
     FormData formData = FormData.fromMap({
       "user_id": userid,
@@ -83,9 +76,9 @@ class ProductCubit extends Cubit<ProductStates> {
       "m": m,
       "l": l,
       "xl": xl,
-      "two_xl": twoXl,
-      "three_xl": threexl,
-      "four_xl": fourxl,
+      "two_xl": two_xll,
+      "three_xl": three_xll,
+      "four_xl": four_xll,
       "image[]": img
     });
     DioHelper.postData1(url: createProduct, data: formData, option: header)
@@ -120,7 +113,6 @@ class ProductCubit extends Cubit<ProductStates> {
     } else {
       s = 0;
     }
-
     emit(ChangeCheckedState());
   }
 

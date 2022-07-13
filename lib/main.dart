@@ -9,6 +9,7 @@ import 'package:shopping/Cubit/states.dart';
 import 'package:shopping/modules/Customer/login/cubit/cubit.dart';
 import 'package:shopping/modules/Customer/products/cubit/cubit.dart';
 import 'package:shopping/modules/Customer/products/createProduct.dart';
+import 'package:shopping/modules/Splash_screen/splash.dart';
 import 'package:shopping/shared/diohelper/dioHelpoer.dart';
 import 'package:shopping/shared/localization/set_localization.dart';
 import 'package:shopping/shared/my_colors.dart';
@@ -28,7 +29,7 @@ class MyApp extends StatelessWidget {
     SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom]);
     return MultiBlocProvider(
       providers: [
-        BlocProvider(create: (context) => ShopCubit()..getSplashData()..getCategoriesData()),
+        BlocProvider(create: (context) => ShopCubit()..getSplashData()..getCategoriesData()..getCustomerData(10)),
         BlocProvider(create: (context) => LoginCubit()),
         BlocProvider(create: (context) => ProductCubit()),
       ],
@@ -79,7 +80,7 @@ class MyApp extends StatelessWidget {
               primarySwatch: Colors.amber,
             ),
             themeMode: ThemeMode.light,
-            home: CreatePro(),
+            home: SplashScreen(),
             //// SplashScreen(),
             builder: EasyLoading.init(),
           );

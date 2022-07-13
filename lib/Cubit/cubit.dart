@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shopping/Cubit/states.dart';
+import 'package:shopping/model/ProCustomer.dart';
 import 'package:shopping/model/categoryModel.dart';
 import 'package:shopping/model/splash.dart';
 import 'package:shopping/model/CustomerModel.dart';
@@ -126,6 +127,7 @@ class ShopCubit extends Cubit<ShopStates> {
     emit(LoadingCat());
     DioHelper.getData(url: category).then((value) {
       categoryModel = CategoryModel.fromJson(value.data);
+      print("done categoryModel ${categoryModel!.status}");
       emit(DoneCat());
     }).catchError((onError) {
       print(onError.toString());
@@ -141,17 +143,17 @@ class ShopCubit extends Cubit<ShopStates> {
   }
 
   //////////////////////////////////
-  CustomerModel? customerModel;
+  ProsCustomerModel? prosCustomerModel;
   void getCustomerData(catId) {
-    emit(LoadingCustomer());
+    emit(LoadingProCustomerState());
     Map<String, dynamic> data = {"category_id": catId};
     DioHelper.postData(url: getCustomer, data: data).then((value) {
-      customerModel = CustomerModel.fromJson(value.data);
-      print("done Cat model ${splashModel!.status}");
-      emit(DoneCustomer());
+      prosCustomerModel = ProsCustomerModel.fromJson(value.data);
+      print("done prosCustomer ${prosCustomerModel!.status}");
+      emit(DoneProCustomerState());
     }).catchError((onError) {
       print(onError.toString());
-      emit(ErrorCustomer());
+      emit(ErrorProCustomerState());
     });
   }
 }

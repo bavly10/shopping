@@ -468,13 +468,6 @@ class CreatePro extends StatelessWidget {
                                       many: amountProduct.text,
                                       tittleAr: nameProduct.text,
                                       tittleEn: "dwadwad",
-                                      s: cubit.s,
-                                      m: cubit.m,
-                                      l: cubit.l,
-                                      xl: cubit.xl,
-                                      fourxl: cubit.four_xll,
-                                      twoXl: cubit.two_xll,
-                                      threexl: cubit.three_xll,
                                       img: y,
                                     );
                                   },

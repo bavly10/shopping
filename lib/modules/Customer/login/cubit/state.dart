@@ -13,6 +13,7 @@ class ShopChangeNext extends LoginStates {}
 class ShopChangedone extends LoginStates {}
 class ShopChangelast extends LoginStates {}
 class ShopChangeiconpassword extends LoginStates {}
+class ChangeCity_Select extends LoginStates {}
 class TakeImage_State extends LoginStates {}
 class DeleteImage_State extends LoginStates {}
 class LoadingSignupState extends LoginStates {}

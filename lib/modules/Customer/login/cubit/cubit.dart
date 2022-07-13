@@ -99,7 +99,11 @@ class LoginCubit extends Cubit<LoginStates> {
         isPassword ? Icons.visibility : Icons.visibility_off_outlined;
     emit(ShopChangeiconpassword());
   }
-
+  String? mycity;
+  void changeSelectCity(val) {
+    mycity = val;
+    emit(ChangeCity_Select());
+  }
   final picker = ImagePicker();
   var pickedFile;
   File? imagee;
@@ -130,7 +134,7 @@ class LoginCubit extends Cubit<LoginStates> {
       "email": FirstScreen.emailcontroller.text,
       "password": FirstScreen.passcontroller.text,
       "phone": SecondScreen.mobilecontroller.text,
-      "address": SecondScreen.addresscontroller.text,
+      "address":mycity??"Saudi",
       "longitude": 456,
       "latitude": 468456,
       "title_ar": ThirdScreen.storecotroller.text,

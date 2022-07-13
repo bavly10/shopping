@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shopping/Cubit/cubit.dart';
 import 'package:shopping/Cubit/states.dart';
 import 'package:shopping/modules/mainScreen/screen/cateogry.dart';
+import 'package:shopping/modules/mainScreen/screen/customer.dart';
 import 'package:shopping/shared/compononet/arrowBack.dart';
 import 'package:shopping/shared/localization/translate.dart';
 import 'package:shopping/shared/my_colors.dart';
@@ -19,15 +20,19 @@ class HomeScreen extends StatelessWidget {
         final cubit = ShopCubit.get(context);
         return Scaffold(
           backgroundColor: myGrey,
-          body: Column(
-            children: [
-              cubit.changeAppBar ? myAppBar(context) : myAppBarSearch(context),
-              const SizedBox(height: 15,),
-              // ignore: prefer_const_constructors
-              CategoryScreen(),
-              const SizedBox(height: 5,),
-              const Divider(height: 1,color: Colors.black,)
-            ],
+          body: SingleChildScrollView(
+            physics: const NeverScrollableScrollPhysics(),
+            child: Column(
+              children: [
+                cubit.changeAppBar ? myAppBar(context) : myAppBarSearch(context),
+                const SizedBox(height: 15,),
+                // ignore: prefer_const_constructors
+                CategoryScreen(),
+                const SizedBox(height: 5,),
+                const Divider(height: 1,color: Colors.black,),
+               state is LoadingProCustomerState? const CircularProgressIndicator():CustomerScreen(),
+              ],
+            ),
           ),
         );
       },
