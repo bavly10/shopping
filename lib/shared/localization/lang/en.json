@@ -49,5 +49,8 @@
    "choose": "You Choosed:",
    "select": "Choose Images",
    "yet": "No Element  Selected Yet",
-   "type": "Choose The Type"
+   "type": "Choose The Type",
+   "delete": "You deleted all product images",
+   "update": "Update",
+   "verifydel": "Are you sure want to delets?"
 }

@@ -13,7 +13,10 @@ import 'package:shopping/modules/Splash_screen/splash.dart';
 import 'package:shopping/shared/diohelper/dioHelpoer.dart';
 import 'package:shopping/shared/localization/set_localization.dart';
 import 'package:shopping/shared/my_colors.dart';
+import 'package:shopping/shared/network.dart';
 import 'package:shopping/shared/shared_prefernces.dart';
+
+import 'modules/Customer/products/updateProduct.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -29,9 +32,13 @@ class MyApp extends StatelessWidget {
     SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom]);
     return MultiBlocProvider(
       providers: [
-        BlocProvider(create: (context) => ShopCubit()..getSplashData()..getCategoriesData()..getCustomerData(10)),
+        BlocProvider(
+            create: (context) => ShopCubit()
+              ..getSplashData()
+              ..getCategoriesData()
+              ..getCustomerData(10)),
         BlocProvider(create: (context) => LoginCubit()),
-        BlocProvider(create: (context) => ProductCubit()),
+        BlocProvider(create: (context) => ProductCubit()..showPro()),
       ],
       child: BlocBuilder<ShopCubit, ShopStates>(
         builder: (context, state) {
@@ -80,7 +87,8 @@ class MyApp extends StatelessWidget {
               primarySwatch: Colors.amber,
             ),
             themeMode: ThemeMode.light,
-            home: SplashScreen(),
+            home: UpdateProduct(product: ProductCubit.get(context).showProd!),
+            //SplashScreen(),
             //// SplashScreen(),
             builder: EasyLoading.init(),
           );

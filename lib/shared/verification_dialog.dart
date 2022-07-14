@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+
 import 'package:shopping/shared/localization/translate.dart';
 import 'package:shopping/shared/my_colors.dart';
 
 class CustomDialog extends StatelessWidget {
+  void Function()? onTap;
+  String? text;
+  CustomDialog({Key? key, this.onTap, this.text}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Dialog(
@@ -42,38 +46,35 @@ class CustomDialog extends StatelessWidget {
                 const SizedBox(
                   height: 20.0,
                 ),
-               Center(
+                Center(
                     child: Padding(
                   padding: const EdgeInsets.all(10.0),
-                  child: Text(mytranslate(context, "note"),
-                      style:const  TextStyle(
+                  child: Text(text!,
+                      style: const TextStyle(
                           fontSize: 18.0, fontWeight: FontWeight.w600)),
                 ) //
                     ),
                 const SizedBox(height: 24.0),
                 InkWell(
-                  child: Container(
-                    width: 200,
-                    padding: const EdgeInsets.all(15),
-                    decoration: BoxDecoration(
-                      shape: BoxShape.rectangle,
-                      color: myBlue,
-                      borderRadius: const BorderRadius.only(
-                          topLeft: Radius.circular(16.0),
-                          topRight: Radius.circular(16.0),
-                          bottomLeft: Radius.circular(16.0),
-                          bottomRight: Radius.circular(16.0)),
+                    child: Container(
+                      width: 200,
+                      padding: const EdgeInsets.all(15),
+                      decoration: BoxDecoration(
+                        shape: BoxShape.rectangle,
+                        color: myBlue,
+                        borderRadius: const BorderRadius.only(
+                            topLeft: Radius.circular(16.0),
+                            topRight: Radius.circular(16.0),
+                            bottomLeft: Radius.circular(16.0),
+                            bottomRight: Radius.circular(16.0)),
+                      ),
+                      child: Text(
+                        mytranslate(context, "verify"),
+                        style: TextStyle(color: Colors.white, fontSize: 25.0),
+                        textAlign: TextAlign.center,
+                      ),
                     ),
-                    child: Text(
-                      mytranslate(context, "verify"),
-                      style: TextStyle(color: Colors.white, fontSize: 25.0),
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                  onTap: () {
-                    Navigator.pop(context);
-                  },
-                )
+                    onTap: onTap)
               ],
             ),
           ),

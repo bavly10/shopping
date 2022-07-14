@@ -128,7 +128,9 @@ class ShippingCompany extends StatelessWidget {
                                   showDialog(
                                       context: context,
                                       builder: (BuildContext context) =>
-                                          CustomDialog());
+                                          CustomDialog(
+                                            text: mytranslate(context, "note"),
+                                          ));
                                 },
                                 child: Container(
                                   width: 80,
