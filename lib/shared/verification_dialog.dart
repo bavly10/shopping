@@ -6,7 +6,9 @@ import 'package:shopping/shared/my_colors.dart';
 class CustomDialog extends StatelessWidget {
   void Function()? onTap;
   String? text;
-  CustomDialog({Key? key, this.onTap, this.text}) : super(key: key);
+  String? btnName;
+  CustomDialog({Key? key, this.onTap, this.text, this.btnName})
+      : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Dialog(
@@ -69,7 +71,7 @@ class CustomDialog extends StatelessWidget {
                             bottomRight: Radius.circular(16.0)),
                       ),
                       child: Text(
-                        mytranslate(context, "verify"),
+                        btnName ?? mytranslate(context, "verify"),
                         style: TextStyle(color: Colors.white, fontSize: 25.0),
                         textAlign: TextAlign.center,
                       ),
