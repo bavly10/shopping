@@ -49,7 +49,6 @@ class CreatePro extends StatelessWidget {
                           child: MyProTextField(
                             controller: nameProduct,
                             obcure: false,
-                            label: "",
                             validate: (value) {
                               if (value!.isEmpty) {
                                 return 'You should Fill Field!!';
@@ -67,7 +66,6 @@ class CreatePro extends StatelessWidget {
                           child: MyProTextField(
                             controller: priceProduct,
                             obcure: false,
-                            label: "",
                             validate: (value) {
                               if (value!.isEmpty) {
                                 return 'You should Fill Field!!';
@@ -85,7 +83,6 @@ class CreatePro extends StatelessWidget {
                           child: MyProTextField(
                             controller: amountProduct,
                             obcure: false,
-                            label: "",
                             validate: (value) {
                               if (value!.isEmpty) {
                                 return 'You should Fill Field!!';

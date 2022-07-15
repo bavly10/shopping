@@ -4,6 +4,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shopping/Cubit/cubit.dart';
 import 'package:shopping/Cubit/states.dart';
 import 'package:shopping/model/language.dart';
+import 'package:shopping/modules/Customer/cubit/cubit.dart';
+import 'package:shopping/modules/Customer/products/cubit/cubit.dart';
+import 'package:shopping/modules/Customer/products/updateProduct.dart';
 import 'package:shopping/modules/onBoarding/onBoarding_screen.dart';
 import 'package:shopping/shared/compononet/blueButton.dart';
 import 'package:shopping/shared/compononet/componotents.dart';
@@ -74,7 +77,10 @@ class OnBoardingFirst extends StatelessWidget {
                 padding: const EdgeInsets.all(16.0),
                 child: BlueButton(title: Text("ابدا التسوق",style: TextStyle(color: myWhite,fontSize: 18,fontWeight: FontWeight.bold)),hight:0.08 ,width: 0.80,icon: Icons.arrow_back,
                     onpress:(){
-                      navigateToFinish(context, OnBoardingScreen());
+                      ProductCubit.get(context).showPro(39).then((value) => {
+                      navigateTo(context, UpdateProduct(product: ProductCubit.get(context).showProd!,),)
+                      });
+                      // navigateToFinish(context, OnBoardingScreen());
                     }),
               )
             ],

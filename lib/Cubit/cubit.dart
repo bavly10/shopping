@@ -12,12 +12,13 @@ import 'package:shopping/model/CustomerModel.dart';
 import 'package:shopping/modules/Customer/login/main.dart';
 import 'package:shopping/modules/cart/cart.dart';
 import 'package:shopping/modules/mainScreen/screen/HomeScreen.dart';
+import 'package:shopping/modules/test.dart';
 import 'package:shopping/shared/diohelper/dioHelpoer.dart';
 import 'package:shopping/shared/network.dart';
 import 'package:shopping/shared/shared_prefernces.dart';
 
 import '../model/shippingcompanies.dart';
-import '../modules/mainScreen/screen/products/products.dart';
+
 
 class ShopCubit extends Cubit<ShopStates> {
   ShopCubit() : super(Shop_InitalState());
@@ -66,7 +67,7 @@ class ShopCubit extends Cubit<ShopStates> {
   int currentindex = 0;
   List<Widget> screen = [
      HomeScreen(),
-    const Products(),
+    test(),
     CartScreen(),
     MainLogin()
   ];

@@ -51,22 +51,22 @@ class ProductCubit extends Cubit<ProductStates> {
   }
 
   Product? showProd;
-  Future showPro() async {
+  Future showPro(id) async {
+    emit(loadingProduct());
     Map<String, dynamic> header = {
       "auth-token":
           "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2thc2g1dGFrLmNvbS9hcGkvbG9naW4iLCJpYXQiOjE2NTc3MTExMjAsImV4cCI6MTY1ODMxNTkyMCwibmJmIjoxNjU3NzExMTIwLCJqdGkiOiJoZDdPOWxRVm4zdGg4aEJqIiwic3ViIjoiNyIsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.ybeuLPcOA5KEbqQD52KthLquRwh2o1T9ujWUVqeujL0"
     };
-    FormData formData = FormData.fromMap({"id": 37});
+    FormData formData = FormData.fromMap({"id": id});
     DioHelper.postData1(url: showProduct, data: formData, option: header)
         .then((value) {
-      // debugPrint(value.data.toString());
       showProd = Product.fromJson(value.data);
       print(showProd!.data!.productData!.id);
-
-      print("done");
       emit(ShowingProduct());
     }).catchError((error) {
       print(error.toString());
+      emit(failProduct());
+
     });
   }
 
@@ -154,29 +154,13 @@ class ProductCubit extends Cubit<ProductStates> {
   }
 
   ////////////////////////update/////////////////
-  Future update(
-      {int? userid,
-      String? tittleAr,
-      String? tittleEn,
-      int? categoryId,
-      price,
-      many,
-      String? descAr,
-      String? descEn,
-      int? s,
-      int? m,
-      int? l,
-      int? xl,
-      int? twoXl,
-      int? threexl,
-      int? fourxl,
-      img}) async {
+  Future update({int? id, String? tittleAr, String? tittleEn, price, many, String? descAr, String? descEn, img}) async {
     Map<String, dynamic> header = {
       "auth-token":
           "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2thc2g1dGFrLmNvbS9hcGkvbG9naW4iLCJpYXQiOjE2NTc3MTExMjAsImV4cCI6MTY1ODMxNTkyMCwibmJmIjoxNjU3NzExMTIwLCJqdGkiOiJoZDdPOWxRVm4zdGg4aEJqIiwic3ViIjoiNyIsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.ybeuLPcOA5KEbqQD52KthLquRwh2o1T9ujWUVqeujL0"
     };
     FormData formData = FormData.fromMap({
-      "id": 37,
+      "id": id,
       "title_ar": tittleAr,
       "title_en": tittleEn,
       "category_id": cat_id,
@@ -188,9 +172,9 @@ class ProductCubit extends Cubit<ProductStates> {
       "m": m,
       "l": l,
       "xl": xl,
-      "two_xl": twoXl,
-      "three_xl": threexl,
-      "four_xl": fourxl,
+      "two_xl": two_xll,
+      "three_xl": three_xll,
+      "four_xl": four_xll,
       "image[]": img
     });
     DioHelper.postData1(url: updateProduct, data: formData, option: header)
@@ -202,13 +186,13 @@ class ProductCubit extends Cubit<ProductStates> {
     });
   }
 
-  int s = 0;
-  int m = 0;
-  int l = 0;
-  int xl = 0;
-  int two_xll = 0;
-  int three_xll = 0;
-  int four_xll = 0;
+  int s=0;
+  int m=0;
+  int l=0;
+  int xl=0;
+  int two_xll=0;
+  int three_xll=0;
+  int four_xll=0;
   bool sm = false;
   bool me = false;
   bool la = false;
@@ -225,7 +209,6 @@ class ProductCubit extends Cubit<ProductStates> {
     } else {
       s = 0;
     }
-
     emit(ChangeCheckedState());
   }
 

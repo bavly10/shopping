@@ -6,6 +6,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:shopping/Cubit/cubit.dart';
 import 'package:shopping/Cubit/my_observer.dart';
 import 'package:shopping/Cubit/states.dart';
+import 'package:shopping/modules/Customer/cubit/cubit.dart';
 import 'package:shopping/modules/Customer/login/cubit/cubit.dart';
 import 'package:shopping/modules/Customer/products/cubit/cubit.dart';
 import 'package:shopping/modules/Customer/products/createProduct.dart';
@@ -38,7 +39,8 @@ class MyApp extends StatelessWidget {
               ..getCategoriesData()
               ..getCustomerData(10)),
         BlocProvider(create: (context) => LoginCubit()),
-        BlocProvider(create: (context) => ProductCubit()..showPro()),
+        BlocProvider(create: (context) => ProductCubit()),
+        BlocProvider(create: (context) => CustomerCubit()..getProductCustomer()),
       ],
       child: BlocBuilder<ShopCubit, ShopStates>(
         builder: (context, state) {
@@ -87,7 +89,7 @@ class MyApp extends StatelessWidget {
               primarySwatch: Colors.amber,
             ),
             themeMode: ThemeMode.light,
-            home: UpdateProduct(product: ProductCubit.get(context).showProd!),
+            home:SplashScreen(),
             //SplashScreen(),
             //// SplashScreen(),
             builder: EasyLoading.init(),

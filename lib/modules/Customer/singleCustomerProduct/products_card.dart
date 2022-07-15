@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:shopping/model/ProductsCustomer.dart';
 
 class ProductCard extends StatelessWidget {
-  const ProductCard({Key? key}) : super(key: key);
+  final ProductsItem productsItem;
+
+  const ProductCard({Key? key,required this.productsItem}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -32,12 +35,12 @@ class ProductCard extends StatelessWidget {
             ),
           ),
         ),
-        const Padding(
-          padding: const EdgeInsets.all(8.0),
+         Padding(
+          padding:EdgeInsets.all(8.0),
           child: Align(
             alignment: Alignment.topLeft,
             child: Image(
-              image: AssetImage("assets/x1.png"),
+              image: NetworkImage(productsItem.image!),
               width: double.infinity,
               height: 100,
 
@@ -52,22 +55,22 @@ class ProductCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             // ignore: prefer_const_literals_to_create_immutables
             children: [
-              const Padding(
+               Padding(
                 padding: EdgeInsets.only(top: 20),
                 child: Align(
                   alignment: Alignment.centerRight,
                   child: Text(
-                    'تيشرت اسود',
+                    productsItem.title!,
                     overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
+                    style: const TextStyle(
                         height: 1.4, fontSize: 14, fontWeight: FontWeight.w600),
                   ),
                 ),
               ),
-              const Padding(
+               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
-                  'يوجد الوان مختلفه',
+                  productsItem.desc!,
                   overflow: TextOverflow.ellipsis,
                   maxLines: 2,
                   style: TextStyle(
@@ -79,12 +82,12 @@ class ProductCard extends StatelessWidget {
             ],
           ),
         ),
-        const Padding(
+         Padding(
           padding: EdgeInsets.all(8.0),
           child: Align(
             alignment: AlignmentDirectional.bottomStart,
             child: Text(
-              '80.00دينار',
+              productsItem.price!,
               overflow: TextOverflow.ellipsis,
               // maxLines: 2,
               style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
@@ -92,12 +95,6 @@ class ProductCard extends StatelessWidget {
           ),
         ),
       ]),
-
-      /*   
-              
-              SizedBox(
-                width: 10,
-              ),*/
     );
   }
 }

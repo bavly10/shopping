@@ -8,9 +8,6 @@ class MyProTextField extends StatelessWidget {
   void Function(String)? onSubmit;
   void Function()? onTap;
   String? Function(String?)? validate;
-  late String label;
-  IconData? prefix;
-  IconData? suffix;
   late bool obcure;
   void Function()? suffixPressed;
 
@@ -22,9 +19,7 @@ class MyProTextField extends StatelessWidget {
     this.onSubmit,
     this.onTap,
     this.validate,
-    required this.label,
-    this.prefix,
-    this.suffix,
+
     this.suffixPressed,
   }) : super(key: key);
 
@@ -46,7 +41,6 @@ class MyProTextField extends StatelessWidget {
                 ),
                 borderSide: BorderSide(width: 1, color: myGrey!),
               ),
-              hintText: label,
               hintStyle: TextStyle(color: HexColor('#000000').withOpacity(.6))),
         ));
   }

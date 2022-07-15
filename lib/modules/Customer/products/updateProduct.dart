@@ -16,6 +16,8 @@ import 'package:shopping/shared/my_colors.dart';
 import 'package:shopping/shared/network.dart';
 import 'package:shopping/shared/verification_dialog.dart';
 
+import '../../../shared/compononet/componotents.dart';
+
 class UpdateProduct extends StatelessWidget {
   final Product product;
   UpdateProduct({Key? key, required this.product}) : super(key: key);
@@ -28,775 +30,560 @@ class UpdateProduct extends StatelessWidget {
   int x = 1;
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        actions: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: InkWell(
-                onTap: (() {
-                  showDialog(
-                      context: context,
-                      builder: (BuildContext context) => CustomDialog(
+    return   BlocBuilder<ProductCubit, ProductStates>(
+      builder: (ctx,state){
+        final list = ShopCubit.get(context).categoryModel;
+        final cubit=ProductCubit.get(context);
+        var model=ProductCubit.get(context).showProd!;
+        nameProduct.text=model.data!.productData!.titleAr!;
+        priceProduct.text=model.data!.productData!.price!;
+        amountProduct.text=model.data!.productData!.many!;
+        describeProduct.text=model.data!.productData!.descAr!;
+        var listimage=model.data!.images;
+        return Scaffold(
+          appBar: AppBar(
+            actions: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: InkWell(
+                    onTap: (() {
+                      showDialog(
+                          context: context,
+                          builder: (BuildContext context) => CustomDialog(
                             text: mytranslate(context, "verifydel"),
                             onTap: () => ProductCubit.get(context)
                                 .deletePro(id: product.data!.productData!.id),
                           ));
-                  // Navigator.pop(context);
-
-                  // My_CustomAlertDialog(
-                  //   bigTitle: '',
-                  //   context: context,
-                  //   content: "Are You sure Do you want delete?",
-                  //   onPress: ProductCubit.get(context)
-                  //       .deletePro(id: product.data!.productData!.id),
-                  //   pressColor: myBlue,
-                  //   pressTitle: "ok",
-                  // );
-                }),
-                child: Icon(Icons.delete, color: myBlue)),
-          )
-        ],
-        title: Text(mytranslate(context, "addpro")),
-      ),
-      body: SingleChildScrollView(
-        child: Form(
-          key: form,
-          child: Padding(
-            padding: const EdgeInsets.all(12.0),
-            child: Padding(
-              padding: const EdgeInsets.only(left: 23, right: 23),
-              child: Column(
-                children: [
-                  Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Text(
-                          mytranslate(context, "namepro"),
-                          style: const TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 18),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 8.0, bottom: 15),
-                          child: MyProTextField(
-                            controller: nameProduct,
-                            obcure: false,
-                            label: product.data!.productData!.titleAr!,
-                            validate: (value) {
-                              if (value!.isEmpty) {
-                                return 'You should Fill Field!!';
-                              }
-                            },
-                          ),
-                        ),
-                        Text(
-                          mytranslate(context, "price"),
-                          style: const TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 18),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 8.0, bottom: 15),
-                          child: MyProTextField(
-                            controller: priceProduct,
-                            obcure: false,
-                            label: product.data!.productData!.price!,
-                            validate: (value) {
-                              if (value!.isEmpty) {
-                                return 'You should Fill Field!!';
-                              }
-                            },
-                          ),
-                        ),
-                        Text(
-                          mytranslate(context, "amount"),
-                          style: const TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 18),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 8.0, bottom: 15),
-                          child: MyProTextField(
-                            controller: amountProduct,
-                            obcure: false,
-                            label: product.data!.productData!.many!,
-                            validate: (value) {
-                              if (value!.isEmpty) {
-                                return 'You should Fill Field!!';
-                              }
-                            },
-                          ),
-                        ),
-                        Text(
-                          mytranslate(context, "describe"),
-                          style: const TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 18),
-                        ),
-                        SizedBox(
-                          height: MediaQuery.of(context).size.height * .17,
-                          width: MediaQuery.of(context).size.width,
-                          child: Padding(
-                            padding:
-                                const EdgeInsets.only(top: 8.0, bottom: 15),
-                            child: MyDescribeTextField(
-                                controller: describeProduct,
-                                label: product.data!.productData!.descAr!,
-                                maxline: 10,
+                    }),
+                    child: Icon(Icons.delete, color: myBlue)),
+              )
+            ],
+            title: Text(mytranslate(context, "addpro")),
+          ),
+          body: SingleChildScrollView(
+            child: Form(
+              key: form,
+              child: Padding(
+                padding: const EdgeInsets.all(12.0),
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 23, right: 23),
+                  child: Column(
+                    children: [
+                      Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Text(
+                              mytranslate(context, "namepro"),
+                              style: const TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 18),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(top: 8.0, bottom: 15),
+                              child: MyProTextField(
+                                controller: nameProduct,
+                                obcure: false,
                                 validate: (value) {
                                   if (value!.isEmpty) {
                                     return 'You should Fill Field!!';
                                   }
-                                }),
-                          ),
-                        ),
-                      ]),
-                  BlocBuilder<ProductCubit, ProductStates>(
-                    builder: (context, state) {
-                      final cubit = ProductCubit.get(context);
-                      final list = ShopCubit.get(context).categoryModel;
-                      return Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.all(10.0),
-                                child: Text(
-                                  mytranslate(context, "size"),
-                                  style: const TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 18),
-                                ),
+                                },
                               ),
-                            ],
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(
-                                top: 8.0, left: 20, right: 30),
-                            child: Wrap(
-                              children: [
-                                const Padding(
-                                  padding: EdgeInsets.only(top: 8.0),
-                                  child: Text(
-                                    "S",
-                                    style: TextStyle(fontSize: 16),
-                                  ),
-                                ),
-                                Checkbox(
-                                    value: product.data!.productData!.s == '1'
-                                        ? true
-                                        : false,
-                                    onChanged: (value) {
-                                      cubit.changeSChecked(value!);
-                                    },
-                                    activeColor: myBlue),
-                                const SizedBox(
-                                  width: 3,
-                                ),
-                                const Padding(
-                                  padding: EdgeInsets.only(top: 8.0),
-                                  child: Text(
-                                    "M",
-                                    style: TextStyle(fontSize: 16),
-                                  ),
-                                ),
-                                Checkbox(
-                                    value: product.data!.productData!.m == '1'
-                                        ? true
-                                        : false,
-                                    onChanged: (value) {
-                                      cubit.changetwoMChecked(value!);
-                                    },
-                                    activeColor: myBlue),
-                                const Padding(
-                                  padding: EdgeInsets.only(top: 8.0),
-                                  child: Text(
-                                    "L",
-                                    style: TextStyle(fontSize: 16),
-                                  ),
-                                ),
-                                const SizedBox(
-                                  width: 3,
-                                ),
-                                Checkbox(
-                                    value: product.data!.productData!.l == '1'
-                                        ? cubit.la = true
-                                        : cubit.la = false,
-                                    onChanged: (value) {
-                                      cubit.changelChecked(value!);
-                                    },
-                                    activeColor: myBlue),
-                                const SizedBox(
-                                  width: 3,
-                                ),
-                                const Padding(
-                                  padding: EdgeInsets.only(top: 8.0),
-                                  child: Text(
-                                    "XL",
-                                    style: TextStyle(fontSize: 16),
-                                  ),
-                                ),
-                                Checkbox(
-                                    value: product.data!.productData!.xl == '1'
-                                        ? true
-                                        : false,
-                                    onChanged: (value) {
-                                      cubit.changexlChecked(value!);
-                                    },
-                                    activeColor: myBlue),
-                                const SizedBox(
-                                  width: 3,
-                                ),
-                                const Padding(
-                                  padding: EdgeInsets.only(
-                                    top: 8.0,
-                                  ),
-                                  child: Text(
-                                    "2XL",
-                                    style: TextStyle(fontSize: 16),
-                                  ),
-                                ),
-                                Checkbox(
-                                    value:
-                                        product.data!.productData!.s2xl == ' 1'
-                                            ? true
-                                            : false,
-                                    onChanged: (value) {
-                                      ProductCubit.get(context)
-                                          .changetwoXlChecked(value!);
-                                    },
-                                    activeColor: myBlue),
-                                const Padding(
-                                  padding: EdgeInsets.only(
-                                    top: 8.0,
-                                  ),
-                                  child: Text(
-                                    "3XL",
-                                    style: TextStyle(fontSize: 16),
-                                  ),
-                                ),
-                                Checkbox(
-                                    value:
-                                        product.data!.productData!.s3xl == '1'
-                                            ? true
-                                            : false,
-                                    // value: cubit.three_xll,
-                                    onChanged: (value) {
-                                      cubit.changeThreeXlChecked(value!);
-                                    },
-                                    activeColor: myBlue),
-                                const SizedBox(
-                                  width: 3,
-                                ),
-                                const Padding(
-                                  padding: EdgeInsets.only(top: 8.0),
-                                  child: Text(
-                                    "4XL",
-                                    style: TextStyle(fontSize: 16),
-                                  ),
-                                ),
-                                Checkbox(
-                                    value:
-                                        product.data!.productData!.s4xl == '1'
-                                            ? true
-                                            : false,
-                                    onChanged: (value) {
-                                      cubit.change4XlChecked(value!);
-                                    },
-                                    activeColor: myBlue),
-                              ],
                             ),
-                          ),
-                          // Center(
-                          //   child: MaterialButton(
-                          //       color: myBlue,
-                          //       textColor: Colors.white,
-                          //       onPressed: () {
-                          //         ShopCubit.get(context).edit = true;
-                          //       },
-                          //       child: const Text('Edit Sizes')),
-                          // ),
-                          // if (ShopCubit.get(context).edit)
-                          //   Wrap(
-                          //     children: [
-                          //       const Padding(
-                          //         padding: EdgeInsets.only(top: 8.0),
-                          //         child: Text(
-                          //           "S",
-                          //           style: TextStyle(fontSize: 16),
-                          //         ),
-                          //       ),
-                          //       Checkbox(
-                          //           value: cubit.sm,
-                          //           onChanged: (value) {
-                          //             cubit.changeSChecked(value!);
-                          //           },
-                          //           activeColor: myBlue),
-                          //       const SizedBox(
-                          //         width: 3,
-                          //       ),
-                          //       const Padding(
-                          //         padding: EdgeInsets.only(top: 8.0),
-                          //         child: Text(
-                          //           "M",
-                          //           style: TextStyle(fontSize: 16),
-                          //         ),
-                          //       ),
-                          //       Checkbox(
-                          //           value: cubit.me,
-                          //           onChanged: (value) {
-                          //             cubit.changetwoMChecked(value!);
-                          //           },
-                          //           activeColor: myBlue),
-                          //       const Padding(
-                          //         padding: EdgeInsets.only(top: 8.0),
-                          //         child: Text(
-                          //           "L",
-                          //           style: TextStyle(fontSize: 16),
-                          //         ),
-                          //       ),
-                          //       const SizedBox(
-                          //         width: 3,
-                          //       ),
-                          //       Checkbox(
-                          //           value: cubit.la,
-                          //           onChanged: (value) {
-                          //             cubit.changelChecked(value!);
-                          //           },
-                          //           activeColor: myBlue),
-                          //       const SizedBox(
-                          //         width: 3,
-                          //       ),
-                          //       const Padding(
-                          //         padding: EdgeInsets.only(top: 8.0),
-                          //         child: Text(
-                          //           "XL",
-                          //           style: TextStyle(fontSize: 16),
-                          //         ),
-                          //       ),
-                          //       Checkbox(
-                          //           value: cubit.xla,
-                          //           onChanged: (value) {
-                          //             cubit.changexlChecked(value!);
-                          //           },
-                          //           activeColor: myBlue),
-                          //       const SizedBox(
-                          //         width: 3,
-                          //       ),
-                          //       const Padding(
-                          //         padding: EdgeInsets.only(
-                          //           top: 8.0,
-                          //         ),
-                          //         child: Text(
-                          //           "2XL",
-                          //           style: TextStyle(fontSize: 16),
-                          //         ),
-                          //       ),
-                          //       Checkbox(
-                          //           value: cubit.two_xlla,
-                          //           onChanged: (value) {
-                          //             ProductCubit.get(context)
-                          //                 .changetwoXlChecked(value!);
-                          //           },
-                          //           activeColor: myBlue),
-                          //       const Padding(
-                          //         padding: EdgeInsets.only(
-                          //           top: 8.0,
-                          //         ),
-                          //         child: Text(
-                          //           "3XL",
-                          //           style: TextStyle(fontSize: 16),
-                          //         ),
-                          //       ),
-                          //       Checkbox(
-                          //           value: cubit.three_xlla,
-                          //           // value: cubit.three_xll,
-                          //           onChanged: (value) {
-                          //             cubit.changeThreeXlChecked(value!);
-                          //           },
-                          //           activeColor: myBlue),
-                          //       const SizedBox(
-                          //         width: 3,
-                          //       ),
-                          //       const Padding(
-                          //         padding: EdgeInsets.only(top: 8.0),
-                          //         child: Text(
-                          //           "4XL",
-                          //           style: TextStyle(fontSize: 16),
-                          //         ),
-                          //       ),
-                          //       Checkbox(
-                          //           value: cubit.four_xlla,
-                          //           onChanged: (value) {
-                          //             cubit.change4XlChecked(value!);
-                          //           },
-                          //           activeColor: myBlue),
-                          //     ],
-                          //   ),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 10, bottom: 10),
-                            child: Text(
-                              mytranslate(context, "typepro"),
+                            Text(
+                              mytranslate(context, "price"),
                               style: const TextStyle(
                                   fontWeight: FontWeight.bold, fontSize: 18),
                             ),
-                          ),
+                            Padding(
+                              padding: const EdgeInsets.only(top: 8.0, bottom: 15),
+                              child: MyProTextField(
+                                controller: priceProduct,
+                                obcure: false,
+                                validate: (value) {
+                                  if (value!.isEmpty) {
+                                    return 'You should Fill Field!!';
+                                  }
+                                },
+                              ),
+                            ),
+                            Text(
+                              mytranslate(context, "amount"),
+                              style: const TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 18),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(top: 8.0, bottom: 15),
+                              child: MyProTextField(
+                                controller: amountProduct,
+                                obcure: false,
+                                validate: (value) {
+                                  if (value!.isEmpty) {
+                                    return 'You should Fill Field!!';
+                                  }
+                                },
+                              ),
+                            ),
+                            Text(
+                              mytranslate(context, "describe"),
+                              style: const TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 18),
+                            ),
+                            SizedBox(
+                              height: MediaQuery.of(context).size.height * .17,
+                              width: MediaQuery.of(context).size.width,
+                              child: Padding(
+                                padding:
+                                const EdgeInsets.only(top: 8.0, bottom: 15),
+                                child: MyDescribeTextField(
+                                    controller: describeProduct,
+                                    label: product.data!.productData!.descAr!,
+                                    maxline: 10,
+                                    validate: (value) {
+                                      if (value!.isEmpty) {
+                                        return 'You should Fill Field!!';
+                                      }
+                                    }),
+                              ),
+                            ),
+                          ]),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
                           Padding(
-                            padding:
-                                const EdgeInsets.only(top: 12.0, bottom: 15),
-                            child: Row(
-                              children: [
-                                Text(
-                                  mytranslate(context, "type"),
-                                  style: const TextStyle(
-                                      color: Colors.grey,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 15),
-                                ),
-                                const SizedBox(
-                                  width: 15,
-                                ),
-                                Expanded(
-                                  child: DecoratedBox(
-                                    decoration: BoxDecoration(
-                                        color: Colors
-                                            .white, //background color of dropdown button
-                                        border: Border.all(
-                                            color: myGrey!,
-                                            width:
-                                                3), //border of dropdown button
-                                        borderRadius: BorderRadius.circular(
-                                            30), //border raiuds of dropdown button
-                                        boxShadow: <BoxShadow>[
-                                          //apply shadow on Dropdown button
-                                          BoxShadow(
-                                              color: myBlue,
-                                              blurRadius:
-                                                  0.1), //shadow for button
-                                        ]),
-                                    child: DropdownButton(
-                                      focusColor: myBlue,
-
-                                      isExpanded: true,
-                                      underline: const SizedBox(),
-                                      elevation: 2,
-                                      hint: cubit.catSelect == null
-                                          ? Padding(
-                                              padding:
-                                                  const EdgeInsets.all(8.0),
-                                              child: Center(
-                                                child: Text(
-                                                  mytranslate(
-                                                      context, "service"),
-                                                  style: TextStyle(
-                                                      color: myBlue,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      fontSize: 20),
-                                                ),
-                                              ),
-                                            )
-                                          : Padding(
-                                              padding:
-                                                  const EdgeInsets.all(4.0),
-                                              child: Center(
-                                                child: Text(cubit.catSelect!,
-                                                    textAlign: TextAlign.center,
-                                                    style: TextStyle(
-                                                        color: myBlue,
-                                                        fontSize: 20,
-                                                        fontWeight:
-                                                            FontWeight.bold)),
-                                              ),
-                                            ),
-                                      // value: cubit.catSelect??,
-                                      icon: Icon(
-                                        Icons.keyboard_arrow_down_sharp,
-                                        color: myBlue,
-                                        size: 35,
-                                      ),
-                                      items: list!.data!
-                                          .map<DropdownMenuItem<CatItem>>(
-                                              (cat) => DropdownMenuItem(
-                                                    value: cat,
-                                                    child: Center(
-                                                      child: Text(cat.title!),
-                                                    ),
-                                                  ))
-                                          .toList(),
-                                      onChanged: (val) {
-                                        cubit.changeSelectCategory(val);
-                                      },
-                                    ),
-                                  ),
-                                ),
-                              ],
+                            padding: const EdgeInsets.all(10.0),
+                            child: Text(
+                              mytranslate(context, "size"),
+                              style: const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 18),
                             ),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Center(
-                                child: Text(
+                        ],
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(
+                            top: 8.0, left: 20, right: 30),
+                        child: Wrap(
+                          children: [
+                            const Padding(
+                              padding: EdgeInsets.only(top: 8.0),
+                              child: Text(
+                                "S",
+                                style: TextStyle(fontSize: 16),
+                              ),
+                            ),
+                            Checkbox(
+                                value:cubit.sm,
+                                onChanged: (value) {
+                                  cubit.changeSChecked(value!);
+                                },
+                                activeColor: myBlue),
+                            const SizedBox(
+                              width: 3,
+                            ),
+                            const Padding(
+                              padding: EdgeInsets.only(top: 8.0),
+                              child: Text(
+                                "M",
+                                style: TextStyle(fontSize: 16),
+                              ),
+                            ),
+                            Checkbox(
+                                value: cubit.me,
+                                onChanged: (value) {
+                                  cubit.changetwoMChecked(value!);
+                                },
+                                activeColor: myBlue),
+                            const Padding(
+                              padding: EdgeInsets.only(top: 8.0),
+                              child: Text(
+                                "L",
+                                style: TextStyle(fontSize: 16),
+                              ),
+                            ),
+                            const SizedBox(
+                              width: 3,
+                            ),
+                            Checkbox(
+                                value:cubit.la,
+                                onChanged: (value) {
+                                  cubit.changelChecked(value!);
+                                },
+                                activeColor: myBlue),
+                            const SizedBox(
+                              width: 3,
+                            ),
+                            const Padding(
+                              padding: EdgeInsets.only(top: 8.0),
+                              child: Text(
+                                "XL",
+                                style: TextStyle(fontSize: 16),
+                              ),
+                            ),
+                            Checkbox(
+                                value:cubit.xla,
+                                onChanged: (value) {
+                                  cubit.changexlChecked(value!);
+                                  print(value);
+                                },
+                                activeColor: myBlue),
+                            const SizedBox(
+                              width: 3,
+                            ),
+                            const Padding(
+                              padding: EdgeInsets.only(
+                                top: 8.0,
+                              ),
+                              child: Text(
+                                "2XL",
+                                style: TextStyle(fontSize: 16),
+                              ),
+                            ),
+                            Checkbox(
+                                value:cubit.two_xlla,
+                                onChanged: (value) {
+                                  ProductCubit.get(context).changetwoXlChecked(value!);
+
+                                },
+                                activeColor: myBlue),
+                            const Padding(
+                              padding: EdgeInsets.only(
+                                top: 8.0,
+                              ),
+                              child: Text(
+                                "3XL",
+                                style: TextStyle(fontSize: 16),
+                              ),
+                            ),
+                            Checkbox(
+                                value:cubit.three_xlla,
+                                // value: cubit.three_xll,
+                                onChanged: (value) {
+                                  cubit.changeThreeXlChecked(value!);
+                                  print(value);
+                                },
+                                activeColor: myBlue),
+                            const SizedBox(
+                              width: 3,
+                            ),
+                            const Padding(
+                              padding: EdgeInsets.only(top: 8.0),
+                              child: Text(
+                                "4XL",
+                                style: TextStyle(fontSize: 16),
+                              ),
+                            ),
+                            Checkbox(
+                                value: cubit.four_xlla,
+                                onChanged: (value) {
+                                  cubit.change4XlChecked(value!);
+                                },
+                                activeColor: myBlue),
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 10, bottom: 10),
+                        child: Text(
+                          mytranslate(context, "typepro"),
+                          style: const TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 18),
+                        ),
+                      ),
+                      Padding(
+                        padding:
+                        const EdgeInsets.only(top: 12.0, bottom: 15),
+                        child: Row(
+                          children: [
+                            Text(
+                              mytranslate(context, "type"),
+                              style: const TextStyle(
+                                  color: Colors.grey,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 15),
+                            ),
+                            const SizedBox(
+                              width: 15,
+                            ),
+                            Expanded(
+                              child: DecoratedBox(
+                                decoration: BoxDecoration(
+                                    color: Colors
+                                        .white, //background color of dropdown button
+                                    border: Border.all(
+                                        color: myGrey!,
+                                        width:
+                                        3), //border of dropdown button
+                                    borderRadius: BorderRadius.circular(
+                                        30), //border raiuds of dropdown button
+                                    boxShadow: <BoxShadow>[
+                                      //apply shadow on Dropdown button
+                                      BoxShadow(
+                                          color: myBlue,
+                                          blurRadius:
+                                          0.1), //shadow for button
+                                    ]),
+                                child: DropdownButton(
+                                  focusColor: myBlue,
+                                  isExpanded: true,
+                                  underline: const SizedBox(),
+                                  elevation: 2,
+                                  hint: cubit.catSelect == null
+                                      ? Padding(
+                                    padding:
+                                    const EdgeInsets.all(8.0),
+                                    child: Center(
+                                      child: Text(
+                                        mytranslate(
+                                            context, "service"),
+                                        style: TextStyle(
+                                            color: myBlue,
+                                            fontWeight:
+                                            FontWeight.bold,
+                                            fontSize: 20),
+                                      ),
+                                    ),
+                                  )
+                                      : Padding(
+                                    padding:
+                                    const EdgeInsets.all(4.0),
+                                    child: Center(
+                                      child: Text(cubit.catSelect!,
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                              color: myBlue,
+                                              fontSize: 20,
+                                              fontWeight:
+                                              FontWeight.bold)),
+                                    ),
+                                  ),
+                                  // value: cubit.catSelect??,
+                                  icon: Icon(
+                                    Icons.keyboard_arrow_down_sharp,
+                                    color: myBlue,
+                                    size: 35,
+                                  ),
+                                  items: list!.data!
+                                      .map<DropdownMenuItem<CatItem>>(
+                                          (cat) => DropdownMenuItem(
+                                        value: cat,
+                                        child: Center(
+                                          child: Text(cat.title!),
+                                        ),
+                                      ))
+                                      .toList(),
+                                  onChanged: (val) {
+                                    cubit.changeSelectCategory(val);
+                                  },
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Center(
+                            child: Text(
                               mytranslate(context, "imagepro"),
                               style: const TextStyle(
                                   fontWeight: FontWeight.bold, fontSize: 18),
                             )),
-                          ),
-                          DecoratedBox(
-                            decoration: BoxDecoration(
-                                color: Colors
-                                    .white, //background color of dropdown button
-                                border: Border.all(
-                                    color: myGrey!,
-                                    width: 3), //border of dropdown button
-                                borderRadius: BorderRadius.circular(
-                                    30), //border raiuds of dropdown button
-                                boxShadow: <BoxShadow>[
-                                  //apply shadow on Dropdown button
-                                  BoxShadow(
-                                      color: myBlue,
-                                      blurRadius: 0.1), //shadow for button
-                                ]),
-                            child: Padding(
-                              padding: const EdgeInsets.all(13.0),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  product.data!.images!.isNotEmpty
-                                      ? SizedBox(
-                                          height: 150,
-                                          width:
-                                              MediaQuery.of(context).size.width,
-                                          child: GridView.builder(
-                                              gridDelegate:
-                                                  const SliverGridDelegateWithMaxCrossAxisExtent(
-                                                      maxCrossAxisExtent: 200,
-                                                      childAspectRatio: 3 / 2,
-                                                      crossAxisSpacing: 20,
-                                                      mainAxisSpacing: 20),
-                                              itemCount:
-                                                  product.data!.images!.length,
-                                              itemBuilder:
-                                                  (BuildContext ctx, index) {
-                                                return state
-                                                        is DeletingImageProduct
-                                                    ? Stack(
-                                                        alignment: Alignment
-                                                            .bottomRight,
-                                                        children: [
-                                                            Container(
-                                                              alignment:
-                                                                  Alignment
-                                                                      .center,
-                                                              decoration: BoxDecoration(
-                                                                  borderRadius:
-                                                                      BorderRadius
-                                                                          .circular(
-                                                                              15),
-                                                                  color: myGrey,
-                                                                  image: DecorationImage(
-                                                                      image: NetworkImage(product
-                                                                          .data!
-                                                                          .images![
-                                                                              index]
-                                                                          .logo!))),
-                                                            ),
-                                                            InkWell(
-                                                              onTap: () {
-                                                                cubit.deleteImage(
-                                                                    id: product
-                                                                        .data!
-                                                                        .images![
-                                                                            index]
-                                                                        .id!);
-                                                              },
-                                                              child:
-                                                                  CircleAvatar(
-                                                                radius: 10,
-                                                                backgroundColor:
-                                                                    myGrey,
-                                                                child: const Icon(
-                                                                    Icons
-                                                                        .cancel),
-                                                              ),
-                                                            )
-                                                          ])
-                                                    : Stack(
-                                                        alignment: Alignment
-                                                            .bottomRight,
-                                                        children: [
-                                                            Container(
-                                                              alignment:
-                                                                  Alignment
-                                                                      .center,
-                                                              decoration: BoxDecoration(
-                                                                  borderRadius:
-                                                                      BorderRadius
-                                                                          .circular(
-                                                                              15),
-                                                                  color: myGrey,
-                                                                  image: DecorationImage(
-                                                                      image: NetworkImage(product
-                                                                          .data!
-                                                                          .images![
-                                                                              index]
-                                                                          .logo!))),
-                                                            ),
-                                                            InkWell(
-                                                              onTap: () {
-                                                                cubit.deleteImage(
-                                                                    id: product
-                                                                        .data!
-                                                                        .images![
-                                                                            index]
-                                                                        .id!);
-                                                              },
-                                                              child:
-                                                                  CircleAvatar(
-                                                                radius: 10,
-                                                                backgroundColor:
-                                                                    myGrey,
-                                                                child: const Icon(
-                                                                    Icons
-                                                                        .cancel),
-                                                              ),
-                                                            )
-                                                          ]);
-                                              }),
-                                        )
-                                      : Center(
-                                          child: Text(
-                                            mytranslate(context, "delete"),
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                color: Colors.grey[400]),
-                                          ),
-                                        ),
-                                  cubit.imageFileList.isNotEmpty
-                                      ? SizedBox(
-                                          height: 150,
-                                          width:
-                                              MediaQuery.of(context).size.width,
-                                          child: CarouselSlider.builder(
-                                            options:
-                                                CarouselOptions(autoPlay: true),
-                                            itemCount:
-                                                cubit.imageFileList.length,
-                                            itemBuilder: (BuildContext context,
-                                                    int itemIndex,
-                                                    int pageViewIndex) =>
-                                                Container(
-                                                    child: Image.file(File(cubit
-                                                        .imageFileList[
-                                                            itemIndex]
-                                                        .path))),
-                                          ),
-                                        )
-                                      : Center(
-                                          child: Text(
-                                            mytranslate(context, "yet"),
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                color: Colors.grey[400]),
-                                          ),
-                                        ),
-                                  Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Container(
-                                      width: MediaQuery.of(context).size.width *
-                                          .40,
-                                      height:
-                                          MediaQuery.of(context).size.height *
-                                              .06,
-                                      decoration: BoxDecoration(
-                                          color: myBlue,
-                                          shape: BoxShape.rectangle,
-                                          borderRadius:
-                                              BorderRadius.circular(20)),
-                                      child: MaterialButton(
-                                        onPressed: () async {
-                                          cubit.selectImages(context);
-                                        },
-                                        child:
-                                            Text(mytranslate(context, "select"),
-                                                style: const TextStyle(
-                                                  color: Colors.white,
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize: 16,
-                                                )),
-                                      ),
-                                    ),
-                                  ),
-                                  Text(
-                                      "${mytranslate(context, "choose")}${cubit.imageFileList.length}  ${mytranslate(context, "images")}")
-                                ],
+                      ),
+                      DecoratedBox(
+                        decoration: BoxDecoration(
+                            color: Colors
+                                .white, //background color of dropdown button
+                            border: Border.all(
+                                color: myGrey!,
+                                width: 3), //border of dropdown button
+                            borderRadius: BorderRadius.circular(
+                                30), //border raiuds of dropdown button
+                            boxShadow: <BoxShadow>[
+                              //apply shadow on Dropdown button
+                              BoxShadow(
+                                  color: myBlue,
+                                  blurRadius: 0.1), //shadow for button
+                            ]),
+                        child: Padding(
+                          padding: const EdgeInsets.all(13.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              product.data!.images!.isNotEmpty
+                                  ? SizedBox(
+                                height: 150,
+                                width:
+                                MediaQuery.of(context).size.width,
+                                child: GridView.builder(
+                                    gridDelegate:
+                                    const SliverGridDelegateWithMaxCrossAxisExtent(
+                                        maxCrossAxisExtent: 200,
+                                        childAspectRatio: 3 / 2,
+                                        crossAxisSpacing: 20,
+                                        mainAxisSpacing: 20),
+                                    itemCount:listimage!.length,
+                                    itemBuilder:
+                                        (BuildContext ctx, index) {
+                                      return Stack(
+                                          alignment: Alignment
+                                              .bottomRight,
+                                          children: [
+                                            Container(
+                                              alignment: Alignment.center,
+                                              decoration: BoxDecoration(
+                                                  borderRadius: BorderRadius.circular(15),
+                                                  color: myGrey,
+                                                  image: DecorationImage(
+                                                      image: NetworkImage(product.data!.images![index].logo!))),
+                                            ),
+                                            InkWell(
+                                              onTap: () {
+                                                showDialog(
+                                                    context:
+                                                    context,
+                                                    builder: (BuildContext context) => CustomDialog(
+                                                        text: mytranslate(context, "verifydel"),
+                                                        onTap: () {
+                                                          ProductCubit.get(context).deleteImage(id: product.data!.images![index].id!).then((value) {
+                                                            ProductCubit.get(context).showPro(39).then((value) {
+                                                              Navigator.pop(context,true);
+                                                            });
+                                                          });
+                                                        }
+                                                    ));
+                                              },
+                                              child:
+                                              CircleAvatar(
+                                                radius: 10,
+                                                backgroundColor:
+                                                myGrey,
+                                                child: const Icon(
+                                                    Icons
+                                                        .cancel),
+                                              ),
+                                            )
+                                          ]);
+                                    }),
+                              )
+                                  : Center(
+                                child: Text(
+                                  mytranslate(context, "delete"),
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.grey[400]),
+                                ),
                               ),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(20.0),
-                            child: Center(
-                              child: Container(
-                                width: MediaQuery.of(context).size.width * .40,
-                                height: MediaQuery.of(context).size.height * .1,
-                                decoration: BoxDecoration(
-                                    color: myBlue,
-                                    shape: BoxShape.rectangle,
-                                    borderRadius: BorderRadius.circular(20)),
-                                child: MaterialButton(
-                                  onPressed: () async {
-                                    print(typeProduct.text.toString());
-                                    List y = [];
-                                    for (var x in ProductCubit.get(context)
-                                        .imageFileList) {
-                                      y.add(MultipartFile.fromFileSync(x.path));
-                                    }
-                                    cubit.update(
-                                      price: priceProduct.text == ""
-                                          ? product.data!.productData!.price
-                                          : priceProduct.text,
-                                      descAr: describeProduct.text == ""
-                                          ? product.data!.productData!.descAr
-                                          : describeProduct.text,
-                                      descEn: "dawdwa",
-                                      many: amountProduct.text == ""
-                                          ? product.data!.productData!.many
-                                          : amountProduct.text,
-                                      tittleAr: nameProduct.text == ""
-                                          ? product.data!.productData!.titleAr
-                                          : nameProduct.text,
-                                      tittleEn: "dwadwad",
-                                      s: cubit.s,
-                                      m: cubit.m,
-                                      l: cubit.l,
-                                      xl: cubit.xl,
-                                      fourxl: cubit.four_xll,
-                                      twoXl: cubit.two_xll,
-                                      threexl: cubit.three_xll,
-                                      img: y,
-                                    );
-                                  },
-                                  child: Text(
-                                    mytranslate(context, "update"),
-                                    style: const TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 18),
+                              cubit.imageFileList.isNotEmpty
+                                  ? SizedBox(
+                                height: 150,
+                                width:
+                                MediaQuery.of(context).size.width,
+                                child: CarouselSlider.builder(
+                                  options:
+                                  CarouselOptions(autoPlay: true),
+                                  itemCount:
+                                  cubit.imageFileList.length,
+                                  itemBuilder: (BuildContext context,
+                                      int itemIndex,
+                                      int pageViewIndex) =>
+                                      Container(
+                                          child: Image.file(File(cubit.imageFileList[itemIndex].path))),
+                                ),
+                              )
+                                  : Center(
+                                child: Text(
+                                  mytranslate(context, "yet"),
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.grey[400]),
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Container(
+                                  width: MediaQuery.of(context).size.width * .40,
+                                  height:
+                                  MediaQuery.of(context).size.height *
+                                      .06,
+                                  decoration: BoxDecoration(
+                                      color: myBlue,
+                                      shape: BoxShape.rectangle,
+                                      borderRadius:
+                                      BorderRadius.circular(20)),
+                                  child: MaterialButton(
+                                    onPressed: () async {
+                                      cubit.selectImages(context);
+                                    },
+                                    child:
+                                    Text(mytranslate(context, "select"),
+                                        style: const TextStyle(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 16,
+                                        )),
                                   ),
                                 ),
                               ),
+                              Text(
+                                  "${mytranslate(context, "choose")}${cubit.imageFileList.length}  ${mytranslate(context, "images")}")
+                            ],
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(20.0),
+                        child: Center(
+                          child: Container(
+                            width: MediaQuery.of(context).size.width * .40,
+                            height: MediaQuery.of(context).size.height * .1,
+                            decoration: BoxDecoration(
+                                color: myBlue,
+                                shape: BoxShape.rectangle,
+                                borderRadius: BorderRadius.circular(20)),
+                            child: MaterialButton(
+                              onPressed: () async {
+                                print(typeProduct.text.toString());
+                                List y = [];
+                                for (var x in ProductCubit.get(context).imageFileList) {
+                                  y.add(MultipartFile.fromFileSync(x.path));
+                                }
+                                cubit.update(
+                                  price:priceProduct.text,
+                                  descAr:describeProduct.text,
+                                  descEn: "dawdwa",
+                                  many: amountProduct.text,
+                                  tittleAr: nameProduct.text,
+                                  tittleEn: "dwadwad",
+                                  id:39 ,
+                                  img: y.isEmpty ? product.data!.images : y,
+                                );
+                              },
+                              child: Text(
+                                mytranslate(context, "update"),
+                                style: const TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 18),
+                              ),
                             ),
                           ),
-                        ],
-                      );
-                    },
+                        ),
+                      ),
+                    ],
                   ),
-                ],
+                    ],
+                  ),
+                ),
               ),
             ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 }
