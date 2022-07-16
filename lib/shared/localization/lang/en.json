@@ -52,5 +52,9 @@
    "type": "Choose The Type",
    "delete": "You deleted all product images",
    "update": "Update",
-   "verifydel": "Are you sure want to delets?"
+   "verifydel": "Are you sure want to delets?",
+   "last": "Sorry,You can't clear last image!",
+   "cat": "Error..Please Choose type of product",
+   "ok": "Okey",
+   "upd": "Updating Done"
 }

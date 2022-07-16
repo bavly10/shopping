@@ -9,6 +9,8 @@ import 'package:shopping/shared/diohelper/dioHelpoer.dart';
 import 'package:shopping/shared/localization/translate.dart';
 import 'package:shopping/shared/network.dart';
 
+import '../../../../shared/verification_dialog.dart';
+
 class ProductCubit extends Cubit<ProductStates> {
   ProductCubit() : super(ProductShop_InitalState());
 
@@ -66,7 +68,6 @@ class ProductCubit extends Cubit<ProductStates> {
     }).catchError((error) {
       print(error.toString());
       emit(failProduct());
-
     });
   }
 
@@ -154,7 +155,16 @@ class ProductCubit extends Cubit<ProductStates> {
   }
 
   ////////////////////////update/////////////////
-  Future update({int? id, String? tittleAr, String? tittleEn, price, many, String? descAr, String? descEn, img}) async {
+  Future update(
+      {int? id,
+      String? tittleAr,
+      String? tittleEn,
+      price,
+      many,
+      String? descAr,
+      String? descEn,
+      img,
+      context}) async {
     Map<String, dynamic> header = {
       "auth-token":
           "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2thc2g1dGFrLmNvbS9hcGkvbG9naW4iLCJpYXQiOjE2NTc3MTExMjAsImV4cCI6MTY1ODMxNTkyMCwibmJmIjoxNjU3NzExMTIwLCJqdGkiOiJoZDdPOWxRVm4zdGg4aEJqIiwic3ViIjoiNyIsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.ybeuLPcOA5KEbqQD52KthLquRwh2o1T9ujWUVqeujL0"
@@ -179,20 +189,22 @@ class ProductCubit extends Cubit<ProductStates> {
     });
     DioHelper.postData1(url: updateProduct, data: formData, option: header)
         .then((value) {
-      debugPrint(value.data.toString());
+      print(value.data.toString());
+      emit(UpdatingSueccs());
+
       print("done");
     }).catchError((error) {
       print(error.toString());
     });
   }
 
-  int s=0;
-  int m=0;
-  int l=0;
-  int xl=0;
-  int two_xll=0;
-  int three_xll=0;
-  int four_xll=0;
+  int s = 0;
+  int m = 0;
+  int l = 0;
+  int xl = 0;
+  int two_xll = 0;
+  int three_xll = 0;
+  int four_xll = 0;
   bool sm = false;
   bool me = false;
   bool la = false;

@@ -23,7 +23,11 @@ class ChangeCheckedSsztate extends ProductStates {}
 class Changestate extends ProductStates {}
 
 class loadingProduct extends ProductStates {}
+
 class ShowingProduct extends ProductStates {}
+
 class failProduct extends ProductStates {}
 
 class DeletingImageProduct extends ProductStates {}
+
+class UpdatingSueccs extends ProductStates {}

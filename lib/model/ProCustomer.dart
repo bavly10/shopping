@@ -34,6 +34,7 @@ class ProsCustomerModel {
 
 class ProCustomer {
   ProCustomer({
+    this.id,
     this.name,
     this.phone,
     this.address,
@@ -54,8 +55,10 @@ class ProCustomer {
   String? female;
   String? baby;
   String? logo;
+  int? id;
 
   factory ProCustomer.fromJson(Map<String, dynamic> json) => ProCustomer(
+    id: json["id"],
     name: json["name"],
     phone: json["phone"],
     address: json["address"],
