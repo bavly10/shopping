@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:shopping/Cubit/cubit.dart';
@@ -10,68 +11,121 @@ import 'package:shopping/shared/compononet/componotents.dart';
 import 'package:shopping/shared/my_colors.dart';
 
 class CustomerScreen extends StatelessWidget {
-   CustomerScreen({Key? key}) : super(key: key);
+  CustomerScreen({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    final prosCustomerModel=ShopCubit.get(context).prosCustomerModel;
+    final prosCustomerModel = ShopCubit.get(context).prosCustomerModel;
     return SizedBox(
       height: 400,
       width: double.infinity,
-      child: MasonryGridView.count(
-        physics: const BouncingScrollPhysics(),
-        shrinkWrap: true,
-        mainAxisSpacing: 150,
-        crossAxisSpacing: 3,
-        itemCount:  prosCustomerModel!.data!.length,
-        crossAxisCount: 2,
-        itemBuilder: (context, index) =>myCard(prosCustomerModel.data![index],context),
-      ),
+      child: GridView.custom(
+          physics: const BouncingScrollPhysics(),
+          gridDelegate: SliverWovenGridDelegate.count(
+            crossAxisCount: 2,
+            mainAxisSpacing: 4,
+            crossAxisSpacing: 4,
+            pattern: [
+              const WovenGridTile(12 / 16, crossAxisRatio: .9),
+              const WovenGridTile(
+                12 / 16,
+                crossAxisRatio: .9,
+                //alignment: AlignmentDirectional.bottomE,
+              ),
+            ],
+          ),
+          childrenDelegate: SliverChildBuilderDelegate(
+            (context, index) =>
+                myCard(prosCustomerModel!.data![index], context),
+            childCount: prosCustomerModel!.data!.length,
+          )),
     );
   }
-  Widget myCard(ProCustomer pro,context){
+  //myCard(prosCustomerModel.data![index],context),
+
+  Widget myCard(ProCustomer pro, context) {
     return InkWell(
-      onTap:(){
+      onTap: () {
         print(pro.name!);
-        navigateTo(context,  MainCustomer(id: 4,title: pro.name!,));
-      } ,
+        navigateTo(
+            context,
+            MainCustomer(
+              id: 4,
+              title: pro.name!,
+            ));
+      },
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Stack(
-          alignment: AlignmentDirectional.bottomCenter,
+          alignment: AlignmentDirectional.bottomEnd,
           children: [
-            SizedBox(
-              height: MediaQuery.of(context).size.height*0.35,
+            Container(
+              height: MediaQuery.of(context).size.height * 0.45,
               width: 250,
               child: CachedNetworkImage(
                 imageUrl: pro.logo!,
                 imageBuilder: (context, imageProvider) => Container(
                   decoration: BoxDecoration(
+                    shape: BoxShape.rectangle,
+                    color: Colors.grey,
                     borderRadius: BorderRadius.circular(45.0),
                     image: DecorationImage(
-                        image: imageProvider),
+                        image: imageProvider, fit: BoxFit.cover),
                   ),
                 ),
-                placeholder: (context, url) => const CircularProgressIndicator(),
+                placeholder: (context, url) =>
+                    const CircularProgressIndicator(),
                 errorWidget: (context, url, error) => const Icon(Icons.error),
               ),
-            ),
-            Container(
-              width:  MediaQuery.of(context).size.width*0.44,
               decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(25.0),
+                shape: BoxShape.rectangle,
+                color: Colors.grey,
+                borderRadius: BorderRadius.circular(45.0),
               ),
-              child: Column(
-                children: [
-                  Text(pro.name!,style: const TextStyle(color: Colors.black87,fontSize: 20),),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
+            ),
+            Positioned(
+              top: 151,
+              left: 10,
+              child: Center(
+                child: Container(
+                  width: MediaQuery.of(context).size.width * 0.35,
+                  height: 60,
+                  decoration: BoxDecoration(
+                    color: Colors.white70,
+                    borderRadius: BorderRadius.circular(20.0),
+                  ),
+                  child: Column(
                     children: [
-                      Icon(Icons.location_pin,size: 20,color: myBlack,),
-                      const SizedBox(width: 5,),
-                      Text(pro.address!)
-                    ],)
-                ],
+                      Text(
+                        pro.name!,
+                        style: TextStyle(
+                            color: myBlue,
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold),
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.location_pin,
+                            size: 20,
+                            color: Colors.black54,
+                          ),
+                          const SizedBox(
+                            width: 5,
+                          ),
+                          Text(
+                            pro.address!,
+                            style: TextStyle(
+                                color: myBlack,
+                                fontWeight: FontWeight.bold,
+                                fontStyle: FontStyle.italic,
+                                fontSize: 14),
+                          )
+                        ],
+                      )
+                    ],
+                  ),
+                ),
               ),
             ),
           ],
