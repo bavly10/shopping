@@ -16,7 +16,7 @@ class CustomerScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final prosCustomerModel = ShopCubit.get(context).prosCustomerModel;
     return SizedBox(
-      height: 400,
+      height: MediaQuery.of(context).size.height * .9,
       width: double.infinity,
       child: GridView.custom(
           physics: const BouncingScrollPhysics(),
@@ -60,7 +60,7 @@ class CustomerScreen extends StatelessWidget {
           children: [
             Container(
               height: MediaQuery.of(context).size.height * 0.45,
-              width: 250,
+              width: MediaQuery.of(context).size.height * 0.25,
               child: CachedNetworkImage(
                 imageUrl: pro.logo!,
                 imageBuilder: (context, imageProvider) => Container(
@@ -83,12 +83,12 @@ class CustomerScreen extends StatelessWidget {
               ),
             ),
             Positioned(
-              top: 151,
+              top: MediaQuery.of(context).size.width * .38,
               left: 10,
               child: Center(
                 child: Container(
                   width: MediaQuery.of(context).size.width * 0.35,
-                  height: 60,
+                  height: MediaQuery.of(context).size.height * .08,
                   decoration: BoxDecoration(
                     color: Colors.white70,
                     borderRadius: BorderRadius.circular(20.0),

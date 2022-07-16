@@ -17,8 +17,8 @@ class ProductCard extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Container(
-              height: 35,
-              width: 28,
+              height: MediaQuery.of(context).size.height * .04,
+              width: MediaQuery.of(context).size.width * .077,
               decoration: BoxDecoration(
                   color: Colors.black,
                   shape: BoxShape.rectangle,
@@ -39,8 +39,8 @@ class ProductCard extends StatelessWidget {
             alignment: Alignment.topLeft,
             child: Image(
               image: NetworkImage(productsItem.image!),
-              width: 150,
-              height: 100,
+              width: MediaQuery.of(context).size.width * .33,
+              height: MediaQuery.of(context).size.height * .13,
 
               // fit: BoxFit.cover,
             ),
@@ -62,7 +62,7 @@ class ProductCard extends StatelessWidget {
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
                         height: 1.4,
-                        fontSize: 14,
+                        fontSize: 16,
                         fontWeight: FontWeight.w600,
                         color: myBlue),
                   ),
