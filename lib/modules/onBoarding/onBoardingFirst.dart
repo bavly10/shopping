@@ -77,10 +77,10 @@ class OnBoardingFirst extends StatelessWidget {
                 padding: const EdgeInsets.all(16.0),
                 child: BlueButton(title: Text("ابدا التسوق",style: TextStyle(color: myWhite,fontSize: 18,fontWeight: FontWeight.bold)),hight:0.08 ,width: 0.80,icon: Icons.arrow_back,
                     onpress:(){
-                      ProductCubit.get(context).showPro(39).then((value) => {
-                      navigateTo(context, UpdateProduct(product: ProductCubit.get(context).showProd!,),)
-                      });
-                      // navigateToFinish(context, OnBoardingScreen());
+                      // ProductCubit.get(context).showPro(39).then((value) => {
+                      // navigateTo(context, UpdateProduct(product: ProductCubit.get(context).showProd!,),)
+                      // });
+                      navigateToFinish(context, OnBoardingScreen());
                     }),
               )
             ],
