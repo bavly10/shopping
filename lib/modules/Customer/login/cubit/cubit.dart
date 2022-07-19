@@ -44,9 +44,9 @@ class LoginCubit extends Cubit<LoginStates> {
 
   void getChangeColorMen() {
     changeColorMen = !changeColorMen;
-    if(changeColorMen) {
+    if (changeColorMen) {
       colorMen = 1;
-    }else{
+    } else {
       colorMen = 0;
     }
     emit(ShopChangeSCreens());
@@ -54,10 +54,10 @@ class LoginCubit extends Cubit<LoginStates> {
 
   void getChangeColorWomen() {
     changeColorWomen = !changeColorWomen;
-    if(changeColorWomen){
-    colorWomen = 1;
-    }else{
-    colorWomen = 0;
+    if (changeColorWomen) {
+      colorWomen = 1;
+    } else {
+      colorWomen = 0;
     }
     emit(ShopChangeColorsWomMen());
   }
@@ -65,10 +65,10 @@ class LoginCubit extends Cubit<LoginStates> {
   void getChangeColorBaby() {
     changeColorBaby = !changeColorBaby;
 
-    if(changeColorBaby){
-    colorBaby = 1;
-    }else{
-    colorBaby = 0;
+    if (changeColorBaby) {
+      colorBaby = 1;
+    } else {
+      colorBaby = 0;
     }
     emit(ShopChangeColorsBaby());
   }
@@ -99,11 +99,13 @@ class LoginCubit extends Cubit<LoginStates> {
         isPassword ? Icons.visibility : Icons.visibility_off_outlined;
     emit(ShopChangeiconpassword());
   }
+
   String? mycity;
   void changeSelectCity(val) {
     mycity = val;
     emit(ChangeCity_Select());
   }
+
   final picker = ImagePicker();
   var pickedFile;
   File? imagee;
@@ -128,13 +130,13 @@ class LoginCubit extends Cubit<LoginStates> {
   ResponseModel? res;
   void signUp() async {
     emit(LoadingSignupState());
-     FormData formData = FormData.fromMap({
+    FormData formData = FormData.fromMap({
       "name_ar": FirstScreen.namecontroller.text,
       "name_en": "s",
       "email": FirstScreen.emailcontroller.text,
       "password": FirstScreen.passcontroller.text,
       "phone": SecondScreen.mobilecontroller.text,
-      "address":mycity??"Saudi",
+      "address": mycity ?? "Saudi",
       "longitude": 456,
       "latitude": 468456,
       "title_ar": ThirdScreen.storecotroller.text,
@@ -147,7 +149,7 @@ class LoginCubit extends Cubit<LoginStates> {
     });
     DioHelper.postData1(url: signup, data: formData).then((value) {
       print(value.data.toString());
-      res=ResponseModel.fromJson(value.data);
+      res = ResponseModel.fromJson(value.data);
       emit(SucessSignupState(res!));
     }).catchError((error) {
       emit(ErrorSignupState(error.toString()));
@@ -155,24 +157,22 @@ class LoginCubit extends Cubit<LoginStates> {
     });
   }
 
+  var userid;
   CustomerModel? loginModel;
-  void getLogin(String email,String pass){
+  void getLogin(String email, String pass) {
     emit(LoadingLoginState());
-    Map<String,dynamic> map={
-      "email":email,
-      "password":pass
-    };
-    DioHelper.postData(url: login, data: map).then((value){
-      loginModel=CustomerModel.fromJson(value.data);
-      if(loginModel!.status==true){
+    Map<String, dynamic> map = {"email": email, "password": pass};
+    DioHelper.postData(url: login, data: map).then((value) {
+      loginModel = CustomerModel.fromJson(value.data);
+      if (loginModel!.status == true) {
         emit(SucessLoginState(loginModel!));
         CashHelper.putData("tokenUser", loginModel!.data!.token);
+        userid = loginModel!.data!.id;
         print(loginModel!.data!.token);
-      }
-      else{
+      } else {
         emit(ErrorLoginState(loginModel!.errorCode.toString()));
       }
-    }).catchError((error){
+    }).catchError((error) {
       print(error.toString());
     });
   }

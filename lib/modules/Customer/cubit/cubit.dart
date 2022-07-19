@@ -31,8 +31,7 @@ class CustomerCubit extends Cubit<CustomerStates> {
             desc: value["desc"],
             image: value["image"],
           );
-        }
-        else {
+        } else {
           list.add(ProductsItem(
             id: value["id"].toString(),
             title: value["title"],
@@ -49,7 +48,4 @@ class CustomerCubit extends Cubit<CustomerStates> {
     });
   }
 
-  ProductsItem findbyidcat(String id) {
-    return list.firstWhere((element) => element.id.toString() == id);
-  }
 }

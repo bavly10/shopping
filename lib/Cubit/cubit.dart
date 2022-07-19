@@ -95,8 +95,7 @@ class ShopCubit extends Cubit<ShopStates> {
   Future<void> getShippingData() async {
     emit(GettingShippingDataLoadingState());
     Map<String, dynamic> header = {
-      "auth-token":
-          "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2thc2g1dGFrLmNvbS9hcGkvbG9naW4iLCJpYXQiOjE2NTc0ODQ2NzAsImV4cCI6MTY1NzQ4ODI3MCwibmJmIjoxNjU3NDg0NjcwLCJqdGkiOiI2VFRkT0RDamRMcVlzdmtyIiwic3ViIjoiOCIsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.T7rKIwpMcluhMI-Zi5qgAec_ceJ8ha4JjHb2u6rdjPU"
+      "auth-token":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2thc2g1dGFrLmNvbS9hcGkvbG9naW4iLCJpYXQiOjE2NTc3MzYxNjksImV4cCI6MTY1ODM0MDk2OSwibmJmIjoxNjU3NzM2MTY5LCJqdGkiOiJVRDZuZkFIN3VWVVdyTWtNIiwic3ViIjoiNCIsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.ryNTe54vJLTFJlk2JF1bAizNMo6XGPaAWkk_vZdlqpw"
     };
     DioHelper.getData(url: ship, option: header).then((value) {
       shippingModel = ShippingModel.fromJson(value.data);

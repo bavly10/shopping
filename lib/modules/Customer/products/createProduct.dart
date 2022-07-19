@@ -7,13 +7,18 @@ import 'package:shopping/Cubit/cubit.dart';
 import 'package:shopping/model/categoryModel.dart';
 import 'package:shopping/modules/Customer/products/cubit/cubit.dart';
 import 'package:shopping/modules/Customer/products/cubit/states.dart';
+import 'package:shopping/shared/compononet/componotents.dart';
 import 'package:shopping/shared/compononet/describe_text_feild.dart';
 import 'package:shopping/shared/compononet/product_textField.dart';
 import 'package:shopping/shared/localization/translate.dart';
 import 'package:shopping/shared/my_colors.dart';
 
+import '../../../shared/verification_dialog.dart';
+import '../../mainScreen/screen/HomeScreen.dart';
+
 class CreatePro extends StatelessWidget {
-  CreatePro({Key? key}) : super(key: key);
+  int? id;
+  CreatePro({Key? key, this.id}) : super(key: key);
   TextEditingController nameProduct = TextEditingController();
   TextEditingController typeProduct = TextEditingController();
   TextEditingController priceProduct = TextEditingController();
@@ -113,7 +118,20 @@ class CreatePro extends StatelessWidget {
                           ),
                         ),
                       ]),
-                  BlocBuilder<ProductCubit, ProductStates>(
+                  BlocConsumer<ProductCubit, ProductStates>(
+                    listener: (context, state) {
+                      if (state is CreatingSueccs) {
+                        showDialog(
+                            context: context,
+                            builder: (context) {
+                              return CustomDialog(
+                                btnName: mytranslate(context, "ok"),
+                                text: mytranslate(context, "upd"),
+                                onTap: () => navigateTo(context, HomeScreen()),
+                              );
+                            });
+                      }
+                    },
                     builder: (context, state) {
                       final cubit = ProductCubit.get(context);
                       final list = ShopCubit.get(context).categoryModel;
@@ -458,7 +476,8 @@ class CreatePro extends StatelessWidget {
                                       y.add(MultipartFile.fromFileSync(x.path));
                                     }
                                     cubit.create(
-                                      userid: 8,
+                                      context: context,
+                                      userid: id,
                                       price: priceProduct.text,
                                       descAr: describeProduct.text,
                                       descEn: "dawdwa",
