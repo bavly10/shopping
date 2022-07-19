@@ -22,7 +22,6 @@ class CustomerHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ProductCubit.get(context).getProducts(id, context);
-    // CustomerCubit.get(context).getProductCustomer(id);
 
     return BlocConsumer<ProductCubit, ProductStates>(
         listener: (context, state) {},
@@ -111,7 +110,7 @@ class CustomerHome extends StatelessWidget {
                               child: Column(
                                 children: [
                                   Text(
-                                    "تتبع مبيعات متجرك   \nحتى الان  ",
+                                    mytranslate(context, "track"),
                                     style: TextStyle(
                                         color: myWhite,
                                         fontSize: 17,
