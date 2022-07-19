@@ -56,5 +56,10 @@
    "last": "Sorry,You can't clear last image!",
    "cat": "Error..Please Choose type of product",
    "ok": "Okey",
-   "upd": "Updating Done"
+   "upd": "Updating Done",
+   "editdata": "Edit Data Of Store",
+   "more": "More",
+   "pro": "  Products In Your Store",
+   "out": "Log Out",
+   "pic": "Pics"
 }

@@ -13,7 +13,8 @@ import 'package:shopping/shared/localization/translate.dart';
 import 'package:shopping/shared/my_colors.dart';
 
 class CreatePro extends StatelessWidget {
-  CreatePro({Key? key}) : super(key: key);
+  int? id;
+  CreatePro({Key? key, this.id}) : super(key: key);
   TextEditingController nameProduct = TextEditingController();
   TextEditingController typeProduct = TextEditingController();
   TextEditingController priceProduct = TextEditingController();
@@ -458,7 +459,7 @@ class CreatePro extends StatelessWidget {
                                       y.add(MultipartFile.fromFileSync(x.path));
                                     }
                                     cubit.create(
-                                      userid: 8,
+                                      userid: id,
                                       price: priceProduct.text,
                                       descAr: describeProduct.text,
                                       descEn: "dawdwa",

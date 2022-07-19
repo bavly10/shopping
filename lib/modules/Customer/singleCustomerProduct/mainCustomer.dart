@@ -14,7 +14,7 @@ class MainCustomer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    CustomerCubit.get(context).getProductCustomer();
+    CustomerCubit.get(context).getProductCustomer(id);
     return BlocConsumer<CustomerCubit, CustomerStates>(
       listener: (ctx, state) {},
       builder: (ctx, state) {

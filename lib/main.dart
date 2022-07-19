@@ -10,6 +10,7 @@ import 'package:shopping/modules/Customer/cubit/cubit.dart';
 import 'package:shopping/modules/Customer/login/cubit/cubit.dart';
 import 'package:shopping/modules/Customer/products/cubit/cubit.dart';
 import 'package:shopping/modules/Customer/products/createProduct.dart';
+import 'package:shopping/modules/Customer/singleCustomerProduct/customer_home_screen.dart';
 import 'package:shopping/modules/Splash_screen/splash.dart';
 import 'package:shopping/shared/diohelper/dioHelpoer.dart';
 import 'package:shopping/shared/localization/set_localization.dart';
@@ -39,8 +40,14 @@ class MyApp extends StatelessWidget {
               ..getCategoriesData()
               ..getCustomerData(10)),
         BlocProvider(create: (context) => LoginCubit()),
-        BlocProvider(create: (context) => ProductCubit()),
-        BlocProvider(create: (context) => CustomerCubit()..getProductCustomer()),
+        BlocProvider(create: (context) => ProductCubit()
+            // ..getProducts(
+            //     LoginCubit.get(context).loginModel?.data?.id, context)
+            ),
+        BlocProvider(
+            create: (context) => CustomerCubit()
+              ..getProductCustomer(
+                  LoginCubit.get(context).loginModel?.data?.id)),
       ],
       child: BlocBuilder<ShopCubit, ShopStates>(
         builder: (context, state) {
@@ -89,7 +96,8 @@ class MyApp extends StatelessWidget {
               primarySwatch: Colors.amber,
             ),
             themeMode: ThemeMode.light,
-            home:SplashScreen(),
+            home: // CustomerHome(),
+                SplashScreen(),
             //SplashScreen(),
             //// SplashScreen(),
             builder: EasyLoading.init(),

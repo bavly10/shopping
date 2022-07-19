@@ -13,9 +13,9 @@ class CustomerCubit extends Cubit<CustomerStates> {
 // ignore: non_constant_identifier_names
   List<ProductsItem> list = [];
 
-  Future getProductCustomer() async {
+  Future getProductCustomer(id) async {
     emit(ProductCustomerLoading());
-    Map<String, dynamic> data = {"user_id": 4};
+    Map<String, dynamic> data = {"user_id": id};
     await DioHelper.postData(url: getProducts, data: data).then((value) {
       final res = value.data['data'];
       for (var value in res) {
@@ -30,8 +30,7 @@ class CustomerCubit extends Cubit<CustomerStates> {
             desc: value["desc"],
             image: value["image"],
           );
-        }
-        else {
+        } else {
           list.add(ProductsItem(
             id: value["id"].toString(),
             title: value["title"],

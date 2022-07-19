@@ -4,12 +4,17 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shopping/model/categoryModel.dart';
 import 'package:shopping/model/product.dart';
+import 'package:shopping/model/show_product_model.dart';
+import 'package:shopping/model/show_product_model.dart';
+import 'package:shopping/model/show_product_model.dart';
+import 'package:shopping/model/show_product_model.dart';
+import 'package:shopping/modules/Customer/login/cubit/cubit.dart';
 import 'package:shopping/modules/Customer/products/cubit/states.dart';
 import 'package:shopping/shared/diohelper/dioHelpoer.dart';
 import 'package:shopping/shared/localization/translate.dart';
 import 'package:shopping/shared/network.dart';
 
-import '../../../../shared/verification_dialog.dart';
+import '../../../../model/show_product_model.dart';
 
 class ProductCubit extends Cubit<ProductStates> {
   ProductCubit() : super(ProductShop_InitalState());
@@ -18,6 +23,7 @@ class ProductCubit extends Cubit<ProductStates> {
 
   String? catSelect;
   int? cat_id;
+  ProductShow? showProd;
 
   void changeSelectCategory(val) {
     catSelect = val.title;
@@ -50,59 +56,6 @@ class ProductCubit extends Cubit<ProductStates> {
     } else {
       print("3dma zft");
     }
-  }
-
-  Product? showProd;
-  Future showPro(id) async {
-    emit(loadingProduct());
-    Map<String, dynamic> header = {
-      "auth-token":
-          "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2thc2g1dGFrLmNvbS9hcGkvbG9naW4iLCJpYXQiOjE2NTc3MTExMjAsImV4cCI6MTY1ODMxNTkyMCwibmJmIjoxNjU3NzExMTIwLCJqdGkiOiJoZDdPOWxRVm4zdGg4aEJqIiwic3ViIjoiNyIsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.ybeuLPcOA5KEbqQD52KthLquRwh2o1T9ujWUVqeujL0"
-    };
-    FormData formData = FormData.fromMap({"id": id});
-    DioHelper.postData1(url: showProduct, data: formData, option: header)
-        .then((value) {
-      showProd = Product.fromJson(value.data);
-      print(showProd!.data!.productData!.id);
-      emit(ShowingProduct());
-    }).catchError((error) {
-      print(error.toString());
-      emit(failProduct());
-    });
-  }
-
-  Future deleteImage({id}) async {
-    Map<String, dynamic> header = {
-      "auth-token":
-          "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2thc2g1dGFrLmNvbS9hcGkvbG9naW4iLCJpYXQiOjE2NTc3MTExMjAsImV4cCI6MTY1ODMxNTkyMCwibmJmIjoxNjU3NzExMTIwLCJqdGkiOiJoZDdPOWxRVm4zdGg4aEJqIiwic3ViIjoiNyIsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.ybeuLPcOA5KEbqQD52KthLquRwh2o1T9ujWUVqeujL0"
-    };
-    FormData formData = FormData.fromMap({"id": id});
-    DioHelper.postData1(url: deleteProductImage, data: formData, option: header)
-        .then((value) {
-      debugPrint(value.data.toString());
-      emit(DeletingImageProduct());
-      print("done");
-      emit(ShowingProduct());
-    }).catchError((error) {
-      print(error.toString());
-    });
-  }
-
-  deletePro({id}) async {
-    Map<String, dynamic> header = {
-      "auth-token":
-          "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2thc2g1dGFrLmNvbS9hcGkvbG9naW4iLCJpYXQiOjE2NTc3MTExMjAsImV4cCI6MTY1ODMxNTkyMCwibmJmIjoxNjU3NzExMTIwLCJqdGkiOiJoZDdPOWxRVm4zdGg4aEJqIiwic3ViIjoiNyIsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.ybeuLPcOA5KEbqQD52KthLquRwh2o1T9ujWUVqeujL0"
-    };
-    FormData formData = FormData.fromMap({"id": id});
-    DioHelper.postData1(url: deleteProduct, data: formData, option: header)
-        .then((value) {
-      debugPrint(value.data.toString());
-      emit(DeletingImageProduct());
-      print("done");
-      emit(ShowingProduct());
-    }).catchError((error) {
-      print(error.toString());
-    });
   }
 
 // ignore: non_constant_identifier_names
@@ -292,5 +245,85 @@ class ProductCubit extends Cubit<ProductStates> {
     }
 
     emit(ChangeCheckedSsztate());
+  }
+
+  Products? pro;
+  /////////////////////////Get Product in main Screen/////////////////////
+  Future getProducts(id, context) async {
+    emit(GettingProductDataLoading());
+    Map<String, dynamic> data = {"user_id": id};
+    Map<String, dynamic> header = {
+      // "auth-token":
+      //     "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2thc2g1dGFrLmNvbS9hcGkvbG9naW4iLCJpYXQiOjE2NTc3MTExMjAsImV4cCI6MTY1ODMxNTkyMCwibmJmIjoxNjU3NzExMTIwLCJqdGkiOiJoZDdPOWxRVm4zdGg4aEJqIiwic3ViIjoiNyIsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.ybeuLPcOA5KEbqQD52KthLquRwh2o1T9ujWUVqeujL0"
+      "auth-token": LoginCubit.get(context).loginModel!.data!.token,
+    };
+    await DioHelper.postData(url: getProduct, data: data, option: header)
+        .then((value) {
+      pro = Products.fromMap(value.data);
+
+      print(pro?.data?.data![0].many);
+
+      emit(GettingProductData());
+
+      // print("data$list");
+      //print("images$listImg");
+    }).catchError((error) {
+      print(error.toString());
+      emit(GettingProductDataError());
+    });
+  }
+
+///////////Show Product In update Screen///////////////////////
+  Future showPro(id, context) async {
+    emit(loadingProduct());
+    Map<String, dynamic> header = {
+      // "auth-token":
+      //     "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2thc2g1dGFrLmNvbS9hcGkvbG9naW4iLCJpYXQiOjE2NTc3MTExMjAsImV4cCI6MTY1ODMxNTkyMCwibmJmIjoxNjU3NzExMTIwLCJqdGkiOiJoZDdPOWxRVm4zdGg4aEJqIiwic3ViIjoiNyIsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.ybeuLPcOA5KEbqQD52KthLquRwh2o1T9ujWUVqeujL0"
+      "auth-token": LoginCubit.get(context).loginModel!.data!.token,
+    };
+    FormData formData = FormData.fromMap({"id": id});
+    DioHelper.postData1(url: showProduct, data: formData, option: header)
+        .then((value) {
+      showProd = ProductShow.fromMap(value.data);
+      // print(showProd!.data!.pr!.id);
+      emit(ShowingProduct());
+    }).catchError((error) {
+      print(error.toString());
+      emit(failProduct());
+    });
+  }
+
+////////////////////////// clear image/////////////////////
+  Future deleteImage({id, context}) async {
+    Map<String, dynamic> header = {
+      "auth-token": LoginCubit.get(context).loginModel!.data!.token,
+    };
+    FormData formData = FormData.fromMap({"id": id});
+    DioHelper.postData1(url: deleteProductImage, data: formData, option: header)
+        .then((value) {
+      debugPrint(value.data.toString());
+      emit(DeletingImageProduct());
+      print("done");
+      emit(ShowingProduct());
+    }).catchError((error) {
+      print(error.toString());
+    });
+  }
+
+/////////////////////Delete Product//////////////////////
+  deletePro({id, context}) async {
+    Map<String, dynamic> header = {
+      "auth-token": LoginCubit.get(context).loginModel!.data!.token,
+    };
+    FormData formData = FormData.fromMap({"id": id});
+    DioHelper.postData1(url: deleteProduct, data: formData, option: header)
+        .then((value) {
+      debugPrint(value.data.toString());
+      emit(DeletingImageProduct());
+      print("done");
+      emit(ShowingProduct());
+    }).catchError((error) {
+      print(error.toString());
+    });
   }
 }

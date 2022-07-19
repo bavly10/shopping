@@ -31,3 +31,9 @@ class failProduct extends ProductStates {}
 class DeletingImageProduct extends ProductStates {}
 
 class UpdatingSueccs extends ProductStates {}
+
+class GettingProductData extends ProductStates {}
+
+class GettingProductDataError extends ProductStates {}
+
+class GettingProductDataLoading extends ProductStates {}
