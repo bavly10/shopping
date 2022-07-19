@@ -60,7 +60,8 @@ class ProductCubit extends Cubit<ProductStates> {
 
 // ignore: non_constant_identifier_names
   Future create(
-      {int? userid,
+      {context,
+      int? userid,
       String? tittleAr,
       String? tittleEn,
       int? categoryId,
@@ -77,8 +78,7 @@ class ProductCubit extends Cubit<ProductStates> {
       int? fourxl,
       img}) async {
     Map<String, dynamic> header = {
-      "auth-token":
-          "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2thc2g1dGFrLmNvbS9hcGkvbG9naW4iLCJpYXQiOjE2NTc3MTExMjAsImV4cCI6MTY1ODMxNTkyMCwibmJmIjoxNjU3NzExMTIwLCJqdGkiOiJoZDdPOWxRVm4zdGg4aEJqIiwic3ViIjoiNyIsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.ybeuLPcOA5KEbqQD52KthLquRwh2o1T9ujWUVqeujL0"
+      "auth-token": LoginCubit.get(context).loginModel!.data!.token,
     };
     FormData formData = FormData.fromMap({
       "user_id": userid,
@@ -108,19 +108,19 @@ class ProductCubit extends Cubit<ProductStates> {
   }
 
   ////////////////////////update/////////////////
-  Future update(
-      {int? id,
-      String? tittleAr,
-      String? tittleEn,
-      price,
-      many,
-      String? descAr,
-      String? descEn,
-      img,
-      context}) async {
+  Future update({
+    context,
+    int? id,
+    String? tittleAr,
+    String? tittleEn,
+    price,
+    many,
+    String? descAr,
+    String? descEn,
+    img,
+  }) async {
     Map<String, dynamic> header = {
-      "auth-token":
-          "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2thc2g1dGFrLmNvbS9hcGkvbG9naW4iLCJpYXQiOjE2NTc3MTExMjAsImV4cCI6MTY1ODMxNTkyMCwibmJmIjoxNjU3NzExMTIwLCJqdGkiOiJoZDdPOWxRVm4zdGg4aEJqIiwic3ViIjoiNyIsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.ybeuLPcOA5KEbqQD52KthLquRwh2o1T9ujWUVqeujL0"
+      "auth-token": LoginCubit.get(context).loginModel!.data!.token,
     };
     FormData formData = FormData.fromMap({
       "id": id,
@@ -143,7 +143,7 @@ class ProductCubit extends Cubit<ProductStates> {
     DioHelper.postData1(url: updateProduct, data: formData, option: header)
         .then((value) {
       print(value.data.toString());
-      emit(UpdatingSueccs());
+      emit(CreatingSueccs());
 
       print("done");
     }).catchError((error) {
