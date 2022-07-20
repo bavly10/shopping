@@ -166,7 +166,9 @@ class LoginCubit extends Cubit<LoginStates> {
       loginModel = CustomerModel.fromJson(value.data);
       if (loginModel!.status == true) {
         emit(SucessLoginState(loginModel!));
-        CashHelper.putData("tokenUser", loginModel!.data!.token);
+        //  CashHelper.putData("tokenUser", loginModel!.data!.token);
+        CashHelper.putData("customerToken", loginModel!.data!.token);
+        CashHelper.putData("customerId", loginModel!.data!.id);
         userid = loginModel!.data!.id;
         print(loginModel!.data!.token);
       } else {

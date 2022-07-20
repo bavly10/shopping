@@ -35,10 +35,22 @@ class MyApp extends StatelessWidget {
     SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom]);
     return MultiBlocProvider(
       providers: [
-        BlocProvider(create: (context) => ShopCubit()..getSplashData()..getCategoriesData()..getCustomerData(10)),
+        BlocProvider(
+            create: (context) => ShopCubit()
+              ..getSplashData()
+              ..getCategoriesData()
+            // ..getCustomerData(10)
+            ),
         BlocProvider(create: (context) => LoginCubit()),
-        BlocProvider(create: (context) => ProductCubit()),
-        BlocProvider(create: (context) => CustomerCubit()..getProductCustomer(LoginCubit.get(context).loginModel?.data?.id)),
+        BlocProvider(
+            create: (context) => ProductCubit()
+              ..getProducts(
+                  LoginCubit.get(context).loginModel?.data?.id, context)
+              ..showPro(38, context)),
+        BlocProvider(
+            create: (context) => CustomerCubit()
+              ..getProductCustomer(
+                  LoginCubit.get(context).loginModel?.data?.id)),
       ],
       child: BlocBuilder<ShopCubit, ShopStates>(
         builder: (context, state) {
@@ -88,7 +100,7 @@ class MyApp extends StatelessWidget {
             ),
             themeMode: ThemeMode.light,
             home: // CustomerHome(),
-           SplashScreen(),
+                SplashScreen(),
             //// SplashScreen(),
             builder: EasyLoading.init(),
           );

@@ -19,14 +19,16 @@ import 'package:shopping/shared/shared_prefernces.dart';
 
 import '../model/shippingcompanies.dart';
 
-
 class ShopCubit extends Cubit<ShopStates> {
   ShopCubit() : super(Shop_InitalState());
   static ShopCubit get(context) => BlocProvider.of(context);
   // ignore: non_constant_identifier_names
   Locale? locale_cubit;
   String? lang;
+
   static bool xtranslate = false;
+  String? customerToken;
+  int? id;
   void changeLang(lang) async {
     Locale currentLocale = await setLocale(lang.lang_Code);
     changLocale(currentLocale);
@@ -65,12 +67,7 @@ class ShopCubit extends Cubit<ShopStates> {
   }
 
   int currentindex = 0;
-  List<Widget> screen = [
-     HomeScreen(),
-    test(),
-    CartScreen(),
-    MainLogin()
-  ];
+  List<Widget> screen = [HomeScreen(), test(), CartScreen(), MainLogin()];
 
   void changeIndex(int index) {
     currentindex = index;
@@ -89,13 +86,13 @@ class ShopCubit extends Cubit<ShopStates> {
     emit(ChangeIndexBar());
   }
 
-
   ///////////////Get Shipping////////////
   ShippingModel? shippingModel;
   Future<void> getShippingData() async {
     emit(GettingShippingDataLoadingState());
     Map<String, dynamic> header = {
-      "auth-token":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2thc2g1dGFrLmNvbS9hcGkvbG9naW4iLCJpYXQiOjE2NTc3MzYxNjksImV4cCI6MTY1ODM0MDk2OSwibmJmIjoxNjU3NzM2MTY5LCJqdGkiOiJVRDZuZkFIN3VWVVdyTWtNIiwic3ViIjoiNCIsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.ryNTe54vJLTFJlk2JF1bAizNMo6XGPaAWkk_vZdlqpw"
+      "auth-token":
+          "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2thc2g1dGFrLmNvbS9hcGkvbG9naW4iLCJpYXQiOjE2NTc3MzYxNjksImV4cCI6MTY1ODM0MDk2OSwibmJmIjoxNjU3NzM2MTY5LCJqdGkiOiJVRDZuZkFIN3VWVVdyTWtNIiwic3ViIjoiNCIsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.ryNTe54vJLTFJlk2JF1bAizNMo6XGPaAWkk_vZdlqpw"
     };
     DioHelper.getData(url: ship, option: header).then((value) {
       shippingModel = ShippingModel.fromJson(value.data);
@@ -107,6 +104,7 @@ class ShopCubit extends Cubit<ShopStates> {
       emit(GettingShippingDataErrorState());
     });
   }
+
 //////////////////////////splash///////////
   SplashModel? splashModel;
   Future<void> getSplashData() async {
@@ -149,9 +147,9 @@ class ShopCubit extends Cubit<ShopStates> {
     Map<String, dynamic> data = {"category_id": catId};
     DioHelper.postData(url: getCustomer, data: data).then((value) {
       prosCustomerModel = ProsCustomerModel.fromJson(value.data);
-      if(prosCustomerModel!.data!.isEmpty){
+      if (prosCustomerModel!.data!.isEmpty) {
         emit(emptyProCustomerState());
-      }else{
+      } else {
         print("done prosCustomer ${prosCustomerModel!.status}");
         emit(DoneProCustomerState());
       }
@@ -159,5 +157,10 @@ class ShopCubit extends Cubit<ShopStates> {
       print(onError.toString());
       emit(ErrorProCustomerState());
     });
+  }
+
+  void getMyShared() {
+    customerToken = CashHelper.getData("customerToken");
+    id = CashHelper.getData("customerId");
   }
 }

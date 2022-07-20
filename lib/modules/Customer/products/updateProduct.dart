@@ -30,6 +30,7 @@ class UpdateProduct extends StatelessWidget {
   final GlobalKey<FormState> form = GlobalKey();
   @override
   Widget build(BuildContext context) {
+    ProductCubit.get(context).showPro(id, context);
     var model = ProductCubit.get(context).showProd!;
     final list = ShopCubit.get(context).categoryModel;
     final cubit = ProductCubit.get(context);
@@ -37,7 +38,7 @@ class UpdateProduct extends StatelessWidget {
     priceProduct.text = model.data!.productData!.price!;
     amountProduct.text = model.data!.productData!.many!;
     describeProduct.text = model.data!.productData!.descAr!;
-    var listimage = model.data!.images!;
+    var listimage = model.data!.imagess!;
     return Scaffold(
       appBar: AppBar(
         actions: [
@@ -59,7 +60,7 @@ class UpdateProduct extends StatelessWidget {
         ],
         title: Text(mytranslate(context, "addpro")),
       ),
-      body: model==null
+      body: model == null
           ? const Center(
               child: CircularProgressIndicator(),
             )
@@ -446,7 +447,7 @@ class UpdateProduct extends StatelessWidget {
                                         CrossAxisAlignment.center,
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      model.data!.images!.isNotEmpty
+                                      model.data!.imagess!.isNotEmpty
                                           ? SizedBox(
                                               height: 150,
                                               width: MediaQuery.of(context)
@@ -481,7 +482,7 @@ class UpdateProduct extends StatelessWidget {
                                                                 image: DecorationImage(
                                                                     image: NetworkImage(model
                                                                         .data!
-                                                                        .images![
+                                                                        .imagess![
                                                                             index]
                                                                         .logo!))),
                                                           ),
@@ -489,7 +490,7 @@ class UpdateProduct extends StatelessWidget {
                                                             onTap: () {
                                                               if (model
                                                                       .data!
-                                                                      .images!
+                                                                      .imagess!
                                                                       .length ==
                                                                   1) {
                                                                 ScaffoldMessenger.of(
@@ -519,7 +520,7 @@ class UpdateProduct extends StatelessWidget {
                                                                                 "verifydel"),
                                                                             onTap:
                                                                                 () {
-                                                                              ProductCubit.get(context).deleteImage(id: model.data!.images![index].id!, context: context).then((value) {
+                                                                              ProductCubit.get(context).deleteImage(id: model.data!.imagess![index].id!, context: context).then((value) {
                                                                                 ProductCubit.get(context).showPro(model.data!.productData!.id, context).then((value) {
                                                                                   Navigator.pop(context, true);
                                                                                 });
@@ -658,7 +659,9 @@ class UpdateProduct extends StatelessWidget {
                                             tittleAr: nameProduct.text,
                                             tittleEn: "dwadwad",
                                             id: 39,
-                                            img: y.isEmpty ? model.data!.images : y,
+                                            img: y.isEmpty
+                                                ? model.data!.imagess
+                                                : y,
                                           );
                                         }
                                       },

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shopping/Cubit/cubit.dart';
 
 import 'package:shopping/modules/Customer/login/cubit/cubit.dart';
 import 'package:shopping/modules/Customer/login/cubit/state.dart';
+import 'package:shopping/modules/Customer/products/cubit/cubit.dart';
 import 'package:shopping/modules/Customer/singleCustomerProduct/customer_home_screen.dart';
 import 'package:shopping/shared/compononet/blueButton.dart';
 import 'package:shopping/shared/compononet/componotents.dart';
@@ -16,15 +18,18 @@ import 'package:shopping/shared/shared_prefernces.dart';
 class Login extends StatelessWidget {
   TextEditingController emailcontroller = TextEditingController();
   TextEditingController passcontroller = TextEditingController();
+
   Login({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    final cubit = LoginCubit.get(context);
+
     return BlocConsumer<LoginCubit, LoginStates>(
       listener: (ctx, state) {
         if (state is SucessLoginState) {
-          navigateTo(context,
-              CustomerHome(id: LoginCubit.get(context).loginModel!.data!.id));
-          CashHelper.getData("");
+          // ProductCubit.get(context)
+          //     .getProducts(cubit.loginModel!.data!.id, context);
+          navigateTo(context, CustomerHome(id: cubit.loginModel!.data!.id));
         } else if (state is ErrorLoginState) {
           if (state.error == "6004") {
             My_CustomAlertDialog(
@@ -50,7 +55,6 @@ class Login extends StatelessWidget {
         } else {}
       },
       builder: (ctx, state) {
-        final cubit = LoginCubit.get(context);
         return SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(8.0),

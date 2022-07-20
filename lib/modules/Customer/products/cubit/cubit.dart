@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:shopping/Cubit/cubit.dart';
 import 'package:shopping/model/categoryModel.dart';
 import 'package:shopping/model/product.dart';
 import 'package:shopping/model/show_product_model.dart';
@@ -252,30 +253,37 @@ class ProductCubit extends Cubit<ProductStates> {
   /////////////////////////Get Product in main Screen/////////////////////
   List<ProductItemMainCustomer> listProduct = [];
   DataProductMainCustomer? datak;
-  Future getProducts(id) async {
+  Future getProducts(id, context) async {
     listProduct = [];
     emit(GettingProductDataLoading());
-    Map<String, dynamic> data = {"user_id": 4};
+    Map<String, dynamic> data = {"user_id": id};
     Map<String, dynamic> header = {
-      "auth-token":
-      "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2thc2g1dGFrLmNvbS9hcGkvbG9naW4iLCJpYXQiOjE2NTc3MzYxNjksImV4cCI6MTY1ODM0MDk2OSwibmJmIjoxNjU3NzM2MTY5LCJqdGkiOiJVRDZuZkFIN3VWVVdyTWtNIiwic3ViIjoiNCIsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.ryNTe54vJLTFJlk2JF1bAizNMo6XGPaAWkk_vZdlqpw"
-      // "auth-token": LoginCubit.get(context).loginModel!.data!.token,
+      // "auth-token":
+      //     "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2thc2g1dGFrLmNvbS9hcGkvbG9naW4iLCJpYXQiOjE2NTc3MzYxNjksImV4cCI6MTY1ODM0MDk2OSwibmJmIjoxNjU3NzM2MTY5LCJqdGkiOiJVRDZuZkFIN3VWVVdyTWtNIiwic3ViIjoiNCIsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.ryNTe54vJLTFJlk2JF1bAizNMo6XGPaAWkk_vZdlqpw"
+      "auth-token": ShopCubit.get(context).customerToken,
     };
     await DioHelper.postData(url: getProduct, data: data, option: header)
         .then((value) {
       final res = value.data['data'];
-      datak=DataProductMainCustomer.fromMap(res);
+      datak = DataProductMainCustomer.fromMap(res);
       print(datak!.currentPage);
-      final mylist=res['data'];
+      final mylist = res['data'];
       for (var value in mylist) {
-        final pro = listProduct.indexWhere((element) => element.id == value["id"].toString(),);
+        final pro = listProduct.indexWhere(
+          (element) => element.id == value["id"].toString(),
+        );
         if (pro >= 0) {
           listProduct[pro] = ProductItemMainCustomer(
             id: value["id"],
             titleAr: value["title_ar"],
             price: value["price"],
             many: value["many"],
-              images:(value["images"] as List<dynamic>).map((e) => ImagesPro(id: e["id".toString()], logo: e["logo"].toString(),)).toList(),
+            images: (value["images"] as List<dynamic>)
+                .map((e) => ImagesPro(
+                      id: e["id".toString()],
+                      logo: e["logo"].toString(),
+                    ))
+                .toList(),
           );
         } else {
           listProduct.add(ProductItemMainCustomer(
@@ -283,7 +291,12 @@ class ProductCubit extends Cubit<ProductStates> {
             titleAr: value["title_ar"],
             price: value["price"],
             many: value["many"],
-            images:(value["images"] as List<dynamic>).map((e) => ImagesPro(id: e["id".toString()], logo: e["logo"].toString(),)).toList(),
+            images: (value["images"] as List<dynamic>)
+                .map((e) => ImagesPro(
+                      id: e["id".toString()],
+                      logo: e["logo"].toString(),
+                    ))
+                .toList(),
           ));
         }
       }
@@ -298,12 +311,13 @@ class ProductCubit extends Cubit<ProductStates> {
   Future showPro(id, context) async {
     emit(loadingProduct());
     Map<String, dynamic> header = {
-     "auth-token": LoginCubit.get(context).loginModel!.data!.token,
+      "auth-token": ShopCubit.get(context).customerToken,
     };
-    FormData formData = FormData.fromMap({"id": id});
-    DioHelper.postData1(url: showProduct, data: formData, option: header)
+    Map<String, dynamic> data = {"id": id};
+    DioHelper.postData(url: showProduct, data: data, option: header)
         .then((value) {
       showProd = ProductShow.fromMap(value.data);
+      print(showProd!.data!.productData!.id);
       emit(ShowingProduct());
     }).catchError((error) {
       print(error.toString());
@@ -314,7 +328,7 @@ class ProductCubit extends Cubit<ProductStates> {
 ////////////////////////// clear image/////////////////////
   Future deleteImage({id, context}) async {
     Map<String, dynamic> header = {
-      "auth-token": LoginCubit.get(context).loginModel!.data!.token,
+      "auth-token": ShopCubit.get(context).customerToken,
     };
     FormData formData = FormData.fromMap({"id": id});
     DioHelper.postData1(url: deleteProductImage, data: formData, option: header)
@@ -331,7 +345,7 @@ class ProductCubit extends Cubit<ProductStates> {
 /////////////////////Delete Product//////////////////////
   deletePro({id, context}) async {
     Map<String, dynamic> header = {
-      "auth-token": LoginCubit.get(context).loginModel!.data!.token,
+      "auth-token": ShopCubit.get(context).customerToken,
     };
     FormData formData = FormData.fromMap({"id": id});
     DioHelper.postData1(url: deleteProduct, data: formData, option: header)

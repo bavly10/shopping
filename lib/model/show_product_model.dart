@@ -32,26 +32,26 @@ class ProductShow {
 class Data1 {
   Data1({
     this.productData,
-    this.images,
+    this.imagess,
   });
 
   ProductData? productData;
-  List<Imagess>? images;
+  List<Imagess>? imagess;
 
   factory Data1.fromMap(Map<String, dynamic> json) => Data1(
         productData: json["product_data"] == null
             ? null
             : ProductData.fromMap(json["product_data"]),
-        images: json["images"] == null
+        imagess: json["images"] == null
             ? null
             : List<Imagess>.from(json["images"].map((x) => Imagess.fromMap(x))),
       );
 
   Map<String, dynamic> toMap() => {
         "product_data": productData == null ? null : productData!.toMap(),
-        "images": images == null
+        "images": imagess == null
             ? null
-            : List<dynamic>.from(images!.map((x) => x.toMap())),
+            : List<dynamic>.from(imagess!.map((x) => x.toMap())),
       };
 }
 

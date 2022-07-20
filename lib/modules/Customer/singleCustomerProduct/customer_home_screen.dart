@@ -17,12 +17,12 @@ import 'package:shopping/shared/my_colors.dart';
 import '../products/createProduct.dart';
 
 class CustomerHome extends StatelessWidget {
-  var id;
+  int? id;
   CustomerHome({Key? key, this.id}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    ProductCubit.get(context).getProducts(id);
+    ProductCubit.get(context).getProducts(id, context);
     return BlocConsumer<ProductCubit, ProductStates>(
         listener: (context, state) {},
         builder: (context, state) {
@@ -196,7 +196,8 @@ class CustomerHome extends StatelessWidget {
                                 ? const Center(
                                     child: CircularProgressIndicator(),
                                   )
-                                :myCard(context: context,pro: productItem[index]);
+                                : myCard(
+                                    context: context, pro: productItem[index]);
                           },
                           itemCount: productItem.length)
                     ]),
@@ -205,40 +206,30 @@ class CustomerHome extends StatelessWidget {
           );
         });
   }
-  Widget myCard({context,required ProductItemMainCustomer pro}){
+
+  Widget myCard({context, required ProductItemMainCustomer pro}) {
     return Column(
       children: [
         DecoratedBox(
           decoration: BoxDecoration(
             color: Colors.white, //background color of dropdown button
-            border: Border.all(color: HexColor('#A7B3CF'), width:
-            1), //border of dropdown button
-            borderRadius:
-            BorderRadius.circular(20),
+            border: Border.all(
+                color: HexColor('#A7B3CF'),
+                width: 1), //border of dropdown button
+            borderRadius: BorderRadius.circular(20),
           ),
           child: Column(children: [
             Row(
-              mainAxisAlignment:
-              MainAxisAlignment.start,
-              crossAxisAlignment:
-              CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(
-                      top: 15.0, bottom: 15),
+                  padding: const EdgeInsets.only(top: 15.0, bottom: 15),
                   child: Container(
-                    width: MediaQuery.of(context)
-                        .size
-                        .width *
-                        .33,
-                    height: MediaQuery.of(context)
-                        .size
-                        .height *
-                        .10,
+                    width: MediaQuery.of(context).size.width * .33,
+                    height: MediaQuery.of(context).size.height * .10,
                     decoration: BoxDecoration(
-                      borderRadius:
-                      BorderRadius.circular(
-                          10),
+                      borderRadius: BorderRadius.circular(10),
                       image: DecorationImage(
                         image: NetworkImage(pro.images![0].logo!),
                       ),
@@ -246,45 +237,33 @@ class CustomerHome extends StatelessWidget {
                   ),
                 ),
                 Column(
-                  mainAxisAlignment:
-                  MainAxisAlignment.start,
-                  crossAxisAlignment:
-                  CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Padding(
-                      padding:
-                      const EdgeInsets.only(
-                          bottom: 8.0),
+                      padding: const EdgeInsets.only(bottom: 8.0),
                       child: Text(pro.titleAr!,
                           style: TextStyle(
-                            color: HexColor(
-                                '#A7B3CF'),
+                            color: HexColor('#A7B3CF'),
                             fontSize: 18,
-                            fontWeight:
-                            FontWeight.bold,
+                            fontWeight: FontWeight.bold,
                           )),
                     ),
                     RichText(
                       text: TextSpan(
                         children: <TextSpan>[
                           TextSpan(
-                              text:pro.price!,
+                              text: pro.price!,
                               style: const TextStyle(
-                                  color: Colors
-                                      .black87,
+                                  color: Colors.black87,
                                   fontSize: 14,
-                                  fontWeight:
-                                  FontWeight
-                                      .bold)),
+                                  fontWeight: FontWeight.bold)),
                           TextSpan(
                               text: "WD",
                               style: TextStyle(
-                                  color: Colors
-                                      .grey[400],
+                                  color: Colors.grey[400],
                                   fontSize: 14,
-                                  fontWeight:
-                                  FontWeight
-                                      .bold)),
+                                  fontWeight: FontWeight.bold)),
                         ],
                       ),
                     )
@@ -299,26 +278,31 @@ class CustomerHome extends StatelessWidget {
             Row(
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(
-                      top: 10.0, left: 20),
-                  child: Text(
-                      "${pro.many!}  ${mytranslate(context, "pic")}",
+                  padding: const EdgeInsets.only(top: 10.0, left: 20),
+                  child: Text("${pro.many!}  ${mytranslate(context, "pic")}",
                       style: const TextStyle(
-                          color: Colors.black54,
-                          fontWeight:
-                          FontWeight.bold)),
+                          color: Colors.black54, fontWeight: FontWeight.bold)),
                 ),
                 Spacer(),
                 TextButton(
-                    onPressed: () async{
-                      await ProductCubit.get(context).showPro(id, context).then((value) {
+                    onPressed: () async {
+                      await ProductCubit.get(context)
+                          .showPro(id, context)
+                          .then((value) {
                         print(value.toString());
-                        navigateTo(context, UpdateProduct(id:pro.id!));
+                        if (ProductCubit.get(context).showProd != null) {
+                          navigateTo(context, UpdateProduct(id: pro.id!));
+                        } else
+                          print("hello");
                       });
-                      },
+                    },
                     child: Text(
                       "Edit Product",
-                      style: TextStyle(decoration: TextDecoration.underline, color: myBlue, fontWeight: FontWeight.bold,fontSize: 14),
+                      style: TextStyle(
+                          decoration: TextDecoration.underline,
+                          color: myBlue,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 14),
                     )),
               ],
             ),
@@ -326,7 +310,9 @@ class CustomerHome extends StatelessWidget {
             //  Text(cubit.list[index].)
           ]),
         ),
-        const SizedBox(height: 20,)
+        const SizedBox(
+          height: 20,
+        )
       ],
     );
   }
