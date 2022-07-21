@@ -5,23 +5,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shopping/Cubit/cubit.dart';
 import 'package:shopping/model/categoryModel.dart';
-import 'package:shopping/model/product.dart';
 import 'package:shopping/modules/Customer/products/cubit/cubit.dart';
 import 'package:shopping/modules/Customer/products/cubit/states.dart';
-import 'package:shopping/modules/mainScreen/screen/HomeScreen.dart';
+import 'package:shopping/modules/Customer/customer_home_screen.dart';
+import 'package:shopping/shared/compononet/componotents.dart';
 import 'package:shopping/shared/compononet/describe_text_feild.dart';
-import 'package:shopping/shared/compononet/dialog.dart';
 import 'package:shopping/shared/compononet/product_textField.dart';
 import 'package:shopping/shared/localization/translate.dart';
 import 'package:shopping/shared/my_colors.dart';
 import 'package:shopping/shared/network.dart';
 import 'package:shopping/shared/verification_dialog.dart';
 
-import '../../../shared/compononet/componotents.dart';
-
 class UpdateProduct extends StatelessWidget {
-  final int id;
-  UpdateProduct({Key? key, required this.id}) : super(key: key);
+
   TextEditingController nameProduct = TextEditingController();
   TextEditingController typeProduct = TextEditingController();
   TextEditingController priceProduct = TextEditingController();
@@ -30,13 +26,13 @@ class UpdateProduct extends StatelessWidget {
   final GlobalKey<FormState> form = GlobalKey();
   @override
   Widget build(BuildContext context) {
-    var model = ProductCubit.get(context).showProd!;
+    final model = ProductCubit.get(context).showProd!;
     final list = ShopCubit.get(context).categoryModel;
     final cubit = ProductCubit.get(context);
-    nameProduct.text = model.data!.productData!.titleAr!;
-    priceProduct.text = model.data!.productData!.price!;
+    nameProduct.text =model.data!.productData!.titleAr!;
+    priceProduct.text =model.data!.productData!.price!;
     amountProduct.text = model.data!.productData!.many!;
-    describeProduct.text = model.data!.productData!.descAr!;
+    describeProduct.text =model.data!.productData!.descAr!;
     var listimage = model.data!.images!;
     return Scaffold(
       appBar: AppBar(
@@ -59,11 +55,7 @@ class UpdateProduct extends StatelessWidget {
         ],
         title: Text(mytranslate(context, "addpro")),
       ),
-      body: model==null
-          ? const Center(
-              child: CircularProgressIndicator(),
-            )
-          : SingleChildScrollView(
+      body: SingleChildScrollView(
               child: Form(
                 key: form,
                 child: Padding(
@@ -78,9 +70,7 @@ class UpdateProduct extends StatelessWidget {
                             children: [
                               Text(
                                 mytranslate(context, "namepro"),
-                                style: const TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 18),
-                              ),
+                                style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),),
                               Padding(
                                 padding:
                                     const EdgeInsets.only(top: 8.0, bottom: 15),
@@ -156,20 +146,22 @@ class UpdateProduct extends StatelessWidget {
                             ]),
                         BlocConsumer<ProductCubit, ProductStates>(
                             listener: (context, state) {
-                          if (state is UpdatingSueccs) {
-                            if (model.status == true) {
-                              showDialog(
-                                  context: context,
-                                  builder: (context) {
-                                    return CustomDialog(
-                                      btnName: mytranslate(context, "ok"),
-                                      text: mytranslate(context, "upd"),
-                                      onTap: () =>
-                                          navigateTo(context, HomeScreen()),
-                                    );
-                                  });
-                            }
-                          }
+                          // if (state is UpdatingSueccs) {
+                          //   if (model.status == true) {
+                          //     showDialog(
+                          //         context: context,
+                          //         builder: (context) {
+                          //           return CustomDialog(
+                          //             btnName: mytranslate(context, "ok"),
+                          //             text: mytranslate(context, "upd"),
+                          //             onTap: () => navigateTo(context, CustomerHome()),
+                          //           );
+                          //         });
+                          //   }
+                          // }
+                          // else if( state is DeletingImageProduct){
+                          //   navigateToFinish(context, CustomerHome());
+                          // }else{}
                         }, builder: (context, state) {
                           return Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -487,26 +479,13 @@ class UpdateProduct extends StatelessWidget {
                                                           ),
                                                           InkWell(
                                                             onTap: () {
-                                                              if (model
-                                                                      .data!
-                                                                      .images!
-                                                                      .length ==
-                                                                  1) {
-                                                                ScaffoldMessenger.of(
-                                                                        context)
-                                                                    .showSnackBar(
-                                                                        SnackBar(
-                                                                  content: Text(
-                                                                    mytranslate(
-                                                                        context,
-                                                                        "last"),
+                                                              if (model.data!.images!.length == 1) {
+                                                                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                                                  content: Text(mytranslate(context, "last"),
                                                                   ),
                                                                   padding:
-                                                                      const EdgeInsets
-                                                                          .all(8),
-                                                                  duration: const Duration(
-                                                                      milliseconds:
-                                                                          3000),
+                                                                      const EdgeInsets.all(8),
+                                                                  duration: const Duration(milliseconds: 3000),
                                                                 ));
                                                               } else {
                                                                 showDialog(
@@ -562,12 +541,8 @@ class UpdateProduct extends StatelessWidget {
                                                         int itemIndex,
                                                         int pageViewIndex) =>
                                                     Container(
-                                                        child: Image.file(File(
-                                                            cubit
-                                                                .imageFileList[
-                                                                    itemIndex]
-                                                                .path))),
-                                              ),
+                                                        child: Image.file(File(cubit.imageFileList[itemIndex].path))),
+                                              )
                                             )
                                           : Center(
                                               child: Text(
@@ -630,10 +605,8 @@ class UpdateProduct extends StatelessWidget {
                                       onPressed: () async {
                                         print(typeProduct.text.toString());
                                         List y = [];
-                                        for (var x in ProductCubit.get(context)
-                                            .imageFileList) {
-                                          y.add(MultipartFile.fromFileSync(
-                                              x.path));
+                                        for (var x in ProductCubit.get(context).imageFileList) {
+                                          y.add(MultipartFile.fromFileSync(x.path));
                                         }
                                         if (cubit.cat_id == null) {
                                           showDialog(
@@ -657,7 +630,7 @@ class UpdateProduct extends StatelessWidget {
                                             many: amountProduct.text,
                                             tittleAr: nameProduct.text,
                                             tittleEn: "dwadwad",
-                                            id: 39,
+                                            id: model.data!.productData!.id,
                                             img: y.isEmpty ? model.data!.images : y,
                                           );
                                         }

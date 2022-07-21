@@ -7,31 +7,35 @@ import 'package:shopping/model/CustomerModel.dart';
 import 'package:shopping/model/product.dart';
 import 'package:shopping/modules/Customer/cubit/cubit.dart';
 import 'package:shopping/modules/Customer/cubit/state.dart';
+import 'package:shopping/modules/Customer/more/more.dart';
 import 'package:shopping/modules/Customer/products/cubit/cubit.dart';
 import 'package:shopping/modules/Customer/products/cubit/states.dart';
 import 'package:shopping/modules/Customer/products/updateProduct.dart';
+import 'package:shopping/modules/mainScreen/mainScreen.dart';
 import 'package:shopping/shared/compononet/componotents.dart';
 import 'package:shopping/shared/localization/translate.dart';
 import 'package:shopping/shared/my_colors.dart';
 
-import '../products/createProduct.dart';
+import 'products/createProduct.dart';
 
 class CustomerHome extends StatelessWidget {
   var id;
   CustomerHome({Key? key, this.id}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
-    ProductCubit.get(context).getProducts(id);
+    ProductCubit.get(context).getProducts(context,1);
     return BlocConsumer<ProductCubit, ProductStates>(
         listener: (context, state) {},
         builder: (context, state) {
-          // ProductCubit.get(context).getProducts(id);
           var productItem = ProductCubit.get(context).listProduct;
           return Scaffold(
             appBar: AppBar(actions: [
               InkWell(
-                onTap: () {},
+                onTap: () {
+                  ProductCubit.get(context).getLogout(context).whenComplete(() =>{
+                  navigateToFinish(context, MainScreen())
+                  });
+                },
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Icon(
@@ -42,6 +46,7 @@ class CustomerHome extends StatelessWidget {
               )
             ]),
             body: SingleChildScrollView(
+              physics: BouncingScrollPhysics(),
               child: Padding(
                 padding: const EdgeInsets.all(12.0),
                 child: Column(
@@ -178,7 +183,9 @@ class CustomerHome extends StatelessWidget {
                           ),
                           Spacer(),
                           TextButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                navigateTo(context, const MoreProductsCustomer());
+                              },
                               child: Text(
                                 mytranslate(context, "more"),
                                 style: TextStyle(
@@ -190,6 +197,7 @@ class CustomerHome extends StatelessWidget {
                         ],
                       ),
                       ListView.builder(
+                        physics: NeverScrollableScrollPhysics(),
                           shrinkWrap: true,
                           itemBuilder: (context, index) {
                             return productItem.isEmpty
@@ -311,10 +319,9 @@ class CustomerHome extends StatelessWidget {
                 Spacer(),
                 TextButton(
                     onPressed: () async{
-                      await ProductCubit.get(context).showPro(id, context).then((value) {
-                        print(value.toString());
-                        navigateTo(context, UpdateProduct(id:pro.id!));
-                      });
+                       ProductCubit.get(context).showPro(pro.id, context).then((value) =>{
+                          navigateTo(context, UpdateProduct())
+                       });
                       },
                     child: Text(
                       "Edit Product",

@@ -157,7 +157,7 @@ class LoginCubit extends Cubit<LoginStates> {
     });
   }
 
-  var userid;
+
   CustomerModel? loginModel;
   void getLogin(String email, String pass) {
     emit(LoadingLoginState());
@@ -165,10 +165,10 @@ class LoginCubit extends Cubit<LoginStates> {
     DioHelper.postData(url: login, data: map).then((value) {
       loginModel = CustomerModel.fromJson(value.data);
       if (loginModel!.status == true) {
+        CashHelper.putData("customerToken", loginModel!.data!.token);
+        CashHelper.putData("customerId", loginModel!.data!.id);
         emit(SucessLoginState(loginModel!));
-        CashHelper.putData("tokenUser", loginModel!.data!.token);
-        userid = loginModel!.data!.id;
-        print(loginModel!.data!.token);
+        print(loginModel!.data!.id);
       } else {
         emit(ErrorLoginState(loginModel!.errorCode.toString()));
       }

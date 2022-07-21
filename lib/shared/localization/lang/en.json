@@ -62,5 +62,6 @@
    "pro": "  Products In Your Store",
    "out": "Log Out",
    "pic": "Pics",
-   "track": "Track your store products"
+   "track": "Track your store products",
+   "noData": "No Data"
 }

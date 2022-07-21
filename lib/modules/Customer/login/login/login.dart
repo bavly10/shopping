@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:shopping/modules/Customer/login/cubit/cubit.dart';
 import 'package:shopping/modules/Customer/login/cubit/state.dart';
-import 'package:shopping/modules/Customer/singleCustomerProduct/customer_home_screen.dart';
+import 'package:shopping/modules/Customer/customer_home_screen.dart';
 import 'package:shopping/shared/compononet/blueButton.dart';
 import 'package:shopping/shared/compononet/componotents.dart';
 import 'package:shopping/shared/compononet/dialog.dart';

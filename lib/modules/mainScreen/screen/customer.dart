@@ -1,12 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:shopping/Cubit/cubit.dart';
 import 'package:shopping/Cubit/states.dart';
 import 'package:shopping/model/ProCustomer.dart';
-import 'package:shopping/modules/Customer/singleCustomerProduct/mainCustomer.dart';
+import 'package:shopping/modules/mainScreen/screen/singleCustomerProduct/mainCustomer.dart';
 import 'package:shopping/shared/compononet/componotents.dart';
 import 'package:shopping/shared/my_colors.dart';
 

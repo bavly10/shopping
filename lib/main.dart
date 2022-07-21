@@ -10,7 +10,7 @@ import 'package:shopping/modules/Customer/cubit/cubit.dart';
 import 'package:shopping/modules/Customer/login/cubit/cubit.dart';
 import 'package:shopping/modules/Customer/products/cubit/cubit.dart';
 import 'package:shopping/modules/Customer/products/createProduct.dart';
-import 'package:shopping/modules/Customer/singleCustomerProduct/customer_home_screen.dart';
+import 'package:shopping/modules/Customer/customer_home_screen.dart';
 import 'package:shopping/modules/Splash_screen/splash.dart';
 import 'package:shopping/modules/shppingCompany/CompanyShpping.dart';
 import 'package:shopping/shared/diohelper/dioHelpoer.dart';

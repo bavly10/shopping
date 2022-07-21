@@ -5,8 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shopping/Cubit/cubit.dart';
 import 'package:shopping/model/categoryModel.dart';
+import 'package:shopping/modules/Customer/customer_home_screen.dart';
 import 'package:shopping/modules/Customer/products/cubit/cubit.dart';
 import 'package:shopping/modules/Customer/products/cubit/states.dart';
+import 'package:shopping/modules/mainScreen/screen/singleCustomerProduct/mainCustomer.dart';
 import 'package:shopping/shared/compononet/componotents.dart';
 import 'package:shopping/shared/compononet/describe_text_feild.dart';
 import 'package:shopping/shared/compononet/product_textField.dart';
@@ -127,7 +129,7 @@ class CreatePro extends StatelessWidget {
                               return CustomDialog(
                                 btnName: mytranslate(context, "ok"),
                                 text: mytranslate(context, "upd"),
-                                onTap: () => navigateTo(context, HomeScreen()),
+                                onTap: () => navigateTo(context, CustomerHome()),
                               );
                             });
                       }

@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:shopping/modules/Customer/cubit/cubit.dart';
 import 'package:shopping/modules/Customer/cubit/state.dart';
-import 'package:shopping/modules/Customer/singleCustomerProduct/products_card.dart';
+import 'package:shopping/modules/mainScreen/screen/singleCustomerProduct/products_card.dart';
 import 'package:shopping/shared/my_colors.dart';
 
 class MainCustomer extends StatelessWidget {
@@ -22,7 +22,7 @@ class MainCustomer extends StatelessWidget {
         return Scaffold(
           backgroundColor: myGrey,
           appBar: AppBar(
-              title: Text(title),
+              title: Text(title,style: TextStyle(color: Colors.black87),),
               centerTitle: true,
               leading: const Icon(Icons.search),
             actions: [Padding(

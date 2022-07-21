@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:shopping/Cubit/cubit.dart';
 import 'package:shopping/model/categoryModel.dart';
 import 'package:shopping/model/product.dart';
 import 'package:shopping/model/show_product_model.dart';
@@ -13,6 +14,7 @@ import 'package:shopping/modules/Customer/products/cubit/states.dart';
 import 'package:shopping/shared/diohelper/dioHelpoer.dart';
 import 'package:shopping/shared/localization/translate.dart';
 import 'package:shopping/shared/network.dart';
+import 'package:shopping/shared/shared_prefernces.dart';
 
 import '../../../../model/show_product_model.dart';
 
@@ -23,7 +25,7 @@ class ProductCubit extends Cubit<ProductStates> {
 
   String? catSelect;
   int? cat_id;
-  ProductShow? showProd;
+   ProductShow? showProd;
 
   void changeSelectCategory(val) {
     catSelect = val.title;
@@ -41,7 +43,7 @@ class ProductCubit extends Cubit<ProductStates> {
       if (selectedImages.length <= 6 && imageFileList.length <= 6) {
         imageFileList.addAll(selectedImages);
         emit(TakeImage_State());
-        print("3dma noob");
+        print("takeImage");
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
@@ -77,8 +79,9 @@ class ProductCubit extends Cubit<ProductStates> {
       int? threexl,
       int? fourxl,
       img}) async {
+    ShopCubit.get(context).getMyShared();
     Map<String, dynamic> header = {
-      "auth-token": LoginCubit.get(context).loginModel!.data!.token,
+      "auth-token": ShopCubit.get(context).customerToken,
     };
     FormData formData = FormData.fromMap({
       "user_id": userid,
@@ -102,7 +105,9 @@ class ProductCubit extends Cubit<ProductStates> {
         .then((value) {
       debugPrint(value.data.toString());
       print("done");
+      emit(CreatingSueccs());
     }).catchError((error) {
+      emit(CreatingError());
       print(error.toString());
     });
   }
@@ -119,11 +124,12 @@ class ProductCubit extends Cubit<ProductStates> {
     String? descEn,
     img,
   }) async {
+    ShopCubit.get(context).getMyShared();
     Map<String, dynamic> header = {
-      "auth-token": LoginCubit.get(context).loginModel!.data!.token,
+      "auth-token": ShopCubit.get(context).customerToken,
     };
     FormData formData = FormData.fromMap({
-      "id": id,
+      "id":id,
       "title_ar": tittleAr,
       "title_en": tittleEn,
       "category_id": cat_id,
@@ -140,12 +146,10 @@ class ProductCubit extends Cubit<ProductStates> {
       "four_xl": four_xll,
       "image[]": img
     });
-    DioHelper.postData1(url: updateProduct, data: formData, option: header)
+   await DioHelper.postData1(url: updateProduct, data: formData, option: header)
         .then((value) {
-      print(value.data.toString());
-      emit(CreatingSueccs());
-
-      print("done");
+          print(value.data.toString());
+      emit(UpdatingSueccs());
     }).catchError((error) {
       print(error.toString());
     });
@@ -252,14 +256,22 @@ class ProductCubit extends Cubit<ProductStates> {
   /////////////////////////Get Product in main Screen/////////////////////
   List<ProductItemMainCustomer> listProduct = [];
   DataProductMainCustomer? datak;
-  Future getProducts(id) async {
+  int limit = 1;
+  int pagnationDataLimit() {
+    print(limit);
+    return limit += 1;
+  }
+
+  Future getProducts(context,numberPage) async {
     listProduct = [];
+    ShopCubit.get(context).getMyShared();
     emit(GettingProductDataLoading());
-    Map<String, dynamic> data = {"user_id": 4};
+    Map<String, dynamic> data = {
+      "user_id":ShopCubit.get(context).customerId,
+      "page":numberPage
+    };
     Map<String, dynamic> header = {
-      "auth-token":
-      "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2thc2g1dGFrLmNvbS9hcGkvbG9naW4iLCJpYXQiOjE2NTc3MzYxNjksImV4cCI6MTY1ODM0MDk2OSwibmJmIjoxNjU3NzM2MTY5LCJqdGkiOiJVRDZuZkFIN3VWVVdyTWtNIiwic3ViIjoiNCIsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.ryNTe54vJLTFJlk2JF1bAizNMo6XGPaAWkk_vZdlqpw"
-      // "auth-token": LoginCubit.get(context).loginModel!.data!.token,
+      "auth-token": ShopCubit.get(context).customerToken,
     };
     await DioHelper.postData(url: getProduct, data: data, option: header)
         .then((value) {
@@ -267,24 +279,28 @@ class ProductCubit extends Cubit<ProductStates> {
       datak=DataProductMainCustomer.fromMap(res);
       print(datak!.currentPage);
       final mylist=res['data'];
-      for (var value in mylist) {
-        final pro = listProduct.indexWhere((element) => element.id == value["id"].toString(),);
-        if (pro >= 0) {
-          listProduct[pro] = ProductItemMainCustomer(
-            id: value["id"],
-            titleAr: value["title_ar"],
-            price: value["price"],
-            many: value["many"],
+      if(mylist==null){
+        emit(GettingProductDataNull());
+      }else{
+        for (var value in mylist) {
+          final pro = listProduct.indexWhere((element) => element.id == value["id"].toString(),);
+          if (pro >= 0) {
+            listProduct[pro] = ProductItemMainCustomer(
+              id: value["id"],
+              titleAr: value["title_ar"],
+              price: value["price"],
+              many: value["many"],
               images:(value["images"] as List<dynamic>).map((e) => ImagesPro(id: e["id".toString()], logo: e["logo"].toString(),)).toList(),
-          );
-        } else {
-          listProduct.add(ProductItemMainCustomer(
-            id: value["id"],
-            titleAr: value["title_ar"],
-            price: value["price"],
-            many: value["many"],
-            images:(value["images"] as List<dynamic>).map((e) => ImagesPro(id: e["id".toString()], logo: e["logo"].toString(),)).toList(),
-          ));
+            );
+          } else {
+            listProduct.add(ProductItemMainCustomer(
+              id: value["id"],
+              titleAr: value["title_ar"],
+              price: value["price"],
+              many: value["many"],
+              images:(value["images"] as List<dynamic>).map((e) => ImagesPro(id: e["id".toString()], logo: e["logo"].toString(),)).toList(),
+            ));
+      }
         }
       }
       emit(GettingProductData());
@@ -298,10 +314,10 @@ class ProductCubit extends Cubit<ProductStates> {
   Future showPro(id, context) async {
     emit(loadingProduct());
     Map<String, dynamic> header = {
-     "auth-token": LoginCubit.get(context).loginModel!.data!.token,
+     "auth-token":ShopCubit.get(context).customerToken
     };
     FormData formData = FormData.fromMap({"id": id});
-    DioHelper.postData1(url: showProduct, data: formData, option: header)
+    await DioHelper.postData1(url: showProduct, data: formData, option: header)
         .then((value) {
       showProd = ProductShow.fromMap(value.data);
       emit(ShowingProduct());
@@ -330,8 +346,9 @@ class ProductCubit extends Cubit<ProductStates> {
 
 /////////////////////Delete Product//////////////////////
   deletePro({id, context}) async {
+    ShopCubit.get(context).getMyShared();
     Map<String, dynamic> header = {
-      "auth-token": LoginCubit.get(context).loginModel!.data!.token,
+      "auth-token":ShopCubit.get(context).customerToken,
     };
     FormData formData = FormData.fromMap({"id": id});
     DioHelper.postData1(url: deleteProduct, data: formData, option: header)
@@ -339,9 +356,21 @@ class ProductCubit extends Cubit<ProductStates> {
       debugPrint(value.data.toString());
       emit(DeletingImageProduct());
       print("done");
-      emit(ShowingProduct());
     }).catchError((error) {
       print(error.toString());
     });
   }
+
+  Future getLogout(context)async{
+    ShopCubit.get(context).getMyShared();
+    Map<String, dynamic> map = {"auth-token": ShopCubit.get(context).customerToken};
+    await DioHelper.postData(url: logout, data: map).then((value) {
+      CashHelper.removeData("customerToken");
+      CashHelper.removeData("customerId");
+      emit(GettingLogoutDone());
+    }).catchError((error){
+      emit(GettingLogoutError());
+    });
+  }
+
 }
