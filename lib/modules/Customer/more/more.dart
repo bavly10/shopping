@@ -48,14 +48,25 @@ class _MoreProductsCustomerState extends State<MoreProductsCustomer> {
         } else{}
       },
       builder: (context, state) {
-        final cubit=ProductCubit.get(context).listProduct;
+        final cubit=ProductCubit.get(context).listProducts;
         return Scaffold(
           appBar: AppBar(
-            leading: IconButton(onPressed: (){},icon: Icon(Icons.search),),
-            actions: [IconButton(onPressed: (){
+            leading: IconButton(onPressed: (){},icon: const Icon(Icons.search),),
+            actions: [state is GettingProductDataNull?const Text("No more"):TextButton(onPressed: (){
               ProductCubit.get(context).pagnationDataLimit();
               ProductCubit.get(context).getProducts(context, ProductCubit.get(context).limit);
-            }, icon: Icon(Icons.more))],
+            },child: Container(
+              width: 100,
+              decoration: BoxDecoration(
+                color: myBlue,
+                borderRadius: BorderRadius.circular(10.0),
+              ),
+              child: Center(
+                child: Text(mytranslate(context, "more"),
+                  style: const TextStyle(color: Colors.white,fontWeight: FontWeight.bold, fontSize: 18.0),
+                ),
+              ),
+            ))],
           ),
           body: SafeArea(
             child:ListView.builder(itemBuilder: (ctx,index)=>myCard(context: context,pro: cubit[index]),

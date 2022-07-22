@@ -255,6 +255,7 @@ class ProductCubit extends Cubit<ProductStates> {
 
   /////////////////////////Get Product in main Screen/////////////////////
   List<ProductItemMainCustomer> listProduct = [];
+  List<ProductItemMainCustomer> listProducts = [];
   DataProductMainCustomer? datak;
   int limit = 1;
   int pagnationDataLimit() {
@@ -278,14 +279,21 @@ class ProductCubit extends Cubit<ProductStates> {
       final res = value.data['data'];
       datak=DataProductMainCustomer.fromMap(res);
       print(datak!.currentPage);
-      final mylist=res['data'];
-      if(mylist==null){
+      final mylist=res['data'] as List;
+      if(mylist.isEmpty){
         emit(GettingProductDataNull());
       }else{
         for (var value in mylist) {
           final pro = listProduct.indexWhere((element) => element.id == value["id"].toString(),);
           if (pro >= 0) {
             listProduct[pro] = ProductItemMainCustomer(
+              id: value["id"],
+              titleAr: value["title_ar"],
+              price: value["price"],
+              many: value["many"],
+              images:(value["images"] as List<dynamic>).map((e) => ImagesPro(id: e["id".toString()], logo: e["logo"].toString(),)).toList(),
+            );
+            listProducts[pro] = ProductItemMainCustomer(
               id: value["id"],
               titleAr: value["title_ar"],
               price: value["price"],
@@ -300,10 +308,17 @@ class ProductCubit extends Cubit<ProductStates> {
               many: value["many"],
               images:(value["images"] as List<dynamic>).map((e) => ImagesPro(id: e["id".toString()], logo: e["logo"].toString(),)).toList(),
             ));
+            listProducts.add(ProductItemMainCustomer(
+              id: value["id"],
+              titleAr: value["title_ar"],
+              price: value["price"],
+              many: value["many"],
+              images:(value["images"] as List<dynamic>).map((e) => ImagesPro(id: e["id".toString()], logo: e["logo"].toString(),)).toList(),
+            ));
       }
         }
+        emit(GettingProductData());
       }
-      emit(GettingProductData());
     }).catchError((error) {
       print(error.toString());
       emit(GettingProductDataError());
