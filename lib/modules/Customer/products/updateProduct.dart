@@ -29,10 +29,6 @@ class UpdateProduct extends StatelessWidget {
     final model = ProductCubit.get(context).showProd!;
     final list = ShopCubit.get(context).categoryModel;
     final cubit = ProductCubit.get(context);
-    nameProduct.text =model.data!.productData!.titleAr!;
-    priceProduct.text =model.data!.productData!.price!;
-    amountProduct.text = model.data!.productData!.many!;
-    describeProduct.text =model.data!.productData!.descAr!;
     var listimage = model.data!.images!;
     return Scaffold(
       appBar: AppBar(
@@ -75,6 +71,7 @@ class UpdateProduct extends StatelessWidget {
                                 padding:
                                     const EdgeInsets.only(top: 8.0, bottom: 15),
                                 child: MyProTextField(
+                                  label: model.data!.productData!.titleAr!,
                                   controller: nameProduct,
                                   obcure: false,
                                   validate: (value) {
@@ -93,6 +90,7 @@ class UpdateProduct extends StatelessWidget {
                                 padding:
                                     const EdgeInsets.only(top: 8.0, bottom: 15),
                                 child: MyProTextField(
+                                  label: model.data!.productData!.price!,
                                   controller: priceProduct,
                                   obcure: false,
                                   validate: (value) {
@@ -111,6 +109,7 @@ class UpdateProduct extends StatelessWidget {
                                 padding:
                                     const EdgeInsets.only(top: 8.0, bottom: 15),
                                 child: MyProTextField(
+                                  label: model.data!.productData!.many!,
                                   controller: amountProduct,
                                   obcure: false,
                                   validate: (value) {
@@ -146,22 +145,22 @@ class UpdateProduct extends StatelessWidget {
                             ]),
                         BlocConsumer<ProductCubit, ProductStates>(
                             listener: (context, state) {
-                          // if (state is UpdatingSueccs) {
-                          //   if (model.status == true) {
-                          //     showDialog(
-                          //         context: context,
-                          //         builder: (context) {
-                          //           return CustomDialog(
-                          //             btnName: mytranslate(context, "ok"),
-                          //             text: mytranslate(context, "upd"),
-                          //             onTap: () => navigateTo(context, CustomerHome()),
-                          //           );
-                          //         });
-                          //   }
-                          // }
-                          // else if( state is DeletingImageProduct){
-                          //   navigateToFinish(context, CustomerHome());
-                          // }else{}
+                          if (state is UpdatingSueccs) {
+                            if (model.status == true) {
+                              showDialog(
+                                  context: context,
+                                  builder: (context) {
+                                    return CustomDialog(
+                                      btnName: mytranslate(context, "ok"),
+                                      text: mytranslate(context, "upd"),
+                                      onTap: () => navigateTo(context, CustomerHome()),
+                                    );
+                                  });
+                            }
+                          }
+                          else if( state is DeletingImageProduct){
+                            navigateToFinish(context, CustomerHome());
+                          }else{}
                         }, builder: (context, state) {
                           return Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -624,11 +623,11 @@ class UpdateProduct extends StatelessWidget {
                                         } else {
                                           cubit.update(
                                             context: context,
-                                            price: priceProduct.text,
-                                            descAr: describeProduct.text,
+                                            price: priceProduct.text.isEmpty?model.data!.productData!.price:priceProduct.text,
+                                            descAr: describeProduct.text.isEmpty?model.data!.productData!.descAr:describeProduct.text,
                                             descEn: "dawdwa",
-                                            many: amountProduct.text,
-                                            tittleAr: nameProduct.text,
+                                            many: amountProduct.text.isEmpty?model.data!.productData!.many:amountProduct.text,
+                                            tittleAr: nameProduct.text.isEmpty?model.data!.productData!.titleAr:nameProduct.text,
                                             tittleEn: "dwadwad",
                                             id: model.data!.productData!.id,
                                             img: y.isEmpty ? model.data!.images : y,
