@@ -410,8 +410,10 @@ class ProductCubit extends Cubit<ProductStates> {
     ShopCubit.get(context).getMyShared();
 
     FormData formData = FormData.fromMap({"id": id});
-    DioHelper.postData1(url: deleteProduct, data: formData, option: header)
-        .then((value) {
+    DioHelper.postData1(
+      url: deleteProduct,
+      data: formData,
+    ).then((value) {
       debugPrint(value.data.toString());
       emit(DeletingImageProduct());
       print("done");
