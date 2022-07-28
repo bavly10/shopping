@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:shopping/modules/Customer/products/details_product/widgets/counter.dart';
+import 'package:shopping/shared/localization/translate.dart';
 import 'package:shopping/shared/my_colors.dart';
 
 class CustomContainerDetails extends StatelessWidget {
@@ -91,15 +92,15 @@ class CustomContainerDetails extends StatelessWidget {
                 padding: const EdgeInsets.all(10.0),
                 child: Row(
                   children: [
-                    const Text("Price",
-                        style: TextStyle(
+                    Text(mytranslate(context, "price"),
+                        style: const TextStyle(
                             color: Colors.black,
                             wordSpacing: 3,
                             fontSize: 15,
                             fontWeight: FontWeight.bold)),
-                    Spacer(),
-                    Text("Quantity",
-                        style: TextStyle(
+                    const Spacer(),
+                    Text(mytranslate(context, "amu"),
+                        style: const TextStyle(
                             color: Colors.black,
                             wordSpacing: 3,
                             fontSize: 15,
@@ -109,7 +110,7 @@ class CustomContainerDetails extends StatelessWidget {
               ),
               Row(children: [
                 Text(
-                  ' ${price.toString()} ريال ',
+                  ' ${price.toString()}  ',
                   style: const TextStyle(
                       color: Colors.black,
                       wordSpacing: 3,
