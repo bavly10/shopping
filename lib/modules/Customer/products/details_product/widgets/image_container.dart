@@ -28,9 +28,9 @@ class CustomImageContainer extends StatelessWidget {
               controller: controller,
               itemCount: image.length,
               itemBuilder: (context, index) => Container(
-                  decoration: const BoxDecoration(
-                      image:
-                          DecorationImage(image: AssetImage('assets/x1.png')))),
+                  decoration: BoxDecoration(
+                      image: DecorationImage(
+                          image: NetworkImage(image[index].logo!)))),
             )),
         SmoothPageIndicator(
           effect: ScrollingDotsEffect(
