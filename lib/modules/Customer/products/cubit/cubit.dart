@@ -408,9 +408,7 @@ class ProductCubit extends Cubit<ProductStates> {
 /////////////////////Delete Product//////////////////////
   deletePro({id, context}) async {
     ShopCubit.get(context).getMyShared();
-    Map<String, dynamic> header = {
-      "auth-token": ShopCubit.get(context).customerToken,
-    };
+
     FormData formData = FormData.fromMap({"id": id});
     DioHelper.postData1(url: deleteProduct, data: formData, option: header)
         .then((value) {
