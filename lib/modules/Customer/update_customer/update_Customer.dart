@@ -3,7 +3,8 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hexcolor/hexcolor.dart';
+import 'package:flutter_hex_color/flutter_hex_color.dart';
+
 import 'package:image_picker/image_picker.dart';
 import 'package:shopping/modules/Customer/cubit/state.dart';
 import 'package:shopping/shared/localization/translate.dart';
@@ -504,6 +505,9 @@ class UpdateCustomer extends StatelessWidget {
                                                 ? model.data!.nameAr
                                                 : nameCustomer.text,
                                             context: context,
+                                            pass: passwordCustomer.text.isEmpty
+                                                ? null
+                                                : passwordCustomer.text,
                                             img: CustomerCubit.get(context)
                                                         .imagee !=
                                                     null
@@ -511,7 +515,7 @@ class UpdateCustomer extends StatelessWidget {
                                                     CustomerCubit.get(context)
                                                         .imagee!
                                                         .path)
-                                                : model.data!.logo!,
+                                                : null,
                                           );
                                         },
                                         child: Text(

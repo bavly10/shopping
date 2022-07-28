@@ -2,7 +2,8 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hexcolor/hexcolor.dart';
+import 'package:flutter_hex_color/flutter_hex_color.dart';
+
 import 'package:shopping/Cubit/cubit.dart';
 import 'package:shopping/model/CustomerModel.dart';
 import 'package:shopping/model/product.dart';
@@ -60,7 +61,7 @@ class CustomerHome extends StatelessWidget {
                         children: [
                           Container(
                             decoration: BoxDecoration(
-                              color: HexColor('#A7B3CF'),
+                              // color: HexColor("#A7B3CF"),
                               borderRadius:
                                   const BorderRadius.all(Radius.circular(20)),
                             ),
@@ -114,7 +115,7 @@ class CustomerHome extends StatelessWidget {
                           ),
                           Container(
                             decoration: BoxDecoration(
-                              color: HexColor('#A7B3CF'),
+                              // color: HexColor("#A7B3CF"),
                               borderRadius:
                                   const BorderRadius.all(Radius.circular(20)),
                             ),
@@ -234,7 +235,7 @@ class CustomerHome extends StatelessWidget {
           decoration: BoxDecoration(
             color: Colors.white, //background color of dropdown button
             border: Border.all(
-                color: HexColor('#A7B3CF'),
+                //color: HexColor("#A7B3CF"),
                 width: 1), //border of dropdown button
             borderRadius: BorderRadius.circular(20),
           ),
@@ -264,7 +265,7 @@ class CustomerHome extends StatelessWidget {
                       padding: const EdgeInsets.only(bottom: 8.0),
                       child: Text(pro.titleAr!,
                           style: TextStyle(
-                            color: HexColor('#A7B3CF'),
+//color: HexColor("#A7B3CF"),
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
                           )),
@@ -292,7 +293,7 @@ class CustomerHome extends StatelessWidget {
               ],
             ),
             Container(
-              color: HexColor('#A7B3CF'),
+              color: HexColor('#aabbcc'),
               height: 1,
             ),
             Row(

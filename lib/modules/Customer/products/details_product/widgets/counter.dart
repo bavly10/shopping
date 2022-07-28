@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hexcolor/hexcolor.dart';
+
 import 'package:shopping/shared/my_colors.dart';
 
 class CustomHorizCounterContainer extends StatelessWidget {
@@ -27,7 +27,7 @@ class CustomHorizCounterContainer extends StatelessWidget {
             child: Icon(
               Icons.add,
               size: 22,
-              color: HexColor("#707070"),
+              // color: HexColor("#707070"),
             ),
             onTap: upward,
           )),
@@ -44,7 +44,7 @@ class CustomHorizCounterContainer extends StatelessWidget {
               child: Icon(
                 Icons.minimize,
                 size: 22,
-                color: HexColor("#707070"),
+                //  color: HexColor("#707070"),
               ),
               onTap: downrd,
             ),

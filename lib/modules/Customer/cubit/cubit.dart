@@ -140,7 +140,7 @@ class CustomerCubit extends Cubit<CustomerStates> {
 
   ////////////////////////////Update Customer////////////////
   MultipartFile? mFile;
-  updateCustomer({nameStore, name, phone, adress, img, context}) async {
+  updateCustomer({nameStore, name, pass, phone, adress, img, context}) async {
     emit(WaitingCustomerUpdtatingState());
     Map<String, dynamic> header = {
       // "auth-token":
@@ -150,6 +150,7 @@ class CustomerCubit extends Cubit<CustomerStates> {
     FormData formData = FormData.fromMap({
       "user_id": ShopCubit.get(context).customerId,
       "name_ar": name,
+      "password": pass,
       "name_en": prosCustomerModel!.data!.nameEn,
       "phone": phone,
       "address": adress,
