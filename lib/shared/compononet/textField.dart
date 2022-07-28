@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hex_color/flutter_hex_color.dart';
 
 import 'package:shopping/shared/my_colors.dart';
 
@@ -34,7 +35,7 @@ class MyTextField extends StatelessWidget {
       child: Container(
           decoration: BoxDecoration(boxShadow: [
             BoxShadow(
-              // color: HexColor('#0063FF').withOpacity(.2),
+              color: HexColor('#0063FF').withOpacity(.2),
               blurRadius: 20,
               offset: const Offset(0, 0),
             )
@@ -54,13 +55,13 @@ class MyTextField extends StatelessWidget {
                       size: 20,
                       color: myBlack,
                     )),
-                //  fillColor: HexColor('#FFFFFF'),
+                fillColor: HexColor('#FFFFFF'),
                 filled: true,
                 prefixIcon: Icon(
                   prefix,
-                  //color: HexColor('#0065FC'),
+                  color: HexColor('#0065FC'),
                 ),
-                // focusColor: HexColor('#0063FF'),
+                focusColor: HexColor('#0063FF'),
                 border: const OutlineInputBorder(
                   borderRadius: BorderRadius.all(
                     Radius.circular(15.0),
