@@ -39,7 +39,7 @@ class FourScreen extends StatelessWidget {
                 ],
               ),
             ),),
-            SizedBox(height: 15,),
+            const SizedBox(height: 15,),
             if(image!=null) Expanded(
               child: Stack(
                 alignment: AlignmentDirectional.topEnd,

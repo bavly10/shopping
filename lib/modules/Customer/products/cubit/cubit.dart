@@ -71,13 +71,6 @@ class ProductCubit extends Cubit<ProductStates> {
       many,
       String? descAr,
       String? descEn,
-      int? s,
-      int? m,
-      int? l,
-      int? xl,
-      int? twoXl,
-      int? threexl,
-      int? fourxl,
       img}) async {
     ShopCubit.get(context).getMyShared();
     Map<String, dynamic> header = {
@@ -96,9 +89,9 @@ class ProductCubit extends Cubit<ProductStates> {
       "m": m,
       "l": l,
       "xl": xl,
-      "two_xl": twoXl,
-      "three_xl": threexl,
-      "four_xl": fourxl,
+      "two_xl": two_xll,
+      "three_xl": three_xll,
+      "four_xl": four_xll,
       "image[]": img
     });
     DioHelper.postData1(url: createProduct, data: formData, option: header)

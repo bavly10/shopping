@@ -144,8 +144,7 @@ class LoginCubit extends Cubit<LoginStates> {
       "male": colorMen,
       "female": colorWomen,
       "baby": colorBaby,
-      "logo": await MultipartFile.fromFile(imagee!.path,
-          filename: mFile.toString(), contentType: MediaType("png", "jpg")),
+      "logo": await MultipartFile.fromFile(imagee!.path,),
     });
     DioHelper.postData1(url: signup, data: formData).then((value) {
       print(value.data.toString());
