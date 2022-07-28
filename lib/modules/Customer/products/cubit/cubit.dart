@@ -435,4 +435,15 @@ class ProductCubit extends Cubit<ProductStates> {
       emit(GettingLogoutError());
     });
   }
+
+  int amount = 0;
+  void adding() {
+    amount++;
+    emit(AddAmount());
+  }
+
+  void minus() {
+    amount--;
+    emit(MinusAmount());
+  }
 }

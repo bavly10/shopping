@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:shopping/modules/Customer/cubit/cubit.dart';
+import 'package:shopping/modules/Customer/products/cubit/cubit.dart';
 import 'package:shopping/modules/Customer/products/details_product/widgets/counter.dart';
 import 'package:shopping/shared/localization/translate.dart';
 import 'package:shopping/shared/my_colors.dart';
@@ -122,9 +124,13 @@ class CustomContainerDetails extends StatelessWidget {
                 Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: CustomHorizCounterContainer(
-                      counter: 3,
-                      upward: () {},
-                      downrd: () {},
+                      counter: ProductCubit.get(context).amount,
+                      upward: () {
+                        ProductCubit.get(context).adding();
+                      },
+                      downrd: () {
+                        ProductCubit.get(context).minus();
+                      },
                     ))
               ]),
               const SizedBox(
