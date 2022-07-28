@@ -32,6 +32,9 @@ class CustomImageContainer extends StatelessWidget {
                       image: DecorationImage(
                           image: NetworkImage(image[index].logo!)))),
             )),
+        const SizedBox(
+          height: 20,
+        ),
         SmoothPageIndicator(
           effect: ScrollingDotsEffect(
             dotHeight: 10,
