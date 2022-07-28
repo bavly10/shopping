@@ -11,6 +11,7 @@ import 'package:shopping/modules/Customer/login/cubit/cubit.dart';
 import 'package:shopping/modules/Customer/products/cubit/cubit.dart';
 import 'package:shopping/modules/Customer/products/createProduct.dart';
 import 'package:shopping/modules/Customer/customer_home_screen.dart';
+import 'package:shopping/modules/Customer/update_customer/update_Customer.dart';
 import 'package:shopping/modules/Splash_screen/splash.dart';
 import 'package:shopping/modules/shppingCompany/CompanyShpping.dart';
 import 'package:shopping/shared/diohelper/dioHelpoer.dart';
@@ -35,10 +36,17 @@ class MyApp extends StatelessWidget {
     SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom]);
     return MultiBlocProvider(
       providers: [
-        BlocProvider(create: (context) => ShopCubit()..getSplashData()..getCategoriesData()..getCustomerData(10)),
+        BlocProvider(
+            create: (context) => ShopCubit()
+              ..getSplashData()
+              ..getCategoriesData()
+              ..getCustomerData(10)),
         BlocProvider(create: (context) => LoginCubit()),
         BlocProvider(create: (context) => ProductCubit()),
-        BlocProvider(create: (context) => CustomerCubit()..getProductCustomer(LoginCubit.get(context).loginModel?.data?.id)),
+        BlocProvider(
+            create: (context) => CustomerCubit()
+              ..getProductCustomer(LoginCubit.get(context).loginModel?.data?.id)
+              ..showCustomerData(18, context)),
       ],
       child: BlocBuilder<ShopCubit, ShopStates>(
         builder: (context, state) {
@@ -87,8 +95,9 @@ class MyApp extends StatelessWidget {
               primarySwatch: Colors.amber,
             ),
             themeMode: ThemeMode.light,
-            home: // CustomerHome(),
-           SplashScreen(),
+            home: // UpdateCustomer(),
+                // CustomerHome(),
+                SplashScreen(),
             //// SplashScreen(),
             builder: EasyLoading.init(),
           );
