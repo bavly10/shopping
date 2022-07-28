@@ -161,7 +161,7 @@ class CustomerCubit extends Cubit<CustomerStates> {
       "male": colorMen,
       "female": colorWomen,
       "baby": colorBaby,
-      "logo": img ?? prosCustomerModel!.data!.logo
+      "logo": img
     });
     DioHelper.postData1(url: updateUser, data: formData, option: header)
         .then((value) {
