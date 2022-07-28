@@ -6,6 +6,9 @@ import 'package:shopping/modules/Customer/products/cubit/states.dart';
 import 'package:shopping/modules/Customer/products/details_product/widgets/background_container.dart';
 import 'package:shopping/modules/Customer/products/details_product/widgets/container_details.dart';
 import 'package:shopping/modules/Customer/products/details_product/widgets/image_container.dart';
+import 'package:shopping/shared/compononet/componotents.dart';
+
+import '../../../mainScreen/mainScreen.dart';
 
 class DetailsProduct extends StatelessWidget {
   const DetailsProduct({Key? key}) : super(key: key);
@@ -25,7 +28,7 @@ class DetailsProduct extends StatelessWidget {
                   Stack(children: [
                     CustomBackgroundContainer(
                       arrowBack: () {
-                        //  navigateTo(context, RestarantLayout());
+                        navigateToFinish(context, MainScreen());
                       },
                       cartShopping: () {},
                     ),
