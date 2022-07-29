@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shopping/Cubit/cubit.dart';
+import 'package:shopping/model/cart.dart';
 import 'package:shopping/model/categoryModel.dart';
 import 'package:shopping/model/product.dart';
 import 'package:shopping/model/product_info.dart';
@@ -364,9 +365,6 @@ class ProductCubit extends Cubit<ProductStates> {
   ProductInfo? proInf;
   Future productInfo(id, context) async {
     emit(loadingProduct());
-    Map<String, dynamic> header = {
-      "auth-token": ShopCubit.get(context).customerToken
-    };
     FormData formData = FormData.fromMap({"product_id": id});
     await DioHelper.postData1(
       url: getOneProduct,
@@ -438,5 +436,74 @@ class ProductCubit extends Cubit<ProductStates> {
   void minus() {
     amount--;
     emit(MinusAmount());
+  }
+
+  ////////////////////cart///////////
+
+  Map<String, CartItem> _items = {};
+  Map<String, CartItem> get items {
+    return {..._items};
+  }
+  int get itemcount {
+    return _items.length;
+  }
+
+  void additem({required String proid, required String imgurl, required String title, required double price,required int qua}) {
+    if (_items.containsKey(proid)) {
+      _items.update(
+          proid,
+              (value) => CartItem(
+              id: value.id,
+              title: value.title,
+              quantity: value.quantity+1,
+              price: value.price,
+              imgurl: value.imgurl));
+    } else {
+      _items.putIfAbsent(
+          proid,
+              () => CartItem(
+              id: DateTime.now().toString(),
+              title: title,
+              quantity: qua,
+              price: price,
+              imgurl: imgurl));
+    }
+    emit(ShopAddItems());
+  }
+  void removeitem(String proid) {
+    _items.remove(proid);
+    emit(ShopRemoveItems());
+  }
+  void removesingleitem(String proid) {
+    if (!_items.containsKey(proid)) {
+      return;
+    }
+    if (_items[proid]!.quantity > 1) {
+      _items.update(proid,(value) => CartItem(
+          id: value.id,
+          title: value.title,
+          quantity: value.quantity - 1,
+          price: value.price,
+          imgurl: value.imgurl));
+    } else {
+      _items.remove(proid);
+    }
+    emit(ShopRemoveItem());
+  }
+  void clear() {
+    _items = {};
+  }
+  int itemCount=1;
+  void plus(){
+    itemCount++;
+    emit(ShopChangeplus());
+  }
+  void minuss(){
+    if(itemCount<=1){
+      itemCount=1;
+    }else{
+      itemCount--;
+    }
+    emit(ShopChangeminus());
   }
 }

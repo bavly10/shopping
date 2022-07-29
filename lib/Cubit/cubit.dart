@@ -1,14 +1,9 @@
-import 'dart:io';
-
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:shopping/Cubit/states.dart';
 import 'package:shopping/model/ProCustomer.dart';
 import 'package:shopping/model/categoryModel.dart';
 import 'package:shopping/model/splash.dart';
-import 'package:shopping/model/CustomerModel.dart';
 import 'package:shopping/modules/Customer/login/main.dart';
 import 'package:shopping/modules/cart/cart.dart';
 import 'package:shopping/modules/mainScreen/screen/HomeScreen.dart';
@@ -166,4 +161,5 @@ class ShopCubit extends Cubit<ShopStates> {
     customerToken = CashHelper.getData("customerToken");
     customerId = CashHelper.getData("customerId");
   }
+
 }

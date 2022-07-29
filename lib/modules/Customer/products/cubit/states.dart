@@ -51,3 +51,8 @@ class GettingProductDataLoading extends ProductStates {}
 class GettingLogoutDone extends ProductStates {}
 
 class GettingLogoutError extends ProductStates {}
+class ShopAddItems extends ProductStates {}
+class ShopRemoveItems extends ProductStates {}
+class ShopRemoveItem extends ProductStates {}
+class ShopChangeplus extends ProductStates {}
+class ShopChangeminus extends ProductStates {}
