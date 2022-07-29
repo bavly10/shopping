@@ -10,15 +10,15 @@ import 'package:shopping/shared/my_colors.dart';
 
 class CartScreen extends StatelessWidget {
    double x=0.0;
-  double y = 0.10;
+  double y = 0.0;
   double d = 30.0;
   @override
   Widget build(BuildContext context) {
-    var z = (x * y);
-    var totall = (z + x + d);
     return BlocBuilder<ProductCubit,ProductStates>(
       builder: (ctx,state){
         final cubit=ProductCubit.get(context);
+        x = cubit.totalamount;
+        var totall = (x+ d);
         return SafeArea(
           child:Padding(
             padding: const EdgeInsets.all(4.0),
@@ -29,7 +29,7 @@ class CartScreen extends StatelessWidget {
                   children: [
                     Text("منتجات",style: TextStyle(color: myBlue,fontSize: 20),),
                     const SizedBox(width:20),
-                    Text("0",style: TextStyle(color: myBlue,fontSize: 20),),
+                    Text("${cubit.itemcount}",style: TextStyle(color: myBlue,fontSize: 20),),
                     const Spacer(),
                     const Text("My Bag",style: TextStyle(color: Colors.black,fontSize: 22,fontWeight: FontWeight.bold),),
                     const SizedBox(width: 5,),
@@ -63,14 +63,14 @@ class CartScreen extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children:  [
                             const Text("Price"),
-                            Text("${z.toStringAsFixed(2)} L.E"),
+                            Text("$x L.E"),
                           ],
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             const Text("Shipping"),
-                            Text("${z.toStringAsFixed(2)} L.E"),
+                            Text("${d.toStringAsFixed(2)} L.E"),
                           ],
                         ),
                         const  Divider(
@@ -80,7 +80,7 @@ class CartScreen extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             const Text("Total"),
-                            Text("${d.toStringAsFixed(2)} L.E"),
+                            Text("${totall.toStringAsFixed(2)} L.E"),
                           ],
                         ),
                         BlueButton(title:Text( "Confirm Order",style: TextStyle(color: myWhite,fontSize: 18,fontWeight: FontWeight.bold),) ,onpress: (){}, hight: 0.07, width: 0.80)

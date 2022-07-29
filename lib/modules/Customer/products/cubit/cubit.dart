@@ -444,6 +444,13 @@ class ProductCubit extends Cubit<ProductStates> {
   Map<String, CartItem> get items {
     return {..._items};
   }
+  double get totalamount {
+    var total = 0.0;
+    _items.forEach((key, Cartitem) {
+      total += Cartitem.price * Cartitem.quantity;
+    });
+    return total;
+  }
   int get itemcount {
     return _items.length;
   }

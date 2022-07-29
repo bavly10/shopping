@@ -12,9 +12,9 @@ class Cartitemapp extends StatelessWidget {
         const SizedBox(height: 10,),
         Card(
           elevation: 6,
-          margin: EdgeInsets.symmetric(horizontal: 15,vertical: 4),
+          margin: const EdgeInsets.symmetric(horizontal: 15,vertical: 4),
           child: Padding(
-              padding: EdgeInsets.all(8),
+              padding: const EdgeInsets.all(8),
               child:Column(
                 children: [
                   Row(
@@ -25,23 +25,23 @@ class Cartitemapp extends StatelessWidget {
                         decoration: BoxDecoration(shape: BoxShape.circle,image: DecorationImage(image: NetworkImage(imgurl))),
                       ),
                       Text("$title",style: TextStyle(fontSize: 18),),
-                      Spacer(),
-                      IconButton(icon: Icon(Icons.add_circle_sharp,color: Colors.lightBlue),
+                      const Spacer(),
+                      IconButton(icon: const Icon(Icons.add_circle_sharp,color: Colors.lightBlue),
                           onPressed: ()=>ProductCubit.get(context).additem(proid: proid,imgurl:  imgurl,title:  title, price: price, qua:quant )),
                       Text("$quant"),
-                      IconButton(icon: Icon(Icons.remove_circle,color: Colors.red,),
+                      IconButton(icon: const Icon(Icons.remove_circle,color: Colors.red,),
                           onPressed: ()=>ProductCubit.get(context).removesingleitem(proid)),
                     ],
                   ),
-                  SizedBox(height: 8,),
+                  const SizedBox(height: 8,),
                   Row(
                     children: [
                       Text("Price is:$price"),
-                      Spacer(),
+                      const Spacer(),
                     ],
                   ),
-                  SizedBox(height: 8,),
-                  Text("Total is: ${price*quant}",style: TextStyle(
+                  const SizedBox(height: 8,),
+                  Text("Total is: ${price*quant}",style: const TextStyle(
                       color: Colors.lightBlue
                   ),)
                 ],
