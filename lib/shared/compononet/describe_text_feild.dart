@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hexcolor/hexcolor.dart';
+
 import 'package:shopping/shared/my_colors.dart';
 
 class MyDescribeTextField extends StatelessWidget {
@@ -38,7 +38,7 @@ class MyDescribeTextField extends StatelessWidget {
               borderSide: BorderSide(color: myGrey!, width: 1),
             ),
             hintText: label,
-            hintStyle: TextStyle(color: HexColor('#000000').withOpacity(.6))),
+            hintStyle: TextStyle(color: Colors.black.withOpacity(.6))),
       ),
     );
   }

@@ -1,23 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
+
 import 'package:shopping/shared/my_colors.dart';
+
 class MyTextField extends StatelessWidget {
   late TextEditingController controller;
-   TextInputType? type;
+  TextInputType? type;
   void Function(String)? onSubmit;
   void Function()? onTap;
   String? Function(String?)? validate;
   late String label;
   IconData? prefix;
   IconData? suffix;
- late bool obcure;
+  late bool obcure;
   void Function()? suffixPressed;
   MyTextField({
     Key? key,
     required this.controller,
-     this.type,
-     required this.obcure,
-     this.onSubmit,
+    this.type,
+    required this.obcure,
+    this.onSubmit,
     this.onTap,
     this.validate,
     required this.label,
@@ -46,7 +48,13 @@ class MyTextField extends StatelessWidget {
             validator: (value) {},
             controller: controller,
             decoration: InputDecoration(
-              suffix: InkWell(onTap:suffixPressed,child: Icon(suffix,size: 20,color: myBlack,)),
+                suffix: InkWell(
+                    onTap: suffixPressed,
+                    child: Icon(
+                      suffix,
+                      size: 20,
+                      color: myBlack,
+                    )),
                 fillColor: HexColor('#FFFFFF'),
                 filled: true,
                 prefixIcon: Icon(
@@ -61,8 +69,7 @@ class MyTextField extends StatelessWidget {
                   borderSide: BorderSide.none,
                 ),
                 hintText: label,
-                hintStyle:
-                TextStyle(color: HexColor('#000000').withOpacity(.6))),
+                hintStyle: TextStyle(color: Colors.black.withOpacity(.6))),
           )),
     );
   }

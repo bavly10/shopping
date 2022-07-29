@@ -1,6 +1,7 @@
 import 'dart:convert';
 
-CustomerModel loginModelFromJson(String str) => CustomerModel.fromJson(json.decode(str));
+CustomerModel loginModelFromJson(String str) =>
+    CustomerModel.fromJson(json.decode(str));
 
 String loginModelToJson(CustomerModel data) => json.encode(data.toJson());
 
@@ -17,18 +18,17 @@ class CustomerModel {
   UserModel? data;
   int? errorCode;
   factory CustomerModel.fromJson(Map<String, dynamic> json) => CustomerModel(
-    status: json["status"],
-    msg: json["msg"],
-    errorCode: json["error-code"]== null?null:json["error-code"],
-    data:json["data"]==null?null: UserModel.fromJson(json["data"]),
-
-  );
+        status: json["status"],
+        msg: json["msg"],
+        errorCode: json["error-code"] == null ? null : json["error-code"],
+        data: json["data"] == null ? null : UserModel.fromJson(json["data"]),
+      );
 
   Map<String, dynamic> toJson() => {
-    "status": status,
-    "msg": msg,
-    "data": data!.toJson(),
-  };
+        "status": status,
+        "msg": msg,
+        "data": data!.toJson(),
+      };
 }
 
 class UserModel {
@@ -73,44 +73,44 @@ class UserModel {
   String? token;
 
   factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
-    id: json["id"],
-    nameAr: json["name_ar"],
-    nameEn: json["name_en"],
-    email: json["email"],
-    emailVerifiedAt: DateTime.parse(json["email_verified_at"]),
-    phone: json["phone"],
-    address: json["address"],
-    longitude: json["longitude"],
-    latitude: json["latitude"],
-    titleAr: json["title_ar"],
-    titleEn: json["title_en"],
-    male: json["male"],
-    female: json["female"],
-    baby: json["baby"],
-    logo: json["logo"],
-    createdAt: DateTime.parse(json["created_at"]),
-    updatedAt: DateTime.parse(json["updated_at"]),
-    token: json["token"],
-  );
+        id: json["id"],
+        nameAr: json["name_ar"],
+        nameEn: json["name_en"],
+        email: json["email"],
+        emailVerifiedAt: DateTime.parse(json["email_verified_at"]),
+        phone: json["phone"],
+        address: json["address"],
+        longitude: json["longitude"],
+        latitude: json["latitude"],
+        titleAr: json["title_ar"],
+        titleEn: json["title_en"],
+        male: json["male"],
+        female: json["female"],
+        baby: json["baby"],
+        logo: json["logo"],
+        createdAt: DateTime.parse(json["created_at"]),
+        updatedAt: DateTime.parse(json["updated_at"]),
+        token: json["token"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "id": id,
-    "name_ar": nameAr,
-    "name_en": nameEn,
-    "email": email,
-    "email_verified_at": emailVerifiedAt!.toIso8601String(),
-    "phone": phone,
-    "address": address,
-    "longitude": longitude,
-    "latitude": latitude,
-    "title_ar": titleAr,
-    "title_en": titleEn,
-    "male": male,
-    "female": female,
-    "baby": baby,
-    "logo": logo,
-    "created_at": createdAt!.toIso8601String(),
-    "updated_at": updatedAt!.toIso8601String(),
-    "token": token,
-  };
+        "id": id,
+        "name_ar": nameAr,
+        "name_en": nameEn,
+        "email": email,
+        "email_verified_at": emailVerifiedAt!.toIso8601String(),
+        "phone": phone,
+        "address": address,
+        "longitude": longitude,
+        "latitude": latitude,
+        "title_ar": titleAr,
+        "title_en": titleEn,
+        "male": male,
+        "female": female,
+        "baby": baby,
+        "logo": logo,
+        "created_at": createdAt!.toIso8601String(),
+        "updated_at": updatedAt!.toIso8601String(),
+        "token": token,
+      };
 }

@@ -14,6 +14,10 @@ class ChangeCheckedssState extends ProductStates {}
 
 class ChangeCheckedSssstate extends ProductStates {}
 
+class AddAmount extends ProductStates {}
+
+class MinusAmount extends ProductStates {}
+
 class ChangeCheckedSsxtate extends ProductStates {}
 
 class ChangeCheckedSswtate extends ProductStates {}
@@ -33,13 +37,17 @@ class DeletingImageProduct extends ProductStates {}
 class UpdatingSueccs extends ProductStates {}
 
 class CreatingSueccs extends ProductStates {}
+
 class CreatingError extends ProductStates {}
 
 class GettingProductData extends ProductStates {}
+
 class GettingProductDataNull extends ProductStates {}
 
 class GettingProductDataError extends ProductStates {}
 
 class GettingProductDataLoading extends ProductStates {}
+
 class GettingLogoutDone extends ProductStates {}
+
 class GettingLogoutError extends ProductStates {}

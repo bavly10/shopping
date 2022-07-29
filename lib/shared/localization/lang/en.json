@@ -63,5 +63,15 @@
    "out": "Log Out",
    "pic": "Pics",
    "track": "Track your store products",
-   "noData": "No Data"
+   "noData": "No Data",
+   "updcus": "Customer Profile",
+   "email": "Email",
+   "cato": "Catogry Of store",
+   "upds": "Updating Product of store",
+   "must": "*You must choose here",
+   "logo": "Updating Logo Of Store",
+   "loc": "Edit Your Location",
+   "browse": "Browse from gallery",
+   "logos": "Updating Logo Of Store",
+   "amu": "Amount"
 }

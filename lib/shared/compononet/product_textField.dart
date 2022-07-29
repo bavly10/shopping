@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hexcolor/hexcolor.dart';
+
 import 'package:shopping/shared/my_colors.dart';
 
 class MyProTextField extends StatelessWidget {
@@ -10,7 +10,7 @@ class MyProTextField extends StatelessWidget {
   String? Function(String?)? validate;
   late bool obcure;
   void Function()? suffixPressed;
-   String? label;
+  String? label;
 
   MyProTextField({
     Key? key,
@@ -20,7 +20,7 @@ class MyProTextField extends StatelessWidget {
     this.onSubmit,
     this.onTap,
     this.validate,
-     this.label,
+    this.label,
     this.suffixPressed,
   }) : super(key: key);
 
@@ -43,7 +43,7 @@ class MyProTextField extends StatelessWidget {
                 borderSide: BorderSide(width: 1, color: myGrey!),
               ),
               hintText: label,
-              hintStyle: TextStyle(color: HexColor('#000000').withOpacity(.6))),
+              hintStyle: TextStyle(color: Colors.black.withOpacity(.6))),
         ));
   }
 }

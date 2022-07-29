@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -5,6 +7,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:shopping/Cubit/cubit.dart';
 import 'package:shopping/model/categoryModel.dart';
 import 'package:shopping/model/product.dart';
+import 'package:shopping/model/product_info.dart';
 import 'package:shopping/model/show_product_model.dart';
 import 'package:shopping/model/show_product_model.dart';
 import 'package:shopping/model/show_product_model.dart';
@@ -25,7 +28,7 @@ class ProductCubit extends Cubit<ProductStates> {
 
   String? catSelect;
   int? cat_id;
-   ProductShow? showProd;
+  ProductShow? showProd;
 
   void changeSelectCategory(val) {
     catSelect = val.title;
@@ -122,7 +125,7 @@ class ProductCubit extends Cubit<ProductStates> {
       "auth-token": ShopCubit.get(context).customerToken,
     };
     FormData formData = FormData.fromMap({
-      "id":id,
+      "id": id,
       "title_ar": tittleAr,
       "title_en": tittleEn,
       "category_id": cat_id,
@@ -139,9 +142,10 @@ class ProductCubit extends Cubit<ProductStates> {
       "four_xl": four_xll,
       "image[]": img
     });
-   await DioHelper.postData1(url: updateProduct, data: formData, option: header)
+    await DioHelper.postData1(
+            url: updateProduct, data: formData, option: header)
         .then((value) {
-          print(value.data.toString());
+      print(value.data.toString());
       emit(UpdatingSueccs());
     }).catchError((error) {
       print(error.toString());
@@ -256,13 +260,13 @@ class ProductCubit extends Cubit<ProductStates> {
     return limit += 1;
   }
 
-  Future getProducts(context,numberPage) async {
+  Future getProducts(context, numberPage) async {
     listProduct = [];
     ShopCubit.get(context).getMyShared();
     emit(GettingProductDataLoading());
     Map<String, dynamic> data = {
-      "user_id":ShopCubit.get(context).customerId,
-      "page":numberPage
+      "user_id": ShopCubit.get(context).customerId,
+      "page": numberPage
     };
     Map<String, dynamic> header = {
       "auth-token": ShopCubit.get(context).customerToken,
@@ -270,28 +274,40 @@ class ProductCubit extends Cubit<ProductStates> {
     await DioHelper.postData(url: getProduct, data: data, option: header)
         .then((value) {
       final res = value.data['data'];
-      datak=DataProductMainCustomer.fromMap(res);
+      datak = DataProductMainCustomer.fromMap(res);
       print(datak!.currentPage);
-      final mylist=res['data'] as List;
-      if(mylist.isEmpty){
+      final mylist = res['data'] as List;
+      if (mylist.isEmpty) {
         emit(GettingProductDataNull());
-      }else{
+      } else {
         for (var value in mylist) {
-          final pro = listProduct.indexWhere((element) => element.id == value["id"].toString(),);
+          final pro = listProduct.indexWhere(
+            (element) => element.id == value["id"].toString(),
+          );
           if (pro >= 0) {
             listProduct[pro] = ProductItemMainCustomer(
               id: value["id"],
               titleAr: value["title_ar"],
               price: value["price"],
               many: value["many"],
-              images:(value["images"] as List<dynamic>).map((e) => ImagesPro(id: e["id".toString()], logo: e["logo"].toString(),)).toList(),
+              images: (value["images"] as List<dynamic>)
+                  .map((e) => ImagesPro(
+                        id: e["id".toString()],
+                        logo: e["logo"].toString(),
+                      ))
+                  .toList(),
             );
             listProducts[pro] = ProductItemMainCustomer(
               id: value["id"],
               titleAr: value["title_ar"],
               price: value["price"],
               many: value["many"],
-              images:(value["images"] as List<dynamic>).map((e) => ImagesPro(id: e["id".toString()], logo: e["logo"].toString(),)).toList(),
+              images: (value["images"] as List<dynamic>)
+                  .map((e) => ImagesPro(
+                        id: e["id".toString()],
+                        logo: e["logo"].toString(),
+                      ))
+                  .toList(),
             );
           } else {
             listProduct.add(ProductItemMainCustomer(
@@ -299,16 +315,26 @@ class ProductCubit extends Cubit<ProductStates> {
               titleAr: value["title_ar"],
               price: value["price"],
               many: value["many"],
-              images:(value["images"] as List<dynamic>).map((e) => ImagesPro(id: e["id".toString()], logo: e["logo"].toString(),)).toList(),
+              images: (value["images"] as List<dynamic>)
+                  .map((e) => ImagesPro(
+                        id: e["id".toString()],
+                        logo: e["logo"].toString(),
+                      ))
+                  .toList(),
             ));
             listProducts.add(ProductItemMainCustomer(
               id: value["id"],
               titleAr: value["title_ar"],
               price: value["price"],
               many: value["many"],
-              images:(value["images"] as List<dynamic>).map((e) => ImagesPro(id: e["id".toString()], logo: e["logo"].toString(),)).toList(),
+              images: (value["images"] as List<dynamic>)
+                  .map((e) => ImagesPro(
+                        id: e["id".toString()],
+                        logo: e["logo"].toString(),
+                      ))
+                  .toList(),
             ));
-      }
+          }
         }
         emit(GettingProductData());
       }
@@ -322,12 +348,32 @@ class ProductCubit extends Cubit<ProductStates> {
   Future showPro(id, context) async {
     emit(loadingProduct());
     Map<String, dynamic> header = {
-     "auth-token":ShopCubit.get(context).customerToken
+      "auth-token": ShopCubit.get(context).customerToken
     };
     FormData formData = FormData.fromMap({"id": id});
     await DioHelper.postData1(url: showProduct, data: formData, option: header)
         .then((value) {
       showProd = ProductShow.fromMap(value.data);
+      emit(ShowingProduct());
+    }).catchError((error) {
+      print(error.toString());
+      emit(failProduct());
+    });
+  }
+
+  ProductInfo? proInf;
+  Future productInfo(id, context) async {
+    emit(loadingProduct());
+    Map<String, dynamic> header = {
+      "auth-token": ShopCubit.get(context).customerToken
+    };
+    FormData formData = FormData.fromMap({"product_id": id});
+    await DioHelper.postData1(
+      url: getOneProduct,
+      data: formData,
+    ).then((value) {
+      proInf = ProductInfo.fromMap(value.data);
+      print(proInf!.data!.id);
       emit(ShowingProduct());
     }).catchError((error) {
       print(error.toString());
@@ -355,12 +401,12 @@ class ProductCubit extends Cubit<ProductStates> {
 /////////////////////Delete Product//////////////////////
   deletePro({id, context}) async {
     ShopCubit.get(context).getMyShared();
-    Map<String, dynamic> header = {
-      "auth-token":ShopCubit.get(context).customerToken,
-    };
+
     FormData formData = FormData.fromMap({"id": id});
-    DioHelper.postData1(url: deleteProduct, data: formData, option: header)
-        .then((value) {
+    DioHelper.postData1(
+      url: deleteProduct,
+      data: formData,
+    ).then((value) {
       debugPrint(value.data.toString());
       emit(DeletingImageProduct());
       print("done");
@@ -369,16 +415,28 @@ class ProductCubit extends Cubit<ProductStates> {
     });
   }
 
-  Future getLogout(context)async{
+  Future getLogout(context) async {
     ShopCubit.get(context).getMyShared();
-    Map<String, dynamic> map = {"auth-token": ShopCubit.get(context).customerToken};
+    Map<String, dynamic> map = {
+      "auth-token": ShopCubit.get(context).customerToken
+    };
     await DioHelper.postData(url: logout, data: map).then((value) {
       CashHelper.removeData("customerToken");
       CashHelper.removeData("customerId");
       emit(GettingLogoutDone());
-    }).catchError((error){
+    }).catchError((error) {
       emit(GettingLogoutError());
     });
   }
 
+  int amount = 0;
+  void adding() {
+    amount++;
+    emit(AddAmount());
+  }
+
+  void minus() {
+    amount--;
+    emit(MinusAmount());
+  }
 }
