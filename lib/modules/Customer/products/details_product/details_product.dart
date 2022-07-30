@@ -46,12 +46,6 @@ class DetailsProduct extends StatelessWidget {
                     navigateToFinish(context, MainScreen());
                   },
                   cartShopping: () {
-                    // cubit.additem(
-                    //     proid: model!.data!.id.toString(),
-                    //     imgurl: model.data!.images![0].logo.toString(),
-                    //     title: model.data!.title.toString(),
-                    //     price: double.parse(model.data!.price.toString()),
-                    //     qua: cubit.itemCount);
                     navigateTo(context, CartScreen());
                   },
                 ),

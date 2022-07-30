@@ -146,7 +146,7 @@ class CustomContainerDetails extends StatelessWidget {
                         }
                       },
                       downrd: () {
-                        if (ProductCubit.get(context).amount > 0) {
+                        if (ProductCubit.get(context).amount > 1) {
                           ProductCubit.get(context).minus();
                         } else {
                           myToast(message: mytranslate(context, "nott"));
