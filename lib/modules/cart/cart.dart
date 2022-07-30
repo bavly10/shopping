@@ -79,9 +79,8 @@ class CartScreen extends StatelessWidget {
                                 proid: cubit.items.keys.toList()[index],
                                 title: cubit.items.values.toList()[index].title,
                                 imgurl:
-                                    cubit.items.values.toList()[index].imgurl,
-                                quant:
-                                    cubit.items.values.toList()[index].quantity,
+                                cubit.items.values.toList()[index].imgurl,
+                                quant: cubit.items.values.toList()[index].quantity,
                                 price: cubit.items.values.toList()[index].price,
                               )),
                 ),

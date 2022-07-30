@@ -5,8 +5,8 @@ import 'package:shopping/shared/my_colors.dart';
 class CustomBackgroundContainer extends StatelessWidget {
   void Function()? arrowBack;
   void Function()? cartShopping;
-
-  CustomBackgroundContainer({this.arrowBack, this.cartShopping});
+  int? x;
+  CustomBackgroundContainer({this.arrowBack, this.cartShopping,this.x});
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -15,7 +15,7 @@ class CustomBackgroundContainer extends StatelessWidget {
       height: MediaQuery.of(context).size.height,
       width: MediaQuery.of(context).size.width,
       child: Padding(
-        padding: const EdgeInsets.only(top: 45, right: 15, left: 15),
+        padding: const EdgeInsets.only(top: 15, right: 15, left: 15),
         child: Row(
           children: [
             InkWell(
@@ -31,12 +31,22 @@ class CustomBackgroundContainer extends StatelessWidget {
             const Spacer(),
             InkWell(
               onTap: cartShopping,
-              child: const Icon(
+          child: Stack(
+            children:[
+              const Icon(
                 Icons.shopping_cart_outlined,
                 color: Colors.black87,
-                size: 24,
+                size: 45,
               ),
-            ),
+             if(x!=0)Container(
+                padding: EdgeInsets.only(bottom: 9),
+                height: 45,width: 25,
+                decoration: BoxDecoration(color: Colors.red,borderRadius: BorderRadius.circular(12.0)),
+                child: Center(child: Text(x.toString(),style: const TextStyle(color: Colors.white,fontSize: 25,fontWeight: FontWeight.bold),)),
+              ),
+            ],
+          ),
+        )
           ],
         ),
       ),

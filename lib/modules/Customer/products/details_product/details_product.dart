@@ -19,20 +19,8 @@ class DetailsProduct extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<ProductCubit, ProductStates>(
-        listener: ((context, state) {
-      if (state is ShopAddItems) {
-        showDialog(
-            context: context,
-            builder: (context) {
-              return CustomDialog(
-                btnName: mytranslate(context, "ok"),
-                text: mytranslate(context, "addd"),
-                onTap: () => Navigator.pop(context),
-              );
-            });
-      }
-    }), builder: (context, state) {
+    return BlocBuilder<ProductCubit, ProductStates>(
+     builder: (context, state) {
       final model = ProductCubit.get(context).proInf;
       final cubit = ProductCubit.get(context);
       return Scaffold(
@@ -48,6 +36,7 @@ class DetailsProduct extends StatelessWidget {
                   cartShopping: () {
                     navigateTo(context, CartScreen());
                   },
+                  x: cubit.itemcount,
                 ),
                 Align(
                     alignment: Alignment.topCenter,
@@ -57,6 +46,7 @@ class DetailsProduct extends StatelessWidget {
                             CustomImageContainer(image: model!.data!.images!))),
                 Positioned(
                     top: 420,
+
                     child: CustomContainerDetails(
                       id: model.data!.id,
                       name: model.data!.title,
@@ -64,7 +54,7 @@ class DetailsProduct extends StatelessWidget {
                       rating: 4,
                       image: model.data!.images![0].logo,
                       desc: model.data!.desc,
-                      many: model.data!.many,
+                      many: cubit.itemCount,
                     )),
               ]),
               const SizedBox(height: 1)

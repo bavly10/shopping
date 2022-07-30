@@ -16,7 +16,7 @@ class CustomContainerDetails extends StatelessWidget {
   dynamic rating;
   dynamic price;
   String? desc;
-  String? many;
+  int? many;
   var id;
   CustomContainerDetails(
       {this.image,
@@ -136,18 +136,17 @@ class CustomContainerDetails extends StatelessWidget {
                 Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: CustomHorizCounterContainer(
-                      counter: ProductCubit.get(context).amount,
+                      counter: ProductCubit.get(context).itemCount,
                       upward: () {
-                        if (ProductCubit.get(context).amount <=
-                            int.parse(many!)) {
-                          ProductCubit.get(context).adding();
+                        if (ProductCubit.get(context).itemCount <=many!) {
+                          ProductCubit.get(context).plus();
                         } else {
                           myToast(message: mytranslate(context, "exc"));
                         }
                       },
                       downrd: () {
-                        if (ProductCubit.get(context).amount > 1) {
-                          ProductCubit.get(context).minus();
+                        if (ProductCubit.get(context).itemCount > 1) {
+                          ProductCubit.get(context).minuss();
                         } else {
                           myToast(message: mytranslate(context, "nott"));
                         }
@@ -237,8 +236,8 @@ class CustomContainerDetails extends StatelessWidget {
                           imgurl: image.toString(),
                           title: name.toString(),
                           price: double.parse(price),
-                          qua: ProductCubit.get(context).amount);
-                      // navigateTo(context, CartScreen());
+                          qua: ProductCubit.get(context).itemCount);
+                      myToast(message: "$name Is Added ");
                     },
                     child: Text(
                       mytranslate(context, "order"),

@@ -197,5 +197,3 @@ class Cartitemapp extends StatelessWidget {
     );
   }
 }
-
-class $price {}
