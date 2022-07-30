@@ -7,6 +7,9 @@ import 'package:shopping/shared/compononet/myToast.dart';
 import 'package:shopping/shared/localization/translate.dart';
 import 'package:shopping/shared/my_colors.dart';
 
+import '../../../../../shared/compononet/componotents.dart';
+import '../../../../cart/cart.dart';
+
 class CustomContainerDetails extends StatelessWidget {
   String? image;
   String? name;
@@ -14,8 +17,15 @@ class CustomContainerDetails extends StatelessWidget {
   dynamic price;
   String? desc;
   String? many;
+  var id;
   CustomContainerDetails(
-      {this.image, this.name, this.rating, this.price, this.desc, this.many});
+      {this.image,
+      this.name,
+      this.rating,
+      this.price,
+      this.desc,
+      this.many,
+      required this.id});
 
   @override
   Widget build(BuildContext context) {
@@ -221,7 +231,15 @@ class CustomContainerDetails extends StatelessWidget {
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10.0)),
                     color: myBlue,
-                    onPressed: () {},
+                    onPressed: () {
+                      ProductCubit.get(context).additem(
+                          proid: id.toString(),
+                          imgurl: image.toString(),
+                          title: name.toString(),
+                          price: double.parse(price),
+                          qua: ProductCubit.get(context).amount);
+                      // navigateTo(context, CartScreen());
+                    },
                     child: Text(
                       mytranslate(context, "order"),
                       style: const TextStyle(

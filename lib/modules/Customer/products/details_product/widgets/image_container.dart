@@ -23,7 +23,7 @@ class CustomImageContainer extends StatelessWidget {
         Container(
             height: 250,
             width: 260,
-            decoration: BoxDecoration(shape: BoxShape.circle),
+            decoration: const BoxDecoration(shape: BoxShape.circle),
             child: PageView.builder(
               controller: controller,
               itemCount: image.length,
