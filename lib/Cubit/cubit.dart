@@ -14,7 +14,6 @@ import 'package:shopping/shared/shared_prefernces.dart';
 
 import '../model/shippingcompanies.dart';
 
-
 class ShopCubit extends Cubit<ShopStates> {
   ShopCubit() : super(Shop_InitalState());
   static ShopCubit get(context) => BlocProvider.of(context);
@@ -60,12 +59,7 @@ class ShopCubit extends Cubit<ShopStates> {
   }
 
   int currentindex = 0;
-  List<Widget> screen = [
-     HomeScreen(),
-    test(),
-    CartScreen(),
-    MainLogin()
-  ];
+  List<Widget> screen = [HomeScreen(), test(), CartScreen(), MainLogin()];
 
   void changeIndex(int index) {
     currentindex = index;
@@ -84,13 +78,12 @@ class ShopCubit extends Cubit<ShopStates> {
     emit(ChangeIndexBar());
   }
 
-
   ///////////////Get Shipping////////////
   ShippingModel? shippingModel;
-  Future<void> getShippingData() async {
+  Future<void> getShippingData(context) async {
     emit(GettingShippingDataLoadingState());
     Map<String, dynamic> header = {
-      "auth-token":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2thc2g1dGFrLmNvbS9hcGkvbG9naW4iLCJpYXQiOjE2NTc3MzYxNjksImV4cCI6MTY1ODM0MDk2OSwibmJmIjoxNjU3NzM2MTY5LCJqdGkiOiJVRDZuZkFIN3VWVVdyTWtNIiwic3ViIjoiNCIsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.ryNTe54vJLTFJlk2JF1bAizNMo6XGPaAWkk_vZdlqpw"
+      "auth-token": ShopCubit.get(context).customerToken
     };
     DioHelper.getData(url: ship, option: header).then((value) {
       shippingModel = ShippingModel.fromJson(value.data);
@@ -102,6 +95,7 @@ class ShopCubit extends Cubit<ShopStates> {
       emit(GettingShippingDataErrorState());
     });
   }
+
 //////////////////////////splash///////////
   SplashModel? splashModel;
   Future<void> getSplashData() async {
@@ -144,9 +138,9 @@ class ShopCubit extends Cubit<ShopStates> {
     Map<String, dynamic> data = {"category_id": catId};
     DioHelper.postData(url: getCustomer, data: data).then((value) {
       prosCustomerModel = ProsCustomerModel.fromJson(value.data);
-      if(prosCustomerModel!.data!.isEmpty){
+      if (prosCustomerModel!.data!.isEmpty) {
         emit(emptyProCustomerState());
-      }else{
+      } else {
         print("done prosCustomer ${prosCustomerModel!.status}");
         emit(DoneProCustomerState());
       }
@@ -155,11 +149,11 @@ class ShopCubit extends Cubit<ShopStates> {
       emit(ErrorProCustomerState());
     });
   }
+
   String? customerToken;
   int? customerId;
   void getMyShared() {
     customerToken = CashHelper.getData("customerToken");
     customerId = CashHelper.getData("customerId");
   }
-
 }

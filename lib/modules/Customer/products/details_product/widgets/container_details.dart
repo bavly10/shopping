@@ -3,6 +3,7 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:shopping/modules/Customer/cubit/cubit.dart';
 import 'package:shopping/modules/Customer/products/cubit/cubit.dart';
 import 'package:shopping/modules/Customer/products/details_product/widgets/counter.dart';
+import 'package:shopping/shared/compononet/myToast.dart';
 import 'package:shopping/shared/localization/translate.dart';
 import 'package:shopping/shared/my_colors.dart';
 
@@ -12,8 +13,9 @@ class CustomContainerDetails extends StatelessWidget {
   dynamic rating;
   dynamic price;
   String? desc;
+  String? many;
   CustomContainerDetails(
-      {this.image, this.name, this.rating, this.price, this.desc});
+      {this.image, this.name, this.rating, this.price, this.desc, this.many});
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +58,7 @@ class CustomContainerDetails extends StatelessWidget {
                         "48Rates",
                         style: TextStyle(color: Colors.black),
                       ),
-                      Spacer(),
+                      const Spacer(),
                       RatingBar.builder(
                         itemSize: 20,
                         initialRating: 3,
@@ -64,7 +66,8 @@ class CustomContainerDetails extends StatelessWidget {
                         direction: Axis.horizontal,
                         allowHalfRating: true,
                         itemCount: 5,
-                        itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
+                        itemPadding:
+                            const EdgeInsets.symmetric(horizontal: 4.0),
                         itemBuilder: (context, _) => Icon(
                           Icons.star,
                           color: myBlue,
@@ -117,44 +120,120 @@ class CustomContainerDetails extends StatelessWidget {
                       color: Colors.black,
                       wordSpacing: 3,
                       fontSize: 15,
-                      fontFamily: 'Cairo',
                       fontWeight: FontWeight.bold),
                 ),
-                Spacer(),
+                const Spacer(),
                 Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: CustomHorizCounterContainer(
                       counter: ProductCubit.get(context).amount,
                       upward: () {
-                        ProductCubit.get(context).adding();
+                        if (ProductCubit.get(context).amount <=
+                            int.parse(many!)) {
+                          ProductCubit.get(context).adding();
+                        } else {
+                          myToast(message: mytranslate(context, "exc"));
+                        }
                       },
                       downrd: () {
-                        ProductCubit.get(context).minus();
+                        if (ProductCubit.get(context).amount > 0) {
+                          ProductCubit.get(context).minus();
+                        } else {
+                          myToast(message: mytranslate(context, "nott"));
+                        }
                       },
                     ))
               ]),
               const SizedBox(
                 height: 30,
               ),
-              Container(
-                width: MediaQuery.of(context).size.width * .5,
-                height: 50,
-                child: MaterialButton(
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.0)),
-                  color: myBlue,
-                  onPressed: () {},
-                  child: Text(
-                    'اطلب الان',
-                    style: TextStyle(
+              Row(children: [
+                Expanded(
+                  child: DecoratedBox(
+                    decoration: BoxDecoration(
+                        color:
+                            Colors.white, //background color of dropdown button
+                        border: Border.all(
+                            color: myBlue,
+                            width: 2), //border of dropdown button
+                        borderRadius: BorderRadius.circular(
+                            10), //border raiuds of dropdown button
+                        boxShadow: <BoxShadow>[
+                          //apply shadow on Dropdown button
+                          BoxShadow(
+                              color: myBlue,
+                              blurRadius: 0.1), //shadow for button
+                        ]),
+                    child: DropdownButton(
+                      focusColor: myBlue,
+                      isExpanded: true,
+                      underline: const SizedBox(),
+                      elevation: 2,
+                      hint: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Center(
+                            child: ProductCubit.get(context).selectSize == null
+                                ? Text(
+                                    mytranslate(context, "sizes"),
+                                    style: TextStyle(
+                                        color: myBlue,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 20),
+                                  )
+                                : Text(
+                                    ProductCubit.get(context).selectSize!,
+                                    style: TextStyle(
+                                        color: myBlue,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 20),
+                                  )),
+                      ),
+
+                      // value: cubit.catSelect??,
+                      icon: Icon(
+                        Icons.keyboard_arrow_down_sharp,
+                        color: myBlue,
+                        size: 35,
+                      ),
+                      items: ProductCubit.get(context)
+                          .sizes
+                          .map<DropdownMenuItem<String>>(
+                              (size) => DropdownMenuItem(
+                                    value: size,
+                                    child: Center(
+                                      child: Text(size),
+                                    ),
+                                  ))
+                          .toList(),
+                      onChanged: (val) {
+                        ProductCubit.get(context).changeSize(val);
+                      },
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  width: 40,
+                ),
+                Container(
+                  width: MediaQuery.of(context).size.width * .5,
+                  height: 50,
+                  child: MaterialButton(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.0)),
+                    color: myBlue,
+                    onPressed: () {},
+                    child: Text(
+                      mytranslate(context, "order"),
+                      style: const TextStyle(
                         color: Colors.white,
                         fontSize: 24,
                         letterSpacing: 2,
-                        fontFamily: 'Cairo'),
+                      ),
+                    ),
                   ),
                 ),
-              ),
-              SizedBox(
+              ]),
+              const SizedBox(
                 height: 1,
               )
 

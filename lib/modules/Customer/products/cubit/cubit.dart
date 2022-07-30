@@ -15,6 +15,7 @@ import 'package:shopping/model/show_product_model.dart';
 import 'package:shopping/model/show_product_model.dart';
 import 'package:shopping/modules/Customer/login/cubit/cubit.dart';
 import 'package:shopping/modules/Customer/products/cubit/states.dart';
+import 'package:shopping/shared/compononet/myToast.dart';
 import 'package:shopping/shared/diohelper/dioHelpoer.dart';
 import 'package:shopping/shared/localization/translate.dart';
 import 'package:shopping/shared/network.dart';
@@ -363,6 +364,8 @@ class ProductCubit extends Cubit<ProductStates> {
   }
 
   ProductInfo? proInf;
+  List<String> sizes = [];
+  String? selectSize;
   Future productInfo(id, context) async {
     emit(loadingProduct());
     FormData formData = FormData.fromMap({"product_id": id});
@@ -372,11 +375,38 @@ class ProductCubit extends Cubit<ProductStates> {
     ).then((value) {
       proInf = ProductInfo.fromMap(value.data);
       print(proInf!.data!.id);
+      sizes = [];
+      if (proInf!.data!.s == "1") {
+        sizes.add("s");
+      }
+      if (proInf!.data!.m == "1") {
+        sizes.add("M");
+      }
+      if (proInf!.data!.l == "1") {
+        sizes.add("L");
+      }
+      if (proInf!.data!.xl == "1") {
+        sizes.add("XL");
+      }
+      if (proInf!.data!.the2Xl == "1") {
+        sizes.add("2XL");
+      }
+      if (proInf!.data!.the3Xl == "1") {
+        sizes.add("3XL");
+      }
+      if (proInf!.data!.the4Xl == "1") {
+        sizes.add("4XL");
+      }
       emit(ShowingProduct());
     }).catchError((error) {
       print(error.toString());
       emit(failProduct());
     });
+  }
+
+  void changeSize(val) {
+    selectSize = val;
+    emit(ChooseSize());
   }
 
 ////////////////////////// clear image/////////////////////
@@ -444,6 +474,7 @@ class ProductCubit extends Cubit<ProductStates> {
   Map<String, CartItem> get items {
     return {..._items};
   }
+
   double get totalamount {
     var total = 0.0;
     _items.forEach((key, Cartitem) {
@@ -451,24 +482,30 @@ class ProductCubit extends Cubit<ProductStates> {
     });
     return total;
   }
+
   int get itemcount {
     return _items.length;
   }
 
-  void additem({required String proid, required String imgurl, required String title, required double price,required int qua}) {
+  void additem(
+      {required String proid,
+      required String imgurl,
+      required String title,
+      required double price,
+      required int qua}) {
     if (_items.containsKey(proid)) {
       _items.update(
           proid,
-              (value) => CartItem(
+          (value) => CartItem(
               id: value.id,
               title: value.title,
-              quantity: value.quantity+1,
+              quantity: value.quantity + 1,
               price: value.price,
               imgurl: value.imgurl));
     } else {
       _items.putIfAbsent(
           proid,
-              () => CartItem(
+          () => CartItem(
               id: DateTime.now().toString(),
               title: title,
               quantity: qua,
@@ -477,38 +514,45 @@ class ProductCubit extends Cubit<ProductStates> {
     }
     emit(ShopAddItems());
   }
+
   void removeitem(String proid) {
     _items.remove(proid);
     emit(ShopRemoveItems());
   }
+
   void removesingleitem(String proid) {
     if (!_items.containsKey(proid)) {
       return;
     }
     if (_items[proid]!.quantity > 1) {
-      _items.update(proid,(value) => CartItem(
-          id: value.id,
-          title: value.title,
-          quantity: value.quantity - 1,
-          price: value.price,
-          imgurl: value.imgurl));
+      _items.update(
+          proid,
+          (value) => CartItem(
+              id: value.id,
+              title: value.title,
+              quantity: value.quantity - 1,
+              price: value.price,
+              imgurl: value.imgurl));
     } else {
       _items.remove(proid);
     }
     emit(ShopRemoveItem());
   }
+
   void clear() {
     _items = {};
   }
-  int itemCount=1;
-  void plus(){
+
+  int itemCount = 1;
+  void plus() {
     itemCount++;
     emit(ShopChangeplus());
   }
-  void minuss(){
-    if(itemCount<=1){
-      itemCount=1;
-    }else{
+
+  void minuss() {
+    if (itemCount <= 1) {
+      itemCount = 1;
+    } else {
       itemCount--;
     }
     emit(ShopChangeminus());

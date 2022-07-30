@@ -73,5 +73,18 @@
    "loc": "Edit Your Location",
    "browse": "Browse from gallery",
    "logos": "Updating Logo Of Store",
-   "amu": "Amount"
+   "amu": "Amount",
+   "order": "Order Now",
+   "sizes": "Sizes",
+   "confirm": "Confirm Order",
+   "cost": "Shipping cost",
+   "empty": "Card is empty",
+   "bag": "My Bag",
+   "prod": "Products",
+   "total": "Total Cost",
+   "wd": "WD",
+   "pricee": "Price :",
+   "totals": "Total : ",
+   "exc": "Exceeding Avialable Quantitiy",
+   "nott": "Not Allowed"
 }

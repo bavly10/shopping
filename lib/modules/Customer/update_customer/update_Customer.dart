@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hexcolor/hexcolor.dart';
+import 'package:flutter_hex_color/flutter_hex_color.dart';
 
 import 'package:image_picker/image_picker.dart';
 import 'package:shopping/modules/Customer/cubit/state.dart';

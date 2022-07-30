@@ -36,7 +36,7 @@ class DetailsProduct extends StatelessWidget {
                             proid: model!.data!.id.toString(),
                             imgurl: model.data!.images![0].logo.toString(),
                             title: model.data!.title.toString(),
-                            price:double.parse(model.data!.price.toString()),
+                            price: double.parse(model.data!.price.toString()),
                             qua: cubit.itemCount);
                         navigateTo(context, CartScreen());
                       },
@@ -54,9 +54,10 @@ class DetailsProduct extends StatelessWidget {
                           price: model.data!.price,
                           rating: 4,
                           desc: model.data!.desc,
+                          many: model.data!.many,
                         )),
                   ]),
-                  SizedBox(height: 1)
+                  const SizedBox(height: 1)
                 ],
               ),
             ),
