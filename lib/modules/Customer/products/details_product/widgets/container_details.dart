@@ -138,7 +138,7 @@ class CustomContainerDetails extends StatelessWidget {
                     child: CustomHorizCounterContainer(
                       counter: ProductCubit.get(context).itemCount,
                       upward: () {
-                        if (ProductCubit.get(context).itemCount <=many!) {
+                        if (ProductCubit.get(context).itemCount <= many!) {
                           ProductCubit.get(context).plus();
                         } else {
                           myToast(message: mytranslate(context, "exc"));
@@ -177,7 +177,7 @@ class CustomContainerDetails extends StatelessWidget {
                       focusColor: myBlue,
                       isExpanded: true,
                       underline: const SizedBox(),
-                      elevation: 2,
+                      elevation: 1,
                       hint: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Center(
@@ -221,11 +221,11 @@ class CustomContainerDetails extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(
-                  width: 40,
+                  width: 25,
                 ),
                 Container(
-                  width: MediaQuery.of(context).size.width * .5,
-                  height: 50,
+                  width: MediaQuery.of(context).size.width * .6,
+                  height: MediaQuery.of(context).size.height * .06,
                   child: MaterialButton(
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10.0)),
@@ -250,9 +250,9 @@ class CustomContainerDetails extends StatelessWidget {
                   ),
                 ),
               ]),
-              const SizedBox(
-                height: 1,
-              )
+              // const SizedBox(
+              //   height: 1,
+              // )
 
               // Spacer(),
             ],

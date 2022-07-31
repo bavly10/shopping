@@ -19,8 +19,7 @@ class DetailsProduct extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ProductCubit, ProductStates>(
-     builder: (context, state) {
+    return BlocBuilder<ProductCubit, ProductStates>(builder: (context, state) {
       final model = ProductCubit.get(context).proInf;
       final cubit = ProductCubit.get(context);
       return Scaffold(
@@ -46,7 +45,6 @@ class DetailsProduct extends StatelessWidget {
                             CustomImageContainer(image: model!.data!.images!))),
                 Positioned(
                     top: 420,
-
                     child: CustomContainerDetails(
                       id: model.data!.id,
                       name: model.data!.title,

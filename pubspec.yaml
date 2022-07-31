@@ -50,6 +50,7 @@ dependencies:
   flutter_spinkit:
   flutter_inappwebview:
   flutter_rating_bar: ^4.0.1
+  badges: ^2.0.3
 
 
 

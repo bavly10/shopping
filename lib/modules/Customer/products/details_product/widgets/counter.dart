@@ -14,8 +14,8 @@ class CustomHorizCounterContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       alignment: Alignment.center,
-      width: 150,
-      height: 40,
+      width: MediaQuery.of(context).size.width * .4,
+      height: MediaQuery.of(context).size.height * .06,
       decoration: BoxDecoration(
           border: Border.all(color: myGrey!),
           borderRadius: BorderRadius.circular(10)),

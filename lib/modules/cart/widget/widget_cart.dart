@@ -38,8 +38,8 @@ class Cartitemapp extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Container(
-                        height: 100,
-                        width: 100,
+                        height: MediaQuery.of(context).size.height * .14,
+                        width: MediaQuery.of(context).size.width * .2,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
                           // shape: BoxShape.circle,
@@ -62,8 +62,8 @@ class Cartitemapp extends StatelessWidget {
                                     fontSize: 18, fontWeight: FontWeight.bold),
                               ),
                             ),
-                            const SizedBox(
-                              width: 150,
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width * .38,
                             ),
                             InkWell(
                               onTap: () {
@@ -123,12 +123,13 @@ class Cartitemapp extends StatelessWidget {
                                     fontSize: 15),
                               ),
                               const SizedBox(
-                                width: 21,
+                                width: 43,
                               ),
                               Container(
                                 alignment: Alignment.center,
-                                width: 120,
-                                height: 35,
+                                width: MediaQuery.of(context).size.width * .29,
+                                height:
+                                    MediaQuery.of(context).size.height * .05,
                                 decoration: BoxDecoration(
                                     border: Border.all(color: myBlue),
                                     borderRadius: BorderRadius.circular(10)),
