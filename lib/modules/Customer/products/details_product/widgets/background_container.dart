@@ -36,25 +36,12 @@ class CustomBackgroundContainer extends StatelessWidget {
                   //
                   padding: EdgeInsets.all(8),
                   shape: CircleBorder(),
-                )
-
-                // CircleAvatar(
-                //   radius: 22,
-                //   backgroundColor: myBlue,
-                //   child: const Center(
-                //     child: Icon(
-                //       Icons.arrow_back_ios,
-                //       color: Colors.white,
-                //       size: 19,
-                //     ),
-                //   ),
-                // ),
-                ),
+                )),
             const Spacer(),
             InkWell(
               onTap: cartShopping,
               child: Badge(
-                animationDuration: Duration(milliseconds: 300),
+                animationDuration: const Duration(milliseconds: 300),
                 position: BadgePosition.topEnd(top: -13),
                 animationType: BadgeAnimationType.fade,
                 showBadge: true,
@@ -73,7 +60,7 @@ class CustomBackgroundContainer extends StatelessWidget {
                 child: Icon(
                   Icons.shopping_cart_outlined,
                   color: myBlue,
-                  size: 40,
+                  size: 35,
                 ),
               ),
             )
