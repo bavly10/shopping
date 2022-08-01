@@ -40,7 +40,7 @@ class DetailsProduct extends StatelessWidget {
                         child:
                             CustomImageContainer(image: model!.data!.images!))),
                 Positioned(
-                    top: 420,
+                    top: MediaQuery.of(context).size.height * .52,
                     child: CustomContainerDetails(
                       id: model.data!.id,
                       name: model.data!.title,
