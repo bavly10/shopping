@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shopping/modules/Customer/products/cubit/cubit.dart';
 import 'package:shopping/modules/Customer/products/cubit/states.dart';
 import 'package:shopping/modules/cart/widget/widget_cart.dart';
-import 'package:shopping/shared/compononet/arrowBack.dart';
 import 'package:shopping/shared/compononet/blueButton.dart';
 import 'package:shopping/shared/localization/translate.dart';
 import 'package:shopping/shared/my_colors.dart';
@@ -79,8 +78,9 @@ class CartScreen extends StatelessWidget {
                                 proid: cubit.items.keys.toList()[index],
                                 title: cubit.items.values.toList()[index].title,
                                 imgurl:
-                                cubit.items.values.toList()[index].imgurl,
-                                quant: cubit.items.values.toList()[index].quantity,
+                                    cubit.items.values.toList()[index].imgurl,
+                                quant:
+                                    cubit.items.values.toList()[index].quantity,
                                 price: cubit.items.values.toList()[index].price,
                               )),
                 ),

@@ -1,4 +1,3 @@
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shopping/modules/Customer/products/cubit/cubit.dart';
@@ -9,9 +8,6 @@ import 'package:shopping/modules/Customer/products/details_product/widgets/image
 import 'package:shopping/modules/cart/cart.dart';
 import 'package:shopping/shared/compononet/componotents.dart';
 
-import '../../../../shared/compononet/myToast.dart';
-import '../../../../shared/localization/translate.dart';
-import '../../../../shared/verification_dialog.dart';
 import '../../../mainScreen/mainScreen.dart';
 
 class DetailsProduct extends StatelessWidget {

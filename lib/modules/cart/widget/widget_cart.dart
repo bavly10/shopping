@@ -3,7 +3,6 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:shopping/modules/Customer/products/cubit/cubit.dart';
 import 'package:shopping/shared/localization/translate.dart';
 
-import '../../../shared/compononet/myToast.dart';
 import '../../../shared/my_colors.dart';
 
 class Cartitemapp extends StatelessWidget {
