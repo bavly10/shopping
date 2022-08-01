@@ -33,15 +33,18 @@ class Cartitemapp extends StatelessWidget {
               ),
               child: Column(
                 children: [
-                  Align(
-                    alignment: Alignment.topRight,
-                    child: InkWell(
-                      onTap: () {
-                        ProductCubit.get(context).removesingleitem(proid);
-                      },
-                      child: Icon(
-                        Icons.cancel_sharp,
-                        color: myBlue,
+                  Padding(
+                    padding: const EdgeInsets.only(top: 5.0, right: 5),
+                    child: Align(
+                      alignment: Alignment.topRight,
+                      child: InkWell(
+                        onTap: () {
+                          ProductCubit.get(context).removesingleitem(proid);
+                        },
+                        child: Icon(
+                          Icons.cancel_sharp,
+                          color: myBlue,
+                        ),
                       ),
                     ),
                   ),
