@@ -33,12 +33,24 @@ class Cartitemapp extends StatelessWidget {
               ),
               child: Column(
                 children: [
+                  Align(
+                    alignment: Alignment.topRight,
+                    child: InkWell(
+                      onTap: () {
+                        ProductCubit.get(context).removesingleitem(proid);
+                      },
+                      child: Icon(
+                        Icons.cancel_sharp,
+                        color: myBlue,
+                      ),
+                    ),
+                  ),
                   Row(children: [
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Container(
                         height: MediaQuery.of(context).size.height * .14,
-                        width: MediaQuery.of(context).size.width * .2,
+                        width: MediaQuery.of(context).size.width * .16,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
                           // shape: BoxShape.circle,
@@ -62,17 +74,7 @@ class Cartitemapp extends StatelessWidget {
                               ),
                             ),
                             SizedBox(
-                              width: MediaQuery.of(context).size.width * .38,
-                            ),
-                            InkWell(
-                              onTap: () {
-                                ProductCubit.get(context)
-                                    .removesingleitem(proid);
-                              },
-                              child: Icon(
-                                Icons.cancel_sharp,
-                                color: myBlue,
-                              ),
+                              width: MediaQuery.of(context).size.width * .30,
                             ),
                           ],
                         ),
