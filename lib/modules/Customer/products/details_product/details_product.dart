@@ -24,7 +24,7 @@ class DetailsProduct extends StatelessWidget {
       final cubit = ProductCubit.get(context);
       return Scaffold(
         body: SingleChildScrollView(
-          physics: const BouncingScrollPhysics(),
+          physics: const NeverScrollableScrollPhysics(),
           child: Column(
             children: [
               Stack(children: [
