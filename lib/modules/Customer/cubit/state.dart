@@ -14,6 +14,8 @@ class ShopColorsWomMen extends CustomerStates {}
 
 class ShopColorsBaby extends CustomerStates {}
 
+class SearchingProduct extends CustomerStates {}
+
 class TakeImageState extends CustomerStates {}
 
 class LoadingShowCustomer extends CustomerStates {}

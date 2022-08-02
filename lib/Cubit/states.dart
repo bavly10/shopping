@@ -35,11 +35,17 @@ class LoadingCustomer extends ShopStates {}
 class TakeImage_State extends ShopStates {}
 
 class ChangeCheckedState extends ShopStates {}
+
 class ChangeCheckedsState extends ShopStates {}
+
 class ChangeCheckedssState extends ShopStates {}
+
 class ChangeCheckedSssstate extends ShopStates {}
+
 class ChangeCheckedSsxtate extends ShopStates {}
+
 class ChangeCheckedSswtate extends ShopStates {}
+
 class ChangeCheckedSsztate extends ShopStates {}
 
 class GettingShippingDataSueccesState extends ShopStates {}
@@ -47,8 +53,13 @@ class GettingShippingDataSueccesState extends ShopStates {}
 class GettingShippingDataErrorState extends ShopStates {}
 
 class GettingShippingDataLoadingState extends ShopStates {}
+
 class LoadingProCustomerState extends ShopStates {}
+
 class DoneProCustomerState extends ShopStates {}
+
 class emptyProCustomerState extends ShopStates {}
+
 class ErrorProCustomerState extends ShopStates {}
 
+class SearchingCustomer extends ShopStates {}

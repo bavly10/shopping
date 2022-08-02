@@ -9,13 +9,15 @@ import 'package:shopping/shared/localization/translate.dart';
 import 'package:shopping/shared/my_colors.dart';
 import 'package:simple_animations/simple_animations.dart';
 
+import '../../Customer/cubit/cubit.dart';
 
 class HomeScreen extends StatelessWidget {
-   HomeScreen({Key? key}) : super(key: key);
+  HomeScreen({Key? key}) : super(key: key);
+  var search = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<ShopCubit, ShopStates>(
-      listener: (ctx,state){},
+      listener: (ctx, state) {},
       builder: (ctx, state) {
         final cubit = ShopCubit.get(context);
         return Scaffold(
@@ -24,16 +26,27 @@ class HomeScreen extends StatelessWidget {
             physics: const NeverScrollableScrollPhysics(),
             child: Column(
               children: [
-                cubit.changeAppBar ? myAppBar(context) : myAppBarSearch(context),
-                const SizedBox(height: 15,),
+                cubit.changeAppBar
+                    ? myAppBar(context)
+                    : myAppBarSearch(context),
+                const SizedBox(
+                  height: 15,
+                ),
                 // ignore: prefer_const_constructors
-                CategoryScreen(),
-                const SizedBox(height: 5,),
-                const Divider(height: 1,color: Colors.black,),
-              if(state is LoadingProCustomerState)const CircularProgressIndicator(),
-              if(state is DoneProCustomerState) CustomerScreen(),
-              if(state is emptyProCustomerState)const Text("No data"),
-
+                CategoryScreen(
+                  colntroller: search,
+                ),
+                const SizedBox(
+                  height: 5,
+                ),
+                const Divider(
+                  height: 1,
+                  color: Colors.black,
+                ),
+                if (state is LoadingProCustomerState)
+                  const CircularProgressIndicator(),
+                if (state is DoneProCustomerState) CustomerScreen(),
+                if (state is emptyProCustomerState) const Text("No data"),
               ],
             ),
           ),
@@ -58,21 +71,29 @@ class HomeScreen extends StatelessWidget {
             ),
             elevation: 1,
             child: IconButton(
-                icon: Icon(Icons.search_sharp, size: 35, color: myBlue,),
+                icon: Icon(
+                  Icons.search_sharp,
+                  size: 35,
+                  color: myBlue,
+                ),
                 onPressed: () {
                   ShopCubit.get(context).changeSearchAppBar();
                 }),
           ),
-          SizedBox(width: MediaQuery
-              .of(context)
-              .size
-              .width * 0.25,),
-          Text(mytranslate(context, "home"), style: TextStyle(
-              color: myBlack, fontWeight: FontWeight.bold, fontSize: 25),),
+          SizedBox(
+            width: MediaQuery.of(context).size.width * 0.25,
+          ),
+          Text(
+            mytranslate(context, "home"),
+            style: TextStyle(
+                color: myBlack, fontWeight: FontWeight.bold, fontSize: 25),
+          ),
           Spacer(),
-          MyArrowBack(onPress: () {
-            Navigator.pop(context);
-          },)
+          MyArrowBack(
+            onPress: () {
+              Navigator.pop(context);
+            },
+          )
         ],
       ),
     );
@@ -107,15 +128,22 @@ class HomeScreen extends StatelessWidget {
                         ),
                       ),
                       elevation: 1,
-                      child: Icon(Icons.search_sharp, size: 50, color: myBlue,),
+                      child: Icon(
+                        Icons.search_sharp,
+                        size: 50,
+                        color: myBlue,
+                      ),
                     ),
-                    const SizedBox(width: 5,),
+                    const SizedBox(
+                      width: 5,
+                    ),
                     SizedBox(
-                      width: MediaQuery
-                          .of(context)
-                          .size
-                          .width * 0.50,
+                      width: MediaQuery.of(context).size.width * 0.50,
                       child: TextField(
+                        controller: search,
+                        onChanged: (value) {
+                          ShopCubit.get(context).searchCateogry(value);
+                        },
                         decoration: InputDecoration(
                           border: InputBorder.none,
                           hintText: mytranslate(context, "search"),
@@ -126,14 +154,15 @@ class HomeScreen extends StatelessWidget {
                 ),
               ),
               Spacer(),
-              MyArrowBack(onPress: () {
-                ShopCubit.get(context).changeSearchAppBar();
-              },)
+              MyArrowBack(
+                onPress: () {
+                  ShopCubit.get(context).changeSearchAppBar();
+                },
+              )
             ],
           );
         },
       ),
     );
   }
-
 }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shopping/Cubit/states.dart';
 import 'package:shopping/model/ProCustomer.dart';
+import 'package:shopping/model/ProductsCustomer.dart';
 import 'package:shopping/model/categoryModel.dart';
 import 'package:shopping/model/splash.dart';
 import 'package:shopping/modules/Customer/login/main.dart';
@@ -155,5 +156,19 @@ class ShopCubit extends Cubit<ShopStates> {
   void getMyShared() {
     customerToken = CashHelper.getData("customerToken");
     customerId = CashHelper.getData("customerId");
+  }
+
+/////////////Search Cateogries////////////
+  List<CatItem> searchCat = [];
+  List<dynamic> searchCateogry(String quary) {
+    searchCat = [];
+    var searching = categoryModel!.data!
+        .where((element) =>
+            element.title!.toLowerCase().contains(quary.toLowerCase()))
+        .toList();
+    searchCat = searching;
+    // print(search[0].title);
+    emit(SearchingCustomer());
+    return searchCat;
   }
 }
