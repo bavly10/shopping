@@ -6,6 +6,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:shopping/Cubit/cubit.dart';
 import 'package:shopping/Cubit/my_observer.dart';
 import 'package:shopping/Cubit/states.dart';
+import 'package:shopping/model/privacy_policy.dart';
 import 'package:shopping/modules/Customer/cubit/cubit.dart';
 import 'package:shopping/modules/Customer/login/cubit/cubit.dart';
 import 'package:shopping/modules/Customer/products/cubit/cubit.dart';
@@ -13,6 +14,7 @@ import 'package:shopping/modules/Customer/products/createProduct.dart';
 import 'package:shopping/modules/Customer/customer_home_screen.dart';
 import 'package:shopping/modules/Customer/update_customer/update_Customer.dart';
 import 'package:shopping/modules/Splash_screen/splash.dart';
+import 'package:shopping/modules/prinavcy_policy/privacy_policy.dart';
 import 'package:shopping/modules/shppingCompany/CompanyShpping.dart';
 import 'package:shopping/shared/diohelper/dioHelpoer.dart';
 import 'package:shopping/shared/localization/set_localization.dart';
@@ -40,7 +42,8 @@ class MyApp extends StatelessWidget {
             create: (context) => ShopCubit()
               ..getSplashData()
               ..getCategoriesData()
-              ..getCustomerData(10)),
+              ..getCustomerData(10)
+              ..getPrivacyPolicy()),
         BlocProvider(create: (context) => LoginCubit()),
         BlocProvider(create: (context) => ProductCubit()),
         BlocProvider(
@@ -95,9 +98,9 @@ class MyApp extends StatelessWidget {
               primarySwatch: Colors.amber,
             ),
             themeMode: ThemeMode.light,
-            home: // UpdateCustomer(),
-                // CustomerHome(),
-                SplashScreen(),
+            home: PrivacyApolicy(), // UpdateCustomer(),
+            // CustomerHome(),
+            //  SplashScreen(),
             //// SplashScreen(),
             builder: EasyLoading.init(),
           );

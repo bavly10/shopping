@@ -4,6 +4,7 @@ import 'package:shopping/Cubit/states.dart';
 import 'package:shopping/model/ProCustomer.dart';
 import 'package:shopping/model/ProductsCustomer.dart';
 import 'package:shopping/model/categoryModel.dart';
+import 'package:shopping/model/privacy_policy.dart';
 import 'package:shopping/model/splash.dart';
 import 'package:shopping/modules/Customer/login/main.dart';
 import 'package:shopping/modules/cart/cart.dart';
@@ -170,5 +171,29 @@ class ShopCubit extends Cubit<ShopStates> {
     // print(search[0].title);
     emit(SearchingCustomer());
     return searchCat;
+  }
+
+  PrivacyPolicy? privacyPolicy;
+  getPrivacyPolicy() {
+    emit(ShopPrivacyPolicyLoadingState());
+
+    DioHelper.getData(url: privacy).then((value) {
+      privacyPolicy = PrivacyPolicy.fromMap(value.data);
+
+      emit(ShopPrivacyPolicySuessState());
+
+      print("Get Privacy.. ${privacyPolicy!.data}");
+      emit(ShopPrivacyPolicyErrorState());
+    }).catchError((onError) {
+      print(onError.toString());
+      emit(ErrorProCustomerState());
+    });
+  }
+
+  bool privacyy = false;
+  void changePrivacyChecked(bool v) {
+    privacyy = !privacyy;
+
+    emit(ChangedPrivacyState());
   }
 }

@@ -63,3 +63,11 @@ class emptyProCustomerState extends ShopStates {}
 class ErrorProCustomerState extends ShopStates {}
 
 class SearchingCustomer extends ShopStates {}
+
+class ShopPrivacyPolicyLoadingState extends ShopStates {}
+
+class ShopPrivacyPolicySuessState extends ShopStates {}
+
+class ShopPrivacyPolicyErrorState extends ShopStates {}
+
+class ChangedPrivacyState extends ShopStates {}

@@ -88,5 +88,7 @@
    "exc": "Exceeding Avialable Quantitiy",
    "nott": "Not Allowed",
    "addd": "Adding new product to Your bag",
-   "result": "No Result Search"
+   "result": "No Result Search",
+   "privacy": "Privacy Policy",
+   "yeah": "Accept"
 }
