@@ -98,9 +98,9 @@ class MyApp extends StatelessWidget {
               primarySwatch: Colors.amber,
             ),
             themeMode: ThemeMode.light,
-            home: PrivacyApolicy(), // UpdateCustomer(),
-            // CustomerHome(),
-            //  SplashScreen(),
+            home: //PrivacyApolicy(), // UpdateCustomer(),
+                // CustomerHome(),
+                SplashScreen(),
             //// SplashScreen(),
             builder: EasyLoading.init(),
           );

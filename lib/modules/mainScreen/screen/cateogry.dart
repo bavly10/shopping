@@ -21,15 +21,30 @@ class CategoryScreen extends StatelessWidget {
           child: colntroller!.text.isNotEmpty &&
                   ShopCubit.get(context).searchCat.isEmpty
               ? Center(
-                  child: Text(
-                  mytranslate(
-                    context,
-                    "result",
-                  ),
-                  style: TextStyle(
-                      color: myBlack,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16),
+                  child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      height: MediaQuery.of(context).size.height * .06,
+                      child: const Image(
+                        image: AssetImage('assets/no.png'),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 8.0, top: 12),
+                      child: Text(
+                        mytranslate(
+                          context,
+                          "result",
+                        ),
+                        style: TextStyle(
+                            color: myBlack,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16),
+                      ),
+                    ),
+                  ],
                 ))
               : ListView.builder(
                   scrollDirection: Axis.horizontal,
