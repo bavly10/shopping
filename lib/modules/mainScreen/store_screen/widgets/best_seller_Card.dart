@@ -3,9 +3,9 @@ import 'package:shopping/shared/localization/translate.dart';
 
 import '../../../../model/ProductsCustomer.dart';
 
-class RecentlyCard extends StatelessWidget {
+class BestCard extends StatelessWidget {
   ProductsItem? pro;
-  RecentlyCard({Key? key, this.pro}) : super(key: key);
+  BestCard({Key? key, this.pro}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
