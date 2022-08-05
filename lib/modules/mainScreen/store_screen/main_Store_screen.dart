@@ -4,7 +4,7 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:shopping/modules/Customer/cubit/cubit.dart';
 import 'package:shopping/modules/Customer/cubit/state.dart';
 import 'package:shopping/modules/mainScreen/mainScreen.dart';
-import 'package:shopping/modules/mainScreen/store_screen/widgets/Recently_Card.dart';
+import 'package:shopping/modules/mainScreen/store_screen/widgets/best_seller_Card.dart';
 import 'package:shopping/modules/mainScreen/store_screen/widgets/top_screen.dart';
 import 'package:shopping/shared/compononet/componotents.dart';
 import 'package:shopping/shared/my_colors.dart';
@@ -65,7 +65,7 @@ class StoreScreen extends StatelessWidget {
                         shrinkWrap: true,
                         itemExtent: 180,
                         itemBuilder: ((context, index) {
-                          return RecentlyCard(
+                          return BestCard(
                             pro: cubit.list[index],
                           );
                         }),
