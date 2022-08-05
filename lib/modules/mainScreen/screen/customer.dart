@@ -5,6 +5,7 @@ import 'package:shopping/Cubit/cubit.dart';
 import 'package:shopping/Cubit/states.dart';
 import 'package:shopping/model/ProCustomer.dart';
 import 'package:shopping/modules/mainScreen/screen/singleCustomerProduct/mainCustomer.dart';
+import 'package:shopping/modules/mainScreen/store_screen/main_Store_screen.dart';
 import 'package:shopping/shared/compononet/componotents.dart';
 import 'package:shopping/shared/my_colors.dart';
 
@@ -44,12 +45,19 @@ class CustomerScreen extends StatelessWidget {
     return InkWell(
       onTap: () {
         print(pro.name!);
+        // navigateTo(
+        //     context,
+        //     MainCustomer(
+        //       id: pro.id!,
+        //       title: pro.name!,
+        //     ));
         navigateTo(
             context,
-            MainCustomer(
-              id: pro.id!,
-              title: pro.name!,
-            ));
+            StoreScreen(
+                id: pro.id,
+                title: pro.name,
+                image: pro.logo,
+                adress: pro.address));
       },
       child: Padding(
         padding: const EdgeInsets.all(8.0),
