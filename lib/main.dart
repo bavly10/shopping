@@ -14,6 +14,7 @@ import 'package:shopping/modules/Customer/products/createProduct.dart';
 import 'package:shopping/modules/Customer/customer_home_screen.dart';
 import 'package:shopping/modules/Customer/update_customer/update_Customer.dart';
 import 'package:shopping/modules/Splash_screen/splash.dart';
+import 'package:shopping/modules/User/cubit/cubit.dart';
 import 'package:shopping/modules/prinavcy_policy/privacy_policy.dart';
 import 'package:shopping/modules/shppingCompany/CompanyShpping.dart';
 import 'package:shopping/shared/diohelper/dioHelpoer.dart';
@@ -50,6 +51,7 @@ class MyApp extends StatelessWidget {
             create: (context) => CustomerCubit()
               ..getProductCustomer(LoginCubit.get(context).loginModel?.data?.id)
               ..showCustomerData(18, context)),
+        BlocProvider(create: ((context) => UserCubit())),
       ],
       child: BlocBuilder<ShopCubit, ShopStates>(
         builder: (context, state) {

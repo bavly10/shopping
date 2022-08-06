@@ -15,7 +15,7 @@ import 'package:shopping/shared/compononet/product_textField.dart';
 import 'package:shopping/shared/localization/translate.dart';
 import 'package:shopping/shared/my_colors.dart';
 
-import '../../../shared/verification_dialog.dart';
+import '../../../shared/compononet/verification_dialog.dart';
 import '../../mainScreen/screen/HomeScreen.dart';
 
 class CreatePro extends StatelessWidget {
@@ -129,7 +129,8 @@ class CreatePro extends StatelessWidget {
                               return CustomDialog(
                                 btnName: mytranslate(context, "ok"),
                                 text: mytranslate(context, "upd"),
-                                onTap: () => navigateTo(context, CustomerHome()),
+                                onTap: () =>
+                                    navigateTo(context, CustomerHome()),
                               );
                             });
                       }

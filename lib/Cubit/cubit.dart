@@ -196,4 +196,5 @@ class ShopCubit extends Cubit<ShopStates> {
 
     emit(ChangedPrivacyState());
   }
+  /////////////////////////////
 }

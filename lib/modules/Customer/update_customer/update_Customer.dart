@@ -15,7 +15,7 @@ import '../../../shared/compononet/borderSignup.dart';
 import '../../../shared/compononet/componotents.dart';
 import '../../../shared/compononet/product_textField.dart';
 import '../../../shared/my_colors.dart';
-import '../../../shared/verification_dialog.dart';
+import '../../../shared/compononet/verification_dialog.dart';
 import '../cubit/cubit.dart';
 import '../customer_home_screen.dart';
 import '../login/cubit/cubit.dart';

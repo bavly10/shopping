@@ -10,7 +10,7 @@ import 'package:shopping/shared/localization/translate.dart';
 import 'package:shopping/shared/my_colors.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 
-import '../../shared/verification_dialog.dart';
+import '../../shared/compononet/verification_dialog.dart';
 
 class ShippingCompany extends StatelessWidget {
   const ShippingCompany({Key? key}) : super(key: key);
