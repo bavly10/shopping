@@ -13,7 +13,7 @@ class PrivacyApolicy extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // PrivacyPolicy? privacyPolicy;
-    // ShopCubit.get(context).getPrivacyPolicy();
+    ShopCubit.get(context).getPrivacyPolicy();
     return BlocConsumer<ShopCubit, ShopStates>(
         listener: ((context, state) {}),
         builder: (context, state) {

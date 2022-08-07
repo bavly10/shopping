@@ -11,6 +11,7 @@ import 'package:shopping/modules/Customer/products/updateProduct.dart';
 import 'package:shopping/modules/onBoarding/onBoarding_screen.dart';
 import 'package:shopping/shared/compononet/blueButton.dart';
 import 'package:shopping/shared/compononet/componotents.dart';
+import 'package:shopping/shared/shared_prefernces.dart';
 
 import '../../shared/my_colors.dart';
 
@@ -83,17 +84,24 @@ class OnBoardingFirst extends StatelessWidget {
               ),
               const Spacer(),
               Padding(
-                padding: const EdgeInsets.all(16.0),
-
-                child: BlueButton(title: Text("ابدا التسوق",style: TextStyle(color: myWhite,fontSize: 18,fontWeight: FontWeight.bold)),hight:0.08 ,width: 0.80,icon: Icons.arrow_back,
-                    onpress:() {
-                      // ProductCubit.get(context).getProducts(4);
-                      navigateToFinish(context, OnBoardingScreen());
-                      //   ProductCubit.get(context).showPro(39,context).then((value) => {
-                      // navigateTo(context, UpdateProduct(id: 39),)
-                      //   });
-                    }
-              ))
+                  padding: const EdgeInsets.all(16.0),
+                  child: BlueButton(
+                      title: Text("ابدا التسوق",
+                          style: TextStyle(
+                              color: myWhite,
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold)),
+                      hight: 0.08,
+                      width: 0.80,
+                      icon: Icons.arrow_back,
+                      onpress: () {
+                        // ProductCubit.get(context).getProducts(4);
+                        navigateToFinish(context, OnBoardingScreen());
+                        //   ProductCubit.get(context).showPro(39,context).then((value) => {
+                        // navigateTo(context, UpdateProduct(id: 39),)
+                        //   });
+                        CashHelper.removeData("userId");
+                      }))
             ],
           ),
         );

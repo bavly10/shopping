@@ -29,3 +29,13 @@ class WaitingCustomerUpdtatingState extends CustomerStates {}
 class CustomerUpdatingSucessState extends CustomerStates {}
 
 class CustomerUpdatingErrorState extends CustomerStates {}
+
+class Loadingchecking extends CustomerStates {}
+
+class CheckingCustomerSucessState extends CustomerStates {}
+
+class CheckingCustomerErrorState extends CustomerStates {}
+
+class InsertCustomerSucessState extends CustomerStates {}
+
+class InsertCustomerErrorState extends CustomerStates {}

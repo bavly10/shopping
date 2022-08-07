@@ -8,10 +8,12 @@ import 'package:shopping/Cubit/cubit.dart';
 import 'package:shopping/model/ProductsCustomer.dart';
 import 'package:shopping/modules/Customer/cubit/state.dart';
 import 'package:shopping/shared/diohelper/dioHelpoer.dart';
+import 'package:shopping/shared/shared_prefernces.dart';
 
 import '../../../Cubit/states.dart';
 import '../../../model/CustomerModel.dart';
 import '../../../model/ProCustomer.dart';
+import '../../../model/user_model.dart';
 import '../../../shared/network.dart';
 
 class CustomerCubit extends Cubit<CustomerStates> {
@@ -189,5 +191,61 @@ class CustomerCubit extends Cubit<CustomerStates> {
     // print(search[0].title);
     emit(SearchingProduct());
     return search;
+  }
+
+  User? userModel;
+  bool? check;
+
+  Future checkUser(phone) async {
+    emit(Loadingchecking());
+
+    Map<String, dynamic> phonen = {"phone": phone};
+    await DioHelper.postData(
+      url: checkCustomerPhone,
+      data: phonen,
+    ).then((value) {
+      userModel = User.fromMap(value.data);
+
+      if (userModel!.status == true) {
+        CashHelper.putData("userId", userModel!.data);
+        check = userModel!.status!;
+        emit(CheckingCustomerSucessState());
+      } else {
+        check = userModel!.status!;
+        emit(CheckingCustomerErrorState());
+      }
+
+      print(check);
+    }).catchError((error) {
+      print(error.toString());
+      emit(CheckingCustomerErrorState());
+    });
+  }
+
+  Future createUser({email, phone, address, name}) async {
+    Map<String, dynamic> data = {
+      "phone": phone,
+      "email": email,
+      "address": address,
+      "name": name
+    };
+    await DioHelper.postData(
+      url: insertCustomer,
+      data: data,
+    ).then((value) {
+      userModel = User.fromMap(value.data);
+
+      if (userModel!.status == true) {
+        CashHelper.putData("userId", userModel!.data);
+        print(userModel!.data);
+
+        emit(InsertCustomerSucessState());
+      } else {
+        emit(InsertCustomerErrorState());
+      }
+    }).catchError((error) {
+      print(error.toString());
+      emit(InsertCustomerErrorState());
+    });
   }
 }

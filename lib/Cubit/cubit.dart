@@ -154,9 +154,11 @@ class ShopCubit extends Cubit<ShopStates> {
 
   String? customerToken;
   int? customerId;
+  int? userId;
   void getMyShared() {
     customerToken = CashHelper.getData("customerToken");
     customerId = CashHelper.getData("customerId");
+    userId = CashHelper.getData("userId");
   }
 
 /////////////Search Cateogries////////////

@@ -55,10 +55,7 @@ class StoreScreen extends StatelessWidget {
               borderRadius: const BorderRadius.all(Radius.circular(16)),
             ),
             drawer: CustomDrawer(
-              tiltle: title,
-              address: adress,
-              image: image,
-            ),
+                tiltle: title, address: adress, image: image, id: id),
             child: Scaffold(
               backgroundColor: myGrey,
               appBar: AppBar(
