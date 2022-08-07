@@ -21,7 +21,9 @@ import '../../../Customer/cubit/cubit.dart';
 class CustomDrawer extends StatelessWidget {
   String? tiltle, image, address;
   int? id;
-  CustomDrawer({Key? key, this.tiltle, this.address, this.image, this.id})
+  GlobalKey<ScaffoldState>? skey;
+  CustomDrawer(
+      {Key? key, this.tiltle, this.address, this.image, this.id, this.skey})
       : super(key: key);
 
   @override
@@ -122,9 +124,12 @@ class CustomDrawer extends StatelessWidget {
             onTap: () {
               if (ShopCubit.get(context).userId == null) {
                 showDialog(
-                    context: context,
+                    context: skey!.currentContext!,
                     builder: (context) {
-                      return CheckingDialog(id: id, title: tiltle);
+                      return CheckingDialog(
+                        id: id,
+                        title: tiltle,
+                      );
                     });
               } else {
                 navigateToFinish(

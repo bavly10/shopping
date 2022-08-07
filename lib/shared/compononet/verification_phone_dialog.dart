@@ -118,18 +118,14 @@ class CheckingDialog extends StatelessWidget {
                                   builder: (context) {
                                     return SignupDialog(id: id, title: title);
                                   });
-                              // Navigator.pop(context);
+                              // Navigator.of(context).pop();
                             } else {
                               myToast(message: "you are  registered..");
                               navigateToFinish(context,
                                   MainCustomer(id: id!, title: title!));
-                              // Navigator.pop(context);
-
                             }
-                            // Navigator.pop(context);
                           });
                         }
-
                         // Navigator.of(context).pop();
                       })
                 ],

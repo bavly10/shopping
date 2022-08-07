@@ -27,6 +27,7 @@ class StoreScreen extends StatelessWidget {
   StoreScreen({Key? key, this.id, this.title, this.image, this.adress})
       : super(key: key);
   final _advancedDrawerController = AdvancedDrawerController();
+  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
     CustomerCubit.get(context).getProductCustomer(id);
@@ -55,8 +56,13 @@ class StoreScreen extends StatelessWidget {
               borderRadius: const BorderRadius.all(Radius.circular(16)),
             ),
             drawer: CustomDrawer(
-                tiltle: title, address: adress, image: image, id: id),
+                tiltle: title,
+                address: adress,
+                image: image,
+                id: id,
+                skey: scaffoldKey),
             child: Scaffold(
+              key: scaffoldKey,
               backgroundColor: myGrey,
               appBar: AppBar(
                 backgroundColor: myGrey,
