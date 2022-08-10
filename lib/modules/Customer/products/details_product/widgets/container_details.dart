@@ -12,7 +12,7 @@ import '../../../../cart/cart.dart';
 
 class CustomContainerDetails extends StatelessWidget {
   String? image;
-  String? name;
+  String? name,size;
   dynamic rating;
   dynamic price;
   String? desc;
@@ -25,6 +25,7 @@ class CustomContainerDetails extends StatelessWidget {
       this.price,
       this.desc,
       this.many,
+      this.size,
       required this.id});
 
   @override
@@ -235,6 +236,7 @@ class CustomContainerDetails extends StatelessWidget {
                           proid: id.toString(),
                           imgurl: image.toString(),
                           title: name.toString(),
+                          size:ProductCubit.get(context).selectSize.toString(),
                           price: double.parse(price),
                           qua: ProductCubit.get(context).itemCount);
                       myToast(message: "$name Is Added ");

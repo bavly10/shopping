@@ -6,24 +6,16 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:shopping/Cubit/cubit.dart';
 import 'package:shopping/Cubit/my_observer.dart';
 import 'package:shopping/Cubit/states.dart';
-import 'package:shopping/model/privacy_policy.dart';
 import 'package:shopping/modules/Customer/cubit/cubit.dart';
 import 'package:shopping/modules/Customer/login/cubit/cubit.dart';
 import 'package:shopping/modules/Customer/products/cubit/cubit.dart';
-import 'package:shopping/modules/Customer/products/createProduct.dart';
-import 'package:shopping/modules/Customer/customer_home_screen.dart';
-import 'package:shopping/modules/Customer/update_customer/update_Customer.dart';
 import 'package:shopping/modules/Splash_screen/splash.dart';
-import 'package:shopping/modules/User/cubit/cubit.dart';
-import 'package:shopping/modules/prinavcy_policy/privacy_policy.dart';
-import 'package:shopping/modules/shppingCompany/CompanyShpping.dart';
+
 import 'package:shopping/shared/diohelper/dioHelpoer.dart';
 import 'package:shopping/shared/localization/set_localization.dart';
 import 'package:shopping/shared/my_colors.dart';
-import 'package:shopping/shared/network.dart';
 import 'package:shopping/shared/shared_prefernces.dart';
 
-import 'modules/Customer/products/updateProduct.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -46,11 +38,7 @@ class MyApp extends StatelessWidget {
               ..getCustomerData(10)),
         BlocProvider(create: (context) => LoginCubit()),
         BlocProvider(create: (context) => ProductCubit()),
-        BlocProvider(
-            create: (context) => CustomerCubit()
-              ..getProductCustomer(LoginCubit.get(context).loginModel?.data?.id)
-              ..showCustomerData(18, context)),
-        BlocProvider(create: ((context) => UserCubit())),
+        BlocProvider(create: (context) => CustomerCubit()..getProductCustomer(LoginCubit.get(context).loginModel?.data?.id)..showCustomerData(18, context)),
       ],
       child: BlocBuilder<ShopCubit, ShopStates>(
         builder: (context, state) {

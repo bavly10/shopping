@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -365,7 +363,7 @@ class ProductCubit extends Cubit<ProductStates> {
 
   ProductInfo? proInf;
   List<String> sizes = [];
-  String? selectSize;
+  String? selectSize="M";
   Future productInfo(id, context) async {
     emit(loadingProduct());
     FormData formData = FormData.fromMap({"product_id": id});
@@ -483,6 +481,7 @@ class ProductCubit extends Cubit<ProductStates> {
       required String imgurl,
       required String title,
       required double price,
+      required String size,
       required int qua}) {
     if (_items.containsKey(proid)) {
       _items.update(
@@ -492,12 +491,14 @@ class ProductCubit extends Cubit<ProductStates> {
               title: value.title,
               quantity: value.quantity + 1,
               price: value.price,
+              size: value.size,
               imgurl: value.imgurl));
     } else {
       _items.putIfAbsent(
           proid,
           () => CartItem(
-              id: DateTime.now().toString(),
+            size: size,
+              id: proid,
               title: title,
               quantity: qua,
               price: price,
@@ -519,6 +520,7 @@ class ProductCubit extends Cubit<ProductStates> {
       _items.update(
           proid,
           (value) => CartItem(
+            size: value.size,
               id: value.id,
               title: value.title,
               quantity: value.quantity - 1,
@@ -547,5 +549,30 @@ class ProductCubit extends Cubit<ProductStates> {
       itemCount--;
     }
     emit(ShopChangeminus());
+  }
+  ////////////////create order////////////////////////////
+  Future createOrder({productID, many, customerID, size,price}) async {
+    Map<String, dynamic> data = {
+      "product_id": productID,
+      "price": price,
+      "many": many,
+      "size": size,
+      "customer_id": customerID
+    };
+    await DioHelper.postData(
+      url: orderNew,
+      data: data,
+    ).then((value) {
+      if (value.data['status'] == true) {
+        print("done Order");
+        emit(InsertOrderSucessState());
+      } else {
+        print(value.data.toString());
+        emit(InsertOrderErrorState());
+      }
+    }).catchError((error) {
+      print(error.toString());
+      emit(InsertOrderErrorState());
+    });
   }
 }

@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shopping/modules/Customer/cubit/cubit.dart';
 import 'package:shopping/modules/Customer/products/cubit/cubit.dart';
 import 'package:shopping/modules/Customer/products/cubit/states.dart';
+import 'package:shopping/modules/OrderStauts/Success.dart';
+import 'package:shopping/modules/OrderStauts/failed.dart';
 import 'package:shopping/modules/cart/widget/widget_cart.dart';
 import 'package:shopping/shared/compononet/blueButton.dart';
+import 'package:shopping/shared/compononet/componotents.dart';
 import 'package:shopping/shared/compononet/sign_up_dialog.dart';
 import 'package:shopping/shared/compononet/verification_phone_dialog.dart';
 import 'package:shopping/shared/localization/translate.dart';
@@ -16,7 +20,14 @@ class CartScreen extends StatelessWidget {
   final GlobalKey<ScaffoldState> skey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ProductCubit, ProductStates>(
+    return BlocConsumer<ProductCubit, ProductStates>(
+      listener: (ctx,state){
+        if(state is InsertOrderSucessState){
+          navigateToFinish(context, const SuccessOrder(phone: "06510355051",));
+        }else if(state is InsertOrderErrorState){
+          navigateToFinish(context, const FailedOrder());
+        }
+      },
       builder: (ctx, state) {
         final cubit = ProductCubit.get(context);
         x = cubit.totalamount;
@@ -79,6 +90,7 @@ class CartScreen extends StatelessWidget {
                         : ListView.builder(
                             itemCount: cubit.items.length,
                             itemBuilder: (ctx, index) => Cartitemapp(
+                              size: cubit.items.values.toList()[index].size,
                                   id: cubit.items.values.toList()[index].id,
                                   proid: cubit.items.keys.toList()[index],
                                   title: cubit.items.values.toList()[index].title,
@@ -162,7 +174,17 @@ class CartScreen extends StatelessWidget {
                                     context: skey.currentContext!,
                                     builder: (context) {
                                      return CheckingDialog(widget: SignupDialog(onTaps: (){
-
+                                      cubit.items.forEach((key, value) async{
+                                        print( value.size.toString());
+                                        print( value.id.toString());
+                                        print(CustomerCubit.get(context).userId);
+                                        await cubit.createOrder(
+                                          size: value.size.toString(),
+                                          price: value.price.toString(),
+                                          many: value.quantity.toString(),
+                                          customerID: CustomerCubit.get(context).userId,
+                                          productID: value.id.toString(),);
+                                      });
                                      },),);
                                     });
                               },

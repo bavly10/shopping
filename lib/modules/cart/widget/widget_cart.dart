@@ -6,7 +6,7 @@ import 'package:shopping/shared/localization/translate.dart';
 import '../../../shared/my_colors.dart';
 
 class Cartitemapp extends StatelessWidget {
-  final String id, proid, title, imgurl;
+  final String id, proid, title, imgurl,size;
   final int quant;
   final double price;
   const Cartitemapp(
@@ -14,6 +14,7 @@ class Cartitemapp extends StatelessWidget {
       required this.proid,
       required this.title,
       required this.imgurl,
+      required this.size,
       required this.quant,
       required this.price});
   @override
@@ -154,6 +155,7 @@ class Cartitemapp extends StatelessWidget {
                                             imgurl: imgurl,
                                             title: title,
                                             price: price,
+                                            size: size,
                                             qua: quant);
                                       },
                                     )),

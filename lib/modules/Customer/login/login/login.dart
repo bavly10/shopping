@@ -24,7 +24,6 @@ class Login extends StatelessWidget {
         if (state is SucessLoginState) {
           navigateTo(context,
               CustomerHome(id: LoginCubit.get(context).loginModel!.data!.id));
-          CashHelper.getData("");
         } else if (state is ErrorLoginState) {
           if (state.error == "6004") {
             My_CustomAlertDialog(

@@ -1,17 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import 'package:shopping/modules/User/cubit/cubit.dart';
-import 'package:shopping/shared/compononet/componotents.dart';
 import 'package:shopping/shared/compononet/myToast.dart';
-import 'package:shopping/shared/compononet/sign_up_dialog.dart';
 import 'package:shopping/shared/compononet/textField.dart';
-
 import 'package:shopping/shared/localization/translate.dart';
 import 'package:shopping/shared/my_colors.dart';
-
 import '../../modules/Customer/cubit/cubit.dart';
-import '../../modules/mainScreen/screen/singleCustomerProduct/mainCustomer.dart';
 
 class CheckingDialog extends StatelessWidget {
   final Widget widget;

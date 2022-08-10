@@ -120,7 +120,6 @@ class CustomerCubit extends Cubit<CustomerStates> {
     emit(LoadingShowCustomer());
     Map<String, dynamic> header = {
       "auth-token":
-          // "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2thc2g1dGFrLmNvbS9hcGkvbG9naW4iLCJpYXQiOjE2NTg2MDM4MDUsImV4cCI6MTY1OTIwODYwNSwibmJmIjoxNjU4NjAzODA1LCJqdGkiOiJ2VmlCQXpKbktGREI3YlZEIiwic3ViIjoiMTgiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.t-2RBvCKHkEbUmnRrRcF7eeH1lNGDxu4Py7SX6iLk1c",
           ShopCubit.get(context).customerToken
     };
     Map<String, dynamic> data = {
@@ -177,9 +176,6 @@ class CustomerCubit extends Cubit<CustomerStates> {
     });
   }
 
-  // searchName(quary) {
-  //   search = list.contains(tit).where((element) {})as ;
-  // }
   List<ProductsItem> search = [];
   List<dynamic> searchCustomer(String quary) {
     search = [];
@@ -219,7 +215,7 @@ class CustomerCubit extends Cubit<CustomerStates> {
       emit(CheckingCustomerErrorState());
     });
   }
-
+int? userId;
   Future createUser({email, phone, address, name}) async {
     Map<String, dynamic> data = {
       "phone": phone,
@@ -232,8 +228,8 @@ class CustomerCubit extends Cubit<CustomerStates> {
       data: data,
     ).then((value) {
       userModel = User.fromMap(value.data);
-
       if (userModel!.status == true) {
+        userId= userModel!.data;
         CashHelper.putData("userId", userModel!.data);
         print(userModel!.data);
         emit(InsertCustomerSucessState());
@@ -245,30 +241,6 @@ class CustomerCubit extends Cubit<CustomerStates> {
       emit(InsertCustomerErrorState());
     });
   }
-  //////////////////
-  // Future createOrder({productID, many, customerID, size,price}) async {
-  //   Map<String, dynamic> data = {
-  //     "phone": phone,
-  //     "email": email,
-  //     "address": address,
-  //     "name": name
-  //   };
-  //   await DioHelper.postData(
-  //     url: insertCustomer,
-  //     data: data,
-  //   ).then((value) {
-  //     userModel = User.fromMap(value.data);
-  //
-  //     if (userModel!.status == true) {
-  //       CashHelper.putData("userId", userModel!.data);
-  //       print(userModel!.data);
-  //       emit(InsertCustomerSucessState());
-  //     } else {
-  //       emit(InsertCustomerErrorState());
-  //     }
-  //   }).catchError((error) {
-  //     print(error.toString());
-  //     emit(InsertCustomerErrorState());
-  //   });
-  // }
+
+
 }

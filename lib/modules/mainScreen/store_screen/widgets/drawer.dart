@@ -4,8 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hex_color/flutter_hex_color.dart';
 import 'package:shopping/Cubit/cubit.dart';
-import 'package:shopping/modules/User/cubit/cubit.dart';
-import 'package:shopping/modules/User/cubit/states.dart';
+
 import 'package:shopping/modules/mainScreen/screen/singleCustomerProduct/mainCustomer.dart';
 import 'package:shopping/modules/mainScreen/store_screen/widgets/top_screen.dart';
 import 'package:shopping/modules/prinavcy_policy/privacy_policy.dart';

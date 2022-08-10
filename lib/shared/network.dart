@@ -22,3 +22,4 @@ String getProducts = "/get-all-product"; //user_id
 String getOneProduct = "/product-info"; //product_id
 String checkCustomerPhone = "/check-customer-here"; //phone
 String privacy = "/privacy-policy";
+String orderNew = "/add-buy-operation";
