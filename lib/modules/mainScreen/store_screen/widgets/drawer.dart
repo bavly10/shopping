@@ -29,9 +29,6 @@ class CustomDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ShopCubit.get(context).getMyShared();
-    // return BlocConsumer<UserCubit, UserStates>(
-    //     listener: ((context, state) {}),
-    //     builder: (context, state) {
     return SafeArea(
       child: Column(mainAxisSize: MainAxisSize.max, children: [
         Padding(
@@ -126,10 +123,7 @@ class CustomDrawer extends StatelessWidget {
                 showDialog(
                     context: skey!.currentContext!,
                     builder: (context) {
-                      return CheckingDialog(
-                        id: id,
-                        title: tiltle,
-                      );
+                      return CheckingDialog();
                     });
               } else {
                 navigateToFinish(

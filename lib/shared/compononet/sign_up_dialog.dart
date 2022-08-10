@@ -9,13 +9,9 @@ import 'package:shopping/shared/my_colors.dart';
 
 class SignupDialog extends StatelessWidget {
   void Function()? onTap;
-  String? text, title;
-  int? id;
   String? btnName;
   final formKey = GlobalKey<FormState>();
-  SignupDialog(
-      {Key? key, this.onTap, this.text, this.btnName, this.title, this.id})
-      : super(key: key);
+  SignupDialog({Key? key, this.onTap}) : super(key: key);
   TextEditingController nameController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
   TextEditingController addressController = TextEditingController();

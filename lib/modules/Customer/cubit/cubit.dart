@@ -198,14 +198,12 @@ class CustomerCubit extends Cubit<CustomerStates> {
 
   Future checkUser(phone) async {
     emit(Loadingchecking());
-
     Map<String, dynamic> phonen = {"phone": phone};
     await DioHelper.postData(
       url: checkCustomerPhone,
       data: phonen,
     ).then((value) {
       userModel = User.fromMap(value.data);
-
       if (userModel!.status == true) {
         CashHelper.putData("userId", userModel!.data);
         check = userModel!.status!;

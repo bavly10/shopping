@@ -45,14 +45,6 @@ class StoreScreen extends StatelessWidget {
             // openScale: 1.0,
             disabledGestures: false,
             childDecoration: const BoxDecoration(
-              // NOTICE: Uncomment if you want to add shadow behind the page.
-              // Keep in mind that it may cause animation jerks.
-              // boxShadow: <BoxShadow>[
-              //   BoxShadow(
-              //     color: Colors.black12,
-              //     blurRadius: 0.0,
-              //   ),
-              // ],
               borderRadius: const BorderRadius.all(Radius.circular(16)),
             ),
             drawer: CustomDrawer(

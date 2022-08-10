@@ -14,15 +14,8 @@ import '../../modules/Customer/cubit/cubit.dart';
 import '../../modules/mainScreen/screen/singleCustomerProduct/mainCustomer.dart';
 
 class CheckingDialog extends StatelessWidget {
-  void Function()? onTap;
-  String? text;
-  String? btnName, title;
-  int? id;
   final formKey = GlobalKey<FormState>();
-  CheckingDialog(
-      {Key? key, this.onTap, this.text, this.btnName, this.title, this.id})
-      : super(key: key);
-
+  CheckingDialog({Key? key,}) : super(key: key);
   TextEditingController phoneController = TextEditingController();
 
   @override
@@ -99,8 +92,7 @@ class CheckingDialog extends StatelessWidget {
                               bottomLeft: Radius.circular(16.0),
                               bottomRight: Radius.circular(16.0)),
                         ),
-                        child: Text(
-                          btnName ?? mytranslate(context, "verify"),
+                        child: Text(mytranslate(context, "verify"),
                           style: const TextStyle(
                               color: Colors.white, fontSize: 25.0),
                           textAlign: TextAlign.center,
@@ -109,20 +101,16 @@ class CheckingDialog extends StatelessWidget {
                       onTap: () {
                         FocusScope.of(context).unfocus();
                         if (formKey.currentState!.validate()) {
-                          CustomerCubit.get(context)
-                              .checkUser(phoneController.text)
-                              .then((value) {
+                          CustomerCubit.get(context).checkUser(phoneController.text).then((value) {
                             if (CustomerCubit.get(context).check == false) {
                               showDialog(
                                   context: context,
                                   builder: (context) {
-                                    return SignupDialog(id: id, title: title);
+                                    return SignupDialog();
                                   });
                               // Navigator.of(context).pop();
                             } else {
                               myToast(message: "you are  registered..");
-                              navigateToFinish(context,
-                                  MainCustomer(id: id!, title: title!));
                             }
                           });
                         }

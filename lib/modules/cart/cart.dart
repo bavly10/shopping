@@ -4,6 +4,7 @@ import 'package:shopping/modules/Customer/products/cubit/cubit.dart';
 import 'package:shopping/modules/Customer/products/cubit/states.dart';
 import 'package:shopping/modules/cart/widget/widget_cart.dart';
 import 'package:shopping/shared/compononet/blueButton.dart';
+import 'package:shopping/shared/compononet/verification_phone_dialog.dart';
 import 'package:shopping/shared/localization/translate.dart';
 import 'package:shopping/shared/my_colors.dart';
 
@@ -11,6 +12,7 @@ class CartScreen extends StatelessWidget {
   double x = 0.0;
   double y = 0.0;
   double d = 30.0;
+  GlobalKey<ScaffoldState>? skey;
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<ProductCubit, ProductStates>(
@@ -19,6 +21,7 @@ class CartScreen extends StatelessWidget {
         x = cubit.totalamount;
         var totall = (x + d);
         return SafeArea(
+
           child: Padding(
             padding: const EdgeInsets.all(4.0),
             child: Column(
@@ -152,7 +155,13 @@ class CartScreen extends StatelessWidget {
                                   fontSize: 18,
                                   fontWeight: FontWeight.bold),
                             ),
-                            onpress: () {},
+                            onpress: () {
+                              showDialog(
+                                  context: skey!.currentContext!,
+                                  builder: (context) {
+                                    return CheckingDialog();
+                                  });
+                            },
                             hight: 0.07,
                             width: MediaQuery.of(context).size.width)
                       ],
