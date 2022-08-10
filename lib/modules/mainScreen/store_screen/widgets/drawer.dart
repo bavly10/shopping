@@ -123,7 +123,9 @@ class CustomDrawer extends StatelessWidget {
                 showDialog(
                     context: skey!.currentContext!,
                     builder: (context) {
-                      return CheckingDialog();
+                      return CheckingDialog(widget: SignupDialog(onTaps:(){
+
+                      }),);
                     });
               } else {
                 navigateToFinish(

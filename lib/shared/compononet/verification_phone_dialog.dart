@@ -14,8 +14,9 @@ import '../../modules/Customer/cubit/cubit.dart';
 import '../../modules/mainScreen/screen/singleCustomerProduct/mainCustomer.dart';
 
 class CheckingDialog extends StatelessWidget {
+  final Widget widget;
   final formKey = GlobalKey<FormState>();
-  CheckingDialog({Key? key,}) : super(key: key);
+  CheckingDialog({Key? key,required this.widget}) : super(key: key);
   TextEditingController phoneController = TextEditingController();
 
   @override
@@ -106,7 +107,7 @@ class CheckingDialog extends StatelessWidget {
                               showDialog(
                                   context: context,
                                   builder: (context) {
-                                    return SignupDialog();
+                                    return widget;
                                   });
                               // Navigator.of(context).pop();
                             } else {

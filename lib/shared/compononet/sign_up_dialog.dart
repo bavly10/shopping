@@ -8,10 +8,9 @@ import 'package:shopping/shared/localization/translate.dart';
 import 'package:shopping/shared/my_colors.dart';
 
 class SignupDialog extends StatelessWidget {
-  void Function()? onTap;
-  String? btnName;
+   Function() onTaps;
   final formKey = GlobalKey<FormState>();
-  SignupDialog({Key? key, this.onTap}) : super(key: key);
+  SignupDialog({Key? key,required this.onTaps}) : super(key: key);
   TextEditingController nameController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
   TextEditingController addressController = TextEditingController();
@@ -129,24 +128,22 @@ class SignupDialog extends StatelessWidget {
                                 bottomRight: Radius.circular(16.0)),
                           ),
                           child: Text(
-                            btnName ?? mytranslate(context, "verify"),
+                           mytranslate(context, "verify"),
                             style: const TextStyle(
                                 color: Colors.white, fontSize: 25.0),
                             textAlign: TextAlign.center,
                           ),
                         ),
-                        onTap: () {
+                        onTap: () async{
                           FocusScope.of(context).unfocus();
                           if (formKey.currentState!.validate()) {
-                            CustomerCubit.get(context)
-                                .createUser(
-                                    name: nameController.text,
-                                    address: addressController.text,
-                                    email: emailController.text,
-                                    phone: phoneController.text)
-                                .then((value) =>
-                                    myToast(message: "Sign up Sucess "));
-                            Navigator.pop(context);
+
+                           await CustomerCubit.get(context)
+                               .createUser(
+                               name: nameController.text,
+                               address: addressController.text,
+                               email: emailController.text,
+                               phone: phoneController.text).then((value) => onTaps());
                           }
                         })
                   ],

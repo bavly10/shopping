@@ -236,7 +236,6 @@ class CustomerCubit extends Cubit<CustomerStates> {
       if (userModel!.status == true) {
         CashHelper.putData("userId", userModel!.data);
         print(userModel!.data);
-
         emit(InsertCustomerSucessState());
       } else {
         emit(InsertCustomerErrorState());
@@ -246,4 +245,30 @@ class CustomerCubit extends Cubit<CustomerStates> {
       emit(InsertCustomerErrorState());
     });
   }
+  //////////////////
+  // Future createOrder({productID, many, customerID, size,price}) async {
+  //   Map<String, dynamic> data = {
+  //     "phone": phone,
+  //     "email": email,
+  //     "address": address,
+  //     "name": name
+  //   };
+  //   await DioHelper.postData(
+  //     url: insertCustomer,
+  //     data: data,
+  //   ).then((value) {
+  //     userModel = User.fromMap(value.data);
+  //
+  //     if (userModel!.status == true) {
+  //       CashHelper.putData("userId", userModel!.data);
+  //       print(userModel!.data);
+  //       emit(InsertCustomerSucessState());
+  //     } else {
+  //       emit(InsertCustomerErrorState());
+  //     }
+  //   }).catchError((error) {
+  //     print(error.toString());
+  //     emit(InsertCustomerErrorState());
+  //   });
+  // }
 }
