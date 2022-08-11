@@ -23,3 +23,4 @@ String getOneProduct = "/product-info"; //product_id
 String checkCustomerPhone = "/check-customer-here"; //phone
 String privacy = "/privacy-policy";
 String orderNew = "/add-buy-operation";
+String myorder = "/get-talapat";

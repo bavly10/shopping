@@ -7,6 +7,8 @@ import 'package:flutter_hex_color/flutter_hex_color.dart';
 import 'package:shopping/Cubit/cubit.dart';
 import 'package:shopping/model/CustomerModel.dart';
 import 'package:shopping/model/product.dart';
+import 'package:shopping/modules/Customer/MyOrders/cubit/cubit.dart';
+import 'package:shopping/modules/Customer/MyOrders/mainOrder.dart';
 import 'package:shopping/modules/Customer/cubit/cubit.dart';
 import 'package:shopping/modules/Customer/cubit/state.dart';
 import 'package:shopping/modules/Customer/more/more.dart';
@@ -45,7 +47,11 @@ class CustomerHome extends StatelessWidget {
                     color: myBlue,
                   ),
                 ),
-              )
+              ),
+              IconButton(onPressed: (){
+                CustomerOrderCubit.get(context).getOrders(context:context);
+                navigateTo(context, Orders());
+              }, icon: Icon(Icons.gps_not_fixed))
             ]),
             body: SingleChildScrollView(
               physics: BouncingScrollPhysics(),

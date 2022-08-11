@@ -6,6 +6,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:shopping/Cubit/cubit.dart';
 import 'package:shopping/Cubit/my_observer.dart';
 import 'package:shopping/Cubit/states.dart';
+import 'package:shopping/modules/Customer/MyOrders/cubit/cubit.dart';
 import 'package:shopping/modules/Customer/cubit/cubit.dart';
 import 'package:shopping/modules/Customer/login/cubit/cubit.dart';
 import 'package:shopping/modules/Customer/products/cubit/cubit.dart';
@@ -38,6 +39,7 @@ class MyApp extends StatelessWidget {
               ..getCustomerData(10)),
         BlocProvider(create: (context) => LoginCubit()),
         BlocProvider(create: (context) => ProductCubit()),
+        BlocProvider(create: (context) => CustomerOrderCubit()..getOrders(context: context)),
         BlocProvider(create: (context) => CustomerCubit()..getProductCustomer(LoginCubit.get(context).loginModel?.data?.id)..showCustomerData(18, context)),
       ],
       child: BlocBuilder<ShopCubit, ShopStates>(
