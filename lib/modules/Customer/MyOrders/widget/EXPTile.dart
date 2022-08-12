@@ -1,43 +1,141 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:shopping/model/myOrderCustomer.dart';
+import 'package:shopping/shared/localization/translate.dart';
+import 'package:shopping/shared/my_colors.dart';
 
 class EXPTile extends StatelessWidget {
   final DataOrder order;
-  const EXPTile({Key? key,required this.order}) : super(key: key);
+  const EXPTile({Key? key, required this.order}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Padding(padding: EdgeInsets.all(8),
-      child:ExpansionTile(
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children:[
-            Text("${order.userInfo!.name}",style: TextStyle(color: Colors.red),),SizedBox(width: 10,),
-            Icon(Icons.star,size: 15,color: Colors.grey,),
-            Spacer(),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
+    return Padding(
+      padding: const EdgeInsets.all(8),
+      child: ExpansionTile(
+          title: Container(
+            height: MediaQuery.of(context).size.height * .05,
+            //  width: double.infinity,
+            decoration: BoxDecoration(
+              color: myBlue,
+              borderRadius: const BorderRadius.all(Radius.circular(10)),
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                Container(decoration: BoxDecoration(borderRadius: BorderRadius.circular(30),color: Colors.black),child: Text(order.many.toString(),style: TextStyle(color: Colors.white),),),
-                const Text(":الكميه"),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    "${order.userInfo!.name}",
+                    style: const TextStyle(
+                        color: Colors.white, fontWeight: FontWeight.bold),
+                  ),
+                ),
+                const Spacer(),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Container(
+                      width: MediaQuery.of(context).size.width * .1,
+                      height: MediaQuery.of(context).size.height * .03,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(5),
+                          color: Colors.white),
+                      child: Center(
+                        child: Text(
+                          order.many.toString(),
+                          style: const TextStyle(
+                              color: Colors.red, fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        mytranslate(context, "q"),
+                        style: const TextStyle(
+                            color: Colors.white, fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                  ],
+                ),
               ],
             ),
-          ],
-        ),
-        subtitle: Text(order.total.toString()),
-        children: [
-          Column(
+          ),
+          subtitle: Row(
             children: [
-              Row(children: [
-                Container(width: 100,height: 100,child: Image.network(order.productOrder!.image!),),
-                SizedBox(width: 10,),
-                Text(order.productOrder!.title!,style: const TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),],),
-              Text(" السعرالمنتج الواحد: ${order.productOrder!.price}"),
-              const Divider(height: 10,color: Colors.blue,),
+              Text(
+                order.total.toString(),
+                style: const TextStyle(
+                    color: Colors.red, fontWeight: FontWeight.bold),
+              ),
+              const Spacer(),
+              Text(
+                mytranslate(context, "tot"),
+                style: const TextStyle(
+                    color: Colors.red, fontWeight: FontWeight.bold),
+              ),
             ],
-          )
-        ]
-      ),
+          ),
+          children: [
+            Divider(
+              height: 10,
+              color: Colors.grey[900],
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      Container(
+                        width: MediaQuery.of(context).size.width * .1,
+                        height: MediaQuery.of(context).size.height * .1,
+                        child: Image.network(order.productOrder!.image!),
+                      ),
+                      const SizedBox(
+                        width: 10,
+                      ),
+                      Column(
+                        children: [
+                          Text(
+                            order.productOrder!.title!,
+                            style: const TextStyle(
+                                fontSize: 15, fontWeight: FontWeight.bold),
+                          ),
+                          Text.rich(
+                            TextSpan(
+                              children: [
+                                TextSpan(
+                                  text: mytranslate(context, "costt"),
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.red,
+                                      fontSize: 12),
+                                ),
+                                TextSpan(
+                                  text: order.productOrder!.price,
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: myBlue),
+                                ),
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
+                    ],
+                  ),
+                  const Divider(
+                    height: 10,
+                    color: Colors.blue,
+                  ),
+                ],
+              ),
+            )
+          ]),
     );
   }
 }

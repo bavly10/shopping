@@ -33,7 +33,7 @@ class MyProTextField extends StatelessWidget {
           keyboardType: type,
           onChanged: (value) {},
           onTap: () {},
-          validator: (value) {},
+          validator: validate,
           controller: controller,
           decoration: InputDecoration(
               border: OutlineInputBorder(

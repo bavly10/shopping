@@ -22,9 +22,10 @@ class StoreScreen extends StatelessWidget {
   String? title;
   String? image;
   int? id;
-  String? adress;
+  String? adress, phone;
 
-  StoreScreen({Key? key, this.id, this.title, this.image, this.adress})
+  StoreScreen(
+      {Key? key, this.id, this.title, this.image, this.adress, this.phone})
       : super(key: key);
   final _advancedDrawerController = AdvancedDrawerController();
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
@@ -52,6 +53,7 @@ class StoreScreen extends StatelessWidget {
                 address: adress,
                 image: image,
                 id: id,
+                phoneStore: phone,
                 skey: scaffoldKey),
             child: Scaffold(
               key: scaffoldKey,

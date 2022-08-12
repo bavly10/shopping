@@ -40,3 +40,6 @@ class InsertCustomerSucessState extends CustomerStates {}
 
 class InsertCustomerErrorState extends CustomerStates {}
 
+class ConnectingShopSuecssState extends CustomerStates {}
+
+class ConnectingShopErrorState extends CustomerStates {}

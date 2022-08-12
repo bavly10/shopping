@@ -10,6 +10,7 @@ import 'package:shopping/modules/Customer/MyOrders/cubit/cubit.dart';
 import 'package:shopping/modules/Customer/cubit/cubit.dart';
 import 'package:shopping/modules/Customer/login/cubit/cubit.dart';
 import 'package:shopping/modules/Customer/products/cubit/cubit.dart';
+import 'package:shopping/modules/OrderStauts/failed.dart';
 import 'package:shopping/modules/Splash_screen/splash.dart';
 
 import 'package:shopping/shared/diohelper/dioHelpoer.dart';
@@ -17,6 +18,7 @@ import 'package:shopping/shared/localization/set_localization.dart';
 import 'package:shopping/shared/my_colors.dart';
 import 'package:shopping/shared/shared_prefernces.dart';
 
+import 'modules/OrderStauts/Success.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -39,8 +41,13 @@ class MyApp extends StatelessWidget {
               ..getCustomerData(10)),
         BlocProvider(create: (context) => LoginCubit()),
         BlocProvider(create: (context) => ProductCubit()),
-        BlocProvider(create: (context) => CustomerOrderCubit()..getOrders(context: context)),
-        BlocProvider(create: (context) => CustomerCubit()..getProductCustomer(LoginCubit.get(context).loginModel?.data?.id)..showCustomerData(18, context)),
+        BlocProvider(
+            create: (context) =>
+                CustomerOrderCubit()..getOrders(context: context)),
+        BlocProvider(
+            create: (context) => CustomerCubit()
+              ..getProductCustomer(LoginCubit.get(context).loginModel?.data?.id)
+              ..showCustomerData(18, context)),
       ],
       child: BlocBuilder<ShopCubit, ShopStates>(
         builder: (context, state) {
@@ -89,7 +96,8 @@ class MyApp extends StatelessWidget {
               primarySwatch: Colors.amber,
             ),
             themeMode: ThemeMode.light,
-            home: //PrivacyApolicy(), // UpdateCustomer(),
+            home:
+                //PrivacyApolicy(), // UpdateCustomer(),
                 // CustomerHome(),
                 SplashScreen(),
             //// SplashScreen(),

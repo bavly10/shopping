@@ -1,22 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:shopping/Cubit/cubit.dart';
 import 'package:shopping/modules/Customer/cubit/cubit.dart';
 import 'package:shopping/shared/compononet/myToast.dart';
 import 'package:shopping/shared/compononet/textField.dart';
+import 'package:shopping/shared/compononet/verification_phone_dialog.dart';
 
 import 'package:shopping/shared/localization/translate.dart';
 import 'package:shopping/shared/my_colors.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class SignupDialog extends StatelessWidget {
-   Function() onTaps;
+  Function() onTaps;
+  String? phoneStore;
   final formKey = GlobalKey<FormState>();
-  SignupDialog({Key? key,required this.onTaps}) : super(key: key);
+  SignupDialog({Key? key, required this.onTaps, this.phoneStore})
+      : super(key: key);
   TextEditingController nameController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
   TextEditingController addressController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   @override
   Widget build(BuildContext context) {
+    ShopCubit.get(context).getMyShared();
     return Dialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.0)),
       elevation: 0.0,
@@ -64,6 +70,36 @@ class SignupDialog extends StatelessWidget {
                       style: const TextStyle(fontWeight: FontWeight.w600),
                     ),
                     Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text.rich(
+                        TextSpan(
+                          children: <InlineSpan>[
+                            WidgetSpan(
+                              child: Text(
+                                mytranslate(context, "no"),
+                                style: TextStyle(
+                                    color: myBlue,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 18,
+                                    fontStyle: FontStyle.italic),
+                              ),
+                            ),
+                            const WidgetSpan(
+                                child: SizedBox(
+                              width: 10,
+                            )),
+                            TextSpan(
+                                text: CheckingDialog.phoneCheckController.text),
+                          ],
+                        ),
+                        // textAlign: TextAlign,
+                        style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.yellow[900]),
+                      ),
+                    ),
+                    Padding(
                       padding: const EdgeInsets.only(bottom: 12.0, top: 12),
                       child: MyTextField(
                         prefix: Icons.person_outline,
@@ -87,20 +123,6 @@ class SignupDialog extends StatelessWidget {
                         if (value!.isEmpty) return "INVALID FIELD";
                         return null;
                       },
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: 12.0, top: 12),
-                      child: MyTextField(
-                        prefix: Icons.phone,
-                        type: TextInputType.phone,
-                        controller: phoneController,
-                        obcure: false,
-                        label: mytranslate(context, "mobile"),
-                        validate: (value) {
-                          if (value!.isEmpty) return "INVALID FIELD";
-                          return null;
-                        },
-                      ),
                     ),
                     MyTextField(
                       prefix: MdiIcons.city,
@@ -128,22 +150,24 @@ class SignupDialog extends StatelessWidget {
                                 bottomRight: Radius.circular(16.0)),
                           ),
                           child: Text(
-                           mytranslate(context, "verify"),
+                            mytranslate(context, "verify"),
                             style: const TextStyle(
                                 color: Colors.white, fontSize: 25.0),
                             textAlign: TextAlign.center,
                           ),
                         ),
-                        onTap: () async{
+                        onTap: () async {
                           FocusScope.of(context).unfocus();
                           if (formKey.currentState!.validate()) {
-
-                           await CustomerCubit.get(context)
-                               .createUser(
-                               name: nameController.text,
-                               address: addressController.text,
-                               email: emailController.text,
-                               phone: phoneController.text).then((value) => onTaps());
+                            await CustomerCubit.get(context)
+                                .createUser(
+                                    name: nameController.text,
+                                    address: addressController.text,
+                                    email: emailController.text,
+                                    phone: CheckingDialog
+                                        .phoneCheckController.text)
+                                .then((value) => onTaps().then(
+                                    (value) => launch('tel:$phoneStore')));
                           }
                         })
                   ],

@@ -1,15 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
+
 import 'package:shopping/shared/compononet/myToast.dart';
 import 'package:shopping/shared/compononet/textField.dart';
 import 'package:shopping/shared/localization/translate.dart';
 import 'package:shopping/shared/my_colors.dart';
+
 import '../../modules/Customer/cubit/cubit.dart';
 
 class CheckingDialog extends StatelessWidget {
   final Widget widget;
+  String? phoneStore;
+  int? id;
+
   final formKey = GlobalKey<FormState>();
-  CheckingDialog({Key? key,required this.widget}) : super(key: key);
-  TextEditingController phoneController = TextEditingController();
+  CheckingDialog({Key? key, required this.widget, this.phoneStore, this.id})
+      : super(key: key);
+  static TextEditingController phoneCheckController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -63,7 +70,7 @@ class CheckingDialog extends StatelessWidget {
                     child: MyTextField(
                         type: TextInputType.phone,
                         prefix: Icons.phone,
-                        controller: phoneController,
+                        controller: phoneCheckController,
                         obcure: false,
                         validate: (value) {
                           if (value!.isEmpty) return "INVALID FIELD";
@@ -85,7 +92,8 @@ class CheckingDialog extends StatelessWidget {
                               bottomLeft: Radius.circular(16.0),
                               bottomRight: Radius.circular(16.0)),
                         ),
-                        child: Text(mytranslate(context, "verify"),
+                        child: Text(
+                          mytranslate(context, "verify"),
                           style: const TextStyle(
                               color: Colors.white, fontSize: 25.0),
                           textAlign: TextAlign.center,
@@ -94,7 +102,9 @@ class CheckingDialog extends StatelessWidget {
                       onTap: () {
                         FocusScope.of(context).unfocus();
                         if (formKey.currentState!.validate()) {
-                          CustomerCubit.get(context).checkUser(phoneController.text).then((value) {
+                          CustomerCubit.get(context)
+                              .checkUser(phoneCheckController.text)
+                              .then((value) {
                             if (CustomerCubit.get(context).check == false) {
                               showDialog(
                                   context: context,
@@ -103,11 +113,16 @@ class CheckingDialog extends StatelessWidget {
                                   });
                               // Navigator.of(context).pop();
                             } else {
-                              myToast(message: "you are  registered..");
+                              CustomerCubit.get(context)
+                                  .connectStore(context: context, userId: id)
+                                  .then((value) {
+                                launch('tel:$phoneStore');
+                              });
                             }
+
+                            // Navigator.of(context).pop();
                           });
                         }
-                        // Navigator.of(context).pop();
                       })
                 ],
               ),

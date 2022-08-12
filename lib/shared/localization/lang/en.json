@@ -97,5 +97,14 @@
    "show": " Show your location",
    "terms": "Terms of Service | Privacy Policy",
    "reg": "you are not registered\nPlease enter your data",
-   "ph": "Please Enter Your phone number"
+   "ph": "Please Enter Your phone number",
+   "no": "Phone Number :",
+   "costt": "Purchase amount per product:  ",
+   "tot": "Total",
+   "q": "Quantity",
+   "excd": "Operation accomplished successfully",
+   "prog": "It is being worked on and will be contacted at the number below.",
+   "before": "To confirm the order before shipping from the stores you chose",
+   "fail": "The operation failed",
+   "again": "Try Again !"
 }

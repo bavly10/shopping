@@ -18,11 +18,17 @@ import '../../../../shared/my_colors.dart';
 import '../../../Customer/cubit/cubit.dart';
 
 class CustomDrawer extends StatelessWidget {
-  String? tiltle, image, address;
+  String? tiltle, image, address, phoneStore;
   int? id;
   GlobalKey<ScaffoldState>? skey;
   CustomDrawer(
-      {Key? key, this.tiltle, this.address, this.image, this.id, this.skey})
+      {Key? key,
+      this.tiltle,
+      this.address,
+      this.image,
+      this.id,
+      this.skey,
+      this.phoneStore})
       : super(key: key);
 
   @override
@@ -118,18 +124,25 @@ class CustomDrawer extends StatelessWidget {
               ]),
           child: InkWell(
             onTap: () {
-              if (ShopCubit.get(context).userId == null) {
-                showDialog(
-                    context: skey!.currentContext!,
-                    builder: (context) {
-                      return CheckingDialog(widget: SignupDialog(onTaps:(){
-
-                      }),);
-                    });
-              } else {
-                navigateToFinish(
-                    context, MainCustomer(id: id!, title: tiltle!));
-              }
+              // if (ShopCubit.get(context).userId == null) {
+              showDialog(
+                  context: skey!.currentContext!,
+                  builder: (context) {
+                    return CheckingDialog(
+                      widget: SignupDialog(
+                          onTaps: () async {
+                            await CustomerCubit.get(context).connectStore(
+                                context: skey!.currentContext!, userId: id);
+                          },
+                          phoneStore: phoneStore),
+                      id: id,
+                      phoneStore: phoneStore,
+                    );
+                  });
+              //   } else {
+              // navigateToFinish(
+              //     context, MainCustomer(id: id!, title: tiltle!));
+              // }
             },
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,

@@ -119,8 +119,7 @@ class CustomerCubit extends Cubit<CustomerStates> {
   Future showCustomerData(id, context) async {
     emit(LoadingShowCustomer());
     Map<String, dynamic> header = {
-      "auth-token":
-          ShopCubit.get(context).customerToken
+      "auth-token": ShopCubit.get(context).customerToken
     };
     Map<String, dynamic> data = {
       "id": id,
@@ -215,7 +214,8 @@ class CustomerCubit extends Cubit<CustomerStates> {
       emit(CheckingCustomerErrorState());
     });
   }
-int? userId;
+
+  int? userId;
   Future createUser({email, phone, address, name}) async {
     Map<String, dynamic> data = {
       "phone": phone,
@@ -229,7 +229,7 @@ int? userId;
     ).then((value) {
       userModel = User.fromMap(value.data);
       if (userModel!.status == true) {
-        userId= userModel!.data;
+        userId = userModel!.data;
         CashHelper.putData("userId", userModel!.data);
         print(userModel!.data);
         emit(InsertCustomerSucessState());
@@ -242,5 +242,22 @@ int? userId;
     });
   }
 
+  connectStore({context, userId}) async {
+    Map<String, dynamic> data = {
+      "costomer_id": ShopCubit.get(context).userId,
+      "user_id": userId,
+    };
+    await DioHelper.postData(
+      url: moveCustomer,
+      data: data,
+    ).then((value) {
+      print("for connect Store....${value.data}");
 
+      print("connecting");
+      emit(ConnectingShopSuecssState());
+    }).catchError((error) {
+      print(error.toString());
+      emit(ConnectingShopErrorState());
+    });
+  }
 }
