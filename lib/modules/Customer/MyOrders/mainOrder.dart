@@ -53,7 +53,7 @@ class Orders extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.all(12.0),
                           child: Container(
-                              height: 40,
+                              height: MediaQuery.of(context).size.height * .06,
                               width: double.infinity,
                               child: ListView.separated(
                                   separatorBuilder: ((context, index) {
@@ -101,10 +101,19 @@ class Orders extends StatelessWidget {
                                             },
                                             child: Container(
                                                 child: Text(
-                                                    CustomerOrderCubit.get(
-                                                            context)
-                                                        .pages[index]
-                                                        .toString()))),
+                                              CustomerOrderCubit.get(context)
+                                                  .pages[index]
+                                                  .toString(),
+                                              style: TextStyle(
+                                                  color: index ==
+                                                          CustomerOrderCubit
+                                                                  .get(context)
+                                                              .selected
+                                                      ? Colors.white
+                                                      : myBlue,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 16),
+                                            ))),
                                       ))),
                         ),
                         ListView.builder(
