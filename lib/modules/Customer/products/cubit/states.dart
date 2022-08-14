@@ -63,5 +63,7 @@ class ShopChangeplus extends ProductStates {}
 class ShopChangeminus extends ProductStates {}
 
 class ChooseSize extends ProductStates {}
+
 class InsertOrderSucessState extends ProductStates {}
+
 class InsertOrderErrorState extends ProductStates {}

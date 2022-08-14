@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shopping/Cubit/cubit.dart';
 import 'package:shopping/model/ProductsCustomer.dart';
+import 'package:shopping/model/latest_product.dart';
 import 'package:shopping/modules/Customer/cubit/state.dart';
 import 'package:shopping/shared/diohelper/dioHelpoer.dart';
 import 'package:shopping/shared/shared_prefernces.dart';
@@ -258,6 +259,48 @@ class CustomerCubit extends Cubit<CustomerStates> {
     }).catchError((error) {
       print(error.toString());
       emit(ConnectingShopErrorState());
+    });
+  }
+  ///////////////Latest Products/////////////////////
+
+  LatestProduct? latestProduct;
+  List<LatestProductItem> latestPro = [];
+  Future latestproducts({id}) async {
+    emit(LoadingLatestProduct());
+    Map<String, dynamic> data = {"user_id": id};
+
+    await DioHelper.postData(url: latestProducts, data: data).then((value) {
+      latestProduct = LatestProduct.fromMap(value.data);
+      // print(latestPro);
+      final res = value.data['data'];
+
+      for (var value in res) {
+        final pro = latestPro.indexWhere(
+          (element) => element.id == value["id"],
+        );
+        if (pro >= 0) {
+          latestPro[pro] = LatestProductItem(
+              image: value["image"],
+              price: value["price"],
+              title: value["title"],
+              id: value["id"],
+              desc: value["desc"],
+              userId: value["user_id"]);
+        } else {
+          latestPro.add(LatestProductItem(
+              image: value["image"],
+              price: value["price"],
+              title: value["title"],
+              id: value["id"],
+              desc: value["desc"],
+              userId: value["user_id"]));
+        }
+      }
+
+      emit(GettingLatestProductSucess());
+    }).catchError((error) {
+      print(error.toString());
+      emit(GettingLatestProductError());
     });
   }
 }

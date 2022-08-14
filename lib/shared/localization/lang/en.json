@@ -106,5 +106,7 @@
    "prog": "It is being worked on and will be contacted at the number below.",
    "before": "To confirm the order before shipping from the stores you chose",
    "fail": "The operation failed",
-   "again": "Try Again !"
+   "again": "Try Again !",
+   "new": "No New Products Now !",
+   "orders": "All orders from your store"
 }

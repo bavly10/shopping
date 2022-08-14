@@ -48,10 +48,14 @@ class CustomerHome extends StatelessWidget {
                   ),
                 ),
               ),
-              IconButton(onPressed: (){
-                CustomerOrderCubit.get(context).getOrders(context:context);
-                navigateTo(context, Orders());
-              }, icon: Icon(Icons.gps_not_fixed))
+              IconButton(
+                  onPressed: () {
+                    CustomerOrderCubit.get(context).getOrders(
+                        context: context,
+                        page: CustomerOrderCubit.get(context).limit);
+                    navigateTo(context, Orders());
+                  },
+                  icon: Icon(Icons.gps_not_fixed))
             ]),
             body: SingleChildScrollView(
               physics: BouncingScrollPhysics(),

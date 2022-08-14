@@ -5,9 +5,9 @@ import 'package:flutter_hex_color/flutter_hex_color.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:shopping/modules/Customer/cubit/cubit.dart';
 import 'package:shopping/modules/Customer/cubit/state.dart';
-import 'package:shopping/modules/mainScreen/mainScreen.dart';
 import 'package:shopping/modules/mainScreen/store_screen/widgets/best_seller_Card.dart';
 import 'package:shopping/modules/mainScreen/store_screen/widgets/drawer.dart';
+import 'package:shopping/modules/mainScreen/store_screen/widgets/latest_product.dart';
 import 'package:shopping/modules/mainScreen/store_screen/widgets/top_screen.dart';
 import 'package:shopping/shared/compononet/componotents.dart';
 import 'package:shopping/shared/my_colors.dart';
@@ -16,7 +16,6 @@ import '../../../shared/localization/translate.dart';
 import '../../Customer/products/cubit/cubit.dart';
 import '../../Customer/products/details_product/details_product.dart';
 import '../screen/singleCustomerProduct/mainCustomer.dart';
-import '../screen/singleCustomerProduct/products_card.dart';
 
 class StoreScreen extends StatelessWidget {
   String? title;
@@ -32,10 +31,13 @@ class StoreScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     CustomerCubit.get(context).getProductCustomer(id);
+    CustomerCubit.get(context).latestproducts(id: id);
     return BlocConsumer<CustomerCubit, CustomerStates>(
         listener: ((context, state) {}),
         builder: (context, state) {
           var cubit = CustomerCubit.get(context);
+          var latest = CustomerCubit.get(context).latestPro;
+
           return AdvancedDrawer(
             backdropColor: HexColor('#2F69F8'),
             controller: _advancedDrawerController,
@@ -66,7 +68,7 @@ class StoreScreen extends StatelessWidget {
                     valueListenable: _advancedDrawerController,
                     builder: (_, value, __) {
                       return AnimatedSwitcher(
-                        duration: Duration(milliseconds: 250),
+                        duration: const Duration(milliseconds: 250),
                         child: Icon(
                           value.visible ? Icons.clear : Icons.menu,
                           key: ValueKey<bool>(value.visible),
@@ -141,42 +143,56 @@ class StoreScreen extends StatelessWidget {
                         child: Text(
                             "${mytranslate(context, "have")} ${cubit.list.length} ${mytranslate(context, "prod")}"),
                       ),
-                      SizedBox(
-                        height: MediaQuery.of(context).size.height * .8,
-                        child: Padding(
-                          padding: const EdgeInsets.all(14.0),
-                          child: GridView.custom(
-                              shrinkWrap: true,
-                              physics: const BouncingScrollPhysics(),
-                              gridDelegate: SliverWovenGridDelegate.count(
-                                crossAxisCount: 2,
-                                mainAxisSpacing: 8,
-                                crossAxisSpacing: 8,
-                                pattern: [
-                                  const WovenGridTile(6 / 7),
-                                  const WovenGridTile(
-                                    5 / 7,
-                                    crossAxisRatio: .9,
-                                    alignment: AlignmentDirectional.centerEnd,
-                                  ),
-                                ],
+                      latest.isEmpty
+                          ? Center(
+                              child: Text(
+                                mytranslate(context, "new"),
+                                style: TextStyle(
+                                    color: myBlue,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 20),
                               ),
-                              childrenDelegate: SliverChildBuilderDelegate(
-                                  (context, index) => InkWell(
-                                      onTap: () {
-                                        ProductCubit.get(context)
-                                            .productInfo(
-                                                cubit.list[index].id, context)
-                                            .then((value) => {
-                                                  navigateTo(context,
-                                                      const DetailsProduct())
-                                                });
-                                      },
-                                      child: ProductCard(
-                                          productsItem: cubit.list[index])),
-                                  childCount: cubit.list.length)),
-                        ),
-                      ),
+                            )
+                          : SizedBox(
+                              height: MediaQuery.of(context).size.height * .8,
+                              child: Padding(
+                                padding: EdgeInsets.all(14.0),
+                                child: GridView.custom(
+                                    shrinkWrap: true,
+                                    physics: const BouncingScrollPhysics(),
+                                    gridDelegate: SliverWovenGridDelegate.count(
+                                      crossAxisCount: 2,
+                                      mainAxisSpacing: 8,
+                                      crossAxisSpacing: 8,
+                                      pattern: [
+                                        const WovenGridTile(6 / 7),
+                                        const WovenGridTile(
+                                          5 / 7,
+                                          crossAxisRatio: .9,
+                                          alignment:
+                                              AlignmentDirectional.centerEnd,
+                                        ),
+                                      ],
+                                    ),
+                                    childrenDelegate:
+                                        SliverChildBuilderDelegate(
+                                            (context, index) => InkWell(
+                                                onTap: () {
+                                                  ProductCubit.get(context)
+                                                      .productInfo(
+                                                          cubit.list[index].id,
+                                                          context)
+                                                      .then((value) => {
+                                                            navigateTo(context,
+                                                                const DetailsProduct())
+                                                          });
+                                                },
+                                                child: LatestPro(
+                                                    productsItem:
+                                                        latest[index])),
+                                            childCount: latest.length)),
+                              ),
+                            ),
                     ]),
               ),
             ),

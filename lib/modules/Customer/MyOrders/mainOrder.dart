@@ -6,6 +6,7 @@ import 'package:material_design_icons_flutter/material_design_icons_flutter.dart
 import 'package:shopping/modules/Customer/MyOrders/cubit/cubit.dart';
 import 'package:shopping/modules/Customer/MyOrders/cubit/state.dart';
 import 'package:shopping/modules/Customer/MyOrders/widget/EXPTile.dart';
+import 'package:shopping/shared/localization/translate.dart';
 import 'package:shopping/shared/my_colors.dart';
 
 class Orders extends StatelessWidget {
@@ -21,8 +22,8 @@ class Orders extends StatelessWidget {
           appBar: AppBar(
               centerTitle: false,
               title: Text(
-                "جميع الطلبات من متجرك",
-                style: TextStyle(fontSize: 14),
+                mytranslate(context, "orders"),
+                style: const TextStyle(fontSize: 16),
               ),
               actions: [
                 CircleAvatar(
@@ -98,6 +99,15 @@ class Orders extends StatelessWidget {
                                             onTap: () {
                                               CustomerOrderCubit.get(context)
                                                   .getselected(index);
+                                              // CustomerOrderCubit.get(context)
+                                              //     .pagnationDataLimit();
+
+                                              CustomerOrderCubit.get(context)
+                                                  .getOrders(
+                                                      context: context,
+                                                      page: CustomerOrderCubit
+                                                              .get(context)
+                                                          .limit);
                                             },
                                             child: Container(
                                                 child: Text(
@@ -116,22 +126,35 @@ class Orders extends StatelessWidget {
                                             ))),
                                       ))),
                         ),
-                        ListView.builder(
-                          shrinkWrap: true,
-                          itemBuilder: (ctx, index) => Padding(
-                            padding: const EdgeInsets.all(12.0),
-                            child: Container(
-                                decoration: BoxDecoration(
-                                  color: myGrey,
-                                  border: Border.all(color: Colors.grey[200]!),
-                                  // color: myGrey,
-                                  borderRadius: const BorderRadius.all(
-                                      Radius.circular(10)),
+                        cubit.isEmpty
+                            ? Center(
+                                child: Padding(
+                                padding: const EdgeInsets.only(top: 200.0),
+                                child: Text(
+                                  "No Data",
+                                  style: TextStyle(
+                                      color: myBlue,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 30),
                                 ),
-                                child: EXPTile(order: cubit[index])),
-                          ),
-                          itemCount: cubit.length,
-                        ),
+                              ))
+                            : ListView.builder(
+                                shrinkWrap: true,
+                                itemBuilder: (ctx, index) => Padding(
+                                  padding: const EdgeInsets.all(12.0),
+                                  child: Container(
+                                      decoration: BoxDecoration(
+                                        color: myGrey,
+                                        border: Border.all(
+                                            color: Colors.grey[200]!),
+                                        // color: myGrey,
+                                        borderRadius: const BorderRadius.all(
+                                            Radius.circular(10)),
+                                      ),
+                                      child: EXPTile(order: cubit[index])),
+                                ),
+                                itemCount: cubit.length,
+                              ),
                       ],
                     ),
                   ),

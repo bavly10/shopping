@@ -5,6 +5,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:shopping/Cubit/cubit.dart';
 import 'package:shopping/model/cart.dart';
 import 'package:shopping/model/categoryModel.dart';
+import 'package:shopping/model/latest_product.dart';
 import 'package:shopping/model/product.dart';
 import 'package:shopping/model/product_info.dart';
 import 'package:shopping/model/show_product_model.dart';
@@ -363,7 +364,7 @@ class ProductCubit extends Cubit<ProductStates> {
 
   ProductInfo? proInf;
   List<String> sizes = [];
-  String? selectSize="M";
+  String? selectSize = "M";
   Future productInfo(id, context) async {
     emit(loadingProduct());
     FormData formData = FormData.fromMap({"product_id": id});
@@ -455,8 +456,6 @@ class ProductCubit extends Cubit<ProductStates> {
     });
   }
 
-
-
   ////////////////////cart///////////
 
   Map<String, CartItem> _items = {};
@@ -497,7 +496,7 @@ class ProductCubit extends Cubit<ProductStates> {
       _items.putIfAbsent(
           proid,
           () => CartItem(
-            size: size,
+              size: size,
               id: proid,
               title: title,
               quantity: qua,
@@ -520,7 +519,7 @@ class ProductCubit extends Cubit<ProductStates> {
       _items.update(
           proid,
           (value) => CartItem(
-            size: value.size,
+              size: value.size,
               id: value.id,
               title: value.title,
               quantity: value.quantity - 1,
@@ -550,8 +549,9 @@ class ProductCubit extends Cubit<ProductStates> {
     }
     emit(ShopChangeminus());
   }
+
   ////////////////create order////////////////////////////
-  Future createOrder({productID, many, customerID, size,price}) async {
+  Future createOrder({productID, many, customerID, size, price}) async {
     Map<String, dynamic> data = {
       "product_id": productID,
       "price": price,
