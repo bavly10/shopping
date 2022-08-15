@@ -3,6 +3,9 @@ import 'package:flutter_hex_color/flutter_hex_color.dart';
 import 'package:shopping/shared/localization/translate.dart';
 import 'package:shopping/shared/my_colors.dart';
 
+import '../../shared/compononet/componotents.dart';
+import '../cart/cart.dart';
+
 class FailedOrder extends StatelessWidget {
   const FailedOrder({Key? key}) : super(key: key);
   @override
@@ -47,10 +50,30 @@ class FailedOrder extends StatelessWidget {
                 ),
                 Text(
                   mytranslate(context, "again"),
-                  style: TextStyle(
+                  style: const TextStyle(
                       color: Colors.white,
                       fontSize: 18,
                       fontWeight: FontWeight.bold),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(27.0),
+                  child: MaterialButton(
+                      minWidth: MediaQuery.of(context).size.width * .5,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30.0),
+                      ),
+                      onPressed: () {
+                        navigateTo(context, CartScreen());
+                      },
+                      textColor: myBlue,
+                      color: Colors.white,
+                      child: Text(
+                        mytranslate(context, "ok"),
+                        style: TextStyle(
+                            color: myBlue,
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold),
+                      )),
                 ),
               ],
             ),

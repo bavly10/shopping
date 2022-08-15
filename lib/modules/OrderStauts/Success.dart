@@ -1,5 +1,9 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_hex_color/flutter_hex_color.dart';
+import 'package:shopping/modules/cart/cart.dart';
+import 'package:shopping/shared/compononet/componotents.dart';
 import 'package:shopping/shared/localization/translate.dart';
 import 'package:shopping/shared/my_colors.dart';
 
@@ -76,7 +80,27 @@ class SuccessOrder extends StatelessWidget {
                   child: Text(mytranslate(context, "before"),
                       style: const TextStyle(
                           color: Colors.white, fontWeight: FontWeight.bold)),
-                )
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(27.0),
+                  child: MaterialButton(
+                      minWidth: MediaQuery.of(context).size.width * .5,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30.0),
+                      ),
+                      onPressed: () {
+                        navigateTo(context, CartScreen());
+                      },
+                      textColor: myBlue,
+                      color: Colors.white,
+                      child: Text(
+                        mytranslate(context, "ok"),
+                        style: TextStyle(
+                            color: myBlue,
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold),
+                      )),
+                ),
               ],
             ),
           ),
