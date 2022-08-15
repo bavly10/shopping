@@ -6,6 +6,7 @@ import 'package:material_design_icons_flutter/material_design_icons_flutter.dart
 import 'package:shopping/modules/Customer/MyOrders/cubit/cubit.dart';
 import 'package:shopping/modules/Customer/MyOrders/cubit/state.dart';
 import 'package:shopping/modules/Customer/MyOrders/widget/EXPTile.dart';
+import 'package:shopping/modules/Customer/MyOrders/widget/pages_container.dart';
 import 'package:shopping/shared/localization/translate.dart';
 import 'package:shopping/shared/my_colors.dart';
 
@@ -46,86 +47,30 @@ class Orders extends StatelessWidget {
               ]),
           body: SafeArea(
             child: state is CustomerOrderLoading
-                ? const Center(child: const CircularProgressIndicator())
+                ? const Center(child: CircularProgressIndicator())
                 : SingleChildScrollView(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Padding(
-                          padding: const EdgeInsets.all(12.0),
-                          child: Container(
-                              height: MediaQuery.of(context).size.height * .06,
-                              width: double.infinity,
-                              child: ListView.separated(
-                                  separatorBuilder: ((context, index) {
-                                    return const SizedBox(
-                                      width: 20,
-                                    );
-                                  }),
-                                  itemCount: CustomerOrderCubit.get(context)
-                                      .pages
-                                      .length,
-                                  shrinkWrap: true,
-                                  scrollDirection: Axis.horizontal,
-                                  itemBuilder: (context, index) =>
-                                      AnimatedContainer(
-                                        duration:
-                                            const Duration(milliseconds: 400),
-                                        height: index ==
-                                                CustomerOrderCubit.get(context)
-                                                    .selected
-                                            ? 40
-                                            : 20,
-                                        width: index ==
-                                                CustomerOrderCubit.get(context)
-                                                    .selected
-                                            ? 40
-                                            : 50,
-                                        alignment: Alignment.center,
-                                        decoration: BoxDecoration(
-                                          color: index ==
-                                                  CustomerOrderCubit.get(
-                                                          context)
-                                                      .selected
-                                              ? myBlue
-                                              : myGrey,
-                                          border: Border.all(
-                                              color: Colors.grey[200]!),
-                                          // color: myGrey,
-                                          borderRadius: const BorderRadius.all(
-                                              Radius.circular(10)),
-                                        ),
-                                        child: InkWell(
-                                            onTap: () {
-                                              CustomerOrderCubit.get(context)
-                                                  .getselected(index);
-                                              // CustomerOrderCubit.get(context)
-                                              //     .pagnationDataLimit();
-
-                                              CustomerOrderCubit.get(context)
-                                                  .getOrders(
-                                                      context: context,
-                                                      page: CustomerOrderCubit
-                                                              .get(context)
-                                                          .limit);
-                                            },
-                                            child: Container(
-                                                child: Text(
-                                              CustomerOrderCubit.get(context)
-                                                  .pages[index]
-                                                  .toString(),
-                                              style: TextStyle(
-                                                  color: index ==
-                                                          CustomerOrderCubit
-                                                                  .get(context)
-                                                              .selected
-                                                      ? Colors.white
-                                                      : myBlue,
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize: 16),
-                                            ))),
-                                      ))),
-                        ),
+                            padding: const EdgeInsets.all(12.0),
+                            child: Container(
+                                height:
+                                    MediaQuery.of(context).size.height * .06,
+                                width: double.infinity,
+                                child: ListView.separated(
+                                    separatorBuilder: ((context, index) {
+                                      return const SizedBox(
+                                        width: 20,
+                                      );
+                                    }),
+                                    itemCount: CustomerOrderCubit.get(context)
+                                        .pages
+                                        .length,
+                                    shrinkWrap: true,
+                                    scrollDirection: Axis.horizontal,
+                                    itemBuilder: (context, index) =>
+                                        PagesContainer(index: index)))),
                         cubit.isEmpty
                             ? Center(
                                 child: Padding(
