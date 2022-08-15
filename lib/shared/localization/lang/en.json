@@ -108,5 +108,6 @@
    "fail": "The operation failed",
    "again": "Try Again !",
    "new": "No New Products Now !",
-   "orders": "All orders from your store"
+   "orders": "All orders from your store",
+   "noo": "No More Orders"
 }

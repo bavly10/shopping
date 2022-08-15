@@ -29,7 +29,10 @@ class CustomerOrderCubit extends Cubit<CustomerOrderStates> {
     Map<String, dynamic> header = {
       "auth-token": ShopCubit.get(context).customerToken
     };
-    Map<String, dynamic> data = {"user_id": 4, "page": page};
+    Map<String, dynamic> data = {
+      "user_id": ShopCubit.get(context).customerId,
+      "page": page
+    };
     DioHelper.postData(url: myorder, data: data, option: header).then((value) {
       ordersCutomer = OrdersCutomer.fromJson(value.data);
       pages = List.generate(ordersCutomer!.data!.total!, (i) => i + 1);

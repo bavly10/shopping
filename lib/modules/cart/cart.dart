@@ -13,6 +13,9 @@ import 'package:shopping/shared/compononet/verification_phone_dialog.dart';
 import 'package:shopping/shared/localization/translate.dart';
 import 'package:shopping/shared/my_colors.dart';
 
+import '../../shared/compononet/check_phone_cart.dart';
+import '../../shared/compononet/sign_up_cart.dart';
+
 class CartScreen extends StatelessWidget {
   double x = 0.0;
   double y = 0.0;
@@ -21,10 +24,14 @@ class CartScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<ProductCubit, ProductStates>(
-      listener: (ctx,state){
-        if(state is InsertOrderSucessState){
-          navigateToFinish(context, const SuccessOrder(phone: "06510355051",));
-        }else if(state is InsertOrderErrorState){
+      listener: (ctx, state) {
+        if (state is InsertOrderSucessState) {
+          navigateToFinish(
+              context,
+              const SuccessOrder(
+                phone: "06510355051",
+              ));
+        } else if (state is InsertOrderErrorState) {
           navigateToFinish(context, const FailedOrder());
         }
       },
@@ -90,15 +97,18 @@ class CartScreen extends StatelessWidget {
                         : ListView.builder(
                             itemCount: cubit.items.length,
                             itemBuilder: (ctx, index) => Cartitemapp(
-                              size: cubit.items.values.toList()[index].size,
+                                  size: cubit.items.values.toList()[index].size,
                                   id: cubit.items.values.toList()[index].id,
                                   proid: cubit.items.keys.toList()[index],
-                                  title: cubit.items.values.toList()[index].title,
+                                  title:
+                                      cubit.items.values.toList()[index].title,
                                   imgurl:
                                       cubit.items.values.toList()[index].imgurl,
-                                  quant:
-                                      cubit.items.values.toList()[index].quantity,
-                                  price: cubit.items.values.toList()[index].price,
+                                  quant: cubit.items.values
+                                      .toList()[index]
+                                      .quantity,
+                                  price:
+                                      cubit.items.values.toList()[index].price,
                                 )),
                   ),
                   const SizedBox(
@@ -126,10 +136,12 @@ class CartScreen extends StatelessWidget {
                             children: [
                               Text(mytranslate(context, "price"),
                                   style: const TextStyle(
-                                      fontSize: 18, fontWeight: FontWeight.w400)),
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w400)),
                               Text("$x ${mytranslate(context, "wd")}",
                                   style: const TextStyle(
-                                      fontSize: 18, fontWeight: FontWeight.bold)),
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold)),
                             ],
                           ),
                           Row(
@@ -142,7 +154,8 @@ class CartScreen extends StatelessWidget {
                               Text(
                                   "${d.toStringAsFixed(2)} ${mytranslate(context, "wd")}",
                                   style: const TextStyle(
-                                      fontSize: 18, fontWeight: FontWeight.bold)),
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold)),
                             ],
                           ),
                           const Divider(
@@ -158,7 +171,8 @@ class CartScreen extends StatelessWidget {
                               Text(
                                   "${totall.toStringAsFixed(2)} ${mytranslate(context, "wd")}",
                                   style: const TextStyle(
-                                      fontSize: 18, fontWeight: FontWeight.bold)),
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold)),
                             ],
                           ),
                           BlueButton(
@@ -173,19 +187,28 @@ class CartScreen extends StatelessWidget {
                                 showDialog(
                                     context: skey.currentContext!,
                                     builder: (context) {
-                                     return CheckingDialog(widget: SignupDialog(onTaps: (){
-                                      cubit.items.forEach((key, value) async{
-                                        print( value.size.toString());
-                                        print( value.id.toString());
-                                        print(CustomerCubit.get(context).userId);
-                                        await cubit.createOrder(
-                                          size: value.size.toString(),
-                                          price: value.price.toString(),
-                                          many: value.quantity.toString(),
-                                          customerID: CustomerCubit.get(context).userId,
-                                          productID: value.id.toString(),);
-                                      });
-                                     },),);
+                                      return CheckDialog(
+                                        widget: SignupCartDialog(
+                                          onTaps: () {
+                                            cubit.items
+                                                .forEach((key, value) async {
+                                              print(value.size.toString());
+                                              print(value.id.toString());
+                                              print(CustomerCubit.get(context)
+                                                  .userId);
+                                              await cubit.createOrder(
+                                                size: value.size.toString(),
+                                                price: value.price.toString(),
+                                                many: value.quantity.toString(),
+                                                customerID:
+                                                    CustomerCubit.get(context)
+                                                        .userId,
+                                                productID: value.id.toString(),
+                                              );
+                                            });
+                                          },
+                                        ),
+                                      );
                                     });
                               },
                               hight: 0.07,

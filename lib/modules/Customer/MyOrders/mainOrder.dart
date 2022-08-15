@@ -76,7 +76,7 @@ class Orders extends StatelessWidget {
                                 child: Padding(
                                 padding: const EdgeInsets.only(top: 200.0),
                                 child: Text(
-                                  "No Data",
+                                  mytranslate(context, "noo"),
                                   style: TextStyle(
                                       color: myBlue,
                                       fontWeight: FontWeight.bold,
