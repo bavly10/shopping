@@ -61,7 +61,7 @@ class ShopCubit extends Cubit<ShopStates> {
   }
 
   int currentindex = 0;
-  List<Widget> screen = [HomeScreen(), test(), CartScreen(), MainLogin()];
+  List<Widget> screen = [HomeScreen(), MainLogin()];
 
   void changeIndex(int index) {
     currentindex = index;

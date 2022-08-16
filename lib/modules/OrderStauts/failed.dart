@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hex_color/flutter_hex_color.dart';
+import 'package:shopping/modules/mainScreen/mainScreen.dart';
 import 'package:shopping/shared/localization/translate.dart';
 import 'package:shopping/shared/my_colors.dart';
 
@@ -63,7 +64,7 @@ class FailedOrder extends StatelessWidget {
                         borderRadius: BorderRadius.circular(30.0),
                       ),
                       onPressed: () {
-                        navigateTo(context, CartScreen());
+                        navigateTo(context, MainScreen());
                       },
                       textColor: myBlue,
                       color: Colors.white,

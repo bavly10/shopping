@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:shopping/model/ProductsCustomer.dart';
 import 'package:shopping/model/latest_product.dart';
 
 import '../../../../shared/my_colors.dart';
 
 class LatestPro extends StatelessWidget {
-  final LatestProductItem productsItem;
+  final ProductsItem productsItem;
 
   const LatestPro({Key? key, required this.productsItem}) : super(key: key);
 
@@ -18,7 +19,7 @@ class LatestPro extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Container(
-              height: MediaQuery.of(context).size.height * .04,
+              height: MediaQuery.of(context).size.height * .05,
               width: MediaQuery.of(context).size.width * .077,
               decoration: BoxDecoration(
                   color: Colors.black,

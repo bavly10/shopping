@@ -10,35 +10,8 @@ import 'package:shopping/shared/compononet/myToast.dart';
 import 'package:shopping/shared/localization/translate.dart';
 import 'package:shopping/shared/my_colors.dart';
 
-class MoreProductsCustomer extends StatefulWidget {
+class MoreProductsCustomer extends StatelessWidget {
   const MoreProductsCustomer({Key? key}) : super(key: key);
-
-  @override
-  State<MoreProductsCustomer> createState() => _MoreProductsCustomerState();
-}
-
-///error hna fe backScreen
-class _MoreProductsCustomerState extends State<MoreProductsCustomer> {
-  final ScrollController scrollController = ScrollController();
-  @override
-  void initState() {
-    scrollController.addListener(() async {
-      if (scrollController.position.pixels >=
-          scrollController.position.maxScrollExtent) {
-        ProductCubit.get(context).pagnationDataLimit();
-        await ProductCubit.get(context)
-            .getProducts(context, ProductCubit.get(context).limit);
-        print("new Data Loading");
-      }
-    });
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    scrollController.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -62,8 +35,7 @@ class _MoreProductsCustomerState extends State<MoreProductsCustomer> {
                   : TextButton(
                       onPressed: () {
                         ProductCubit.get(context).pagnationDataLimit();
-                        ProductCubit.get(context).getProducts(
-                            context, ProductCubit.get(context).limit);
+                        ProductCubit.get(context).getProducts(context, ProductCubit.get(context).limit);
                       },
                       child: Container(
                         width: 100,

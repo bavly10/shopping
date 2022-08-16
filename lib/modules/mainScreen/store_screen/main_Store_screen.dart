@@ -5,17 +5,18 @@ import 'package:flutter_hex_color/flutter_hex_color.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:shopping/modules/Customer/cubit/cubit.dart';
 import 'package:shopping/modules/Customer/cubit/state.dart';
+import 'package:shopping/modules/Customer/products/cubit/cubit.dart';
+import 'package:shopping/modules/Customer/products/details_product/details_product.dart';
+import 'package:shopping/modules/mainScreen/screen/singleCustomerProduct/mainCustomer.dart';
+import 'package:shopping/modules/mainScreen/store_screen/moreProducts.dart';
 import 'package:shopping/modules/mainScreen/store_screen/widgets/best_seller_Card.dart';
 import 'package:shopping/modules/mainScreen/store_screen/widgets/drawer.dart';
 import 'package:shopping/modules/mainScreen/store_screen/widgets/latest_product.dart';
 import 'package:shopping/modules/mainScreen/store_screen/widgets/top_screen.dart';
 import 'package:shopping/shared/compononet/componotents.dart';
+import 'package:shopping/shared/compononet/myToast.dart';
+import 'package:shopping/shared/localization/translate.dart';
 import 'package:shopping/shared/my_colors.dart';
-
-import '../../../shared/localization/translate.dart';
-import '../../Customer/products/cubit/cubit.dart';
-import '../../Customer/products/details_product/details_product.dart';
-import '../screen/singleCustomerProduct/mainCustomer.dart';
 
 class StoreScreen extends StatelessWidget {
   String? title;
@@ -23,21 +24,18 @@ class StoreScreen extends StatelessWidget {
   int? id;
   String? adress, phone;
 
-  StoreScreen(
-      {Key? key, this.id, this.title, this.image, this.adress, this.phone})
-      : super(key: key);
+  StoreScreen({Key? key, this.id, this.title, this.image, this.adress, this.phone}) : super(key: key);
   final _advancedDrawerController = AdvancedDrawerController();
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+
   @override
   Widget build(BuildContext context) {
     CustomerCubit.get(context).getProductCustomer(id);
-    CustomerCubit.get(context).latestproducts(id: id);
-    return BlocConsumer<CustomerCubit, CustomerStates>(
-        listener: ((context, state) {}),
+    CustomerCubit.get(context).latestproducts(id:id);
+    return BlocBuilder<CustomerCubit, CustomerStates>(
         builder: (context, state) {
           var cubit = CustomerCubit.get(context);
           var latest = CustomerCubit.get(context).latestPro;
-
           return AdvancedDrawer(
             backdropColor: HexColor('#2F69F8'),
             controller: _advancedDrawerController,
@@ -52,10 +50,10 @@ class StoreScreen extends StatelessWidget {
             ),
             drawer: CustomDrawer(
                 tiltle: title,
-                address: adress,
+                address:adress,
                 image: image,
-                id: id,
-                phoneStore: phone,
+                id:id,
+                phoneStore:phone,
                 skey: scaffoldKey),
             child: Scaffold(
               key: scaffoldKey,
@@ -86,8 +84,8 @@ class StoreScreen extends StatelessWidget {
                           padding: const EdgeInsets.all(14.0),
                           child: TopScreen(
                             adress: adress,
-                            image: image,
-                            title: title,
+                            image:image,
+                            title:title,
                           )),
                       Padding(
                         padding: const EdgeInsets.only(
@@ -100,17 +98,25 @@ class StoreScreen extends StatelessWidget {
                         height: MediaQuery.of(context).size.width * .7,
                         padding: const EdgeInsets.only(right: 8, left: 8),
                         // width: MediaQuery.of(context).size.width,
-                        child: ListView.builder(
+                        child: latest.isEmpty?Center(
+                          child: Text(
+                            mytranslate(context, "new"),
+                            style: TextStyle(
+                                color: myBlue,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20),
+                          ),
+                        ):ListView.builder(
                           physics: const BouncingScrollPhysics(),
                           scrollDirection: Axis.horizontal,
                           shrinkWrap: true,
                           itemExtent: 180,
                           itemBuilder: ((context, index) {
                             return BestCard(
-                              pro: cubit.list[index],
+                              pro:latest[index],
                             );
                           }),
-                          itemCount: cubit.list.length,
+                          itemCount: latest.length,
                         ),
                       ),
                       Row(
@@ -125,8 +131,8 @@ class StoreScreen extends StatelessWidget {
                           Spacer(),
                           TextButton(
                               onPressed: () {
-                                navigateTo(context,
-                                    MainCustomer(id: id!, title: title!));
+                                CustomerCubit.get(context).lists=[];
+                                CustomerCubit.get(context).getProductCustomerPagination(id).then((value) =>navigateTo(context,MoreProCustomer(id!)));
                               },
                               child: Text(
                                 mytranslate(context, "more"),
@@ -143,7 +149,7 @@ class StoreScreen extends StatelessWidget {
                         child: Text(
                             "${mytranslate(context, "have")} ${cubit.list.length} ${mytranslate(context, "prod")}"),
                       ),
-                      latest.isEmpty
+                      cubit.list.isEmpty
                           ? Center(
                               child: Text(
                                 mytranslate(context, "new"),
@@ -153,46 +159,43 @@ class StoreScreen extends StatelessWidget {
                                     fontSize: 20),
                               ),
                             )
-                          : SizedBox(
-                              height: MediaQuery.of(context).size.height * .8,
-                              child: Padding(
-                                padding: EdgeInsets.all(14.0),
-                                child: GridView.custom(
-                                    shrinkWrap: true,
-                                    physics: const BouncingScrollPhysics(),
-                                    gridDelegate: SliverWovenGridDelegate.count(
-                                      crossAxisCount: 2,
-                                      mainAxisSpacing: 8,
-                                      crossAxisSpacing: 8,
-                                      pattern: [
-                                        const WovenGridTile(6 / 7),
-                                        const WovenGridTile(
-                                          5 / 7,
-                                          crossAxisRatio: .9,
-                                          alignment:
-                                              AlignmentDirectional.centerEnd,
-                                        ),
-                                      ],
+                          : Padding(
+                            padding: EdgeInsets.all(14.0),
+                            child: GridView.custom(
+                                shrinkWrap: true,
+                                physics: const NeverScrollableScrollPhysics(),
+                                gridDelegate: SliverWovenGridDelegate.count(
+                                  crossAxisCount: 2,
+                                  mainAxisSpacing: 8,
+                                  crossAxisSpacing: 8,
+                                  pattern: [
+                                    const WovenGridTile(6 / 7),
+                                    const WovenGridTile(
+                                      5 / 7,
+                                      crossAxisRatio: .9,
+                                      alignment:
+                                          AlignmentDirectional.centerEnd,
                                     ),
-                                    childrenDelegate:
-                                        SliverChildBuilderDelegate(
-                                            (context, index) => InkWell(
-                                                onTap: () {
-                                                  ProductCubit.get(context)
-                                                      .productInfo(
-                                                          cubit.list[index].id,
-                                                          context)
-                                                      .then((value) => {
-                                                            navigateTo(context,
-                                                                const DetailsProduct())
-                                                          });
-                                                },
-                                                child: LatestPro(
-                                                    productsItem:
-                                                        latest[index])),
-                                            childCount: latest.length)),
-                              ),
-                            ),
+                                  ],
+                                ),
+                                childrenDelegate:
+                                    SliverChildBuilderDelegate(
+                                        (context, index) => InkWell(
+                                            onTap: () {
+                                              ProductCubit.get(context)
+                                                  .productInfo(
+                                                      cubit.list[index].id,
+                                                      context)
+                                                  .then((value) => {
+                                                        navigateTo(context,
+                                                            const DetailsProduct())
+                                                      });
+                                            },
+                                            child: LatestPro(
+                                                productsItem:
+                                                cubit.list[index])),
+                                        childCount:  cubit.list.length)),
+                          ),
                     ]),
               ),
             ),

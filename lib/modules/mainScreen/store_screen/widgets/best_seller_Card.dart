@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:shopping/model/latest_product.dart';
 import 'package:shopping/shared/localization/translate.dart';
 
 import '../../../../model/ProductsCustomer.dart';
 
 class BestCard extends StatelessWidget {
-  ProductsItem? pro;
+  LatestProductItem? pro;
   BestCard({Key? key, this.pro}) : super(key: key);
 
   @override

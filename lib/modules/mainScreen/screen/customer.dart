@@ -45,12 +45,6 @@ class CustomerScreen extends StatelessWidget {
     return InkWell(
       onTap: () {
         print(pro.name!);
-        // navigateTo(
-        //     context,
-        //     MainCustomer(
-        //       id: pro.id!,
-        //       title: pro.name!,
-        //     ));
         navigateTo(
             context,
             StoreScreen(

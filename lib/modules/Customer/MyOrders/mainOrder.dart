@@ -17,8 +17,6 @@ class Orders extends StatelessWidget {
     return BlocBuilder<CustomerOrderCubit, CustomerOrderStates>(
       builder: (ctx, state) {
         final cubit = CustomerOrderCubit.get(context).list;
-        final model = CustomerOrderCubit.get(context).ordersCutomer;
-
         return Scaffold(
           appBar: AppBar(
               centerTitle: false,

@@ -24,7 +24,7 @@ class EXPTile extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.all(5.0),
                   child: Text(
                     "${order.userInfo!.name}",
                     style: const TextStyle(
@@ -45,12 +45,12 @@ class EXPTile extends StatelessWidget {
                         child: Text(
                           order.many.toString(),
                           style: const TextStyle(
-                              color: Colors.red, fontWeight: FontWeight.bold),
+                              color: Colors.red, fontWeight: FontWeight.bold,fontSize: 14),
                         ),
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: const EdgeInsets.all(5.0),
                       child: Text(
                         mytranslate(context, "q"),
                         style: const TextStyle(

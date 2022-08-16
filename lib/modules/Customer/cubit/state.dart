@@ -5,8 +5,11 @@ class Customer_InitalState extends CustomerStates {}
 class ProductCustomerLoading extends CustomerStates {}
 
 class ProductCustomerDone extends CustomerStates {}
-
+class ProductCustomerDonePagi extends CustomerStates {}
+class ProductCustomerNull extends CustomerStates {}
+class ProductCustomerNullPagi extends CustomerStates {}
 class ProductCustomerFail extends CustomerStates {}
+class ProductCustomerFailPagi extends CustomerStates {}
 
 class ShopChangeMens extends CustomerStates {}
 

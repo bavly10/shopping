@@ -2,6 +2,7 @@ import 'dart:core';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shopping/Cubit/cubit.dart';
@@ -24,39 +25,98 @@ class CustomerCubit extends Cubit<CustomerStates> {
 
 // ignore: non_constant_identifier_names
   List<ProductsItem> list = [];
-
+  List<ProductsItem> lists = [];
+  int pageCurrent=1;
+  int pagnationDataCurrent() {
+    return pageCurrent += 1;
+  }
   Future getProductCustomer(id) async {
     emit(ProductCustomerLoading());
     list = [];
     Map<String, dynamic> data = {"user_id": id};
     await DioHelper.postData(url: getProducts, data: data).then((value) {
-      final res = value.data['data'];
-      for (var value in res) {
-        final pro = list.indexWhere(
-          (element) => element.id == value["id"].toString(),
-        );
-        if (pro >= 0) {
-          list[pro] = ProductsItem(
-            id: value["id"].toString(),
-            title: value["title"],
-            price: value["price"],
-            desc: value["desc"],
-            image: value["image"],
-          );
-        } else {
-          list.add(ProductsItem(
-            id: value["id"].toString(),
-            title: value["title"],
-            price: value["price"],
-            desc: value["desc"],
-            image: value["image"],
-          ));
+      final res = value.data['data']['data'];
+      if(res.isEmpty){
+        emit(ProductCustomerNull());
+        pageCurrent=1;
+      }else{
+        for (var value in res) {
+          final pro = list.indexWhere((element) => element.id == value["id"].toString(),);
+          if (pro >= 0) {
+            list[pro] = ProductsItem(
+              id: value["id"].toString(),
+              title: value["title"],
+              price: value["price"],
+              desc: value["desc"],
+              image: value["image"],
+            );
+            lists[pro] = ProductsItem(
+              id: value["id"].toString(),
+              title: value["title"],
+              price: value["price"],
+              desc: value["desc"],
+              image: value["image"],
+            );
+          }
+          else {
+            list.add(ProductsItem(
+              id: value["id"].toString(),
+              title: value["title"],
+              price: value["price"],
+              desc: value["desc"],
+              image: value["image"],
+            ));
+            lists.add(ProductsItem(
+              id: value["id"].toString(),
+              title: value["title"],
+              price: value["price"],
+              desc: value["desc"],
+              image: value["image"],
+            ));
+          }
         }
+        emit(ProductCustomerDone());
       }
-      emit(ProductCustomerDone());
     }).catchError((error) {
       print(error.toString());
       emit(ProductCustomerFail());
+    });
+  }
+  Future getProductCustomerPagination(id) async {
+    emit(ProductCustomerLoading());
+    Map<String, dynamic> data = {"user_id": id,"page":pageCurrent};
+    await DioHelper.postData(url: getProducts, data: data).then((value) {
+      final res = value.data['data']['data'];
+      if(res.isEmpty){
+        emit(ProductCustomerNullPagi());
+        pageCurrent=1;
+      }else{
+        for (var value in res) {
+          final pro = lists.indexWhere((element) => element.id == value["id"].toString(),);
+          if (pro >= 0) {
+            lists[pro] = ProductsItem(
+              id: value["id"].toString(),
+              title: value["title"],
+              price: value["price"],
+              desc: value["desc"],
+              image: value["image"],
+            );
+          }
+          else {
+            lists.add(ProductsItem(
+              id: value["id"].toString(),
+              title: value["title"],
+              price: value["price"],
+              desc: value["desc"],
+              image: value["image"],
+            ));
+          }
+        }
+        emit(ProductCustomerDonePagi());
+      }
+    }).catchError((error) {
+      print(error.toString());
+      emit(ProductCustomerFailPagi());
     });
   }
 
@@ -268,12 +328,11 @@ class CustomerCubit extends Cubit<CustomerStates> {
   Future latestproducts({id}) async {
     emit(LoadingLatestProduct());
     Map<String, dynamic> data = {"user_id": id};
-
+    latestPro = [];
     await DioHelper.postData(url: latestProducts, data: data).then((value) {
       latestProduct = LatestProduct.fromMap(value.data);
       // print(latestPro);
       final res = value.data['data'];
-
       for (var value in res) {
         final pro = latestPro.indexWhere(
           (element) => element.id == value["id"],
@@ -296,7 +355,6 @@ class CustomerCubit extends Cubit<CustomerStates> {
               userId: value["user_id"]));
         }
       }
-
       emit(GettingLatestProductSucess());
     }).catchError((error) {
       print(error.toString());
