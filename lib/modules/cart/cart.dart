@@ -186,9 +186,8 @@ class CartScreen extends StatelessWidget {
                                     fontSize: 18,
                                     fontWeight: FontWeight.bold),
                               ),
-                              onpress: cubit.items.isEmpty
-                                  ? null
-                                  : () {
+                              onpress: cubit.items.isNotEmpty
+                                  ? () {
                                       showDialog(
                                           context: skey.currentContext!,
                                           builder: (context) {
@@ -222,7 +221,8 @@ class CartScreen extends StatelessWidget {
                                               ),
                                             );
                                           });
-                                    },
+                                    }
+                                  : () => null,
                               hight: 0.07,
                               width: MediaQuery.of(context).size.width)
                         ],
