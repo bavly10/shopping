@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hex_color/flutter_hex_color.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-
-import '../../../../shared/my_colors.dart';
+import 'package:shopping/shared/compononet/componotents.dart';
+import 'package:shopping/shared/my_colors.dart';
 
 class TopScreen extends StatelessWidget {
-  String? title, adress, image;
+  String? adress, image;
   Color? star, textColor, locationColor;
+  final String title;
 
   TopScreen(
       {Key? key,
-      this.title,
+      required this.title,
       this.adress,
       this.image,
       this.star,
@@ -22,12 +23,14 @@ class TopScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        CircleAvatar(backgroundImage: NetworkImage(image!), radius: 50),
+        InkWell(onTap:(){
+          showAlertDialog(context,image,title);
+        },child: CircleAvatar(backgroundImage: NetworkImage(image!), radius: 50)),
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(
             children: [
-              Text(title!,
+              Text(title,
                   style: TextStyle(
                       color: textColor ?? Colors.black,
                       fontSize: 28,
@@ -70,6 +73,28 @@ class TopScreen extends StatelessWidget {
           ),
         )
       ],
+    );
+  }
+  showAlertDialog(BuildContext context,image,title) {
+    AlertDialog alert = AlertDialog(
+      titlePadding: EdgeInsets.symmetric(horizontal: 0,vertical: 0),
+      title: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Text(title,style:TextStyle(color: myBlue,fontSize: 25,fontWeight: FontWeight.bold),),
+      ),
+      content: Container(
+        height: MediaQuery.of(context).size.height*0.5,
+        margin:  const EdgeInsets.symmetric(horizontal: 5.0),
+        decoration: BoxDecoration(image: DecorationImage(image:NetworkImage(image),fit: BoxFit.fill,),borderRadius: BorderRadius.circular(35.0)),
+      ),
+      contentPadding: const EdgeInsets.symmetric(vertical: 0,horizontal: 0),
+    );
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
     );
   }
 }

@@ -9,6 +9,7 @@ import 'package:shopping/model/CustomerModel.dart';
 import 'package:shopping/model/product.dart';
 import 'package:shopping/modules/Customer/MyOrders/cubit/cubit.dart';
 import 'package:shopping/modules/Customer/MyOrders/mainOrder.dart';
+import 'package:shopping/modules/Customer/Static/static.dart';
 import 'package:shopping/modules/Customer/cubit/cubit.dart';
 import 'package:shopping/modules/Customer/cubit/state.dart';
 import 'package:shopping/modules/Customer/more/more.dart';
@@ -55,7 +56,12 @@ class CustomerHome extends StatelessWidget {
                         page: CustomerOrderCubit.get(context).limit);
                     navigateTo(context, Orders());
                   },
-                  icon: Icon(Icons.gps_not_fixed))
+                  icon: Icon(Icons.gps_not_fixed)),
+              IconButton(
+                  onPressed: () {
+                    CustomerCubit.get(context).getStatisticCustomer(4,context).then((value) => navigateTo(context,StaticMain()));
+                  },
+                  icon: Icon(Icons.bar_chart))
             ]),
             body: SingleChildScrollView(
               physics: BouncingScrollPhysics(),

@@ -44,7 +44,6 @@ class CustomerScreen extends StatelessWidget {
   Widget myCard(ProCustomer pro, context) {
     return InkWell(
       onTap: () {
-        print(pro.name!);
         navigateTo(
             context,
             StoreScreen(
@@ -99,7 +98,7 @@ class CustomerScreen extends StatelessWidget {
                     children: [
                       Expanded(
                         child: Text(
-                          pro.name!,
+                          pro.name,
                           style: TextStyle(
                               color: myBlue,
                               fontSize: 20,

@@ -18,12 +18,13 @@ import '../../../../shared/my_colors.dart';
 import '../../../Customer/cubit/cubit.dart';
 
 class CustomDrawer extends StatelessWidget {
-  String? tiltle, image, address, phoneStore;
+  String? image, address, phoneStore;
+  final String tiltle ;
   int? id;
   GlobalKey<ScaffoldState>? skey;
   CustomDrawer(
       {Key? key,
-      this.tiltle,
+     required this.tiltle,
       this.address,
       this.image,
       this.id,

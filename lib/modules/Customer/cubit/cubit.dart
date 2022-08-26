@@ -7,6 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shopping/Cubit/cubit.dart';
 import 'package:shopping/model/ProductsCustomer.dart';
+import 'package:shopping/model/Stactic.dart';
 import 'package:shopping/model/latest_product.dart';
 import 'package:shopping/modules/Customer/cubit/state.dart';
 import 'package:shopping/shared/diohelper/dioHelpoer.dart';
@@ -359,6 +360,24 @@ class CustomerCubit extends Cubit<CustomerStates> {
     }).catchError((error) {
       print(error.toString());
       emit(GettingLatestProductError());
+    });
+  }
+
+  //////////////////////////Stactic////////////
+
+  Statistics? modelStatis;
+  Future getStatisticCustomer(id,context) async {
+    emit(GettingStatisticLoading());
+    ShopCubit.get(context).getMyShared();
+    Map<String, dynamic> data = {"user_id": id,"auth-token":ShopCubit.get(context).customerToken};
+    Map<String, dynamic> header = {"auth-token":ShopCubit.get(context).customerToken};
+    await DioHelper.postData(url: statistics, data: data,option: header).then((value) {
+      modelStatis=Statistics.fromJson(value.data);
+      print("Done static");
+        emit(GettingStatisticSucess());
+    }).catchError((error) {
+      print("stastic: ${error.toString()}");
+      emit(GettingStatisticError());
     });
   }
 }

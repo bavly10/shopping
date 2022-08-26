@@ -33,10 +33,10 @@ class CheckingDialog extends StatelessWidget {
       key: formKey,
       child: Container(
         margin: const EdgeInsets.only(left: 0.0, right: 0.0),
-        child: Stack(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             Container(
-              height: 250,
               padding: const EdgeInsets.only(
                 top: 18.0,
               ),
@@ -56,13 +56,13 @@ class CheckingDialog extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 // crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: <Widget>[
-                  const SizedBox(
-                    height: 20.0,
-                  ),
-                  Text(
-                    mytranslate(context, "ph"),
-                    style: const TextStyle(
-                      fontWeight: FontWeight.w600,
+                  Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: Text(
+                      mytranslate(context, "ph"),
+                      style: const TextStyle(
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
                   ),
                   Padding(
@@ -79,68 +79,55 @@ class CheckingDialog extends StatelessWidget {
                         label: mytranslate(context, "mobile")),
                   ),
                   const SizedBox(height: 24.0),
-                  InkWell(
-                      child: Container(
-                        width: MediaQuery.of(context).size.width * .5,
-                        padding: const EdgeInsets.all(15),
-                        decoration: BoxDecoration(
-                          shape: BoxShape.rectangle,
-                          color: myBlue,
-                          borderRadius: const BorderRadius.only(
-                              topLeft: Radius.circular(16.0),
-                              topRight: Radius.circular(16.0),
-                              bottomLeft: Radius.circular(16.0),
-                              bottomRight: Radius.circular(16.0)),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: InkWell(
+                        child: Container(
+                          width: MediaQuery.of(context).size.width * .5,
+                          padding: const EdgeInsets.all(15),
+                          decoration: BoxDecoration(
+                            shape: BoxShape.rectangle,
+                            color: myBlue,
+                            borderRadius: const BorderRadius.only(
+                                topLeft: Radius.circular(16.0),
+                                topRight: Radius.circular(16.0),
+                                bottomLeft: Radius.circular(16.0),
+                                bottomRight: Radius.circular(16.0)),
+                          ),
+                          child: Text(
+                            mytranslate(context, "verify"),
+                            style: const TextStyle(
+                                color: Colors.white, fontSize: 25.0),
+                            textAlign: TextAlign.center,
+                          ),
                         ),
-                        child: Text(
-                          mytranslate(context, "verify"),
-                          style: const TextStyle(
-                              color: Colors.white, fontSize: 25.0),
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                      onTap: () {
-                        FocusScope.of(context).unfocus();
-                        if (formKey.currentState!.validate()) {
-                          CustomerCubit.get(context)
-                              .checkUser(phoneCheckController.text)
-                              .then((value) {
-                            if (CustomerCubit.get(context).check == false) {
-                              showDialog(
-                                  context: context,
-                                  builder: (context) {
-                                    return widget;
-                                  });
-                              // Navigator.of(context).pop();
-                            } else {
-                              CustomerCubit.get(context)
-                                  .connectStore(context: context, userId: id)
-                                  .then((value) {
-                                launch('tel:$phoneStore');
-                              });
-                            }
+                        onTap: () {
+                          FocusScope.of(context).unfocus();
+                          if (formKey.currentState!.validate()) {
+                            CustomerCubit.get(context)
+                                .checkUser(phoneCheckController.text)
+                                .then((value) {
+                              if (CustomerCubit.get(context).check == false) {
+                                showDialog(
+                                    context: context,
+                                    builder: (context) {
+                                      return widget;
+                                    });
+                                // Navigator.of(context).pop();
+                              } else {
+                                CustomerCubit.get(context)
+                                    .connectStore(context: context, userId: id)
+                                    .then((value) {
+                                  launch('tel:$phoneStore');
+                                });
+                              }
 
-                            // Navigator.of(context).pop();
-                          });
-                        }
-                      })
+                              // Navigator.of(context).pop();
+                            });
+                          }
+                        }),
+                  )
                 ],
-              ),
-            ),
-            Positioned(
-              right: 0.0,
-              child: GestureDetector(
-                onTap: () {
-                  Navigator.of(context).pop();
-                },
-                child: Align(
-                  alignment: Alignment.topRight,
-                  child: CircleAvatar(
-                    radius: 14.0,
-                    backgroundColor: myBlue,
-                    child: const Icon(Icons.close, color: Colors.white),
-                  ),
-                ),
               ),
             ),
           ],

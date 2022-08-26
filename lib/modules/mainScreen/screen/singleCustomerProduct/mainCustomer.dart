@@ -4,14 +4,13 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:shopping/Cubit/cubit.dart';
 import 'package:shopping/modules/Customer/cubit/cubit.dart';
 import 'package:shopping/modules/Customer/cubit/state.dart';
+import 'package:shopping/modules/Customer/products/cubit/cubit.dart';
 import 'package:shopping/modules/Customer/products/details_product/details_product.dart';
 import 'package:shopping/modules/mainScreen/screen/singleCustomerProduct/products_card.dart';
 import 'package:shopping/shared/compononet/componotents.dart';
 import 'package:shopping/shared/compononet/no_result_search.dart';
 import 'package:shopping/shared/localization/translate.dart';
 import 'package:shopping/shared/my_colors.dart';
-
-import '../../../Customer/products/cubit/cubit.dart';
 
 class MainCustomer extends StatelessWidget {
   final String title;

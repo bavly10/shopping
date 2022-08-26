@@ -43,50 +43,29 @@ class LatestPro extends StatelessWidget {
               image: NetworkImage(productsItem.image!),
               width: MediaQuery.of(context).size.width * .33,
               height: MediaQuery.of(context).size.height * .13,
-
               // fit: BoxFit.cover,
             ),
           ),
         ),
         Positioned(
-          top: 100,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.start,
-            // ignore: prefer_const_literals_to_create_immutables
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(top: 20),
-                child: Align(
-                  alignment: Alignment.centerRight,
-                  child: Text(
-                    productsItem.title!,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                        height: 1.4,
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
-                        color: myBlue),
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  productsItem.desc!,
-                  overflow: TextOverflow.ellipsis,
-                  maxLines: 2,
-                  style: const TextStyle(
-                      height: 1.4, fontSize: 14, fontWeight: FontWeight.w500),
-                ),
-              ),
-            ],
+          top: 110,
+          child: Padding(
+            padding: const EdgeInsets.only(top: 20),
+            child: Text(
+              productsItem.title!,
+              overflow: TextOverflow.ellipsis,
+              style: TextStyle(
+                  height: 1.4,
+                  fontSize: 18,
+                  fontWeight: FontWeight.w600,
+                  color: myBlue),
+            ),
           ),
         ),
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: Align(
-            alignment: AlignmentDirectional.bottomStart,
+            alignment: AlignmentDirectional.bottomCenter,
             child: Text(
               "${productsItem.price!}WD",
               overflow: TextOverflow.ellipsis,
@@ -98,6 +77,7 @@ class LatestPro extends StatelessWidget {
             ),
           ),
         ),
+
       ]),
     );
   }

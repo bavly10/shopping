@@ -7,24 +7,21 @@ import 'package:shopping/modules/Customer/cubit/cubit.dart';
 import 'package:shopping/modules/Customer/cubit/state.dart';
 import 'package:shopping/modules/Customer/products/cubit/cubit.dart';
 import 'package:shopping/modules/Customer/products/details_product/details_product.dart';
-import 'package:shopping/modules/mainScreen/screen/singleCustomerProduct/mainCustomer.dart';
 import 'package:shopping/modules/mainScreen/store_screen/moreProducts.dart';
 import 'package:shopping/modules/mainScreen/store_screen/widgets/best_seller_Card.dart';
 import 'package:shopping/modules/mainScreen/store_screen/widgets/drawer.dart';
 import 'package:shopping/modules/mainScreen/store_screen/widgets/latest_product.dart';
 import 'package:shopping/modules/mainScreen/store_screen/widgets/top_screen.dart';
 import 'package:shopping/shared/compononet/componotents.dart';
-import 'package:shopping/shared/compononet/myToast.dart';
 import 'package:shopping/shared/localization/translate.dart';
 import 'package:shopping/shared/my_colors.dart';
 
 class StoreScreen extends StatelessWidget {
-  String? title;
-  String? image;
+   String?adress, phone, image;
+   final String title;
   int? id;
-  String? adress, phone;
 
-  StoreScreen({Key? key, this.id, this.title, this.image, this.adress, this.phone}) : super(key: key);
+  StoreScreen({Key? key, this.id, required this.title,this.image, this.adress, this.phone}) : super(key: key);
   final _advancedDrawerController = AdvancedDrawerController();
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -69,6 +66,7 @@ class StoreScreen extends StatelessWidget {
                         duration: const Duration(milliseconds: 250),
                         child: Icon(
                           value.visible ? Icons.clear : Icons.menu,
+                          size: 28,
                           key: ValueKey<bool>(value.visible),
                         ),
                       );
@@ -88,11 +86,8 @@ class StoreScreen extends StatelessWidget {
                             title:title,
                           )),
                       Padding(
-                        padding: const EdgeInsets.only(
-                            top: 20.0, left: 20, bottom: 20),
-                        child: Text(mytranslate(context, "best"),
-                            style: const TextStyle(
-                                fontSize: 22, fontWeight: FontWeight.bold)),
+                        padding: const EdgeInsets.only(top: 20.0, left: 20, bottom: 20),
+                        child: Text(mytranslate(context, "best"), style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
                       ),
                       Container(
                         height: MediaQuery.of(context).size.width * .7,
@@ -112,9 +107,7 @@ class StoreScreen extends StatelessWidget {
                           shrinkWrap: true,
                           itemExtent: 180,
                           itemBuilder: ((context, index) {
-                            return BestCard(
-                              pro:latest[index],
-                            );
+                            return BestCard(pro:latest[index],index: index,list: latest,);
                           }),
                           itemCount: latest.length,
                         ),
@@ -183,13 +176,8 @@ class StoreScreen extends StatelessWidget {
                                         (context, index) => InkWell(
                                             onTap: () {
                                               ProductCubit.get(context)
-                                                  .productInfo(
-                                                      cubit.list[index].id,
-                                                      context)
-                                                  .then((value) => {
-                                                        navigateTo(context,
-                                                            const DetailsProduct())
-                                                      });
+                                                  .productInfo(cubit.list[index].id, context)
+                                                  .then((value) => {navigateTo(context, const DetailsProduct())});
                                             },
                                             child: LatestPro(
                                                 productsItem:

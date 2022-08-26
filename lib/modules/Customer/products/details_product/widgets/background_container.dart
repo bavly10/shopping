@@ -22,21 +22,19 @@ class CustomBackgroundContainer extends StatelessWidget {
         ),
         child: Row(
           children: [
-            InkWell(
-                onTap: arrowBack,
-                child: MaterialButton(
-                  onPressed: () {},
-                  color: myBlue,
-                  textColor: Colors.white,
-                  child: const Icon(
-                    Icons.arrow_back_ios_rounded,
-                    size: 24,
-                  ),
-                  //
-                  //
-                  padding: EdgeInsets.all(8),
-                  shape: CircleBorder(),
-                )),
+            MaterialButton(
+              onPressed: arrowBack,
+              color: myBlue,
+              textColor: Colors.white,
+              child: const Icon(
+                Icons.arrow_back_ios_rounded,
+                size: 24,
+              ),
+              //
+              //
+              padding: EdgeInsets.all(8),
+              shape: CircleBorder(),
+            ),
             const Spacer(),
             InkWell(
               onTap: cartShopping,

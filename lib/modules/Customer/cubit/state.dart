@@ -50,5 +50,8 @@ class ConnectingShopErrorState extends CustomerStates {}
 class LoadingLatestProduct extends CustomerStates {}
 
 class GettingLatestProductSucess extends CustomerStates {}
+class GettingStatisticSucess extends CustomerStates {}
+class GettingStatisticLoading extends CustomerStates {}
 
 class GettingLatestProductError extends CustomerStates {}
+class GettingStatisticError extends CustomerStates {}

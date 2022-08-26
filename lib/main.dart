@@ -12,6 +12,7 @@ import 'package:shopping/modules/Customer/login/cubit/cubit.dart';
 import 'package:shopping/modules/Customer/products/cubit/cubit.dart';
 import 'package:shopping/modules/OrderStauts/failed.dart';
 import 'package:shopping/modules/Splash_screen/splash.dart';
+import 'package:shopping/modules/test.dart';
 
 import 'package:shopping/shared/diohelper/dioHelpoer.dart';
 import 'package:shopping/shared/localization/set_localization.dart';
@@ -47,7 +48,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(
             create: (context) => CustomerCubit()
               ..getProductCustomer(LoginCubit.get(context).loginModel?.data?.id)
-              ..showCustomerData(18, context)),
+              ..showCustomerData(18, context).. getStatisticCustomer(4,context)),
       ],
       child: BlocBuilder<ShopCubit, ShopStates>(
         builder: (context, state) {
@@ -99,7 +100,7 @@ class MyApp extends StatelessWidget {
             home:
                 //PrivacyApolicy(), // UpdateCustomer(),
                 // CustomerHome(),
-                SplashScreen(),
+            SplashScreen(),
             //// SplashScreen(),
             builder: EasyLoading.init(),
           );

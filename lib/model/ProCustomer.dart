@@ -35,7 +35,7 @@ class ProsCustomerModel {
 class ProCustomer {
   ProCustomer({
     this.id,
-    this.name,
+   required this.name,
     this.phone,
     this.address,
     this.longitude,
@@ -46,7 +46,7 @@ class ProCustomer {
     this.logo,
   });
 
-  String? name;
+  final String name;
   String?phone;
   String? address;
   String? longitude;
