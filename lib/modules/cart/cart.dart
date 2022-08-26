@@ -6,6 +6,8 @@ import 'package:shopping/modules/Customer/products/cubit/states.dart';
 import 'package:shopping/modules/OrderStauts/Success.dart';
 import 'package:shopping/modules/OrderStauts/failed.dart';
 import 'package:shopping/modules/cart/widget/widget_cart.dart';
+import 'package:shopping/modules/mainScreen/mainScreen.dart';
+import 'package:shopping/modules/mainScreen/screen/singleCustomerProduct/mainCustomer.dart';
 import 'package:shopping/shared/compononet/blueButton.dart';
 import 'package:shopping/shared/compononet/componotents.dart';
 import 'package:shopping/shared/compononet/sign_up_dialog.dart';
@@ -67,20 +69,29 @@ class CartScreen extends StatelessWidget {
                               fontWeight: FontWeight.w600),
                         ),
                         const Spacer(),
-                        Text(
-                          mytranslate(context, "bag"),
-                          style: const TextStyle(
-                              color: Colors.black,
-                              fontSize: 22,
-                              fontWeight: FontWeight.bold),
+                        InkWell(
+                          onTap: () {
+                            navigateTo(context, MainScreen());
+                          },
+                          child: Row(
+                            children: [
+                              Text(
+                                mytranslate(context, "bag"),
+                                style: const TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 22,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              const Icon(
+                                Icons.arrow_forward_ios,
+                                size: 30,
+                              ),
+                            ],
+                          ),
                         ),
                         const SizedBox(
                           width: 5,
                         ),
-                        const Icon(
-                          Icons.arrow_forward_ios,
-                          size: 30,
-                        )
                       ],
                     ),
                   ),
