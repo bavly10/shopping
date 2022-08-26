@@ -23,6 +23,8 @@ import 'modules/OrderStauts/Success.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations(
+      [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
   Bloc.observer = MyBlocObserver();
   DioHelper.init();
   await CashHelper.init();
@@ -48,7 +50,8 @@ class MyApp extends StatelessWidget {
         BlocProvider(
             create: (context) => CustomerCubit()
               ..getProductCustomer(LoginCubit.get(context).loginModel?.data?.id)
-              ..showCustomerData(18, context).. getStatisticCustomer(4,context)),
+              ..showCustomerData(18, context)
+              ..getStatisticCustomer(4, context)),
       ],
       child: BlocBuilder<ShopCubit, ShopStates>(
         builder: (context, state) {
@@ -100,7 +103,7 @@ class MyApp extends StatelessWidget {
             home:
                 //PrivacyApolicy(), // UpdateCustomer(),
                 // CustomerHome(),
-            SplashScreen(),
+                SplashScreen(),
             //// SplashScreen(),
             builder: EasyLoading.init(),
           );
