@@ -198,5 +198,12 @@ class ShopCubit extends Cubit<ShopStates> {
 
     emit(ChangedPrivacyState());
   }
+
+  int? counter;
+  getCurrentIndex(index) {
+    counter = index;
+
+    emit(ChangeButtonText());
+  }
   /////////////////////////////
 }

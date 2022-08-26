@@ -109,5 +109,7 @@
    "again": "Try Again !",
    "new": "No New Products Now !",
    "orders": "All orders from your store",
-   "noo": "No More Orders"
+   "noo": "No More Orders",
+   "selecte": "Please..Choose Connection Way",
+   "what": "whatsapp app link not found "
 }

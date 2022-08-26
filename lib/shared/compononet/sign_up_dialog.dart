@@ -10,6 +10,8 @@ import 'package:shopping/shared/localization/translate.dart';
 import 'package:shopping/shared/my_colors.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import 'connection_dialog.dart';
+
 class SignupDialog extends StatelessWidget {
   Function() onTaps;
   String? phoneStore;
@@ -166,8 +168,14 @@ class SignupDialog extends StatelessWidget {
                                     email: emailController.text,
                                     phone: CheckingDialog
                                         .phoneCheckController.text)
-                                .then((value) => onTaps().then(
-                                    (value) => launch('tel:$phoneStore')));
+                                .then((value) =>
+                                    onTaps().then((value) => showDialog(
+                                        context: context,
+                                        builder: (context) {
+                                          return ConnectoinDialog(
+                                            phoneStore: phoneStore,
+                                          );
+                                        })));
                           }
                         })
                   ],

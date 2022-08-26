@@ -71,3 +71,5 @@ class ShopPrivacyPolicySuessState extends ShopStates {}
 class ShopPrivacyPolicyErrorState extends ShopStates {}
 
 class ChangedPrivacyState extends ShopStates {}
+
+class ChangeButtonText extends ShopStates {}

@@ -183,34 +183,46 @@ class CartScreen extends StatelessWidget {
                                     fontSize: 18,
                                     fontWeight: FontWeight.bold),
                               ),
-                              onpress: () {
-                                showDialog(
-                                    context: skey.currentContext!,
-                                    builder: (context) {
-                                      return CheckDialog(
-                                        widget: SignupCartDialog(
-                                          onTaps: () {
-                                            cubit.items
-                                                .forEach((key, value) async {
-                                              print(value.size.toString());
-                                              print(value.id.toString());
-                                              print(CustomerCubit.get(context)
-                                                  .userId);
-                                              await cubit.createOrder(
-                                                size: value.size.toString(),
-                                                price: value.price.toString(),
-                                                many: value.quantity.toString(),
-                                                customerID:
-                                                    CustomerCubit.get(context)
-                                                        .userId,
-                                                productID: value.id.toString(),
-                                              );
-                                            });
-                                          },
-                                        ),
-                                      );
-                                    });
-                              },
+                              color: cubit.items.isEmpty
+                                  ? Colors.grey[600]
+                                  : myBlue,
+                              onpress: cubit.items.isEmpty
+                                  ? null
+                                  : () {
+                                      showDialog(
+                                          context: skey.currentContext!,
+                                          builder: (context) {
+                                            return CheckDialog(
+                                              widget: SignupCartDialog(
+                                                onTaps: () {
+                                                  cubit.items.forEach(
+                                                      (key, value) async {
+                                                    print(
+                                                        value.size.toString());
+                                                    print(value.id.toString());
+                                                    print(CustomerCubit.get(
+                                                            context)
+                                                        .userId);
+                                                    await cubit.createOrder(
+                                                      size:
+                                                          value.size.toString(),
+                                                      price: value.price
+                                                          .toString(),
+                                                      many: value.quantity
+                                                          .toString(),
+                                                      customerID:
+                                                          CustomerCubit.get(
+                                                                  context)
+                                                              .userId,
+                                                      productID:
+                                                          value.id.toString(),
+                                                    );
+                                                  });
+                                                },
+                                              ),
+                                            );
+                                          });
+                                    },
                               hight: 0.07,
                               width: MediaQuery.of(context).size.width)
                         ],

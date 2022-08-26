@@ -6,7 +6,7 @@ import 'package:shopping/shared/localization/translate.dart';
 import '../../../shared/my_colors.dart';
 
 class Cartitemapp extends StatelessWidget {
-  final String id, proid, title, imgurl,size;
+  final String id, proid, title, imgurl, size;
   final int quant;
   final double price;
   const Cartitemapp(
@@ -40,7 +40,7 @@ class Cartitemapp extends StatelessWidget {
                       alignment: Alignment.topRight,
                       child: InkWell(
                         onTap: () {
-                          ProductCubit.get(context).removesingleitem(proid);
+                          ProductCubit.get(context).removeitem(proid);
                         },
                         child: Icon(
                           Icons.cancel_sharp,

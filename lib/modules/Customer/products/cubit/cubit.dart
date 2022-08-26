@@ -526,7 +526,7 @@ class ProductCubit extends Cubit<ProductStates> {
               price: value.price,
               imgurl: value.imgurl));
     } else {
-      _items.remove(proid);
+      myToast(message: "Not Allowed");
     }
     emit(ShopRemoveItem());
   }

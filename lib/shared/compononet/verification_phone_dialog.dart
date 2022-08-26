@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shopping/shared/compononet/connection_dialog.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import 'package:shopping/shared/compononet/myToast.dart';
@@ -118,7 +119,14 @@ class CheckingDialog extends StatelessWidget {
                                 CustomerCubit.get(context)
                                     .connectStore(context: context, userId: id)
                                     .then((value) {
-                                  launch('tel:$phoneStore');
+                                  showDialog(
+                                      context: context,
+                                      builder: (context) {
+                                        return ConnectoinDialog(
+                                          phoneStore: phoneStore,
+                                        );
+                                      });
+                                  // launch('tel:$phoneStore');
                                 });
                               }
 
