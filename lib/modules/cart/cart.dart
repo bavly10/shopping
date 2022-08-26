@@ -176,6 +176,9 @@ class CartScreen extends StatelessWidget {
                             ],
                           ),
                           BlueButton(
+                              color: cubit.items.isEmpty
+                                  ? Colors.grey[600]
+                                  : myBlue,
                               title: Text(
                                 mytranslate(context, "confirm"),
                                 style: TextStyle(
@@ -183,9 +186,6 @@ class CartScreen extends StatelessWidget {
                                     fontSize: 18,
                                     fontWeight: FontWeight.bold),
                               ),
-                              color: cubit.items.isEmpty
-                                  ? Colors.grey[600]
-                                  : myBlue,
                               onpress: cubit.items.isEmpty
                                   ? null
                                   : () {

@@ -61,22 +61,6 @@ class onBoardingItem extends StatelessWidget {
           ),
         ),
         const Spacer(),
-        BlueButton(
-            title: Text(mytranslate(context, lable),
-                style: TextStyle(
-                    color: myWhite, fontSize: 18, fontWeight: FontWeight.bold)),
-            hight: 0.08,
-            width: 0.80,
-            icon: Icons.arrow_back,
-            onpress: () {
-              ShopCubit.get(context).getMyShared();
-              if (ShopCubit.get(context).customerToken == null) {
-                navigateTo(context, const MainScreen());
-              } else {
-                navigateToFinish(context, CustomerHome(id: ShopCubit.get(context).customerId,
-                    ));
-              }
-            })
       ],
     );
   }

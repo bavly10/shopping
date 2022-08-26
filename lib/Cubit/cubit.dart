@@ -199,7 +199,7 @@ class ShopCubit extends Cubit<ShopStates> {
     emit(ChangedPrivacyState());
   }
 
-  int? counter;
+  int? counter = 0;
   getCurrentIndex(index) {
     counter = index;
 
