@@ -59,10 +59,12 @@ class OnBoardingScreen extends StatelessWidget {
                     ?.copyWith(color: myBlack, fontSize: 18)),
             Expanded(
               child: PageView.builder(
+                  onPageChanged: (value) {
+                    ShopCubit.get(context).getCurrentIndex(value);
+                  },
                   itemCount: 3,
                   controller: curnnetindex,
                   itemBuilder: (context, index) {
-                    ShopCubit.get(context).getCurrentIndex(index);
                     return mylist[index];
                   }),
             ),
