@@ -6,6 +6,7 @@ import 'package:shopping/model/splash.dart';
 import 'package:shopping/modules/onBoarding/widget/on_boarding_item.dart';
 import 'package:shopping/shared/localization/translate.dart';
 import 'package:shopping/shared/my_colors.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 import '../../shared/compononet/blueButton.dart';
 import '../../shared/compononet/componotents.dart';
@@ -67,6 +68,20 @@ class OnBoardingScreen extends StatelessWidget {
                   itemBuilder: (context, index) {
                     return mylist[index];
                   }),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: SmoothPageIndicator(
+                effect: WormEffect(
+                  dotHeight: 10,
+                  dotWidth: 10,
+                  activeDotColor: myBlue,
+                  spacing: 30,
+                  dotColor: myBlack,
+                ),
+                controller: curnnetindex,
+                count: 3,
+              ),
             ),
             BlueButton(
                 title: Text(

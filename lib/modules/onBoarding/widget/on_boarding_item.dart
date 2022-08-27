@@ -46,20 +46,6 @@ class onBoardingItem extends StatelessWidget {
             errorWidget: (context, url, error) => const Icon(Icons.error),
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: SmoothPageIndicator(
-            effect: WormEffect(
-              dotHeight: 10,
-              dotWidth: 10,
-              activeDotColor: myBlue,
-              spacing: 20,
-              dotColor: myBlack,
-            ),
-            controller: index,
-            count: lisIndex,
-          ),
-        ),
         const Spacer(),
       ],
     );
