@@ -233,7 +233,7 @@ class CartScreen extends StatelessWidget {
                                             );
                                           });
                                     }
-                                  : () => null,
+                                  : null,
                               hight: 0.07,
                               width: MediaQuery.of(context).size.width)
                         ],

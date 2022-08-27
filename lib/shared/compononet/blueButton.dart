@@ -22,7 +22,7 @@ class BlueButton extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(15.0),
       child: TextButton(
-        onPressed: () => onpress!(),
+        onPressed: onpress != null ? () => onpress!() : null,
         child: Container(
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10.00),
