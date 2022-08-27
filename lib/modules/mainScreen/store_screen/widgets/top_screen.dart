@@ -3,6 +3,8 @@ import 'package:flutter_hex_color/flutter_hex_color.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:shopping/shared/my_colors.dart';
 
+import '../../../../shared/compononet/popup_dialog.dart';
+
 class TopScreen extends StatelessWidget {
   String? adress, image;
   Color? star, textColor, locationColor;
@@ -24,7 +26,13 @@ class TopScreen extends StatelessWidget {
       children: [
         InkWell(
             onTap: () {
-              showAlertDialog(context, image, title);
+              //  showAlertDialog(context, image, title);
+              showDialog(
+                  context: context,
+                  builder: (context) => PopupDialog(
+                        image: image,
+                        title: title,
+                      ));
             },
             child: CircleAvatar(
                 backgroundImage: NetworkImage(image!), radius: 50)),
@@ -95,7 +103,7 @@ class TopScreen extends StatelessWidget {
         decoration: BoxDecoration(
             image: DecorationImage(
               image: NetworkImage(image),
-              fit: BoxFit.fill,
+              fit: BoxFit.cover,
             ),
             borderRadius: BorderRadius.circular(35.0)),
       ),
