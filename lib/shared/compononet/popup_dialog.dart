@@ -3,8 +3,7 @@ import 'package:shopping/shared/my_colors.dart';
 
 class PopupDialog extends StatelessWidget {
   String? image;
-  String? title;
-  PopupDialog({Key? key, this.image, this.title}) : super(key: key);
+  PopupDialog({Key? key, this.image}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

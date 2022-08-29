@@ -42,7 +42,7 @@ class onBoardingItem extends StatelessWidget {
                 ),
               ),
             ),
-            placeholder: (context, url) => const CircularProgressIndicator(),
+            placeholder: (context, url) => SizedBox(width:80,child: const CircularProgressIndicator()),
             errorWidget: (context, url, error) => const Icon(Icons.error),
           ),
         ),

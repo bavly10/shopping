@@ -26,13 +26,9 @@ class TopScreen extends StatelessWidget {
       children: [
         InkWell(
             onTap: () {
-              //  showAlertDialog(context, image, title);
               showDialog(
                   context: context,
-                  builder: (context) => PopupDialog(
-                        image: image,
-                        title: title,
-                      ));
+                  builder: (context) => PopupDialog(image: image,));
             },
             child: CircleAvatar(
                 backgroundImage: NetworkImage(image!), radius: 50)),

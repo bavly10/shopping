@@ -240,10 +240,7 @@ class CustomerCubit extends Cubit<CustomerStates> {
   List<ProductsItem> search = [];
   List<dynamic> searchCustomer(String quary) {
     search = [];
-    var searching = list
-        .where((element) =>
-            element.title!.toLowerCase().contains(quary.toLowerCase()))
-        .toList();
+    var searching = list.where((element) => element.title!.toLowerCase().contains(quary.toLowerCase())).toList();
     search = searching;
     // print(search[0].title);
     emit(SearchingProduct());

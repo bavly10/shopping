@@ -71,7 +71,7 @@ class CartScreen extends StatelessWidget {
                         const Spacer(),
                         InkWell(
                           onTap: () {
-                            navigateTo(context, MainScreen());
+                            Navigator.pop(context);
                           },
                           child: Row(
                             children: [

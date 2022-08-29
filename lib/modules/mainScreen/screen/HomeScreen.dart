@@ -26,6 +26,9 @@ class HomeScreen extends StatelessWidget {
             physics: const NeverScrollableScrollPhysics(),
             child: Column(
               children: [
+                const SizedBox(
+                  height: 15,
+                ),
                 cubit.changeAppBar
                     ? myAppBar(context)
                     : myAppBarSearch(context),
@@ -78,6 +81,7 @@ class HomeScreen extends StatelessWidget {
                 ),
                 onPressed: () {
                   ShopCubit.get(context).changeSearchAppBar();
+
                 }),
           ),
           SizedBox(
@@ -140,6 +144,7 @@ class HomeScreen extends StatelessWidget {
                     SizedBox(
                       width: MediaQuery.of(context).size.width * 0.50,
                       child: TextField(
+                        autofocus: true,
                         controller: search,
                         onChanged: (value) {
                           ShopCubit.get(context).searchCateogry(value);
@@ -153,7 +158,7 @@ class HomeScreen extends StatelessWidget {
                   ],
                 ),
               ),
-              Spacer(),
+              const Spacer(),
               MyArrowBack(
                 onPress: () {
                   ShopCubit.get(context).changeSearchAppBar();
