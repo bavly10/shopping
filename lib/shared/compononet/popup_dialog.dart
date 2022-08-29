@@ -9,7 +9,7 @@ class PopupDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      alignment: Alignment.topRight,
+      alignment: Alignment.center,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0)),
       elevation: 0.0,
       backgroundColor: Colors.transparent.withOpacity(.03),
@@ -19,13 +19,16 @@ class PopupDialog extends StatelessWidget {
 
   Widget dialogContent(BuildContext context) {
     return Container(
-      height: MediaQuery.of(context).size.height * 0.44,
+      height: MediaQuery.of(context).size.height * 0.35,
       width: MediaQuery.of(context).size.width * 0.996,
       //  margin: const EdgeInsets.symmetric(horizontal: 5.0),
       decoration: BoxDecoration(
           image: DecorationImage(
-            image: NetworkImage(image!),
-            fit: BoxFit.cover,
+            image: NetworkImage(
+              image!,
+            ),
+            fit: BoxFit.fill,
+            filterQuality: FilterQuality.high,
           ),
           borderRadius: BorderRadius.circular(35.0)),
     );
