@@ -44,13 +44,10 @@ class MyApp extends StatelessWidget {
               ..getCustomerData(10)),
         BlocProvider(create: (context) => LoginCubit()),
         BlocProvider(create: (context) => ProductCubit()),
-        BlocProvider(
-            create: (context) =>
-                CustomerOrderCubit()..getOrders(context: context)),
+        BlocProvider(create: (context) => CustomerOrderCubit()..getOrders(context: context)),
         BlocProvider(
             create: (context) => CustomerCubit()
               ..getProductCustomer(LoginCubit.get(context).loginModel?.data?.id)
-              ..showCustomerData(18, context)
               ..getStatisticCustomer(4, context)),
       ],
       child: BlocBuilder<ShopCubit, ShopStates>(

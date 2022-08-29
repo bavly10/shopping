@@ -1,8 +1,11 @@
+import 'dart:io';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shopping/Cubit/cubit.dart';
+import 'package:shopping/model/CustomerModel.dart';
 import 'package:shopping/model/cart.dart';
 import 'package:shopping/model/categoryModel.dart';
 import 'package:shopping/model/latest_product.dart';
@@ -573,6 +576,30 @@ class ProductCubit extends Cubit<ProductStates> {
     }).catchError((error) {
       print(error.toString());
       emit(InsertOrderErrorState());
+    });
+  }
+
+  ////////////Show Customer profile/////////
+  File?  file;
+  CustomerModel? prosCustomerModel;
+  Future showCustomerData(id, context) async {
+    emit(LoadingShowCustomer());
+    Map<String, dynamic> header = {
+      "auth-token": ShopCubit.get(context).customerToken
+    };
+    Map<String, dynamic> data = {
+      "id": id,
+    };
+    await DioHelper.postData(url: showUser, data: data, option: header)
+        .then((value) {
+      //  print(value.data);
+      prosCustomerModel = CustomerModel.fromJson(value.data);
+      file = File(prosCustomerModel!.data!.logo!);
+      print(prosCustomerModel!.data!.id!);
+      emit(ShowingCustomerData());
+    }).catchError((error) {
+      print(error.toString());
+      emit(FailShowCustomerData());
     });
   }
 }

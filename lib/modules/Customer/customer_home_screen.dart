@@ -18,7 +18,9 @@ import 'package:shopping/modules/Customer/products/cubit/states.dart';
 import 'package:shopping/modules/Customer/products/updateProduct.dart';
 import 'package:shopping/modules/Customer/update_customer/update_Customer.dart';
 import 'package:shopping/modules/mainScreen/mainScreen.dart';
+import 'package:shopping/shared/compononet/LoagingDialog.dart';
 import 'package:shopping/shared/compononet/componotents.dart';
+import 'package:shopping/shared/compononet/myToast.dart';
 import 'package:shopping/shared/localization/translate.dart';
 import 'package:shopping/shared/my_colors.dart';
 
@@ -31,11 +33,24 @@ class CustomerHome extends StatelessWidget {
   Widget build(BuildContext context) {
     ProductCubit.get(context).getProducts(context, 1);
     return BlocConsumer<ProductCubit, ProductStates>(
-        listener: (context, state) {},
+        listener: (context, state) {
+          if(state is LoadingShowCustomer){
+            showDialog(context: context,
+                builder: (context) => const LoadingDialog());
+          }
+          else if(state is ShowingCustomerData){
+            navigateTo(context, UpdateCustomer());
+          }
+          else if (state is FailShowCustomerData){
+            myToast(message: mytranslate(context, "noData"));
+          }else{}
+        },
         builder: (context, state) {
           var productItem = ProductCubit.get(context).listProduct;
           return Scaffold(
-            appBar: AppBar(actions: [
+            appBar: AppBar(
+            leading: SizedBox(),
+                actions: [
               InkWell(
                 onTap: () {
                   ProductCubit.get(context).getLogout(context).whenComplete(
@@ -57,14 +72,9 @@ class CustomerHome extends StatelessWidget {
                     navigateTo(context, Orders());
                   },
                   icon: Icon(Icons.gps_not_fixed)),
-              IconButton(
-                  onPressed: () {
-                    CustomerCubit.get(context).getStatisticCustomer(4,context).then((value) => navigateTo(context,StaticMain()));
-                  },
-                  icon: Icon(Icons.bar_chart))
             ]),
             body: SingleChildScrollView(
-              physics: BouncingScrollPhysics(),
+              physics: const BouncingScrollPhysics(),
               child: Padding(
                 padding: const EdgeInsets.all(12.0),
                 child: Column(
@@ -83,34 +93,26 @@ class CustomerHome extends StatelessWidget {
                             ),
                             height: MediaQuery.of(context).size.height * .20,
                             width: MediaQuery.of(context).size.width * .42,
-                            child: Padding(
-                              padding: const EdgeInsets.only(top: 50.0),
-                              child: Column(
-                                children: [
-                                  Text(
-                                    mytranslate(context, "editdata"),
-                                    style: TextStyle(
-                                        color: myWhite,
-                                        fontSize: 17,
-                                        fontWeight: FontWeight.w600),
-                                  ),
-                                  const SizedBox(
-                                    height: 20,
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(left: 76.0),
-                                    child: InkWell(
-                                      onTap: () {
-                                        CustomerCubit.get(context)
-                                            .showCustomerData(
-                                                ShopCubit.get(context)
-                                                    .customerId,
-                                                context)
-                                            .then((value) => {
-                                                  navigateTo(
-                                                      context, UpdateCustomer())
-                                                });
-                                      },
+                            child: InkWell(
+                              onTap: (){
+                                ProductCubit.get(context).showCustomerData(ShopCubit.get(context).customerId, context);
+                              },
+                              child: Padding(
+                                padding: const EdgeInsets.only(top: 50.0),
+                                child: Column(
+                                  children: [
+                                    Text(
+                                      mytranslate(context, "editdata"),
+                                      style: TextStyle(
+                                          color: myWhite,
+                                          fontSize: 17,
+                                          fontWeight: FontWeight.w600),
+                                    ),
+                                    const SizedBox(
+                                      height: 20,
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(left: 76.0),
                                       child: CircleAvatar(
                                         radius: 15,
                                         backgroundColor: myBlue,
@@ -120,9 +122,9 @@ class CustomerHome extends StatelessWidget {
                                           size: 15,
                                         ),
                                       ),
-                                    ),
-                                  )
-                                ],
+                                    )
+                                  ],
+                                ),
                               ),
                             ),
                           ),
@@ -137,24 +139,26 @@ class CustomerHome extends StatelessWidget {
                             ),
                             height: MediaQuery.of(context).size.height * .20,
                             width: MediaQuery.of(context).size.width * .42,
-                            child: Padding(
-                              padding: const EdgeInsets.only(top: 35.0),
-                              child: Column(
-                                children: [
-                                  Text(
-                                    mytranslate(context, "track"),
-                                    style: TextStyle(
-                                        color: myWhite,
-                                        fontSize: 17,
-                                        fontWeight: FontWeight.w600),
-                                  ),
-                                  const SizedBox(
-                                    height: 5,
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(left: 76.0),
-                                    child: InkWell(
-                                      onTap: () {},
+                            child: InkWell(
+                              onTap: (){
+                                CustomerCubit.get(context).getStatisticCustomer(4,context).then((value) => navigateTo(context,StaticMain()));
+                              },
+                              child: Padding(
+                                padding: const EdgeInsets.only(top: 35.0),
+                                child: Column(
+                                  children: [
+                                    Text(
+                                      mytranslate(context, "track"),
+                                      style: TextStyle(
+                                          color: myWhite,
+                                          fontSize: 17,
+                                          fontWeight: FontWeight.w600),
+                                    ),
+                                    const SizedBox(
+                                      height: 5,
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(left: 76.0),
                                       child: CircleAvatar(
                                         radius: 15,
                                         backgroundColor: myBlue,
@@ -164,9 +168,9 @@ class CustomerHome extends StatelessWidget {
                                           size: 15,
                                         ),
                                       ),
-                                    ),
-                                  )
-                                ],
+                                    )
+                                  ],
+                                ),
                               ),
                             ),
                           ),

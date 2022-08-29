@@ -177,50 +177,26 @@ class CustomerCubit extends Cubit<CustomerStates> {
   }
 
   ////////////////////////Show Customer Data////////////////////
-  CustomerModel? prosCustomerModel;
-  Future showCustomerData(id, context) async {
-    emit(LoadingShowCustomer());
-    Map<String, dynamic> header = {
-      "auth-token": ShopCubit.get(context).customerToken
-    };
-    Map<String, dynamic> data = {
-      "id": id,
-    };
-    await DioHelper.postData(url: showUser, data: data, option: header)
-        .then((value) {
-      //  print(value.data);
-      prosCustomerModel = CustomerModel.fromJson(value.data);
-      file = File(prosCustomerModel!.data!.logo!);
-      // var raf = file?.openSync(mode: FileMode.write);
-      // response.data is List<int> type
-      print(prosCustomerModel!.data!.id!);
-      emit(ShowingCustomerData());
-    }).catchError((error) {
-      print(error.toString());
-      emit(FailShowCustomerData());
-    });
-  }
+
 
   ////////////////////////////Update Customer////////////////
   MultipartFile? mFile;
   updateCustomer({nameStore, name, pass, phone, adress, img, context}) async {
     emit(WaitingCustomerUpdtatingState());
     Map<String, dynamic> header = {
-      // "auth-token":
-      //     "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2thc2g1dGFrLmNvbS9hcGkvbG9naW4iLCJpYXQiOjE2NTg2MDM4MDUsImV4cCI6MTY1OTIwODYwNSwibmJmIjoxNjU4NjAzODA1LCJqdGkiOiJ2VmlCQXpKbktGREI3YlZEIiwic3ViIjoiMTgiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.t-2RBvCKHkEbUmnRrRcF7eeH1lNGDxu4Py7SX6iLk1c"
       "auth-token": ShopCubit.get(context).customerToken,
     };
     FormData formData = FormData.fromMap({
       "user_id": ShopCubit.get(context).customerId,
       "name_ar": name,
       "password": pass,
-      "name_en": prosCustomerModel!.data!.nameEn,
+      "name_en": name,
       "phone": phone,
       "address": adress,
       "longitude": 456,
       "latitude": 468456,
       "title_ar": nameStore,
-      "title_en": prosCustomerModel!.data!.titleEn,
+      "title_en": nameStore,
       "male": colorMen,
       "female": colorWomen,
       "baby": colorBaby,
@@ -229,7 +205,6 @@ class CustomerCubit extends Cubit<CustomerStates> {
     DioHelper.postData1(url: updateUser, data: formData, option: header)
         .then((value) {
       print(value.data.toString());
-
       emit(CustomerUpdatingSucessState());
     }).catchError((error) {
       emit(CustomerUpdatingErrorState());

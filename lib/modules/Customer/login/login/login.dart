@@ -25,7 +25,7 @@ class Login extends StatelessWidget {
           navigateTo(context,
               CustomerHome(id: LoginCubit.get(context).loginModel!.data!.id));
         } else if (state is ErrorLoginState) {
-          if (state.error == "6004") {
+          if (state.code == "6004") {
             My_CustomAlertDialog(
                 onPress: () => Navigator.pop(context),
                 pressTitle: 'OK',
@@ -35,16 +35,16 @@ class Login extends StatelessWidget {
                 content: "Invalid email or Password",
                 pressColor: Colors.red,
                 iconColor: Colors.red);
-          } else {
-            My_CustomAlertDialog(
-                onPress: () => Navigator.pop(context),
-                pressTitle: 'OK',
-                context: context,
-                icon: Icons.done,
-                bigTitle: "shopping",
-                content: "Something Worng Try again later",
-                pressColor: Colors.lightBlueAccent,
-                iconColor: Colors.green);
+          } else if (state.code=="6005"){
+              My_CustomAlertDialog(
+                  onPress: () => Navigator.pop(context),
+                  pressTitle: 'OK',
+                  context: context,
+                  icon: Icons.error,
+                  bigTitle: "shopping",
+                  content:mytranslate(context, "verfi"),
+                  pressColor: Colors.red,
+                  iconColor: Colors.red);
           }
         } else {}
       },

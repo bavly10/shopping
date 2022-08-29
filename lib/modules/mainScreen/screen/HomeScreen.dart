@@ -92,7 +92,7 @@ class HomeScreen extends StatelessWidget {
             style: TextStyle(
                 color: myBlack, fontWeight: FontWeight.bold, fontSize: 25),
           ),
-          Spacer(),
+          const Spacer(),
           MyArrowBack(
             onPress: () {
               Navigator.pop(context);

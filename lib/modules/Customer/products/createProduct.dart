@@ -129,8 +129,7 @@ class CreatePro extends StatelessWidget {
                               return CustomDialog(
                                 btnName: mytranslate(context, "ok"),
                                 text: mytranslate(context, "upd"),
-                                onTap: () =>
-                                    navigateTo(context, CustomerHome()),
+                                onTap: () => navigateTo(context, CustomerHome().build(context)),
                               );
                             });
                       }
@@ -474,10 +473,7 @@ class CreatePro extends StatelessWidget {
                                   onPressed: () async {
                                     print(typeProduct.text.toString());
                                     List y = [];
-                                    for (var x in ProductCubit.get(context)
-                                        .imageFileList) {
-                                      y.add(MultipartFile.fromFileSync(x.path));
-                                    }
+                                    for (var x in ProductCubit.get(context).imageFileList) {y.add(MultipartFile.fromFileSync(x.path));}
                                     cubit.create(
                                       context: context,
                                       userid: id,
@@ -489,6 +485,8 @@ class CreatePro extends StatelessWidget {
                                       tittleEn: "dwadwad",
                                       img: y,
                                     );
+                                    cubit.catSelect=null;
+                                    cubit.cat_id=null;
                                   },
                                   child: Text(
                                     mytranslate(context, "save"),

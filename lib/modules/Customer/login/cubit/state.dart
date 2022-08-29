@@ -31,6 +31,6 @@ class ErrorSignupState extends LoginStates {
   ErrorSignupState(this.error);
 }
 class ErrorLoginState extends LoginStates {
-  final String error;
-  ErrorLoginState(this.error);
+  final String error,code;
+  ErrorLoginState(this.error,this.code);
 }

@@ -21,12 +21,6 @@ class SearchingProduct extends CustomerStates {}
 
 class TakeImageState extends CustomerStates {}
 
-class LoadingShowCustomer extends CustomerStates {}
-
-class ShowingCustomerData extends CustomerStates {}
-
-class FailShowCustomerData extends CustomerStates {}
-
 class WaitingCustomerUpdtatingState extends CustomerStates {}
 
 class CustomerUpdatingSucessState extends CustomerStates {}

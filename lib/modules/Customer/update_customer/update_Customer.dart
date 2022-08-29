@@ -35,9 +35,9 @@ class UpdateCustomer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var model = CustomerCubit.get(context).prosCustomerModel;
+    var model = ProductCubit.get(context).prosCustomerModel;
     return Scaffold(
-        appBar: AppBar(title: Text(mytranslate(context, "updcus"))),
+        appBar: AppBar(title: Text(mytranslate(context, "updcus")),leading: const SizedBox(),),
         body: SingleChildScrollView(
             child: Form(
                 key: form,

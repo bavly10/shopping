@@ -151,12 +151,12 @@ class UpdateProduct extends StatelessWidget {
                                 btnName: mytranslate(context, "ok"),
                                 text: mytranslate(context, "upd"),
                                 onTap: () =>
-                                    navigateTo(context, CustomerHome()),
+                                    navigateTo(context, CustomerHome().build(context)),
                               );
                             });
                       }
                     } else if (state is DeletingImageProduct) {
-                      navigateToFinish(context, CustomerHome());
+                      navigateToFinish(context, CustomerHome().build(context));
                     } else {}
                   }, builder: (context, state) {
                     return Column(
@@ -583,16 +583,12 @@ class UpdateProduct extends StatelessWidget {
                             child: Container(
                               width: MediaQuery.of(context).size.width * .40,
                               height: MediaQuery.of(context).size.height * .1,
-                              decoration: BoxDecoration(
-                                  color: myBlue,
-                                  shape: BoxShape.rectangle,
-                                  borderRadius: BorderRadius.circular(20)),
+                              decoration: BoxDecoration(color: myBlue, shape: BoxShape.rectangle, borderRadius: BorderRadius.circular(20)),
                               child: MaterialButton(
                                 onPressed: () async {
                                   print(typeProduct.text.toString());
                                   List y = [];
-                                  for (var x in ProductCubit.get(context)
-                                      .imageFileList) {
+                                  for (var x in ProductCubit.get(context).imageFileList) {
                                     y.add(MultipartFile.fromFileSync(x.path));
                                   }
                                   if (cubit.cat_id == null) {
@@ -625,6 +621,8 @@ class UpdateProduct extends StatelessWidget {
                                       id: model.data!.productData!.id,
                                       img: y.isEmpty ? model.data!.images : y,
                                     );
+                                    cubit.catSelect=null;
+                                    cubit.cat_id=null;
                                   }
                                 },
                                 child: Text(
