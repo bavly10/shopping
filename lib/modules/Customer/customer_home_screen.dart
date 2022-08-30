@@ -34,218 +34,215 @@ class CustomerHome extends StatelessWidget {
     ProductCubit.get(context).getProducts(context, 1);
     return BlocConsumer<ProductCubit, ProductStates>(
         listener: (context, state) {
-          if(state is LoadingShowCustomer){
-            showDialog(context: context,
-                builder: (context) => const LoadingDialog());
-          }
-          else if(state is ShowingCustomerData){
-            navigateTo(context, UpdateCustomer());
-          }
-          else if (state is FailShowCustomerData){
-            myToast(message: mytranslate(context, "noData"));
-          }else{}
-        },
-        builder: (context, state) {
-          var productItem = ProductCubit.get(context).listProduct;
-          return Scaffold(
-            appBar: AppBar(
-            leading: SizedBox(),
-                actions: [
-              InkWell(
-                onTap: () {
-                  ProductCubit.get(context).getLogout(context).whenComplete(
-                      () => {navigateToFinish(context, MainScreen())});
-                },
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Icon(
-                    Icons.logout_rounded,
-                    color: myBlue,
-                  ),
-                ),
+      if (state is LoadingShowCustomer) {
+        showDialog(
+            context: context, builder: (context) => const LoadingDialog());
+      } else if (state is ShowingCustomerData) {
+        navigateTo(context, UpdateCustomer());
+      } else if (state is FailShowCustomerData) {
+        myToast(message: mytranslate(context, "noData"));
+      } else {}
+    }, builder: (context, state) {
+      var productItem = ProductCubit.get(context).listProduct;
+      return Scaffold(
+        appBar: AppBar(leading: SizedBox(), actions: [
+          InkWell(
+            onTap: () {
+              ProductCubit.get(context).getLogout(context).whenComplete(
+                  () => {navigateToFinish(context, MainScreen())});
+            },
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Icon(
+                Icons.logout_rounded,
+                color: myBlue,
               ),
-              IconButton(
-                  onPressed: () {
-                    CustomerOrderCubit.get(context).getOrders(
-                        context: context,
-                        page: CustomerOrderCubit.get(context).limit);
-                    navigateTo(context, Orders());
-                  },
-                  icon: Icon(Icons.gps_not_fixed)),
-            ]),
-            body: SingleChildScrollView(
-              physics: const BouncingScrollPhysics(),
-              child: Padding(
-                padding: const EdgeInsets.all(12.0),
-                child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.start,
+            ),
+          ),
+          IconButton(
+              onPressed: () {
+                CustomerOrderCubit.get(context).getOrders(
+                    context: context,
+                    page: CustomerOrderCubit.get(context).limit);
+                navigateTo(context, Orders());
+              },
+              icon: Icon(Icons.gps_not_fixed)),
+        ]),
+        body: SingleChildScrollView(
+          physics: const BouncingScrollPhysics(),
+          child: Padding(
+            padding: const EdgeInsets.all(12.0),
+            child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Container(
-                            decoration: BoxDecoration(
-                              color: HexColor("#A7B3CF"),
-                              borderRadius:
-                                  const BorderRadius.all(Radius.circular(20)),
-                            ),
-                            height: MediaQuery.of(context).size.height * .20,
-                            width: MediaQuery.of(context).size.width * .42,
-                            child: InkWell(
-                              onTap: (){
-                                ProductCubit.get(context).showCustomerData(ShopCubit.get(context).customerId, context);
-                              },
-                              child: Padding(
-                                padding: const EdgeInsets.only(top: 50.0),
-                                child: Column(
-                                  children: [
-                                    Text(
-                                      mytranslate(context, "editdata"),
-                                      style: TextStyle(
-                                          color: myWhite,
-                                          fontSize: 17,
-                                          fontWeight: FontWeight.w600),
-                                    ),
-                                    const SizedBox(
-                                      height: 20,
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(left: 76.0),
-                                      child: CircleAvatar(
-                                        radius: 15,
-                                        backgroundColor: myBlue,
-                                        child: const Icon(
-                                          Icons.arrow_forward_ios,
-                                          color: Colors.white,
-                                          size: 15,
-                                        ),
-                                      ),
-                                    )
-                                  ],
+                      Container(
+                        decoration: BoxDecoration(
+                          color: HexColor("#A7B3CF"),
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(20)),
+                        ),
+                        height: MediaQuery.of(context).size.height * .20,
+                        width: MediaQuery.of(context).size.width * .42,
+                        child: InkWell(
+                          onTap: () {
+                            ProductCubit.get(context).showCustomerData(
+                                ShopCubit.get(context).customerId, context);
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.only(top: 50.0),
+                            child: Column(
+                              children: [
+                                Text(
+                                  mytranslate(context, "editdata"),
+                                  style: TextStyle(
+                                      color: myWhite,
+                                      fontSize: 17,
+                                      fontWeight: FontWeight.w600),
                                 ),
-                              ),
-                            ),
-                          ),
-                          const SizedBox(
-                            width: 10,
-                          ),
-                          Container(
-                            decoration: BoxDecoration(
-                              color: HexColor("#A7B3CF"),
-                              borderRadius:
-                                  const BorderRadius.all(Radius.circular(20)),
-                            ),
-                            height: MediaQuery.of(context).size.height * .20,
-                            width: MediaQuery.of(context).size.width * .42,
-                            child: InkWell(
-                              onTap: (){
-                                CustomerCubit.get(context).getStatisticCustomer(4,context).then((value) => navigateTo(context,StaticMain()));
-                              },
-                              child: Padding(
-                                padding: const EdgeInsets.only(top: 35.0),
-                                child: Column(
-                                  children: [
-                                    Text(
-                                      mytranslate(context, "track"),
-                                      style: TextStyle(
-                                          color: myWhite,
-                                          fontSize: 17,
-                                          fontWeight: FontWeight.w600),
-                                    ),
-                                    const SizedBox(
-                                      height: 5,
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(left: 76.0),
-                                      child: CircleAvatar(
-                                        radius: 15,
-                                        backgroundColor: myBlue,
-                                        child: const Icon(
-                                          Icons.arrow_forward_ios,
-                                          color: Colors.white,
-                                          size: 15,
-                                        ),
-                                      ),
-                                    )
-                                  ],
+                                const SizedBox(
+                                  height: 20,
                                 ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(20.0),
-                        child: Container(
-                          width: MediaQuery.of(context).size.width * .90,
-                          height: MediaQuery.of(context).size.height * .07,
-                          decoration: BoxDecoration(
-                              color: myBlue,
-                              shape: BoxShape.rectangle,
-                              borderRadius: BorderRadius.circular(20)),
-                          child: MaterialButton(
-                            onPressed: () {
-                              navigateTo(
-                                  context,
-                                  CreatePro(
-                                    id: id,
-                                  ));
-                            },
-                            child: Text(
-                              mytranslate(context, "addpro"),
-                              style: const TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 18),
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 76.0),
+                                  child: CircleAvatar(
+                                    radius: 15,
+                                    backgroundColor: myBlue,
+                                    child: const Icon(
+                                      Icons.arrow_forward_ios,
+                                      color: Colors.white,
+                                      size: 15,
+                                    ),
+                                  ),
+                                )
+                              ],
                             ),
                           ),
                         ),
                       ),
-                      Row(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(14.0),
-                            child: Text(
-                              mytranslate(context, "pro"),
-                              style: const TextStyle(
-                                  fontSize: 18, fontWeight: FontWeight.w600),
+                      const SizedBox(
+                        width: 10,
+                      ),
+                      Container(
+                        decoration: BoxDecoration(
+                          color: HexColor("#A7B3CF"),
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(20)),
+                        ),
+                        height: MediaQuery.of(context).size.height * .20,
+                        width: MediaQuery.of(context).size.width * .42,
+                        child: InkWell(
+                          onTap: () {
+                            CustomerCubit.get(context)
+                                .getStatisticCustomer(18, context)
+                                .then((value) =>
+                                    navigateTo(context, StaticMain()));
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.only(top: 35.0),
+                            child: Column(
+                              children: [
+                                Text(
+                                  mytranslate(context, "track"),
+                                  style: TextStyle(
+                                      color: myWhite,
+                                      fontSize: 17,
+                                      fontWeight: FontWeight.w600),
+                                ),
+                                const SizedBox(
+                                  height: 5,
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 76.0),
+                                  child: CircleAvatar(
+                                    radius: 15,
+                                    backgroundColor: myBlue,
+                                    child: const Icon(
+                                      Icons.arrow_forward_ios,
+                                      color: Colors.white,
+                                      size: 15,
+                                    ),
+                                  ),
+                                )
+                              ],
                             ),
                           ),
-                          Spacer(),
-                          TextButton(
-                              onPressed: () {
-                                navigateTo(
-                                    context, const MoreProductsCustomer());
-                              },
-                              child: Text(
-                                mytranslate(context, "more"),
-                                style: TextStyle(
-                                    decoration: TextDecoration.underline,
-                                    color: myBlue,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 16),
-                              )),
-                        ],
+                        ),
                       ),
-                      ListView.builder(
-                          physics: NeverScrollableScrollPhysics(),
-                          shrinkWrap: true,
-                          itemBuilder: (context, index) {
-                            return productItem.isEmpty
-                                ? const Center(
-                                    child: CircularProgressIndicator(),
-                                  )
-                                : myCard(
-                                    context: context, pro: productItem[index]);
+                    ],
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: Container(
+                      width: MediaQuery.of(context).size.width * .90,
+                      height: MediaQuery.of(context).size.height * .07,
+                      decoration: BoxDecoration(
+                          color: myBlue,
+                          shape: BoxShape.rectangle,
+                          borderRadius: BorderRadius.circular(20)),
+                      child: MaterialButton(
+                        onPressed: () {
+                          navigateTo(
+                              context,
+                              CreatePro(
+                                id: id,
+                              ));
+                        },
+                        child: Text(
+                          mytranslate(context, "addpro"),
+                          style: const TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Row(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(14.0),
+                        child: Text(
+                          mytranslate(context, "pro"),
+                          style: const TextStyle(
+                              fontSize: 18, fontWeight: FontWeight.w600),
+                        ),
+                      ),
+                      Spacer(),
+                      TextButton(
+                          onPressed: () {
+                            navigateTo(context, const MoreProductsCustomer());
                           },
-                          itemCount: productItem.length)
-                    ]),
-              ),
-            ),
-          );
-        });
+                          child: Text(
+                            mytranslate(context, "more"),
+                            style: TextStyle(
+                                decoration: TextDecoration.underline,
+                                color: myBlue,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16),
+                          )),
+                    ],
+                  ),
+                  ListView.builder(
+                      physics: NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      itemBuilder: (context, index) {
+                        return productItem.isEmpty
+                            ? const Center(
+                                child: CircularProgressIndicator(),
+                              )
+                            : myCard(context: context, pro: productItem[index]);
+                      },
+                      itemCount: productItem.length)
+                ]),
+          ),
+        ),
+      );
+    });
   }
 
   Widget myCard({context, required ProductItemMainCustomer pro}) {
