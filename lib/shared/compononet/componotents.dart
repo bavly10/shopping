@@ -12,3 +12,7 @@ var textStyle = TextStyle(
 );
 var textStyle1 =
     TextStyle(fontWeight: FontWeight.bold, fontSize: 25, color: myBlue);
+var textStyle2 = TextStyle(
+    fontWeight: FontWeight.bold, fontSize: 16, color: Colors.blueAccent[400]);
+var textStyle3 = TextStyle(
+    fontWeight: FontWeight.bold, fontSize: 14, color: Colors.redAccent[700]);

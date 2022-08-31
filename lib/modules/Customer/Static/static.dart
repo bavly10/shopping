@@ -2,70 +2,64 @@ import 'package:charts_flutter/flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shopping/model/Stactic.dart';
+import 'package:shopping/modules/Customer/Static/widgets/warning_container.dart';
 import 'package:shopping/modules/Customer/cubit/cubit.dart';
 import 'package:shopping/modules/Customer/cubit/state.dart';
 import 'package:shopping/modules/test.dart';
-import 'package:charts_flutter/flutter.dart' as charts;
+
 import 'package:shopping/shared/compononet/componotents.dart';
+import 'package:shopping/shared/localization/translate.dart';
 import 'package:shopping/shared/my_colors.dart';
+import 'package:syncfusion_flutter_charts/charts.dart';
+
+import '../../../model/earning_model.dart';
 
 class StaticMain extends StatelessWidget {
   List<EarningsTimeline> listEarnings = [];
   List<EarningsTimeline> listEarning1 = [];
-  List mylist = [];
+
+  var customerOfYear = [];
+  var earnsOfYear = [];
+  var customerOfMonth = [];
+  var earnsOfMonth = [];
+
   TabController? controlle;
   @override
   Widget build(BuildContext context) {
-    List<charts.Series<EarningsTimeline, String>> timeline = [
-      charts.Series(
-          id: "Subscribers",
-          data: listEarnings,
-          domainFn: (EarningsTimeline timeline, _) => timeline.customer!,
-          measureFn: (EarningsTimeline timeline, _) => timeline.earning,
-          colorFn: (EarningsTimeline timeline, _) => timeline.barColor!),
-    ];
-    List<charts.Series<EarningsTimeline, String>> timeline1 = [
-      charts.Series(
-        id: "Subscribers",
-        data: listEarning1,
-        domainFn: (EarningsTimeline timeline, _) => timeline.customer!,
-        measureFn: (EarningsTimeline timeline, _) => timeline.earning,
-        colorFn: (EarningsTimeline timeline, _) => timeline.barColor!,
-      ),
-    ];
-
     return BlocBuilder<CustomerCubit, CustomerStates>(
       builder: (ctx, state) {
         final cubit = CustomerCubit.get(context).modelStatis!;
         print(cubit.data?.years!.keys);
+        customerOfYear = [];
+        customerOfMonth = [];
+        earnsOfYear = [];
+        earnsOfMonth = [];
 
-        cubit.data!.years!.forEach((key, value) {
-          mylist.add(value.earn);
-          // print(mylist);
-          print("the erarn is${value.earn!}");
-        });
         cubit.data!.years!.forEach((key, value) {
           // listEarnings = [];
           listEarnings.add(EarningsTimeline(
             customer: key,
             earning: value.earn,
-            barColor: charts.ColorUtil.fromDartColor(myBlue),
           ));
+          customerOfYear.add(value.customer);
+          earnsOfYear.add(value.earn);
         });
         cubit.data!.months!.forEach((key, value) {
           // listEarnings = [];
           listEarning1.add(EarningsTimeline(
             customer: key,
             earning: value.earn,
-            barColor: charts.ColorUtil.fromDartColor(Colors.yellow[900]!),
           ));
+          customerOfMonth.add(value.customer);
+          earnsOfMonth.add(value.earn);
         });
+
         return Scaffold(
             backgroundColor: myGrey,
             appBar: AppBar(
                 backgroundColor: myGrey,
                 title: Text(
-                  "Statistics ",
+                  mytranslate(context, "sat"),
                   style: textStyle1,
                 )),
             body: Column(
@@ -75,7 +69,7 @@ class StaticMain extends StatelessWidget {
                   child: Column(
                     children: [
                       Text(
-                        "My Total Money",
+                        mytranslate(context, "tota"),
                         style: textStyle,
                       ),
                       Text(
@@ -103,20 +97,20 @@ class StaticMain extends StatelessWidget {
                             tabs: [
                               Tab(
                                 child: Text(
-                                  "Year",
+                                  mytranslate(context, "yea"),
                                   style: textStyle,
                                 ),
                               ),
                               Tab(
                                   child: Text(
-                                "Month",
+                                mytranslate(context, "mon"),
                                 style: textStyle,
                               )),
                             ],
                           ),
                         ),
                         Expanded(
-                          child: Container(
+                          child: SizedBox(
                             child: TabBarView(
                               children: <Widget>[
                                 Center(
@@ -138,96 +132,69 @@ class StaticMain extends StatelessWidget {
                                         ),
                                       ],
                                     ),
-                                    height: 400,
-                                    padding: EdgeInsets.all(20),
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.end,
-                                        children: <Widget>[
-                                          Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: Container(
-                                              color: myGrey,
-                                              child: Row(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    "Earn: ",
-                                                    style: textStyle,
-                                                  ),
-                                                  Text(
-                                                    cubit.data!.totalEarn
-                                                        .toString(),
-                                                    style: textStyle,
-                                                  )
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                          Expanded(
-                                            child: charts.BarChart(
-                                              timeline,
-                                              domainAxis: const charts
-                                                      .OrdinalAxisSpec(
-                                                  renderSpec: charts
-                                                      .SmallTickRendererSpec(
+                                    height: MediaQuery.of(context).size.height *
+                                        .55,
+                                    padding: EdgeInsets.all(10),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.end,
+                                      children: <Widget>[
+                                        const Padding(
+                                            padding: EdgeInsets.only(
+                                                top: 10.0, bottom: 15),
+                                            child: InfoContainer()),
+                                        Expanded(
+                                            child: SfCartesianChart(
+                                          tooltipBehavior: TooltipBehavior(
+                                              color: Colors.grey[400],
+                                              enable: true,
+                                              // Templating the tooltip
+                                              builder: (dynamic data,
+                                                  dynamic point,
+                                                  dynamic series,
+                                                  int pointIndex,
+                                                  int seriesIndex) {
+                                                return Container(
+                                                    height:
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .height *
+                                                            .09,
+                                                    child: Column(
+                                                      children: [
+                                                        Text(
+                                                          'Customer No. : ${customerOfYear[seriesIndex].toString()}',
+                                                          style: textStyle2,
+                                                        ),
+                                                        Text(
+                                                          'Earn : ${earnsOfYear[seriesIndex].toString()}',
+                                                          style: textStyle2,
+                                                        ),
+                                                      ],
+                                                    ));
+                                              }),
+                                          // Initialize category axis
+                                          primaryXAxis: CategoryAxis(),
 
-                                                          // Tick and Label styling here.
-                                                          labelStyle: charts
-                                                              .TextStyleSpec(
-                                                                  fontSize:
-                                                                      14, // size in Pts.
-                                                                  color: charts
-                                                                      .MaterialPalette
-                                                                      .black),
-
-                                                          // Change the line colors to match text color.
-                                                          lineStyle: charts
-                                                              .LineStyleSpec(
-                                                                  thickness: 2,
-                                                                  color: charts
-                                                                      .MaterialPalette
-                                                                      .black))),
-                                              primaryMeasureAxis: charts
-                                                  .NumericAxisSpec(
-                                                      showAxisLine: true,
-                                                      renderSpec: charts
-                                                          .GridlineRendererSpec(
-                                                              axisLineStyle: charts
-                                                                  .LineStyleSpec(
-                                                                      thickness:
-                                                                          2,
-                                                                      color: charts
-                                                                          .MaterialPalette
-                                                                          .black),
-
-                                                              // Tick and Label styling here.
-                                                              labelStyle: charts
-                                                                  .TextStyleSpec(
-                                                                      lineHeight:
-                                                                          1.5,
-                                                                      fontWeight:
-                                                                          "bold",
-                                                                      fontSize:
-                                                                          16, // size in Pts.
-                                                                      color: charts
-                                                                          .MaterialPalette
-                                                                          .black),
-
-                                                              // Change the line colors to match text color.
-                                                              lineStyle: charts.LineStyleSpec(
-                                                                  thickness: 0,
-                                                                  color: charts
-                                                                      .MaterialPalette
-                                                                      .black))),
-                                              animate: true,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
+                                          series: <
+                                              ChartSeries<EarningsTimeline,
+                                                  String>>[
+                                            ColumnSeries<EarningsTimeline,
+                                                String>(
+                                              enableTooltip: true,
+                                              dataSource: listEarnings,
+                                              xValueMapper:
+                                                  (EarningsTimeline timeline,
+                                                          _) =>
+                                                      timeline.customer!,
+                                              yValueMapper:
+                                                  (EarningsTimeline timeline,
+                                                          _) =>
+                                                      timeline.earning,
+                                            )
+                                          ],
+                                        )),
+                                      ],
                                     ),
                                   ),
                                 )),
@@ -250,96 +217,69 @@ class StaticMain extends StatelessWidget {
                                         ),
                                       ],
                                     ),
-                                    height: 400,
-                                    padding: EdgeInsets.all(20),
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.end,
-                                        children: <Widget>[
-                                          Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: Container(
-                                              color: myGrey,
-                                              child: Row(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    "Earn: ",
-                                                    style: textStyle,
-                                                  ),
-                                                  Text(
-                                                    cubit.data!.totalEarn
-                                                        .toString(),
-                                                    style: textStyle,
-                                                  )
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                          Expanded(
-                                            child: charts.BarChart(
-                                              timeline1,
-                                              domainAxis: const charts
-                                                      .OrdinalAxisSpec(
-                                                  renderSpec: charts
-                                                      .SmallTickRendererSpec(
+                                    height: MediaQuery.of(context).size.height *
+                                        .55,
+                                    padding: EdgeInsets.all(8),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.end,
+                                      children: <Widget>[
+                                        const Padding(
+                                            padding: EdgeInsets.only(
+                                                top: 10.0, bottom: 15),
+                                            child: InfoContainer()),
+                                        Expanded(
+                                            child: SfCartesianChart(
+                                          tooltipBehavior: TooltipBehavior(
+                                              color: Colors.grey[400],
+                                              enable: true,
+                                              // Templating the tooltip
+                                              builder: (dynamic data,
+                                                  dynamic point,
+                                                  dynamic series,
+                                                  int pointIndex,
+                                                  int seriesIndex) {
+                                                return Container(
+                                                    height:
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .height *
+                                                            .09,
+                                                    child: Column(
+                                                      children: [
+                                                        Text(
+                                                          'Customer No. : ${customerOfMonth[seriesIndex].toString()}',
+                                                          style: textStyle2,
+                                                        ),
+                                                        Text(
+                                                          'Earn: ${earnsOfMonth[seriesIndex].toString()}',
+                                                          style: textStyle2,
+                                                        ),
+                                                      ],
+                                                    ));
+                                              }),
+                                          // Initialize category axis
+                                          primaryXAxis: CategoryAxis(),
 
-                                                          // Tick and Label styling here.
-                                                          labelStyle: charts
-                                                              .TextStyleSpec(
-                                                                  fontSize:
-                                                                      18, // size in Pts.
-                                                                  color: charts
-                                                                      .MaterialPalette
-                                                                      .black),
-
-                                                          // Change the line colors to match text color.
-                                                          lineStyle: charts
-                                                              .LineStyleSpec(
-                                                                  thickness: 2,
-                                                                  color: charts
-                                                                      .MaterialPalette
-                                                                      .black))),
-                                              primaryMeasureAxis: charts
-                                                  .NumericAxisSpec(
-                                                      showAxisLine: true,
-                                                      renderSpec: charts
-                                                          .GridlineRendererSpec(
-                                                              axisLineStyle: charts
-                                                                  .LineStyleSpec(
-                                                                      thickness:
-                                                                          2,
-                                                                      color: charts
-                                                                          .MaterialPalette
-                                                                          .black),
-
-                                                              // Tick and Label styling here.
-                                                              labelStyle: charts
-                                                                  .TextStyleSpec(
-                                                                      lineHeight:
-                                                                          1.5,
-                                                                      fontWeight:
-                                                                          "bold",
-                                                                      fontSize:
-                                                                          18, // size in Pts.
-                                                                      color: charts
-                                                                          .MaterialPalette
-                                                                          .black),
-
-                                                              // Change the line colors to match text color.
-                                                              lineStyle: charts.LineStyleSpec(
-                                                                  thickness: 0,
-                                                                  color: charts
-                                                                      .MaterialPalette
-                                                                      .black))),
-                                              animate: true,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
+                                          series: <
+                                              ChartSeries<EarningsTimeline,
+                                                  String>>[
+                                            ColumnSeries<EarningsTimeline,
+                                                String>(
+                                              enableTooltip: true,
+                                              dataSource: listEarning1,
+                                              xValueMapper:
+                                                  (EarningsTimeline timeline,
+                                                          _) =>
+                                                      timeline.customer!,
+                                              yValueMapper:
+                                                  (EarningsTimeline timeline,
+                                                          _) =>
+                                                      timeline.earning,
+                                            )
+                                          ],
+                                        )),
+                                      ],
                                     ),
                                   ),
                                 )),
@@ -357,13 +297,4 @@ class StaticMain extends StatelessWidget {
       },
     );
   }
-}
-
-class EarningsTimeline {
-  final String? customer;
-  final int? earning;
-  charts.Color? barColor;
-
-  EarningsTimeline(
-      {required this.customer, required this.earning, this.barColor});
 }

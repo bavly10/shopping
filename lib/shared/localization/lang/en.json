@@ -113,5 +113,9 @@
    "selecte": "Please..Choose Connection Way",
    "what": "whatsapp app link not found ",
    "loading": "Loading...",
-   "verfi": "Please go to email and activate the account"
+   "verfi": "Please go to email and activate the account",
+   "mon": "Month",
+   "yea": "Year",
+   "sat": "Statistics",
+   "tota": "Total Of Earns:"
 }
