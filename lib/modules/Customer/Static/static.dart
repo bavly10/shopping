@@ -2,6 +2,7 @@ import 'package:charts_flutter/flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shopping/model/Stactic.dart';
+import 'package:shopping/modules/Customer/Static/widgets/custom_chart.dart';
 import 'package:shopping/modules/Customer/Static/widgets/warning_container.dart';
 import 'package:shopping/modules/Customer/cubit/cubit.dart';
 import 'package:shopping/modules/Customer/cubit/state.dart';
@@ -144,55 +145,10 @@ class StaticMain extends StatelessWidget {
                                                 top: 10.0, bottom: 15),
                                             child: InfoContainer()),
                                         Expanded(
-                                            child: SfCartesianChart(
-                                          tooltipBehavior: TooltipBehavior(
-                                              color: Colors.grey[400],
-                                              enable: true,
-                                              // Templating the tooltip
-                                              builder: (dynamic data,
-                                                  dynamic point,
-                                                  dynamic series,
-                                                  int pointIndex,
-                                                  int seriesIndex) {
-                                                return Container(
-                                                    height:
-                                                        MediaQuery.of(context)
-                                                                .size
-                                                                .height *
-                                                            .09,
-                                                    child: Column(
-                                                      children: [
-                                                        Text(
-                                                          'Customer No. : ${customerOfYear[seriesIndex].toString()}',
-                                                          style: textStyle2,
-                                                        ),
-                                                        Text(
-                                                          'Earn : ${earnsOfYear[seriesIndex].toString()}',
-                                                          style: textStyle2,
-                                                        ),
-                                                      ],
-                                                    ));
-                                              }),
-                                          // Initialize category axis
-                                          primaryXAxis: CategoryAxis(),
-
-                                          series: <
-                                              ChartSeries<EarningsTimeline,
-                                                  String>>[
-                                            ColumnSeries<EarningsTimeline,
-                                                String>(
-                                              enableTooltip: true,
-                                              dataSource: listEarnings,
-                                              xValueMapper:
-                                                  (EarningsTimeline timeline,
-                                                          _) =>
-                                                      timeline.customer!,
-                                              yValueMapper:
-                                                  (EarningsTimeline timeline,
-                                                          _) =>
-                                                      timeline.earning,
-                                            )
-                                          ],
+                                            child: CustomBarChart(
+                                          customer: customerOfYear,
+                                          earn: earnsOfYear,
+                                          listEarnings: listEarnings,
                                         )),
                                       ],
                                     ),
@@ -229,56 +185,78 @@ class StaticMain extends StatelessWidget {
                                                 top: 10.0, bottom: 15),
                                             child: InfoContainer()),
                                         Expanded(
-                                            child: SfCartesianChart(
-                                          tooltipBehavior: TooltipBehavior(
-                                              color: Colors.grey[400],
-                                              enable: true,
-                                              // Templating the tooltip
-                                              builder: (dynamic data,
-                                                  dynamic point,
-                                                  dynamic series,
-                                                  int pointIndex,
-                                                  int seriesIndex) {
-                                                return Container(
-                                                    height:
-                                                        MediaQuery.of(context)
-                                                                .size
-                                                                .height *
-                                                            .09,
-                                                    child: Column(
-                                                      children: [
-                                                        Text(
-                                                          'Customer No. : ${customerOfMonth[seriesIndex].toString()}',
-                                                          style: textStyle2,
-                                                        ),
-                                                        Text(
-                                                          'Earn: ${earnsOfMonth[seriesIndex].toString()}',
-                                                          style: textStyle2,
-                                                        ),
-                                                      ],
-                                                    ));
-                                              }),
-                                          // Initialize category axis
-                                          primaryXAxis: CategoryAxis(),
+                                            child: CustomBarChart(
+                                          customer: customerOfMonth,
+                                          earn: earnsOfMonth,
+                                          listEarnings: listEarning1,
+                                        )
+                                            //      SfCartesianChart(
+                                            //   onDataLabelTapped: (onTapArgs) {
+                                            //     //print(onTapArgs.pointIndex);
+                                            //     print(onTapArgs.viewportPointIndex);
+                                            //   },
 
-                                          series: <
-                                              ChartSeries<EarningsTimeline,
-                                                  String>>[
-                                            ColumnSeries<EarningsTimeline,
-                                                String>(
-                                              enableTooltip: true,
-                                              dataSource: listEarning1,
-                                              xValueMapper:
-                                                  (EarningsTimeline timeline,
-                                                          _) =>
-                                                      timeline.customer!,
-                                              yValueMapper:
-                                                  (EarningsTimeline timeline,
-                                                          _) =>
-                                                      timeline.earning,
-                                            )
-                                          ],
-                                        )),
+                                            //   key: key,
+
+                                            //   tooltipBehavior: TooltipBehavior(
+                                            //       color: Colors.grey[400],
+                                            //       enable: true,
+                                            //       tooltipPosition:
+                                            //           TooltipPosition.pointer,
+                                            //       // Templating the tooltip
+                                            //       builder: (dynamic data,
+                                            //           dynamic point,
+                                            //           dynamic series,
+                                            //           int pointIndex,
+                                            //           int seriesIndex) {
+                                            //         //  print(series[seriesIndex]);
+
+                                            //         return Container(
+                                            //             height:
+                                            //                 MediaQuery.of(context)
+                                            //                         .size
+                                            //                         .height *
+                                            //                     .09,
+                                            //             child: Column(
+                                            //               children: [
+                                            //                 Text(
+                                            //                   'Customer No. : ${customerOfMonth[seriesIndex]}',
+                                            //                   style: textStyle2,
+                                            //                 ),
+                                            //                 Text(
+                                            //                   'Earn: ${earnsOfMonth[seriesIndex]}',
+                                            //                   style: textStyle2,
+                                            //                 ),
+                                            //               ],
+                                            //             ));
+                                            //       }),
+                                            //   // Initialize category axis
+                                            //   primaryXAxis: CategoryAxis(),
+
+                                            //   series: <
+                                            //       ChartSeries<EarningsTimeline,
+                                            //           String>>[
+                                            //     ColumnSeries<EarningsTimeline,
+                                            //         String>(
+                                            //       onPointTap:
+                                            //           (pointInteractionDetails) {
+                                            //         print(pointInteractionDetails
+                                            //             .pointIndex);
+                                            //       },
+                                            //       enableTooltip: true,
+                                            //       dataSource: listEarning1,
+                                            //       xValueMapper:
+                                            //           (EarningsTimeline timeline,
+                                            //                   _) =>
+                                            //               timeline.customer!,
+                                            //       yValueMapper:
+                                            //           (EarningsTimeline timeline,
+                                            //                   _) =>
+                                            //               timeline.earning,
+                                            //     )
+                                            //   ],
+                                            // )
+                                            ),
                                       ],
                                     ),
                                   ),
