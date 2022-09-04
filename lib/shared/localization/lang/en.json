@@ -118,5 +118,10 @@
    "validateName": "Name is required bro.",
    "validatePass": "Password is required bro.",
    "validateNumber": "Mobile Number is required bro.",
-   "validateStore": "Name Store is required bro."
+   "validateStore": "Name Store is required bro.",
+   "mon": "Month",
+   "yea": "Year",
+   "sat": "Statistics",
+   "tota": "Total Of Earns:"
+
 }
