@@ -39,10 +39,7 @@ class BlueButton extends StatelessWidget {
                     icon,
                     color: myWhite,
                   ),
-                Padding(
-                  padding: const EdgeInsets.only(right: 20),
-                  child: title,
-                ),
+                title,
               ],
             ),
           ),

@@ -144,15 +144,18 @@ class CustomerHome extends StatelessWidget {
                                 CustomerCubit.get(context).getStatisticCustomer(4,context).then((value) => navigateTo(context,StaticMain()));
                               },
                               child: Padding(
-                                padding: const EdgeInsets.only(top: 35.0),
+                                padding: const EdgeInsets.only(top: 18.0),
                                 child: Column(
                                   children: [
-                                    Text(
-                                      mytranslate(context, "track"),
-                                      style: TextStyle(
-                                          color: myWhite,
-                                          fontSize: 17,
-                                          fontWeight: FontWeight.w600),
+                                    Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Text(
+                                        mytranslate(context, "track"),
+                                        style: TextStyle(
+                                            color: myWhite,
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w600),
+                                      ),
                                     ),
                                     const SizedBox(
                                       height: 5,

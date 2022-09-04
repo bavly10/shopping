@@ -3,7 +3,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:shopping/modules/Customer/login/cubit/cubit.dart';
 import 'package:shopping/modules/Customer/login/cubit/state.dart';
+import 'package:shopping/modules/Customer/login/login/login.dart';
+import 'package:shopping/modules/Customer/login/signup/tabs/first_screen.dart';
+import 'package:shopping/modules/Customer/login/signup/tabs/second_screen.dart';
+import 'package:shopping/modules/Customer/login/signup/tabs/third_screen.dart';
 import 'package:shopping/shared/compononet/blueButton.dart';
+import 'package:shopping/shared/compononet/componotents.dart';
 import 'package:shopping/shared/compononet/dialog.dart';
 import 'package:shopping/shared/compononet/rowLogin.dart';
 import 'package:shopping/shared/localization/translate.dart';
@@ -12,14 +17,14 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class Signup extends StatelessWidget {
   var pageController = PageController();
+  final GlobalKey<FormState> myform = GlobalKey();
   Signup({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<LoginCubit, LoginStates>(
       listener: (ctx, state) {
         if (state is SucessSignupState) {
-          if (state.response.status == false &&
-              state.response.errorCode == 6003) {
+          if (state.response.status == false && state.response.errorCode == 6003) {
             My_CustomAlertDialog(
                 onPress: () => Navigator.pop(context),
                 pressTitle: 'OK',
@@ -32,7 +37,7 @@ class Signup extends StatelessWidget {
                 iconColor: Colors.red);
           } else {
             My_CustomAlertDialog(
-                onPress: () => Navigator.pop(context),
+                onPress: () => navigateToFinish(context, Login()),
                 pressTitle: 'OK',
                 context: context,
                 icon: Icons.done,
@@ -121,7 +126,7 @@ class Signup extends StatelessWidget {
     );
   }
 
-  Widget buttonNP(PageController pagecontroller, context, bool state) {
+  Widget buttonNP(PageController pagecontroller, context, bool state,) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -143,7 +148,7 @@ class Signup extends StatelessWidget {
         LoginCubit.get(context).lastIndex
             ? BlueButton(
                 title: state
-                    ? SpinKitCircle(
+                    ? const SpinKitCircle(
                         color: Colors.white,
                       )
                     : Text(mytranslate(context, "finish"),
@@ -158,17 +163,17 @@ class Signup extends StatelessWidget {
                   LoginCubit.get(context).signUp();
                 })
             : BlueButton(
-                title: Text(mytranslate(context, "next"),
-                    style: TextStyle(
+                title: Text(mytranslate(context, "next"), style: TextStyle(
                         color: myWhite,
                         fontSize: 18,
                         fontWeight: FontWeight.bold)),
                 hight: 0.09,
                 width: 0.30,
                 onpress: () {
-                  pagecontroller.animateToPage(pagecontroller.page!.toInt() + 1,
-                      duration: const Duration(milliseconds: 400),
-                      curve: Curves.easeIn);
+                  FocusScope.of(context).unfocus();
+                 if(FirstScreen.formFirst.currentState!.validate()){
+                   pagecontroller.animateToPage(pagecontroller.page!.toInt() + 1, duration: const Duration(milliseconds: 400), curve: Curves.easeIn);
+                 }
                 }),
       ],
     );

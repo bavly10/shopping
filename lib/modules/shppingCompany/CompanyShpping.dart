@@ -108,10 +108,7 @@ class ShippingCompany extends StatelessWidget {
                               onTap: () {
                                 navigateTo(
                                     context,
-                                    InAppWebView(
-                                        initialUrlRequest: URLRequest(
-                                            url: Uri.parse(
-                                                shippingModel.link!))));
+                                    InAppWebView(initialUrlRequest: URLRequest(url: Uri.parse(shippingModel.link!))));
                               },
                               child: Text(
                                 "الموقع الرسمي",

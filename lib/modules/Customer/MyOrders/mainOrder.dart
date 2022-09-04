@@ -32,16 +32,6 @@ class Orders extends StatelessWidget {
                   ),
                   backgroundColor: myGrey,
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: CircleAvatar(
-                    child: Icon(
-                      MdiIcons.chartBar,
-                      color: myBlue,
-                    ),
-                    backgroundColor: myGrey,
-                  ),
-                )
               ]),
           body: SafeArea(
             child: state is CustomerOrderLoading

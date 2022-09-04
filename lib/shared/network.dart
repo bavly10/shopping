@@ -5,8 +5,7 @@ String login = "/login";
 String logout = "/logout";
 String category = "/categories";
 String createProduct = "/create-product";
-String getProduct =
-    "/get-product"; //userid; // بتاع الشخص هيرجعلك المنتجات بتاعته كلها بالباجينيشن كل صفحة فيها 3 منتجات
+String getProduct = "/get-product"; //userid; // بتاع الشخص هيرجعلك المنتجات بتاعته كلها بالباجينيشن كل صفحة فيها 3 منتجات
 String updateProduct = "/update-product"; //id
 String showProduct = "/show-product";
 String deleteProduct = "/delete-product"; //id
@@ -26,3 +25,4 @@ String orderNew = "/add-buy-operation";
 String myorder = "/get-talapat";
 String latestProducts = "/latest-product";
 String statistics = "/get-statistics";
+String forgetPass = "https://kash5tak.com/password/reset";

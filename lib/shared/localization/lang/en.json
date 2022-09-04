@@ -113,5 +113,10 @@
    "selecte": "Please..Choose Connection Way",
    "what": "whatsapp app link not found ",
    "loading": "Loading...",
-   "verfi": "Please go to email and activate the account"
+   "verfi": "Please go to email and activate the account",
+   "validateEmail": "Email is required bro.",
+   "validateName": "Name is required bro.",
+   "validatePass": "Password is required bro.",
+   "validateNumber": "Mobile Number is required bro.",
+   "validateStore": "Name Store is required bro."
 }
