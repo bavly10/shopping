@@ -13,60 +13,62 @@ import 'package:shopping/shared/my_colors.dart';
 
 class MoreProductsCustomer extends StatelessWidget {
   final ScrollController scrollController = ScrollController();
-   MoreProductsCustomer({Key? key}) : super(key: key);
+  MoreProductsCustomer({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     getMoreProduct(context);
     return BlocConsumer<ProductCubit, ProductStates>(
       listener: (context, state) {
-         if (state is GettingProductDataNull){
+        if (state is GettingProductDataNull) {
           myToast(message: mytranslate(context, "noData"));
-        }else{}
+        } else {}
       },
       builder: (context, state) {
         final cubit = ProductCubit.get(context).listProducts;
         return Scaffold(
-          appBar: AppBar(
-            title: Text("My product"),
-            leading: IconButton(
-              onPressed: () {},
-              icon: const Icon(Icons.search),
+            appBar: AppBar(
+              title: Text("My product"),
+              leading: IconButton(
+                onPressed: () {},
+                icon: const Icon(Icons.search),
+              ),
             ),
-          ),
-          body: SafeArea(
-            child: LayoutBuilder(builder: (context, constraint) {
-              return Stack(
-                children: [
-                  ListView.builder(
-                    controller: scrollController,
-                    itemBuilder: (ctx, index) =>
-                        myCard(context: context, pro: cubit[index]),
-                    itemCount: cubit.length,
-                  ),
-                  if (state is GettingProductDataLoading) ...[
-                    Positioned(
-                      left: 0,
-                      bottom: 0,
-                      child: SizedBox(
-                        width: constraint.maxWidth,
-                        height: 80,
-                        child: Center(
-                          child: CircularProgressIndicator(
-                            color: myBlue,
+            body: SafeArea(
+              child: LayoutBuilder(builder: (context, constraint) {
+                return Stack(
+                  children: [
+                    ListView.builder(
+                      controller: scrollController,
+                      itemBuilder: (ctx, index) => Padding(
+                        padding: const EdgeInsets.only(
+                            top: 8.0, left: 12, right: 12, bottom: 8),
+                        child: myCard(context: context, pro: cubit[index]),
+                      ),
+                      itemCount: cubit.length,
+                    ),
+                    if (state is GettingProductDataLoading) ...[
+                      Positioned(
+                        left: 0,
+                        bottom: 0,
+                        child: SizedBox(
+                          width: constraint.maxWidth,
+                          height: 80,
+                          child: Center(
+                            child: CircularProgressIndicator(
+                              color: myBlue,
+                            ),
                           ),
                         ),
-                      ),
-                    )
-                  ]
-                ],
-              );
-            }
-            ),
-            )
-        );
+                      )
+                    ]
+                  ],
+                );
+              }),
+            ));
       },
     );
   }
+
   Widget myCard({context, required ProductItemMainCustomer pro}) {
     return Column(
       children: [
@@ -170,16 +172,16 @@ class MoreProductsCustomer extends StatelessWidget {
       ],
     );
   }
-  void getMoreProduct(context){
+
+  void getMoreProduct(context) {
     scrollController.addListener(() async {
       if (scrollController.position.pixels >=
           scrollController.position.maxScrollExtent) {
         ProductCubit.get(context).pagnationDataLimit();
-        ProductCubit.get(context).getProducts(context, ProductCubit.get(context).limit);
+        ProductCubit.get(context)
+            .getProducts(context, ProductCubit.get(context).limit);
         print("new Data Loading");
       }
     });
   }
 }
-
-
