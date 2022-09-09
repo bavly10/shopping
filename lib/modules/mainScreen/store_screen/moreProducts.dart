@@ -25,8 +25,7 @@ class MoreProCustomer extends StatelessWidget {
       listener: (context, state) {
         if (state is ProductCustomerNullPagi) {
           myToast(message: mytranslate(context, "noData"));
-        }
-        else{}
+        } else {}
       },
       builder: (context, state) {
         var model = CustomerCubit.get(context).search;
@@ -58,79 +57,71 @@ class MoreProCustomer extends StatelessWidget {
               : Padding(
                   padding: const EdgeInsets.all(12.0),
                   child: SafeArea(
-                    child:  LayoutBuilder(builder: (context, constraint) {
-                      return Stack(
-                          children: [
-                            GridView.custom(
-                                controller: scrollController,
-                                shrinkWrap: true,
-                                gridDelegate: SliverWovenGridDelegate.count(
-                                  crossAxisCount: 2,
-                                  mainAxisSpacing: 8,
-                                  crossAxisSpacing: 8,
-                                  pattern: [
-                                    const WovenGridTile(6 / 7),
-                                    const WovenGridTile(
-                                      5 / 7,
-                                      crossAxisRatio: .9,
-                                      alignment: AlignmentDirectional.centerEnd,
-                                    ),
-                                  ],
+                    child: LayoutBuilder(builder: (context, constraint) {
+                      return Stack(children: [
+                        GridView.custom(
+                            controller: scrollController,
+                            shrinkWrap: true,
+                            gridDelegate: SliverWovenGridDelegate.count(
+                              crossAxisCount: 2,
+                              mainAxisSpacing: 8,
+                              crossAxisSpacing: 8,
+                              pattern: [
+                                const WovenGridTile(6 / 7),
+                                const WovenGridTile(
+                                  5 / 7,
+                                  crossAxisRatio: .9,
+                                  alignment: AlignmentDirectional.centerEnd,
                                 ),
-                                childrenDelegate: SliverChildBuilderDelegate(
-                                        (context, index) =>
-                                        InkWell(
-                                            onTap: () {
-                                              ProductCubit.get(context)
-                                                  .productInfo(
-                                                  cubit[index].id, context)
-                                                  .then((value) =>
-                                              {
-                                                navigateTo(
-                                                    context,
+                              ],
+                            ),
+                            childrenDelegate: SliverChildBuilderDelegate(
+                                (context, index) => InkWell(
+                                    onTap: () {
+                                      ProductCubit.get(context)
+                                          .productInfo(cubit[index].id, context)
+                                          .then((value) => {
+                                                navigateTo(context,
                                                     const DetailsProduct())
                                               });
-                                            },
-                                            child: search.text.isEmpty
-                                                ? LatestPro(
-                                                productsItem: cubit[index])
-                                                : LatestPro(
-                                                productsItem: model[index])),
-                                    childCount: search.text.isEmpty
-                                        ? cubit.length
-                                        : model.length)),
-                            if (state is ProductCustomerLoading) ...[
-                              Positioned(
-                                left: 0,
-                                bottom: 0,
-                                child: SizedBox(
-                                  width: constraint.maxWidth,
-                                  height: 80,
-                                  child: Center(
-                                    child: CircularProgressIndicator(
-                                      color: myBlue,
-                                    ),
-                                  ),
+                                    },
+                                    child: search.text.isEmpty
+                                        ? LatestPro(productsItem: cubit[index])
+                                        : LatestPro(
+                                            productsItem: model[index])),
+                                childCount: search.text.isEmpty
+                                    ? cubit.length
+                                    : model.length)),
+                        if (state is ProductCustomerLoading) ...[
+                          Positioned(
+                            left: 0,
+                            bottom: 0,
+                            child: SizedBox(
+                              width: constraint.maxWidth,
+                              height: 80,
+                              child: Center(
+                                child: CircularProgressIndicator(
+                                  color: myBlue,
                                 ),
-                              )
-                            ]
-                          ]
-                      );
-                    }
-                    ),
+                              ),
+                            ),
+                          )
+                        ]
+                      ]);
+                    }),
                   ),
                 ),
         );
       },
     );
   }
-  void getMoreProduct(context){
+
+  void getMoreProduct(context) {
     scrollController.addListener(() async {
       if (scrollController.position.pixels >=
           scrollController.position.maxScrollExtent) {
         CustomerCubit.get(context).pagnationDataCurrent();
-        CustomerCubit.get(context)
-            .getProductCustomerPagination(id);
+        CustomerCubit.get(context).getProductCustomerPagination(id);
         print("new Data Loading");
       }
     });

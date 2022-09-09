@@ -257,6 +257,19 @@ class ProductCubit extends Cubit<ProductStates> {
   /////////////////////////Get Product in main Screen/////////////////////
   List<ProductItemMainCustomer> listProduct = [];
   List<ProductItemMainCustomer> listProducts = [];
+  List<ProductItemMainCustomer> search = [];
+  List<dynamic> searchCustomer(String quary) {
+    search = [];
+    var searching = listProducts
+        .where((element) =>
+            element.titleAr!.toLowerCase().contains(quary.toLowerCase()))
+        .toList();
+    search = searching;
+    // print(search[0].title);
+    emit(SearchingProduct());
+    return search;
+  }
+
   DataProductMainCustomer? datak;
   int limit = 1;
   int pagnationDataLimit() {
