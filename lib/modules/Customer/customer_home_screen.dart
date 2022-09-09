@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_hex_color/flutter_hex_color.dart';
 
 import 'package:shopping/Cubit/cubit.dart';
@@ -35,13 +36,16 @@ class CustomerHome extends StatelessWidget {
     return BlocConsumer<ProductCubit, ProductStates>(
         listener: (context, state) {
           if (state is LoadingShowCustomer) {
-            showDialog(
-                context: context, builder: (context) => const LoadingDialog());
+            showDialog(context: context, builder: (context) => const LoadingDialog());
           } else if (state is ShowingCustomerData) {
             navigateTo(context, UpdateCustomer());
           } else if (state is FailShowCustomerData) {
             myToast(message: mytranslate(context, "noData"));
-          } else {}
+          }else if (state is GettingProductDataLoading){
+            EasyLoading.showToast("loading..",
+                toastPosition: EasyLoadingToastPosition.bottom,
+                duration: const Duration(milliseconds: 3));
+          }else{}
         }, builder: (context, state) {
       var productItem = ProductCubit.get(context).listProduct;
       return Scaffold(
@@ -215,7 +219,8 @@ class CustomerHome extends StatelessWidget {
                       Spacer(),
                       TextButton(
                           onPressed: () {
-                            navigateTo(context, const MoreProductsCustomer());
+                            ProductCubit.get(context).pagnationDataLimit();
+                            ProductCubit.get(context).getProducts(context, ProductCubit.get(context).limit).then((value) =>  navigateTo(context,MoreProductsCustomer()));
                           },
                           child: Text(
                             mytranslate(context, "more"),

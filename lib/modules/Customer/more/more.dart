@@ -5,68 +5,68 @@ import 'package:shopping/model/product.dart';
 import 'package:shopping/modules/Customer/products/cubit/cubit.dart';
 import 'package:shopping/modules/Customer/products/cubit/states.dart';
 import 'package:shopping/modules/Customer/products/updateProduct.dart';
+import 'package:shopping/shared/compononet/LoagingDialog.dart';
 import 'package:shopping/shared/compononet/componotents.dart';
 import 'package:shopping/shared/compononet/myToast.dart';
 import 'package:shopping/shared/localization/translate.dart';
 import 'package:shopping/shared/my_colors.dart';
 
 class MoreProductsCustomer extends StatelessWidget {
-  const MoreProductsCustomer({Key? key}) : super(key: key);
-
+  final ScrollController scrollController = ScrollController();
+   MoreProductsCustomer({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    getMoreProduct(context);
     return BlocConsumer<ProductCubit, ProductStates>(
       listener: (context, state) {
-        if (state is GettingProductDataNull) {
+         if (state is GettingProductDataNull){
           myToast(message: mytranslate(context, "noData"));
-        } else {}
+        }else{}
       },
       builder: (context, state) {
         final cubit = ProductCubit.get(context).listProducts;
         return Scaffold(
           appBar: AppBar(
+            title: Text("My product"),
             leading: IconButton(
               onPressed: () {},
               icon: const Icon(Icons.search),
             ),
-            actions: [
-              state is GettingProductDataNull
-                  ? const Text("No more")
-                  : TextButton(
-                      onPressed: () {
-                        ProductCubit.get(context).pagnationDataLimit();
-                        ProductCubit.get(context).getProducts(context, ProductCubit.get(context).limit);
-                      },
-                      child: Container(
-                        width: 100,
-                        decoration: BoxDecoration(
-                          color: myBlue,
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
-                        child: Center(
-                          child: Text(
-                            mytranslate(context, "more"),
-                            style: const TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 18.0),
-                          ),
-                        ),
-                      ))
-            ],
           ),
           body: SafeArea(
-            child: ListView.builder(
-              itemBuilder: (ctx, index) =>
-                  myCard(context: context, pro: cubit[index]),
-              itemCount: cubit.length,
+            child: LayoutBuilder(builder: (context, constraint) {
+              return Stack(
+                children: [
+                  ListView.builder(
+                    controller: scrollController,
+                    itemBuilder: (ctx, index) =>
+                        myCard(context: context, pro: cubit[index]),
+                    itemCount: cubit.length,
+                  ),
+                  if (state is GettingProductDataLoading) ...[
+                    Positioned(
+                      left: 0,
+                      bottom: 0,
+                      child: SizedBox(
+                        width: constraint.maxWidth,
+                        height: 80,
+                        child: Center(
+                          child: CircularProgressIndicator(
+                            color: myBlue,
+                          ),
+                        ),
+                      ),
+                    )
+                  ]
+                ],
+              );
+            }
             ),
-          ),
+            )
         );
       },
     );
   }
-
   Widget myCard({context, required ProductItemMainCustomer pro}) {
     return Column(
       children: [
@@ -170,4 +170,16 @@ class MoreProductsCustomer extends StatelessWidget {
       ],
     );
   }
+  void getMoreProduct(context){
+    scrollController.addListener(() async {
+      if (scrollController.position.pixels >=
+          scrollController.position.maxScrollExtent) {
+        ProductCubit.get(context).pagnationDataLimit();
+        ProductCubit.get(context).getProducts(context, ProductCubit.get(context).limit);
+        print("new Data Loading");
+      }
+    });
+  }
 }
+
+

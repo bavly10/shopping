@@ -9,20 +9,20 @@ class LoadingDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return AlertDialog(
       alignment: Alignment.center,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0)),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25.0)),
       elevation: 0.0,
-      backgroundColor: Colors.transparent.withOpacity(.05),
       content: dialogContent(context),
     );
   }
 
   Widget dialogContent(BuildContext context) {
-    return Container(
-      height: MediaQuery.of(context).size.height * 0.35,
-      width: MediaQuery.of(context).size.width * 0.996,
+    return SizedBox(
+      height: MediaQuery.of(context).size.height * 0.25,
+      width: double.infinity,
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text(mytranslate(context, "loading")),
+          Text(mytranslate(context, "loading"),style: TextStyle(color: Colors.black),),
           const SizedBox(height: 10,),
           const CircularProgressIndicator(),
         ],
