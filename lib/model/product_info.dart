@@ -48,6 +48,7 @@ class ProductInfoItem {
     this.the3Xl,
     this.the4Xl,
     this.images,
+    this.rate,
   });
 
   int? id;
@@ -62,24 +63,25 @@ class ProductInfoItem {
   String? the2Xl;
   String? the3Xl;
   dynamic the4Xl;
+  String? rate;
   List<ImageInfoPro>? images;
 
   factory ProductInfoItem.fromMap(Map<String, dynamic> json) => ProductInfoItem(
-        id: json["id"],
-        title: json["title"],
-        price: json["price"],
-        many: json["many"],
-        desc: json["desc"],
-        s: json["s"],
-        m: json["m"],
-        l: json["l"],
-        xl: json["xl"],
-        the2Xl: json["2xl"],
-        the3Xl: json["3xl"],
-        the4Xl: json["4xl"],
-        images: List<ImageInfoPro>.from(
-            json["images"].map((x) => ImageInfoPro.fromMap(x))),
-      );
+      id: json["id"],
+      title: json["title"],
+      price: json["price"],
+      many: json["many"],
+      desc: json["desc"],
+      s: json["s"],
+      m: json["m"],
+      l: json["l"],
+      xl: json["xl"],
+      the2Xl: json["2xl"],
+      the3Xl: json["3xl"],
+      the4Xl: json["4xl"],
+      images: List<ImageInfoPro>.from(
+          json["images"].map((x) => ImageInfoPro.fromMap(x))),
+      rate: json["rate"]);
 
   Map<String, dynamic> toMap() => {
         "id": id,
@@ -95,6 +97,7 @@ class ProductInfoItem {
         "3xl": the3Xl,
         "4xl": the4Xl,
         "images": List<dynamic>.from(images!.map((x) => x.toMap())),
+        "rate": rate
       };
 }
 

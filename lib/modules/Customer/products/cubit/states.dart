@@ -67,6 +67,13 @@ class ChooseSize extends ProductStates {}
 class InsertOrderSucessState extends ProductStates {}
 
 class InsertOrderErrorState extends ProductStates {}
+
 class LoadingShowCustomer extends ProductStates {}
+
 class ShowingCustomerData extends ProductStates {}
+
 class FailShowCustomerData extends ProductStates {}
+
+class ShopEarnSuessState extends ProductStates {}
+
+class ErrorEarnState extends ProductStates {}

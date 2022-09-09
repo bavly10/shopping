@@ -127,7 +127,7 @@ class ShopCubit extends Cubit<ShopStates> {
   }
 
   /////////////
-  int? selected=0;
+  int? selected = 0;
   void getselected(int x) {
     selected = x;
     emit(ChangeSelcect());
@@ -205,5 +205,7 @@ class ShopCubit extends Cubit<ShopStates> {
 
     emit(ChangeButtonText());
   }
-  /////////////////////////////
+
+  /////////////////////////////Get Earn Number////////
+
 }

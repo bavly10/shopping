@@ -18,18 +18,19 @@ import '../../../../shared/my_colors.dart';
 import '../../../Customer/cubit/cubit.dart';
 
 class CustomDrawer extends StatelessWidget {
-  String? image, address, phoneStore;
-  final String tiltle ;
+  String? image, address, phoneStore, rate;
+  final String tiltle;
   int? id;
   GlobalKey<ScaffoldState>? skey;
   CustomDrawer(
       {Key? key,
-     required this.tiltle,
+      required this.tiltle,
       this.address,
       this.image,
       this.id,
       this.skey,
-      this.phoneStore})
+      this.phoneStore,
+      this.rate})
       : super(key: key);
 
   @override
@@ -44,6 +45,7 @@ class CustomDrawer extends StatelessWidget {
             image: image,
             star: HexColor('#F89A2F'),
             textColor: Colors.white,
+            rate: rate,
           ),
         ),
         Padding(

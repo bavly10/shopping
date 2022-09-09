@@ -17,178 +17,196 @@ import 'package:shopping/shared/localization/translate.dart';
 import 'package:shopping/shared/my_colors.dart';
 
 class StoreScreen extends StatelessWidget {
-   String?adress, phone, image;
-   final String title;
+  String? adress, phone, image, rate;
+  final String title;
   int? id;
 
-  StoreScreen({Key? key, this.id, required this.title,this.image, this.adress, this.phone}) : super(key: key);
+  StoreScreen(
+      {Key? key,
+      this.id,
+      required this.title,
+      this.image,
+      this.adress,
+      this.phone,
+      this.rate})
+      : super(key: key);
   final _advancedDrawerController = AdvancedDrawerController();
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
     CustomerCubit.get(context).getProductCustomer(id);
-    CustomerCubit.get(context).latestproducts(id:id);
+    CustomerCubit.get(context).latestproducts(id: id);
     return BlocBuilder<CustomerCubit, CustomerStates>(
         builder: (context, state) {
-          var cubit = CustomerCubit.get(context);
-          var latest = CustomerCubit.get(context).latestPro;
-          return AdvancedDrawer(
-            backdropColor: HexColor('#2F69F8'),
-            controller: _advancedDrawerController,
-            animationCurve: Curves.easeInOut,
-            animationDuration: const Duration(milliseconds: 300),
-            animateChildDecoration: true,
-            rtlOpening: false,
-            // openScale: 1.0,
-            disabledGestures: false,
-            childDecoration: const BoxDecoration(
-              borderRadius: const BorderRadius.all(Radius.circular(16)),
-            ),
-            drawer: CustomDrawer(
-                tiltle: title,
-                address:adress,
-                image: image,
-                id:id,
-                phoneStore:phone,
-                skey: scaffoldKey),
-            child: Scaffold(
-              key: scaffoldKey,
-              backgroundColor: myGrey,
-              appBar: AppBar(
-                backgroundColor: myGrey,
-                leading: IconButton(
-                  onPressed: _handleMenuButtonPressed,
-                  icon: ValueListenableBuilder<AdvancedDrawerValue>(
-                    valueListenable: _advancedDrawerController,
-                    builder: (_, value, __) {
-                      return AnimatedSwitcher(
-                        duration: const Duration(milliseconds: 250),
-                        child: Icon(
-                          value.visible ? Icons.clear : Icons.menu,
-                          size: 28,
-                          key: ValueKey<bool>(value.visible),
-                        ),
-                      );
-                    },
-                  ),
-                ),
+      var cubit = CustomerCubit.get(context);
+      var latest = CustomerCubit.get(context).latestPro;
+      return AdvancedDrawer(
+        backdropColor: HexColor('#2F69F8'),
+        controller: _advancedDrawerController,
+        animationCurve: Curves.easeInOut,
+        animationDuration: const Duration(milliseconds: 300),
+        animateChildDecoration: true,
+        rtlOpening: false,
+        // openScale: 1.0,
+        disabledGestures: false,
+        childDecoration: const BoxDecoration(
+          borderRadius: const BorderRadius.all(Radius.circular(16)),
+        ),
+        drawer: CustomDrawer(
+          tiltle: title,
+          address: adress,
+          image: image,
+          id: id,
+          phoneStore: phone,
+          skey: scaffoldKey,
+          rate: rate,
+        ),
+        child: Scaffold(
+          key: scaffoldKey,
+          backgroundColor: myGrey,
+          appBar: AppBar(
+            backgroundColor: myGrey,
+            leading: IconButton(
+              onPressed: _handleMenuButtonPressed,
+              icon: ValueListenableBuilder<AdvancedDrawerValue>(
+                valueListenable: _advancedDrawerController,
+                builder: (_, value, __) {
+                  return AnimatedSwitcher(
+                    duration: const Duration(milliseconds: 250),
+                    child: Icon(
+                      value.visible ? Icons.clear : Icons.menu,
+                      size: 28,
+                      key: ValueKey<bool>(value.visible),
+                    ),
+                  );
+                },
               ),
-              body: SingleChildScrollView(
-                child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                          padding: const EdgeInsets.all(14.0),
-                          child: TopScreen(
-                            adress: adress,
-                            image:image,
-                            title:title,
-                          )),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 20.0, left: 20, bottom: 20),
-                        child: Text(mytranslate(context, "best"), style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
-                      ),
-                      Container(
-                        height: MediaQuery.of(context).size.width * .7,
-                        padding: const EdgeInsets.only(right: 8, left: 8),
-                        // width: MediaQuery.of(context).size.width,
-                        child: latest.isEmpty?Center(
-                          child: Text(
-                            mytranslate(context, "new"),
-                            style: TextStyle(
-                                color: myBlue,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 20),
-                          ),
-                        ):ListView.builder(
-                          physics: const BouncingScrollPhysics(),
-                          scrollDirection: Axis.horizontal,
-                          shrinkWrap: true,
-                          itemExtent: 180,
-                          itemBuilder: ((context, index) {
-                            return BestCard(pro:latest[index],index: index,list: latest,);
-                          }),
-                          itemCount: latest.length,
-                        ),
-                      ),
-                      Row(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(
-                                top: 20.0, left: 20, bottom: 20),
-                            child: Text(mytranslate(context, "recent"),
-                                style: const TextStyle(
-                                    fontSize: 22, fontWeight: FontWeight.bold)),
-                          ),
-                          Spacer(),
-                          TextButton(
-                              onPressed: () {
-                                CustomerCubit.get(context).lists=[];
-                                CustomerCubit.get(context).getProductCustomerPagination(id).then((value) =>navigateTo(context,MoreProCustomer(id!)));
-                              },
-                              child: Text(
-                                mytranslate(context, "more"),
-                                style: TextStyle(
-                                    decoration: TextDecoration.underline,
-                                    color: myBlue,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 16),
-                              )),
-                        ],
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
+            ),
+          ),
+          body: SingleChildScrollView(
+            child:
+                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              Padding(
+                  padding: const EdgeInsets.all(14.0),
+                  child: TopScreen(
+                      adress: adress, image: image, title: title, rate: rate)),
+              Padding(
+                padding: const EdgeInsets.only(top: 20.0, left: 20, bottom: 20),
+                child: Text(mytranslate(context, "best"),
+                    style: const TextStyle(
+                        fontSize: 22, fontWeight: FontWeight.bold)),
+              ),
+              Container(
+                height: MediaQuery.of(context).size.width * .7,
+                padding: const EdgeInsets.only(right: 8, left: 8),
+                // width: MediaQuery.of(context).size.width,
+                child: latest.isEmpty
+                    ? Center(
                         child: Text(
-                            "${mytranslate(context, "have")} ${cubit.list.length} ${mytranslate(context, "prod")}"),
+                          mytranslate(context, "new"),
+                          style: TextStyle(
+                              color: myBlue,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20),
+                        ),
+                      )
+                    : ListView.builder(
+                        physics: const BouncingScrollPhysics(),
+                        scrollDirection: Axis.horizontal,
+                        shrinkWrap: true,
+                        itemExtent: 180,
+                        itemBuilder: ((context, index) {
+                          return BestCard(
+                            pro: latest[index],
+                            index: index,
+                            list: latest,
+                          );
+                        }),
+                        itemCount: latest.length,
                       ),
-                      cubit.list.isEmpty
-                          ? Center(
-                              child: Text(
-                                mytranslate(context, "new"),
-                                style: TextStyle(
-                                    color: myBlue,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 20),
-                              ),
-                            )
-                          : Padding(
-                            padding: EdgeInsets.all(14.0),
-                            child: GridView.custom(
-                                shrinkWrap: true,
-                                physics: const NeverScrollableScrollPhysics(),
-                                gridDelegate: SliverWovenGridDelegate.count(
-                                  crossAxisCount: 2,
-                                  mainAxisSpacing: 8,
-                                  crossAxisSpacing: 8,
-                                  pattern: [
-                                    const WovenGridTile(6 / 7),
-                                    const WovenGridTile(
-                                      5 / 7,
-                                      crossAxisRatio: .9,
-                                      alignment:
-                                          AlignmentDirectional.centerEnd,
-                                    ),
-                                  ],
-                                ),
-                                childrenDelegate:
-                                    SliverChildBuilderDelegate(
-                                        (context, index) => InkWell(
-                                            onTap: () {
-                                              ProductCubit.get(context)
-                                                  .productInfo(cubit.list[index].id, context)
-                                                  .then((value) => {navigateTo(context, const DetailsProduct())});
-                                            },
-                                            child: LatestPro(
-                                                productsItem:
-                                                cubit.list[index])),
-                                        childCount:  cubit.list.length)),
-                          ),
-                    ]),
               ),
-            ),
-          );
-        });
+              Row(
+                children: [
+                  Padding(
+                    padding:
+                        const EdgeInsets.only(top: 20.0, left: 20, bottom: 20),
+                    child: Text(mytranslate(context, "recent"),
+                        style: const TextStyle(
+                            fontSize: 22, fontWeight: FontWeight.bold)),
+                  ),
+                  Spacer(),
+                  TextButton(
+                      onPressed: () {
+                        CustomerCubit.get(context).lists = [];
+                        CustomerCubit.get(context)
+                            .getProductCustomerPagination(id)
+                            .then((value) =>
+                                navigateTo(context, MoreProCustomer(id!)));
+                      },
+                      child: Text(
+                        mytranslate(context, "more"),
+                        style: TextStyle(
+                            decoration: TextDecoration.underline,
+                            color: myBlue,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16),
+                      )),
+                ],
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                    "${mytranslate(context, "have")} ${cubit.list.length} ${mytranslate(context, "prod")}"),
+              ),
+              cubit.list.isEmpty
+                  ? Center(
+                      child: Text(
+                        mytranslate(context, "new"),
+                        style: TextStyle(
+                            color: myBlue,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20),
+                      ),
+                    )
+                  : Padding(
+                      padding: EdgeInsets.all(14.0),
+                      child: GridView.custom(
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          gridDelegate: SliverWovenGridDelegate.count(
+                            crossAxisCount: 2,
+                            mainAxisSpacing: 8,
+                            crossAxisSpacing: 8,
+                            pattern: [
+                              const WovenGridTile(6 / 7),
+                              const WovenGridTile(
+                                5 / 7,
+                                crossAxisRatio: .9,
+                                alignment: AlignmentDirectional.centerEnd,
+                              ),
+                            ],
+                          ),
+                          childrenDelegate: SliverChildBuilderDelegate(
+                              (context, index) => InkWell(
+                                  onTap: () {
+                                    ProductCubit.get(context)
+                                        .productInfo(
+                                            cubit.list[index].id, context)
+                                        .then((value) => {
+                                              navigateTo(context,
+                                                  const DetailsProduct())
+                                            });
+                                  },
+                                  child: LatestPro(
+                                      productsItem: cubit.list[index])),
+                              childCount: cubit.list.length)),
+                    ),
+            ]),
+          ),
+        ),
+      );
+    });
   }
 
   void _handleMenuButtonPressed() {

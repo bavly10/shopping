@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hex_color/flutter_hex_color.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:shopping/shared/compononet/custom_rating.dart';
 import 'package:shopping/shared/my_colors.dart';
 
 import '../../../../shared/compononet/popup_dialog.dart';
 
 class TopScreen extends StatelessWidget {
-  String? adress, image;
+  String? adress, image, rate;
   Color? star, textColor, locationColor;
   final String title;
 
@@ -17,7 +18,8 @@ class TopScreen extends StatelessWidget {
       this.image,
       this.star,
       this.locationColor,
-      this.textColor})
+      this.textColor,
+      this.rate})
       : super(key: key);
 
   @override
@@ -28,7 +30,9 @@ class TopScreen extends StatelessWidget {
             onTap: () {
               showDialog(
                   context: context,
-                  builder: (context) => PopupDialog(image: image,));
+                  builder: (context) => PopupDialog(
+                        image: image,
+                      ));
             },
             child: CircleAvatar(
                 backgroundImage: NetworkImage(image!), radius: 50)),
@@ -41,22 +45,38 @@ class TopScreen extends StatelessWidget {
                       color: textColor ?? Colors.black,
                       fontSize: 28,
                       fontWeight: FontWeight.bold)),
-              RatingBar.builder(
-                itemSize: 15,
-                initialRating: 3,
-                minRating: 1,
-                direction: Axis.horizontal,
-                allowHalfRating: true,
-                itemCount: 5,
-                itemPadding: const EdgeInsets.symmetric(horizontal: 4.0),
-                itemBuilder: (context, _) => Icon(
-                  Icons.star,
-                  color: star ?? myBlue,
-                ),
-                onRatingUpdate: (rating) {
-                  print(rating);
-                },
+              CustomRating(
+                rate: rate,
+                star: star,
               ),
+              // RatingBarIndicator(
+              //   rating: double.parse(rate!),
+              //   itemBuilder: (context, index) => Icon(
+              //     Icons.star,
+              //     color: star ?? myBlue,
+              //   ),
+              //   itemCount: 5,
+              //   itemSize: 15,
+              //   direction: Axis.horizontal,
+              //   itemPadding: const EdgeInsets.symmetric(horizontal: 4.0),
+              // ),
+              // RatingBar.builder(
+              //   itemSize: 15,
+              //   initialRating: double.parse(rate!),
+              //   minRating: 0,
+              //   direction: Axis.horizontal,
+              //   allowHalfRating: true,
+              //   itemCount: 5,
+              //   itemPadding: const EdgeInsets.symmetric(horizontal: 4.0),
+              //   itemBuilder: (context, _) => Icon(
+              //     Icons.star,
+              //     color: star ?? myBlue,
+              //   ),
+              //   onRatingUpdate: (rating) {
+
+              //     // print(rating);
+              //   },
+              // ),
               adress == null
                   ? const SizedBox()
                   : Padding(

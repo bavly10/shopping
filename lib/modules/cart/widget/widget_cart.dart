@@ -7,16 +7,18 @@ import '../../../shared/my_colors.dart';
 
 class Cartitemapp extends StatelessWidget {
   final String id, proid, title, imgurl, size;
+  String? rate;
   final int quant;
   final double price;
-  const Cartitemapp(
+  Cartitemapp(
       {required this.id,
       required this.proid,
       required this.title,
       required this.imgurl,
       required this.size,
       required this.quant,
-      required this.price});
+      required this.price,
+      this.rate});
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -81,38 +83,6 @@ class Cartitemapp extends StatelessWidget {
                               width: MediaQuery.of(context).size.width * .30,
                             ),
                           ],
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 8.0, bottom: 8),
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              RatingBar.builder(
-                                itemSize: 13,
-                                initialRating: 3,
-                                minRating: 1,
-                                direction: Axis.horizontal,
-                                allowHalfRating: true,
-                                itemCount: 5,
-                                itemPadding:
-                                    const EdgeInsets.symmetric(horizontal: 4.0),
-                                itemBuilder: (context, _) => Icon(
-                                  Icons.star,
-                                  color: myBlue,
-                                ),
-                                onRatingUpdate: (rating) {
-                                  print(rating);
-                                },
-                              ),
-                              const Padding(
-                                padding: EdgeInsets.only(left: 8.0),
-                                child: Text(
-                                  "150 Rate",
-                                  style: TextStyle(color: Colors.black45),
-                                ),
-                              )
-                            ],
-                          ),
                         ),
                         Padding(
                           padding: const EdgeInsets.only(top: 10.0),

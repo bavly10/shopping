@@ -12,7 +12,7 @@ import '../../../../cart/cart.dart';
 
 class CustomContainerDetails extends StatelessWidget {
   String? image;
-  String? name,size;
+  String? name, size;
   dynamic rating;
   dynamic price;
   String? desc;
@@ -59,42 +59,10 @@ class CustomContainerDetails extends StatelessWidget {
                       fontWeight: FontWeight.bold),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      const Text(
-                        "48Rates",
-                        style: TextStyle(color: Colors.black),
-                      ),
-                      const Spacer(),
-                      RatingBar.builder(
-                        itemSize: 20,
-                        initialRating: 3,
-                        minRating: 1,
-                        direction: Axis.horizontal,
-                        allowHalfRating: true,
-                        itemCount: 5,
-                        itemPadding:
-                            const EdgeInsets.symmetric(horizontal: 4.0),
-                        itemBuilder: (context, _) => Icon(
-                          Icons.star,
-                          color: myBlue,
-                        ),
-                        onRatingUpdate: (rating) {
-                          print(rating);
-                        },
-                      ),
-                    ]),
-              ),
               const SizedBox(
-                height: 10,
+                height: 12,
               ),
-              const SizedBox(
-                height: 5,
-              ),
+
               Text(
                 desc!,
                 style: const TextStyle(
@@ -236,7 +204,7 @@ class CustomContainerDetails extends StatelessWidget {
                           proid: id.toString(),
                           imgurl: image.toString(),
                           title: name.toString(),
-                          size:ProductCubit.get(context).selectSize.toString(),
+                          size: ProductCubit.get(context).selectSize.toString(),
                           price: double.parse(price),
                           qua: ProductCubit.get(context).itemCount);
                       myToast(message: "$name Is Added ");

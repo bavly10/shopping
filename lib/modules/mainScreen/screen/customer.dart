@@ -47,12 +47,12 @@ class CustomerScreen extends StatelessWidget {
         navigateTo(
             context,
             StoreScreen(
-              id: pro.id,
-              title: pro.name,
-              image: pro.logo,
-              adress: pro.address,
-              phone: pro.phone,
-            ));
+                id: pro.id,
+                title: pro.name,
+                image: pro.logo,
+                adress: pro.address,
+                phone: pro.phone,
+                rate: pro.rate));
       },
       child: Padding(
         padding: const EdgeInsets.all(8.0),

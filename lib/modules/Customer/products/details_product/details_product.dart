@@ -26,7 +26,7 @@ class DetailsProduct extends StatelessWidget {
               Stack(children: [
                 CustomBackgroundContainer(
                   arrowBack: () {
-                   Navigator.pop(context);
+                    Navigator.pop(context);
                   },
                   cartShopping: () {
                     navigateTo(context, CartScreen());

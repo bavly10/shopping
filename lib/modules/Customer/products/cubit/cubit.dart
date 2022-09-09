@@ -466,11 +466,27 @@ class ProductCubit extends Cubit<ProductStates> {
     return {..._items};
   }
 
+  String? earn;
+  getEarn() {
+    DioHelper.getData(url: "/earn-num").then((value) {
+      earn = value.data["data"];
+
+      emit(ShopEarnSuessState());
+
+      print("Get Earn.. ${earn}");
+    }).catchError((onError) {
+      print(onError.toString());
+      emit(ErrorEarnState());
+    });
+  }
+
   double get totalamount {
     var total = 0.0;
+    var total1 = 0.0;
     _items.forEach((key, Cartitem) {
       total += Cartitem.price * Cartitem.quantity;
     });
+
     return total;
   }
 
@@ -484,7 +500,8 @@ class ProductCubit extends Cubit<ProductStates> {
       required String title,
       required double price,
       required String size,
-      required int qua}) {
+      required int qua,
+      String? rate}) {
     if (_items.containsKey(proid)) {
       _items.update(
           proid,
@@ -494,7 +511,8 @@ class ProductCubit extends Cubit<ProductStates> {
               quantity: value.quantity + 1,
               price: value.price,
               size: value.size,
-              imgurl: value.imgurl));
+              imgurl: value.imgurl,
+              rate: value.rate));
     } else {
       _items.putIfAbsent(
           proid,
@@ -504,7 +522,8 @@ class ProductCubit extends Cubit<ProductStates> {
               title: title,
               quantity: qua,
               price: price,
-              imgurl: imgurl));
+              imgurl: imgurl,
+              rate: rate));
     }
     emit(ShopAddItems());
   }
@@ -580,7 +599,7 @@ class ProductCubit extends Cubit<ProductStates> {
   }
 
   ////////////Show Customer profile/////////
-  File?  file;
+  File? file;
   CustomerModel? prosCustomerModel;
   Future showCustomerData(id, context) async {
     emit(LoadingShowCustomer());

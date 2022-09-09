@@ -40,7 +40,7 @@ class CartScreen extends StatelessWidget {
       builder: (ctx, state) {
         final cubit = ProductCubit.get(context);
         x = cubit.totalamount;
-        var totall = (x + d);
+        var totall = (x + d) + double.parse(cubit.earn!);
         return SafeArea(
           child: Scaffold(
             key: skey,
@@ -120,6 +120,7 @@ class CartScreen extends StatelessWidget {
                                       .quantity,
                                   price:
                                       cubit.items.values.toList()[index].price,
+                                  rate: cubit.items.values.toList()[index].rate,
                                 )),
                   ),
                   const SizedBox(
@@ -164,6 +165,20 @@ class CartScreen extends StatelessWidget {
                                   )),
                               Text(
                                   "${d.toStringAsFixed(2)} ${mytranslate(context, "wd")}",
+                                  style: const TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold)),
+                            ],
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(mytranslate(context, "tax"),
+                                  style: const TextStyle(
+                                    fontSize: 18,
+                                  )),
+                              Text(
+                                  "${double.parse(cubit.earn!)}     ${mytranslate(context, "wd")}",
                                   style: const TextStyle(
                                       fontSize: 18,
                                       fontWeight: FontWeight.bold)),
