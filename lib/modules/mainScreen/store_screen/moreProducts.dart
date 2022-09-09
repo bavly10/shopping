@@ -20,6 +20,7 @@ class MoreProCustomer extends StatelessWidget {
   final ScrollController scrollController = ScrollController();
   @override
   Widget build(BuildContext context) {
+    getMoreProduct(context);
     return BlocConsumer<CustomerCubit, CustomerStates>(
       listener: (context, state) {
         if (state is ProductCustomerNullPagi) {
@@ -122,5 +123,16 @@ class MoreProCustomer extends StatelessWidget {
         );
       },
     );
+  }
+  void getMoreProduct(context){
+    scrollController.addListener(() async {
+      if (scrollController.position.pixels >=
+          scrollController.position.maxScrollExtent) {
+        CustomerCubit.get(context).pagnationDataCurrent();
+        CustomerCubit.get(context)
+            .getProductCustomerPagination(id);
+        print("new Data Loading");
+      }
+    });
   }
 }
