@@ -9,15 +9,12 @@ import 'package:shopping/shared/localization/translate.dart';
 import 'package:shopping/shared/my_colors.dart';
 import 'package:simple_animations/simple_animations.dart';
 
-import '../../Customer/cubit/cubit.dart';
-
 class HomeScreen extends StatelessWidget {
   HomeScreen({Key? key}) : super(key: key);
   var search = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<ShopCubit, ShopStates>(
-      listener: (ctx, state) {},
+    return BlocBuilder<ShopCubit, ShopStates>(
       builder: (ctx, state) {
         final cubit = ShopCubit.get(context);
         return Scaffold(
@@ -46,10 +43,10 @@ class HomeScreen extends StatelessWidget {
                   height: 1,
                   color: Colors.black,
                 ),
-                if (state is LoadingProCustomerState)
-                  const CircularProgressIndicator(),
+                if (state is LoadingProCustomerState)const CircularProgressIndicator(),
                 if (state is DoneProCustomerState) CustomerScreen(),
                 if (state is emptyProCustomerState) const Text("No data"),
+                if (state is ChangeIndexTabs) CustomerScreen(),
               ],
             ),
           ),

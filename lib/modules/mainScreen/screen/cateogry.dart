@@ -12,14 +12,14 @@ class CategoryScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     final list = ShopCubit.get(context).categoryModel;
     return SingleChildScrollView(
       physics: const NeverScrollableScrollPhysics(),
       child: SizedBox(
           height: MediaQuery.of(context).size.height * 0.16,
           width: double.infinity,
-          child: colntroller!.text.isNotEmpty &&
-                  ShopCubit.get(context).searchCat.isEmpty
+          child: colntroller!.text.isNotEmpty && ShopCubit.get(context).searchCat.isEmpty
               ? Center(
                   child: Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -52,21 +52,15 @@ class CategoryScreen extends StatelessWidget {
                     padding: const EdgeInsets.all(6.0),
                     child: AnimatedContainer(
                         duration: const Duration(milliseconds: 400),
-                        width:
-                            index == ShopCubit.get(context).selected ? 105 : 80,
-                        height:
-                            index == ShopCubit.get(context).selected ? 80 : 60,
+                        width: index == ShopCubit.get(context).selected ? 100 : 80,
+                        height: index == ShopCubit.get(context).selected ? 60 : 60,
                         alignment: Alignment.center,
                         decoration: BoxDecoration(
-                          color: index == ShopCubit.get(context).selected
-                              ? myBlue
-                              : Colors.grey,
-                          borderRadius: BorderRadius.circular(25.0),
+                          color: index == ShopCubit.get(context).selected ? myBlue : Colors.grey, borderRadius: BorderRadius.circular(15.0),
                         ),
                         child: ShopCubit.get(context).searchCat.isEmpty
                             ? buildCate(list!.data![index], context, index)
-                            : buildCate(ShopCubit.get(context).searchCat[index],
-                                context, index)),
+                            : buildCate(ShopCubit.get(context).searchCat[index], context, index)),
                   ),
                   itemCount: ShopCubit.get(context).searchCat.isEmpty
                       ? list!.data!.length
@@ -80,7 +74,6 @@ class CategoryScreen extends StatelessWidget {
       onTap: () {
         ShopCubit.get(context).getselected(x);
         ShopCubit.get(context).getCustomerData(item.id!);
-        print(item.id);
       },
       child: Padding(
         padding: const EdgeInsets.all(14.0),
