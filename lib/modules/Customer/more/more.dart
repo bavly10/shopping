@@ -11,8 +11,11 @@ import 'package:shopping/shared/compononet/myToast.dart';
 import 'package:shopping/shared/localization/translate.dart';
 import 'package:shopping/shared/my_colors.dart';
 
+import '../../../shared/compononet/no_result_search.dart';
+
 class MoreProductsCustomer extends StatelessWidget {
   final ScrollController scrollController = ScrollController();
+  var search = TextEditingController();
   MoreProductsCustomer({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -25,46 +28,66 @@ class MoreProductsCustomer extends StatelessWidget {
       },
       builder: (context, state) {
         final cubit = ProductCubit.get(context).listProducts;
+        var model = ProductCubit.get(context).search;
         return Scaffold(
             appBar: AppBar(
               title: Text("My product"),
-              leading: IconButton(
-                onPressed: () {},
-                icon: const Icon(Icons.search),
+              leading: TextField(
+                controller: search,
+                onChanged: (value) {
+                  ProductCubit.get(context).searchCustomer(value);
+                },
+                decoration: InputDecoration(
+                  prefixIcon: search.text.isEmpty
+                      ? const Icon(
+                          Icons.search,
+                        )
+                      : const Text(""),
+                  border: InputBorder.none,
+                  hintText: mytranslate(context, "search"),
+                ),
               ),
+              leadingWidth: 200,
             ),
-            body: SafeArea(
-              child: LayoutBuilder(builder: (context, constraint) {
-                return Stack(
-                  children: [
-                    ListView.builder(
-                      controller: scrollController,
-                      itemBuilder: (ctx, index) => Padding(
-                        padding: const EdgeInsets.only(
-                            top: 8.0, left: 12, right: 12, bottom: 8),
-                        child: myCard(context: context, pro: cubit[index]),
-                      ),
-                      itemCount: cubit.length,
-                    ),
-                    if (state is GettingProductDataLoading) ...[
-                      Positioned(
-                        left: 0,
-                        bottom: 0,
-                        child: SizedBox(
-                          width: constraint.maxWidth,
-                          height: 80,
-                          child: Center(
-                            child: CircularProgressIndicator(
-                              color: myBlue,
+            body: search.text.isNotEmpty &&
+                    ProductCubit.get(context).search.isEmpty
+                ? const NoResultSearch()
+                : SafeArea(
+                    child: LayoutBuilder(builder: (context, constraint) {
+                      return Stack(
+                        children: [
+                          ListView.builder(
+                            controller: scrollController,
+                            itemBuilder: (ctx, index) => Padding(
+                              padding: const EdgeInsets.only(
+                                  top: 8.0, left: 12, right: 12, bottom: 8),
+                              child: search.text.isEmpty
+                                  ? myCard(context: context, pro: cubit[index])
+                                  : myCard(context: context, pro: model[index]),
                             ),
+                            itemCount: search.text.isEmpty
+                                ? cubit.length
+                                : model.length,
                           ),
-                        ),
-                      )
-                    ]
-                  ],
-                );
-              }),
-            ));
+                          if (state is GettingProductDataLoading) ...[
+                            Positioned(
+                              left: 0,
+                              bottom: 0,
+                              child: SizedBox(
+                                width: constraint.maxWidth,
+                                height: 80,
+                                child: Center(
+                                  child: CircularProgressIndicator(
+                                    color: myBlue,
+                                  ),
+                                ),
+                              ),
+                            )
+                          ]
+                        ],
+                      );
+                    }),
+                  ));
       },
     );
   }
