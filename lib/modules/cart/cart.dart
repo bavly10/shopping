@@ -23,6 +23,7 @@ class CartScreen extends StatelessWidget {
   double y = 0.0;
   double d = 30.0;
   final GlobalKey<ScaffoldState> skey = GlobalKey<ScaffoldState>();
+
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<ProductCubit, ProductStates>(
@@ -177,11 +178,8 @@ class CartScreen extends StatelessWidget {
                                   style: const TextStyle(
                                     fontSize: 18,
                                   )),
-                              Text(
-                                  "${double.parse(cubit.earn!)}     ${mytranslate(context, "wd")}",
-                                  style: const TextStyle(
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.bold)),
+                              Text("${double.parse(cubit.earn!)} ${mytranslate(context, "wd")}",
+                                  style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
                             ],
                           ),
                           const Divider(
@@ -231,16 +229,10 @@ class CartScreen extends StatelessWidget {
                                                     await cubit.createOrder(
                                                       size:
                                                           value.size.toString(),
-                                                      price: value.price
-                                                          .toString(),
-                                                      many: value.quantity
-                                                          .toString(),
-                                                      customerID:
-                                                          CustomerCubit.get(
-                                                                  context)
-                                                              .userId,
-                                                      productID:
-                                                          value.id.toString(),
+                                                      price: value.price.toString(),
+                                                      many: value.quantity.toString(),
+                                                      customerID: CustomerCubit.get(context).userId,
+                                                      productID: value.id.toString(),
                                                     );
                                                   });
                                                 },

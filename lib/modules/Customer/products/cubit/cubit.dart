@@ -470,10 +470,7 @@ class ProductCubit extends Cubit<ProductStates> {
   getEarn() {
     DioHelper.getData(url: "/earn-num").then((value) {
       earn = value.data["data"];
-
       emit(ShopEarnSuessState());
-
-      print("Get Earn.. ${earn}");
     }).catchError((onError) {
       print(onError.toString());
       emit(ErrorEarnState());
@@ -482,11 +479,9 @@ class ProductCubit extends Cubit<ProductStates> {
 
   double get totalamount {
     var total = 0.0;
-    var total1 = 0.0;
     _items.forEach((key, Cartitem) {
       total += Cartitem.price * Cartitem.quantity;
     });
-
     return total;
   }
 
