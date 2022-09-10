@@ -481,7 +481,7 @@ class ProductCubit extends Cubit<ProductStates> {
 
   String? earn;
   getEarn() {
-    DioHelper.getData(url: "/earn-num").then((value) {
+    DioHelper.getData(url: earnNum).then((value) {
       earn = value.data["data"];
 
       emit(ShopEarnSuessState());
