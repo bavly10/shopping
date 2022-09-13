@@ -19,23 +19,23 @@ class OnBoardingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final splashModel = ShopCubit.get(context).splashModel;
-    List textbtn = ["men", "Women", "baby"];
+    List textbtn = ["Start", "Start", "Start"];
     List mylist = [
       onBoardingItem(
           splashModel: splashModel!.data!.male.toString(),
           index: curnnetindex,
           lisIndex: 3,
-          lable: "men"),
+          lable: "Start"),
       onBoardingItem(
           splashModel: splashModel.data!.female.toString(),
           index: curnnetindex,
           lisIndex: 3,
-          lable: "Women"),
+          lable: "Start"),
       onBoardingItem(
           splashModel: splashModel.data!.baby.toString(),
           index: curnnetindex,
           lisIndex: 3,
-          lable: "baby"),
+          lable: "Start"),
     ];
     return BlocBuilder<ShopCubit, ShopStates>(
       builder: (ctx, state) {
@@ -85,8 +85,7 @@ class OnBoardingScreen extends StatelessWidget {
             ),
             BlueButton(
                 title: Text(
-                    mytranslate(
-                        context, textbtn[ShopCubit.get(context).counter!]),
+                    mytranslate(context, textbtn[ShopCubit.get(context).counter!]),
                     style: TextStyle(
                         color: myWhite,
                         fontSize: 18,

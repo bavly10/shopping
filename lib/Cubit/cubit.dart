@@ -178,13 +178,10 @@ class ShopCubit extends Cubit<ShopStates> {
   PrivacyPolicy? privacyPolicy;
   getPrivacyPolicy() {
     emit(ShopPrivacyPolicyLoadingState());
-
     DioHelper.getData(url: privacy).then((value) {
       privacyPolicy = PrivacyPolicy.fromMap(value.data);
-
       emit(ShopPrivacyPolicySuessState());
-
-      print("Get Privacy.. ${privacyPolicy!.data}");
+      print("Get Privacy.. ${privacyPolicy!.status}");
       emit(ShopPrivacyPolicyErrorState());
     }).catchError((onError) {
       print(onError.toString());

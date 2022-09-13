@@ -12,6 +12,7 @@ import 'package:shopping/modules/mainScreen/store_screen/widgets/best_seller_Car
 import 'package:shopping/modules/mainScreen/store_screen/widgets/drawer.dart';
 import 'package:shopping/modules/mainScreen/store_screen/widgets/latest_product.dart';
 import 'package:shopping/modules/mainScreen/store_screen/widgets/top_screen.dart';
+import 'package:shopping/shared/compononet/arrowBack.dart';
 import 'package:shopping/shared/compononet/componotents.dart';
 import 'package:shopping/shared/localization/translate.dart';
 import 'package:shopping/shared/my_colors.dart';
@@ -83,6 +84,12 @@ class StoreScreen extends StatelessWidget {
                 },
               ),
             ),
+            actions: [
+              Padding(
+                padding: const EdgeInsets.only(top: 10.0,right: 8.0,left: 8.0),
+                child: MyArrowBack(onPress: (){Navigator.pop(context);},),
+              )
+            ],
           ),
           body: SingleChildScrollView(
             child:

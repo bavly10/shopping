@@ -25,29 +25,23 @@ class onBoardingItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        SizedBox(
-          height: MediaQuery.of(context).size.height * 0.50,
-          width: double.infinity,
-          child: CachedNetworkImage(
-            imageUrl: splashModel,
-            imageBuilder: (context, imageProvider) => Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(25.0),
-                image: DecorationImage(
-                  image: imageProvider,
-                  fit: BoxFit.cover,
-                ),
-              ),
+    return SizedBox(
+      height: MediaQuery.of(context).size.height * 0.50,
+      width: double.infinity,
+      child: CachedNetworkImage(
+        imageUrl: splashModel,
+        imageBuilder: (context, imageProvider) => Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(25.0),
+            image: DecorationImage(
+              image: imageProvider,
+              fit: BoxFit.cover,
             ),
-            placeholder: (context, url) => SizedBox(width:80,child: const CircularProgressIndicator()),
-            errorWidget: (context, url, error) => const Icon(Icons.error),
           ),
         ),
-        const Spacer(),
-      ],
+        placeholder: (context, url) =>  const Icon(Icons.downloading),
+        errorWidget: (context, url, error) => const Icon(Icons.error),
+      ),
     );
   }
 }

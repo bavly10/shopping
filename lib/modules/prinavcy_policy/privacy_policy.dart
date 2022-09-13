@@ -12,14 +12,12 @@ class PrivacyApolicy extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // PrivacyPolicy? privacyPolicy;
     ShopCubit.get(context).getPrivacyPolicy();
     return BlocConsumer<ShopCubit, ShopStates>(
         listener: ((context, state) {}),
         builder: (context, state) {
           var cubit = ShopCubit.get(context);
           var model = cubit.privacyPolicy;
-          //cubit.getPrivacyPolicy();
           return model?.data == null
               ? const Center(child: CircularProgressIndicator())
               : Column(

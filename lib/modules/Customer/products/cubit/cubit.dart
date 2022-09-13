@@ -503,17 +503,9 @@ class ProductCubit extends Cubit<ProductStates> {
   }
 
   void additem(
-      {required String proid,
-      required String imgurl,
-      required String title,
-      required double price,
-      required String size,
-      required int qua,
-      String? rate}) {
+      {required String proid, required String imgurl, required String title, required double price, required String size, required int qua, String? rate}) {
     if (_items.containsKey(proid)) {
-      _items.update(
-          proid,
-          (value) => CartItem(
+      _items.update(proid, (value) => CartItem(
               id: value.id,
               title: value.title,
               quantity: value.quantity + 1,
@@ -522,9 +514,7 @@ class ProductCubit extends Cubit<ProductStates> {
               imgurl: value.imgurl,
               rate: value.rate));
     } else {
-      _items.putIfAbsent(
-          proid,
-          () => CartItem(
+      _items.putIfAbsent(proid, () => CartItem(
               size: size,
               id: proid,
               title: title,

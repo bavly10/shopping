@@ -9,6 +9,7 @@ import 'package:shopping/modules/Customer/login/login/login.dart';
 import 'package:shopping/modules/Customer/products/cubit/cubit.dart';
 import 'package:shopping/modules/Customer/products/updateProduct.dart';
 import 'package:shopping/modules/onBoarding/onBoarding_screen.dart';
+import 'package:shopping/shared/compononet/ErrorNetwork.dart';
 import 'package:shopping/shared/compononet/blueButton.dart';
 import 'package:shopping/shared/compononet/componotents.dart';
 import 'package:shopping/shared/shared_prefernces.dart';
@@ -22,7 +23,7 @@ class OnBoardingFirst extends StatelessWidget {
     return BlocBuilder<ShopCubit, ShopStates>(
       builder: (ctx, state) {
         final cubit = ShopCubit.get(context);
-        final splashModel = ShopCubit.get(context).splashModel;
+        final splashModel = ShopCubit.get(context).splashModel!.data;
         return Scaffold(
           appBar: AppBar(
             elevation: 0,
@@ -41,9 +42,7 @@ class OnBoardingFirst extends StatelessWidget {
                                 child: Row(
                                   children: [
                                     Text(lang.flag!),
-                                    const SizedBox(
-                                      width: 10,
-                                    ),
+                                    const SizedBox(width: 10,),
                                     Text(lang.name!)
                                   ],
                                 ),
@@ -58,13 +57,13 @@ class OnBoardingFirst extends StatelessWidget {
               ),
             ],
           ),
-          body: Column(
+          body:state is ErrorSplash ?const ErrorNetworkDialog():Column(
             children: [
               SizedBox(
                 width: double.infinity,
                 height: MediaQuery.of(context).size.height * 0.70,
                 child: CachedNetworkImage(
-                  imageUrl: splashModel!.data!.splash.toString(),
+                  imageUrl: splashModel!.splash.toString(),
                   imageBuilder: (context, imageProvider) => Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(25.0),
@@ -74,8 +73,7 @@ class OnBoardingFirst extends StatelessWidget {
                       ),
                     ),
                   ),
-                  placeholder: (context, url) =>
-                      const CircularProgressIndicator(),
+                  placeholder: (context, url) => const Icon(Icons.downloading),
                   errorWidget: (context, url, error) => const Icon(Icons.error),
                 ),
               ),
