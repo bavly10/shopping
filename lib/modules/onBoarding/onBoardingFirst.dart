@@ -12,6 +12,7 @@ import 'package:shopping/modules/onBoarding/onBoarding_screen.dart';
 import 'package:shopping/shared/compononet/ErrorNetwork.dart';
 import 'package:shopping/shared/compononet/blueButton.dart';
 import 'package:shopping/shared/compononet/componotents.dart';
+import 'package:shopping/shared/compononet/error_page.dart';
 import 'package:shopping/shared/shared_prefernces.dart';
 
 import '../../shared/my_colors.dart';
@@ -20,10 +21,11 @@ class OnBoardingFirst extends StatelessWidget {
   const OnBoardingFirst({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    var splashModel = ShopCubit.get(context).splashModel?.data;
     return BlocBuilder<ShopCubit, ShopStates>(
       builder: (ctx, state) {
         final cubit = ShopCubit.get(context);
-        final splashModel = ShopCubit.get(context).splashModel!.data;
+
         return Scaffold(
           appBar: AppBar(
             elevation: 0,
@@ -42,7 +44,9 @@ class OnBoardingFirst extends StatelessWidget {
                                 child: Row(
                                   children: [
                                     Text(lang.flag!),
-                                    const SizedBox(width: 10,),
+                                    const SizedBox(
+                                      width: 10,
+                                    ),
                                     Text(lang.name!)
                                   ],
                                 ),
@@ -57,51 +61,55 @@ class OnBoardingFirst extends StatelessWidget {
               ),
             ],
           ),
-          body:state is ErrorSplash ?const ErrorNetworkDialog():Column(
-            children: [
-              SizedBox(
-                width: double.infinity,
-                height: MediaQuery.of(context).size.height * 0.70,
-                child: CachedNetworkImage(
-                  imageUrl: splashModel!.splash.toString(),
-                  imageBuilder: (context, imageProvider) => Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(25.0),
-                      image: DecorationImage(
-                        image: imageProvider,
-                        fit: BoxFit.cover,
+          body: splashModel == null
+              ? const ErrorPage()
+              : Column(
+                  children: [
+                    SizedBox(
+                      width: double.infinity,
+                      height: MediaQuery.of(context).size.height * 0.70,
+                      child: CachedNetworkImage(
+                        imageUrl: splashModel.splash.toString(),
+                        imageBuilder: (context, imageProvider) => Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(25.0),
+                            image: DecorationImage(
+                              image: imageProvider,
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ),
+                        placeholder: (context, url) =>
+                            const Icon(Icons.downloading),
+                        errorWidget: (context, url, error) =>
+                            const Icon(Icons.error),
                       ),
                     ),
-                  ),
-                  placeholder: (context, url) => const Icon(Icons.downloading),
-                  errorWidget: (context, url, error) => const Icon(Icons.error),
+                    const SizedBox(
+                      height: 5,
+                    ),
+                    const Spacer(),
+                    Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: BlueButton(
+                            title: Text("ابدا التسوق",
+                                style: TextStyle(
+                                    color: myWhite,
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold)),
+                            hight: 0.08,
+                            width: 0.80,
+                            icon: Icons.arrow_back,
+                            onpress: () {
+                              // ProductCubit.get(context).getProducts(4);
+                              navigateToFinish(context, OnBoardingScreen());
+                              //   ProductCubit.get(context).showPro(39,context).then((value) => {
+                              // navigateTo(context, UpdateProduct(id: 39),)
+                              //   });
+                              //CashHelper.removeData("userId");
+                            }))
+                  ],
                 ),
-              ),
-              const SizedBox(
-                height: 5,
-              ),
-              const Spacer(),
-              Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: BlueButton(
-                      title: Text("ابدا التسوق",
-                          style: TextStyle(
-                              color: myWhite,
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold)),
-                      hight: 0.08,
-                      width: 0.80,
-                      icon: Icons.arrow_back,
-                      onpress: () {
-                        // ProductCubit.get(context).getProducts(4);
-                        navigateToFinish(context, OnBoardingScreen());
-                        //   ProductCubit.get(context).showPro(39,context).then((value) => {
-                        // navigateTo(context, UpdateProduct(id: 39),)
-                        //   });
-                        //CashHelper.removeData("userId");
-                      }))
-            ],
-          ),
         );
       },
     );

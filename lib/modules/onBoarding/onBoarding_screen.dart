@@ -4,6 +4,7 @@ import 'package:shopping/Cubit/cubit.dart';
 import 'package:shopping/Cubit/states.dart';
 import 'package:shopping/model/splash.dart';
 import 'package:shopping/modules/onBoarding/widget/on_boarding_item.dart';
+import 'package:shopping/shared/compononet/error_page.dart';
 import 'package:shopping/shared/localization/translate.dart';
 import 'package:shopping/shared/my_colors.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
@@ -41,71 +42,77 @@ class OnBoardingScreen extends StatelessWidget {
       builder: (ctx, state) {
         return Scaffold(
           backgroundColor: myWhite,
-          body:
-              Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
-            Image(
-                height: MediaQuery.of(context).size.height * 0.10,
-                width: double.infinity,
-                image: ExactAssetImage("assets/logo.png")),
-            Text(mytranslate(context, "splash_screenText1"),
-                style: TextStyle(
-                    color: myBlack, fontSize: 24, fontWeight: FontWeight.bold)),
-            const SizedBox(
-              height: 5,
-            ),
-            Text(mytranslate(context, "splash_screenText2"),
-                style: Theme.of(context)
-                    .textTheme
-                    .subtitle2
-                    ?.copyWith(color: myBlack, fontSize: 18)),
-            Expanded(
-              child: PageView.builder(
-                  onPageChanged: (value) {
-                    ShopCubit.get(context).getCurrentIndex(value);
-                  },
-                  itemCount: 3,
-                  controller: curnnetindex,
-                  itemBuilder: (context, index) {
-                    return mylist[index];
-                  }),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: SmoothPageIndicator(
-                effect: WormEffect(
-                  dotHeight: 10,
-                  dotWidth: 10,
-                  activeDotColor: myBlue,
-                  spacing: 30,
-                  dotColor: myBlack,
-                ),
-                controller: curnnetindex,
-                count: 3,
-              ),
-            ),
-            BlueButton(
-                title: Text(
-                    mytranslate(context, textbtn[ShopCubit.get(context).counter!]),
-                    style: TextStyle(
-                        color: myWhite,
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold)),
-                hight: 0.08,
-                width: 0.80,
-                icon: Icons.arrow_back,
-                onpress: () {
-                  ShopCubit.get(context).getMyShared();
-                  if (ShopCubit.get(context).customerToken == null) {
-                    navigateToFinish(context, const MainScreen());
-                  } else {
-                    navigateToFinish(
-                        context,
-                        CustomerHome(
-                          id: ShopCubit.get(context).customerId,
-                        ));
-                  }
-                })
-          ]),
+          body: splashModel == null
+              ? ErrorPage()
+              : Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                      Image(
+                          height: MediaQuery.of(context).size.height * 0.10,
+                          width: double.infinity,
+                          image: ExactAssetImage("assets/logo.png")),
+                      Text(mytranslate(context, "splash_screenText1"),
+                          style: TextStyle(
+                              color: myBlack,
+                              fontSize: 24,
+                              fontWeight: FontWeight.bold)),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      Text(mytranslate(context, "splash_screenText2"),
+                          style: Theme.of(context)
+                              .textTheme
+                              .subtitle2
+                              ?.copyWith(color: myBlack, fontSize: 18)),
+                      Expanded(
+                        child: PageView.builder(
+                            onPageChanged: (value) {
+                              ShopCubit.get(context).getCurrentIndex(value);
+                            },
+                            itemCount: 3,
+                            controller: curnnetindex,
+                            itemBuilder: (context, index) {
+                              return mylist[index];
+                            }),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: SmoothPageIndicator(
+                          effect: WormEffect(
+                            dotHeight: 10,
+                            dotWidth: 10,
+                            activeDotColor: myBlue,
+                            spacing: 30,
+                            dotColor: myBlack,
+                          ),
+                          controller: curnnetindex,
+                          count: 3,
+                        ),
+                      ),
+                      BlueButton(
+                          title: Text(
+                              mytranslate(context,
+                                  textbtn[ShopCubit.get(context).counter!]),
+                              style: TextStyle(
+                                  color: myWhite,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold)),
+                          hight: 0.08,
+                          width: 0.80,
+                          icon: Icons.arrow_back,
+                          onpress: () {
+                            ShopCubit.get(context).getMyShared();
+                            if (ShopCubit.get(context).customerToken == null) {
+                              navigateToFinish(context, const MainScreen());
+                            } else {
+                              navigateToFinish(
+                                  context,
+                                  CustomerHome(
+                                    id: ShopCubit.get(context).customerId,
+                                  ));
+                            }
+                          })
+                    ]),
         );
       },
     );

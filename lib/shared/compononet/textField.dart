@@ -31,7 +31,7 @@ class MyTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: MediaQuery.of(context).size.height * .08,
+      //height: MediaQuery.of(context).size.height * .08,
       child: Container(
           decoration: BoxDecoration(boxShadow: [
             BoxShadow(
@@ -41,6 +41,10 @@ class MyTextField extends StatelessWidget {
             )
           ]),
           child: TextFormField(
+            scrollPadding: EdgeInsets.all(8),
+            // Added this
+
+            //  cursorHeight: MediaQuery.of(context).size.height * .08,
             obscureText: obcure,
             keyboardType: type,
             onChanged: (value) {},
