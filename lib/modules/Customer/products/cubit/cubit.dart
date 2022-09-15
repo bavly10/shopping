@@ -23,6 +23,7 @@ import 'package:shopping/shared/localization/translate.dart';
 import 'package:shopping/shared/network.dart';
 import 'package:shopping/shared/shared_prefernces.dart';
 
+import '../../../../model/privacy_policy.dart';
 import '../../../../model/show_product_model.dart';
 
 class ProductCubit extends Cubit<ProductStates> {
@@ -33,6 +34,7 @@ class ProductCubit extends Cubit<ProductStates> {
   String? catSelect;
   int? cat_id;
   ProductShow? showProd;
+  bool accept = false;
 
   void changeSelectCategory(val) {
     catSelect = val.title;
@@ -225,7 +227,7 @@ class ProductCubit extends Cubit<ProductStates> {
       xl = 0;
     }
 
-    emit(ChangeCheckedSsxtate());
+    emit(ChangeCheckedSstate());
   }
 
   void changetwoXlChecked(bool v) {
@@ -503,9 +505,17 @@ class ProductCubit extends Cubit<ProductStates> {
   }
 
   void additem(
-      {required String proid, required String imgurl, required String title, required double price, required String size, required int qua, String? rate}) {
+      {required String proid,
+      required String imgurl,
+      required String title,
+      required double price,
+      required String size,
+      required int qua,
+      String? rate}) {
     if (_items.containsKey(proid)) {
-      _items.update(proid, (value) => CartItem(
+      _items.update(
+          proid,
+          (value) => CartItem(
               id: value.id,
               title: value.title,
               quantity: value.quantity + 1,
@@ -514,7 +524,9 @@ class ProductCubit extends Cubit<ProductStates> {
               imgurl: value.imgurl,
               rate: value.rate));
     } else {
-      _items.putIfAbsent(proid, () => CartItem(
+      _items.putIfAbsent(
+          proid,
+          () => CartItem(
               size: size,
               id: proid,
               title: title,
@@ -617,6 +629,24 @@ class ProductCubit extends Cubit<ProductStates> {
     }).catchError((error) {
       print(error.toString());
       emit(FailShowCustomerData());
+    });
+  }
+
+  changeChecked(bool v) {
+    accept = !accept;
+    emit(ChooseAcceptState());
+  }
+
+  PrivacyPolicy? privacySalla;
+  getPrivacyPolicy() {
+    emit(SallaPrivacyPolicyLoadingState());
+    DioHelper.getData(url: sallaPrivacy).then((value) {
+      privacySalla = PrivacyPolicy.fromMap(value.data);
+      emit(SallaPrivacyPolicySueccState());
+      print("Get Privacy.. ${privacySalla!.status}");
+    }).catchError((onError) {
+      print(onError.toString());
+      emit(SallaPrivacyPolicyErrorState());
     });
   }
 }

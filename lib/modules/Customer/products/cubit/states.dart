@@ -18,7 +18,7 @@ class AddAmount extends ProductStates {}
 
 class MinusAmount extends ProductStates {}
 
-class ChangeCheckedSsxtate extends ProductStates {}
+class ChangeCheckedSstate extends ProductStates {}
 
 class ChangeCheckedSswtate extends ProductStates {}
 
@@ -79,3 +79,13 @@ class ShopEarnSuessState extends ProductStates {}
 class ErrorEarnState extends ProductStates {}
 
 class SearchingProduct extends ProductStates {}
+
+class ChangedPrivacyyState extends ProductStates {}
+
+class ChooseAcceptState extends ProductStates {}
+
+class SallaPrivacyPolicyLoadingState extends ProductStates {}
+
+class SallaPrivacyPolicySueccState extends ProductStates {}
+
+class SallaPrivacyPolicyErrorState extends ProductStates {}

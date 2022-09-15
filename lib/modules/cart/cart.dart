@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shopping/Cubit/cubit.dart';
 import 'package:shopping/modules/Customer/cubit/cubit.dart';
 import 'package:shopping/modules/Customer/products/cubit/cubit.dart';
 import 'package:shopping/modules/Customer/products/cubit/states.dart';
@@ -10,6 +11,7 @@ import 'package:shopping/modules/mainScreen/mainScreen.dart';
 import 'package:shopping/modules/mainScreen/screen/singleCustomerProduct/mainCustomer.dart';
 import 'package:shopping/shared/compononet/blueButton.dart';
 import 'package:shopping/shared/compononet/componotents.dart';
+import 'package:shopping/shared/compononet/privacy_dialog.dart';
 import 'package:shopping/shared/compononet/sign_up_dialog.dart';
 import 'package:shopping/shared/compononet/verification_phone_dialog.dart';
 import 'package:shopping/shared/localization/translate.dart';
@@ -26,6 +28,8 @@ class CartScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ProductCubit.get(context).getPrivacyPolicy();
+    var salla = ProductCubit.get(context).privacySalla;
     return BlocConsumer<ProductCubit, ProductStates>(
       listener: (ctx, state) {
         if (state is InsertOrderSucessState) {
@@ -178,8 +182,11 @@ class CartScreen extends StatelessWidget {
                                   style: const TextStyle(
                                     fontSize: 18,
                                   )),
-                              Text("${double.parse(cubit.earn!)} ${mytranslate(context, "wd")}",
-                                  style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                              Text(
+                                  "${double.parse(cubit.earn!)} ${mytranslate(context, "wd")}",
+                                  style: const TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold)),
                             ],
                           ),
                           const Divider(
@@ -215,7 +222,9 @@ class CartScreen extends StatelessWidget {
                                       showDialog(
                                           context: skey.currentContext!,
                                           builder: (context) {
-                                            return CheckDialog(
+                                            return PrivacyPolicyDialog(
+                                              text: salla!.data,
+                                              id: ShopCubit.get(context).userId,
                                               widget: SignupCartDialog(
                                                 onTaps: () {
                                                   cubit.items.forEach(
@@ -229,10 +238,16 @@ class CartScreen extends StatelessWidget {
                                                     await cubit.createOrder(
                                                       size:
                                                           value.size.toString(),
-                                                      price: value.price.toString(),
-                                                      many: value.quantity.toString(),
-                                                      customerID: CustomerCubit.get(context).userId,
-                                                      productID: value.id.toString(),
+                                                      price: value.price
+                                                          .toString(),
+                                                      many: value.quantity
+                                                          .toString(),
+                                                      customerID:
+                                                          CustomerCubit.get(
+                                                                  context)
+                                                              .userId,
+                                                      productID:
+                                                          value.id.toString(),
                                                     );
                                                   });
                                                 },

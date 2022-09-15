@@ -18,44 +18,49 @@ class DetailsProduct extends StatelessWidget {
     return BlocBuilder<ProductCubit, ProductStates>(builder: (context, state) {
       final model = ProductCubit.get(context).proInf;
       final cubit = ProductCubit.get(context);
-      return Scaffold(
-        body: SingleChildScrollView(
-          physics: const NeverScrollableScrollPhysics(),
-          child: Column(
-            children: [
-              Stack(children: [
-                CustomBackgroundContainer(
-                  arrowBack: () {
-                    Navigator.pop(context);
-                  },
-                  cartShopping: () {
-                    navigateTo(context, CartScreen());
-                  },
-                  x: cubit.itemcount,
+      return model == null
+          ? Padding(
+              padding: const EdgeInsets.all(27.0),
+              child: const CircularProgressIndicator(),
+            )
+          : Scaffold(
+              body: SingleChildScrollView(
+                physics: const NeverScrollableScrollPhysics(),
+                child: Column(
+                  children: [
+                    Stack(children: [
+                      CustomBackgroundContainer(
+                        arrowBack: () {
+                          Navigator.pop(context);
+                        },
+                        cartShopping: () {
+                          navigateTo(context, CartScreen());
+                        },
+                        x: cubit.itemcount,
+                      ),
+                      Align(
+                          alignment: Alignment.topCenter,
+                          child: Padding(
+                              padding: const EdgeInsets.only(top: 70),
+                              child: CustomImageContainer(
+                                  image: model.data!.images!))),
+                      Positioned(
+                          top: MediaQuery.of(context).size.height * .52,
+                          child: CustomContainerDetails(
+                            id: model.data!.id,
+                            name: model.data!.title,
+                            price: model.data!.price,
+                            rating: 4,
+                            image: model.data!.images![0].logo,
+                            desc: model.data!.desc,
+                            many: cubit.itemCount,
+                          )),
+                    ]),
+                    const SizedBox(height: 1)
+                  ],
                 ),
-                Align(
-                    alignment: Alignment.topCenter,
-                    child: Padding(
-                        padding: const EdgeInsets.only(top: 70),
-                        child:
-                            CustomImageContainer(image: model!.data!.images!))),
-                Positioned(
-                    top: MediaQuery.of(context).size.height * .52,
-                    child: CustomContainerDetails(
-                      id: model.data!.id,
-                      name: model.data!.title,
-                      price: model.data!.price,
-                      rating: 4,
-                      image: model.data!.images![0].logo,
-                      desc: model.data!.desc,
-                      many: cubit.itemCount,
-                    )),
-              ]),
-              const SizedBox(height: 1)
-            ],
-          ),
-        ),
-      );
+              ),
+            );
     });
   }
 }
