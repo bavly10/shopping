@@ -180,7 +180,7 @@ class CustomDrawer extends StatelessWidget {
             ),
             child: InkWell(
               onTap: () {
-                navigateTo(context, PrivacyApolicy());
+                // navigateTo(context, PrivacyApolicy());
               },
               child: Container(
                 margin: const EdgeInsets.symmetric(

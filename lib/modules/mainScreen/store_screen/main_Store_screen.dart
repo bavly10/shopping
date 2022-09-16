@@ -86,8 +86,13 @@ class StoreScreen extends StatelessWidget {
             ),
             actions: [
               Padding(
-                padding: const EdgeInsets.only(top: 10.0,right: 8.0,left: 8.0),
-                child: MyArrowBack(onPress: (){Navigator.pop(context);},),
+                padding:
+                    const EdgeInsets.only(top: 10.0, right: 8.0, left: 8.0),
+                child: MyArrowBack(
+                  onPress: () {
+                    Navigator.pop(context);
+                  },
+                ),
               )
             ],
           ),
@@ -181,19 +186,12 @@ class StoreScreen extends StatelessWidget {
                       child: GridView.custom(
                           shrinkWrap: true,
                           physics: const NeverScrollableScrollPhysics(),
-                          gridDelegate: SliverWovenGridDelegate.count(
-                            crossAxisCount: 2,
-                            mainAxisSpacing: 8,
-                            crossAxisSpacing: 8,
-                            pattern: [
-                              const WovenGridTile(6 / 7),
-                              const WovenGridTile(
-                                5 / 7,
-                                crossAxisRatio: .9,
-                                alignment: AlignmentDirectional.centerEnd,
-                              ),
-                            ],
-                          ),
+                          gridDelegate:
+                              SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 2,
+                                  mainAxisSpacing: 12,
+                                  crossAxisSpacing: 12,
+                                  childAspectRatio: .9),
                           childrenDelegate: SliverChildBuilderDelegate(
                               (context, index) => InkWell(
                                   onTap: () {

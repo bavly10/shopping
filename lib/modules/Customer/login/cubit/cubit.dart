@@ -16,6 +16,8 @@ import 'package:shopping/shared/diohelper/dioHelpoer.dart';
 import 'package:shopping/shared/network.dart';
 import 'package:shopping/shared/shared_prefernces.dart';
 
+import '../../../../model/privacy_policy.dart';
+
 class LoginCubit extends Cubit<LoginStates> {
   LoginCubit() : super(Shop_InitalState());
 
@@ -128,7 +130,7 @@ class LoginCubit extends Cubit<LoginStates> {
 
   MultipartFile? mFile;
   ResponseModel? res;
-  void signUp() async {
+  signUp() async {
     emit(LoadingSignupState());
     FormData formData = FormData.fromMap({
       "name_ar": FirstScreen.namecontroller.text,
@@ -144,7 +146,9 @@ class LoginCubit extends Cubit<LoginStates> {
       "male": colorMen,
       "female": colorWomen,
       "baby": colorBaby,
-      "logo": await MultipartFile.fromFile(imagee!.path,),
+      "logo": await MultipartFile.fromFile(
+        imagee!.path,
+      ),
     });
     DioHelper.postData1(url: signup, data: formData).then((value) {
       print(value.data.toString());
@@ -155,7 +159,6 @@ class LoginCubit extends Cubit<LoginStates> {
       print(error.toString());
     });
   }
-
 
   CustomerModel? loginModel;
   void getLogin(String email, String pass) {
@@ -169,10 +172,30 @@ class LoginCubit extends Cubit<LoginStates> {
         emit(SucessLoginState(loginModel!));
         print(loginModel!.data!.id);
       } else {
-        emit(ErrorLoginState(loginModel!.msg.toString(),loginModel!.errorCode.toString()));
+        emit(ErrorLoginState(
+            loginModel!.msg.toString(), loginModel!.errorCode.toString()));
       }
     }).catchError((error) {
       print(error.toString());
     });
+  }
+
+  PrivacyPolicy? privacyPolicy;
+  getPrivacyPolicy() {
+    emit(PrivacyPolicyLoadingState());
+    DioHelper.getData(url: privacy).then((value) {
+      privacyPolicy = PrivacyPolicy.fromMap(value.data);
+      emit(PrivacyPolicySuessState());
+      print("Get Privacy.. ${privacyPolicy!.status}");
+    }).catchError((onError) {
+      print(onError.toString());
+      emit(PrivacyPolicyErrorState());
+    });
+  }
+
+  bool accept = false;
+  changeChecked(bool v) {
+    accept = !accept;
+    emit(ChooseAcceptState());
   }
 }

@@ -175,20 +175,6 @@ class ShopCubit extends Cubit<ShopStates> {
     return searchCat;
   }
 
-  PrivacyPolicy? privacyPolicy;
-  getPrivacyPolicy() {
-    emit(ShopPrivacyPolicyLoadingState());
-    DioHelper.getData(url: privacy).then((value) {
-      privacyPolicy = PrivacyPolicy.fromMap(value.data);
-      emit(ShopPrivacyPolicySuessState());
-      print("Get Privacy.. ${privacyPolicy!.status}");
-      emit(ShopPrivacyPolicyErrorState());
-    }).catchError((onError) {
-      print(onError.toString());
-      emit(ErrorProCustomerState());
-    });
-  }
-
   bool privacyy = false;
   void changePrivacyChecked(bool v) {
     privacyy = !privacyy;

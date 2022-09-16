@@ -30,6 +30,7 @@ class MoreProductsCustomer extends StatelessWidget {
         final cubit = ProductCubit.get(context).listProducts;
         var model = ProductCubit.get(context).search;
         return Scaffold(
+            backgroundColor: myGrey,
             appBar: AppBar(
               title: Text("My product"),
               leading: TextField(

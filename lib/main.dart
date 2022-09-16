@@ -42,7 +42,7 @@ class MyApp extends StatelessWidget {
               ..getSplashData()
               ..getCategoriesData()
               ..getCustomerData(10)),
-        BlocProvider(create: (context) => LoginCubit()),
+        BlocProvider(create: (context) => LoginCubit()..getPrivacyPolicy()),
         BlocProvider(create: (context) => ProductCubit()..getEarn()),
         BlocProvider(
             create: (context) =>

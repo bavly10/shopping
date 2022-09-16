@@ -1,19 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:shopping/Cubit/cubit.dart';
+import 'package:shopping/model/privacy_policy.dart';
 import 'package:shopping/modules/Customer/login/cubit/cubit.dart';
 import 'package:shopping/modules/Customer/login/cubit/state.dart';
 import 'package:shopping/modules/Customer/login/login/login.dart';
+import 'package:shopping/modules/Customer/login/main.dart';
 import 'package:shopping/modules/Customer/login/signup/tabs/first_screen.dart';
 import 'package:shopping/modules/Customer/login/signup/tabs/second_screen.dart';
 import 'package:shopping/modules/Customer/login/signup/tabs/third_screen.dart';
+import 'package:shopping/modules/mainScreen/screen/HomeScreen.dart';
+import 'package:shopping/modules/mainScreen/screen/singleCustomerProduct/mainCustomer.dart';
 import 'package:shopping/shared/compononet/blueButton.dart';
 import 'package:shopping/shared/compononet/componotents.dart';
 import 'package:shopping/shared/compononet/dialog.dart';
+import 'package:shopping/shared/compononet/privacy_dialog.dart';
 import 'package:shopping/shared/compononet/rowLogin.dart';
 import 'package:shopping/shared/localization/translate.dart';
 import 'package:shopping/shared/my_colors.dart';
+import 'package:shopping/shared/network.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+
+import '../../../../shared/compononet/privacy_signup.dart';
 
 class Signup extends StatelessWidget {
   var pageController = PageController();
@@ -21,10 +30,13 @@ class Signup extends StatelessWidget {
   Signup({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    // ShopCubit.get(context).getPrivacyPolicy();
+
     return BlocConsumer<LoginCubit, LoginStates>(
       listener: (ctx, state) {
         if (state is SucessSignupState) {
-          if (state.response.status == false && state.response.errorCode == 6003) {
+          if (state.response.status == false &&
+              state.response.errorCode == 6003) {
             My_CustomAlertDialog(
                 onPress: () => Navigator.pop(context),
                 pressTitle: 'OK',
@@ -37,7 +49,7 @@ class Signup extends StatelessWidget {
                 iconColor: Colors.red);
           } else {
             My_CustomAlertDialog(
-                onPress: () => navigateToFinish(context, Login()),
+                onPress: () => navigateToFinish(context, MainLogin()),
                 pressTitle: 'OK',
                 context: context,
                 icon: Icons.done,
@@ -49,6 +61,7 @@ class Signup extends StatelessWidget {
         } else {}
       },
       builder: (ctx, state) {
+        var privacy = LoginCubit.get(context).privacyPolicy?.data;
         final cubit = LoginCubit.get(context);
         return SingleChildScrollView(
           child: Padding(
@@ -126,7 +139,11 @@ class Signup extends StatelessWidget {
     );
   }
 
-  Widget buttonNP(PageController pagecontroller, context, bool state,) {
+  Widget buttonNP(
+    PageController pagecontroller,
+    context,
+    bool state,
+  ) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -160,10 +177,14 @@ class Signup extends StatelessWidget {
                 width: 0.30,
                 icon: Icons.done_all,
                 onpress: () {
-                  LoginCubit.get(context).signUp();
+                  showDialog(
+                      context: context,
+                      builder: (context) => PrivacyPolicySignupDialog());
+                  //  LoginCubit.get(context).signUp();
                 })
             : BlueButton(
-                title: Text(mytranslate(context, "next"), style: TextStyle(
+                title: Text(mytranslate(context, "next"),
+                    style: TextStyle(
                         color: myWhite,
                         fontSize: 18,
                         fontWeight: FontWeight.bold)),
@@ -171,9 +192,11 @@ class Signup extends StatelessWidget {
                 width: 0.30,
                 onpress: () {
                   FocusScope.of(context).unfocus();
-                 if(FirstScreen.formFirst.currentState!.validate()){
-                   pagecontroller.animateToPage(pagecontroller.page!.toInt() + 1, duration: const Duration(milliseconds: 400), curve: Curves.easeIn);
-                 }
+                  //if(FirstScreen.formFirst.currentState!.validate()){
+                  pagecontroller.animateToPage(pagecontroller.page!.toInt() + 1,
+                      duration: const Duration(milliseconds: 400),
+                      curve: Curves.easeIn);
+                  //  }
                 }),
       ],
     );
