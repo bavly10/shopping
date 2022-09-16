@@ -12,7 +12,10 @@ class LatestPro extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.white,
+      decoration: const BoxDecoration(
+        borderRadius: BorderRadius.all(Radius.circular(15)),
+        color: Colors.white,
+      ),
       child: Stack(alignment: AlignmentDirectional.centerEnd, children: [
         Align(
           alignment: Alignment.topRight,
@@ -50,7 +53,7 @@ class LatestPro extends StatelessWidget {
         Positioned(
           top: 110,
           child: Padding(
-            padding: const EdgeInsets.only(top: 20),
+            padding: const EdgeInsets.only(top: 20, left: 10, right: 10),
             child: Text(
               productsItem.title!,
               overflow: TextOverflow.ellipsis,
@@ -77,7 +80,6 @@ class LatestPro extends StatelessWidget {
             ),
           ),
         ),
-
       ]),
     );
   }

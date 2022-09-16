@@ -62,18 +62,20 @@ class MoreProCustomer extends StatelessWidget {
                         GridView.custom(
                             controller: scrollController,
                             shrinkWrap: true,
-                            gridDelegate: SliverWovenGridDelegate.count(
+                            gridDelegate:
+                                const SliverGridDelegateWithFixedCrossAxisCount(
+                              childAspectRatio: .9,
                               crossAxisCount: 2,
-                              mainAxisSpacing: 8,
-                              crossAxisSpacing: 8,
-                              pattern: [
-                                const WovenGridTile(6 / 7),
-                                const WovenGridTile(
-                                  5 / 7,
-                                  crossAxisRatio: .9,
-                                  alignment: AlignmentDirectional.centerEnd,
-                                ),
-                              ],
+                              mainAxisSpacing: 20,
+                              crossAxisSpacing: 20,
+                              // pattern: [
+                              //   const WovenGridTile(7 / 7),
+                              //   const WovenGridTile(
+                              //     7 / 7,
+                              //     crossAxisRatio: .9,
+                              //     alignment: AlignmentDirectional.centerEnd,
+                              //   ),
+                              // ],
                             ),
                             childrenDelegate: SliverChildBuilderDelegate(
                                 (context, index) => InkWell(
