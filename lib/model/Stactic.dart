@@ -4,7 +4,8 @@
 
 import 'dart:convert';
 
-Statistics statisticsFromJson(String str) => Statistics.fromJson(json.decode(str));
+Statistics statisticsFromJson(String str) =>
+    Statistics.fromJson(json.decode(str));
 
 String statisticsToJson(Statistics data) => json.encode(data.toJson());
 
@@ -20,16 +21,16 @@ class Statistics {
   DataStatics? data;
 
   factory Statistics.fromJson(Map<String, dynamic> json) => Statistics(
-    status: json["status"],
-    msg: json["msg"],
-    data: DataStatics.fromJson(json["data"]),
-  );
+        status: json["status"],
+        msg: json["msg"],
+        data: DataStatics.fromJson(json["data"]),
+      );
 
   Map<String, dynamic> toJson() => {
-    "status": status,
-    "msg": msg,
-    "data": data!.toJson(),
-  };
+        "status": status,
+        "msg": msg,
+        "data": data!.toJson(),
+      };
 }
 
 class DataStatics {
@@ -44,16 +45,20 @@ class DataStatics {
   Map<String, Month>? months;
 
   factory DataStatics.fromJson(Map<String, dynamic> json) => DataStatics(
-    totalEarn: json["total-earn"],
-    years: Map.from(json["years"]).map((k, v) => MapEntry<String, Month>(k, Month.fromJson(v))),
-    months: Map.from(json["months"]).map((k, v) => MapEntry<String, Month>(k, Month.fromJson(v))),
-  );
+        totalEarn: json["total-earn"],
+        years: Map.from(json["years"])
+            .map((k, v) => MapEntry<String, Month>(k, Month.fromJson(v))),
+        months: Map.from(json["months"])
+            .map((k, v) => MapEntry<String, Month>(k, Month.fromJson(v))),
+      );
 
   Map<String, dynamic> toJson() => {
-    "total-earn": totalEarn,
-    "years": Map.from(years!).map((k, v) => MapEntry<String, dynamic>(k, v.toJson())),
-    "months": Map.from(months!).map((k, v) => MapEntry<String, dynamic>(k, v.toJson())),
-  };
+        "total-earn": totalEarn,
+        "years": Map.from(years!)
+            .map((k, v) => MapEntry<String, dynamic>(k, v.toJson())),
+        "months": Map.from(months!)
+            .map((k, v) => MapEntry<String, dynamic>(k, v.toJson())),
+      };
 }
 
 class Month {
@@ -63,19 +68,19 @@ class Month {
     this.earn,
   });
 
-  int? height;
+  dynamic height;
   int? customer;
   int? earn;
 
   factory Month.fromJson(Map<String, dynamic> json) => Month(
-    height: json["height"],
-    customer: json["customer"],
-    earn: json["earn"],
-  );
+        height: json["height"],
+        customer: json["customer"],
+        earn: json["earn"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "height": height,
-    "customer": customer,
-    "earn": earn,
-  };
+        "height": height,
+        "customer": customer,
+        "earn": earn,
+      };
 }

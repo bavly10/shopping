@@ -1,6 +1,6 @@
 class EarningsTimeline {
   final String? customer;
-  final int? earning;
+  int? earning;
 
   EarningsTimeline({
     required this.customer,

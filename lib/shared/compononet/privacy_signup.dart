@@ -43,10 +43,14 @@ class PrivacyPolicySignupDialog extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          "PrivacyPolicy",
-                          style: const TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 20),
+                        Center(
+                          child: Text(
+                            "PrivacyPolicy",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20,
+                                color: Colors.red[900]),
+                          ),
                         ),
                         const SizedBox(
                           height: 5,
@@ -67,7 +71,7 @@ class PrivacyPolicySignupDialog extends StatelessWidget {
                                   if (value == true) {
                                     cubit.signUp();
                                   }
-                                  //  value = false;
+                                  value = false;
                                 }),
                             Text(
                               "Accept",
