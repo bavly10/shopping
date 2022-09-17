@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shopping/modules/Customer/products/cubit/cubit.dart';
 import 'package:shopping/modules/Customer/products/cubit/states.dart';
 import 'package:shopping/shared/compononet/check_phone_cart.dart';
+import 'package:shopping/shared/localization/translate.dart';
 import 'package:shopping/shared/my_colors.dart';
 
 class PrivacyPolicyDialog extends StatelessWidget {
@@ -38,10 +39,14 @@ class PrivacyPolicyDialog extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          "PrivacyPolicy",
-                          style: const TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 20),
+                        Center(
+                          child: Text(
+                            mytranslate(context, "policy"),
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20,
+                                color: Colors.red[900]),
+                          ),
                         ),
                         const SizedBox(
                           height: 5,
@@ -72,7 +77,7 @@ class PrivacyPolicyDialog extends StatelessWidget {
                                   value = false;
                                 }),
                             Text(
-                              "Accept",
+                              mytranslate(context, "accept"),
                               style: const TextStyle(
                                   fontSize: 16, fontWeight: FontWeight.bold),
                             )

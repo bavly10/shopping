@@ -4,6 +4,7 @@ import 'package:shopping/modules/Customer/login/cubit/cubit.dart';
 import 'package:shopping/modules/Customer/products/cubit/cubit.dart';
 import 'package:shopping/modules/Customer/products/cubit/states.dart';
 import 'package:shopping/shared/compononet/check_phone_cart.dart';
+import 'package:shopping/shared/localization/translate.dart';
 import 'package:shopping/shared/my_colors.dart';
 
 import '../../modules/Customer/login/cubit/state.dart';
@@ -45,7 +46,7 @@ class PrivacyPolicySignupDialog extends StatelessWidget {
                       children: [
                         Center(
                           child: Text(
-                            "PrivacyPolicy",
+                            mytranslate(context, "policy"),
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 20,
@@ -74,7 +75,7 @@ class PrivacyPolicySignupDialog extends StatelessWidget {
                                   value = false;
                                 }),
                             Text(
-                              "Accept",
+                              mytranslate(context, "accept"),
                               style: const TextStyle(
                                   fontSize: 16, fontWeight: FontWeight.bold),
                             )

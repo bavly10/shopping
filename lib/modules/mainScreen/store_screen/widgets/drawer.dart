@@ -171,26 +171,26 @@ class CustomDrawer extends StatelessWidget {
           ),
         ),
         Spacer(),
-        Padding(
-          padding: const EdgeInsets.only(bottom: 10.0),
-          child: DefaultTextStyle(
-            style: const TextStyle(
-              fontSize: 14,
-              color: Colors.white54,
-            ),
-            child: InkWell(
-              onTap: () {
-                // navigateTo(context, PrivacyApolicy());
-              },
-              child: Container(
-                margin: const EdgeInsets.symmetric(
-                  vertical: 16.0,
-                ),
-                child: Text(mytranslate(context, "terms")),
-              ),
-            ),
-          ),
-        ),
+        // Padding(
+        //   padding: const EdgeInsets.only(bottom: 10.0),
+        //   child: DefaultTextStyle(
+        //     style: const TextStyle(
+        //       fontSize: 14,
+        //       color: Colors.white54,
+        //     ),
+        //     child: InkWell(
+        //       onTap: () {
+        //         // navigateTo(context, PrivacyApolicy());
+        //       },
+        //       child: Container(
+        //         margin: const EdgeInsets.symmetric(
+        //           vertical: 16.0,
+        //         ),
+        //         child: Text(mytranslate(context, "terms")),
+        //       ),
+        //     ),
+        //   ),
+        // ),
       ]),
     );
   }
