@@ -86,8 +86,11 @@ class StoreScreen extends StatelessWidget {
             ),
             actions: [
               Padding(
-                padding:
-                    const EdgeInsets.only(top: 10.0, right: 8.0, left: 8.0),
+                padding: const EdgeInsets.only(
+                  top: 8.0,
+                  right: 8.0,
+                  left: 8.0,
+                ),
                 child: MyArrowBack(
                   onPress: () {
                     Navigator.pop(context);
@@ -129,10 +132,13 @@ class StoreScreen extends StatelessWidget {
                         shrinkWrap: true,
                         itemExtent: 180,
                         itemBuilder: ((context, index) {
-                          return BestCard(
-                            pro: latest[index],
-                            index: index,
-                            list: latest,
+                          return Padding(
+                            padding: const EdgeInsets.only(left: 8.0, right: 8),
+                            child: BestCard(
+                              pro: latest[index],
+                              index: index,
+                              list: latest,
+                            ),
                           );
                         }),
                         itemCount: latest.length,
@@ -187,10 +193,10 @@ class StoreScreen extends StatelessWidget {
                           shrinkWrap: true,
                           physics: const NeverScrollableScrollPhysics(),
                           gridDelegate:
-                              SliverGridDelegateWithFixedCrossAxisCount(
+                              const SliverGridDelegateWithFixedCrossAxisCount(
                                   crossAxisCount: 2,
-                                  mainAxisSpacing: 12,
-                                  crossAxisSpacing: 12,
+                                  mainAxisSpacing: 18,
+                                  crossAxisSpacing: 18,
                                   childAspectRatio: .9),
                           childrenDelegate: SliverChildBuilderDelegate(
                               (context, index) => InkWell(
@@ -203,8 +209,11 @@ class StoreScreen extends StatelessWidget {
                                                   const DetailsProduct())
                                             });
                                   },
-                                  child: LatestPro(
-                                      productsItem: cubit.list[index])),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(5.0),
+                                    child: LatestPro(
+                                        productsItem: cubit.list[index]),
+                                  )),
                               childCount: cubit.list.length)),
                     ),
             ]),

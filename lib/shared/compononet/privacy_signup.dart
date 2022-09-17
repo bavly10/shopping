@@ -71,6 +71,7 @@ class PrivacyPolicySignupDialog extends StatelessWidget {
                                   cubit.changeChecked(value!);
                                   if (value == true) {
                                     cubit.signUp();
+                                    Navigator.pop(context);
                                   }
                                   value = false;
                                 }),

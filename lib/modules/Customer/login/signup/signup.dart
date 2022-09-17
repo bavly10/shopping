@@ -38,7 +38,10 @@ class Signup extends StatelessWidget {
           if (state.response.status == false &&
               state.response.errorCode == 6003) {
             My_CustomAlertDialog(
-                onPress: () => Navigator.pop(context),
+                onPress: () {
+                  Navigator.pop(context);
+                  LoginCubit.get(context).accept = false;
+                },
                 pressTitle: 'OK',
                 context: context,
                 icon: Icons.error,

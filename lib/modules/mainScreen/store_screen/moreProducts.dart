@@ -88,9 +88,16 @@ class MoreProCustomer extends StatelessWidget {
                                               });
                                     },
                                     child: search.text.isEmpty
-                                        ? LatestPro(productsItem: cubit[index])
-                                        : LatestPro(
-                                            productsItem: model[index])),
+                                        ? Padding(
+                                            padding: const EdgeInsets.all(5.0),
+                                            child: LatestPro(
+                                                productsItem: cubit[index]),
+                                          )
+                                        : Padding(
+                                            padding: const EdgeInsets.all(5.0),
+                                            child: LatestPro(
+                                                productsItem: model[index]),
+                                          )),
                                 childCount: search.text.isEmpty
                                     ? cubit.length
                                     : model.length)),
