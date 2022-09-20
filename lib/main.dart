@@ -102,11 +102,7 @@ class MyApp extends StatelessWidget {
               primarySwatch: Colors.amber,
             ),
             themeMode: ThemeMode.light,
-            home:
-                //PrivacyApolicy(), // UpdateCustomer(),
-                // CustomerHome(),
-                SplashScreen(),
-            //// SplashScreen(),
+            home: const SplashScreen(),
             builder: EasyLoading.init(),
           );
         },
