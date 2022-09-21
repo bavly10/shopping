@@ -4,6 +4,8 @@ import 'package:shopping/modules/Customer/login/cubit/cubit.dart';
 import 'package:shopping/modules/Customer/login/cubit/state.dart';
 import 'package:shopping/modules/Customer/login/login/login.dart';
 import 'package:shopping/modules/Customer/login/signup/signup.dart';
+import 'package:shopping/shared/compononet/privacy_signup.dart';
+import 'package:shopping/shared/my_colors.dart';
 
 class MainLogin extends StatelessWidget {
   const MainLogin({Key? key}) : super(key: key);
@@ -13,11 +15,10 @@ class MainLogin extends StatelessWidget {
     return BlocBuilder<LoginCubit,LoginStates>(
       builder: (ctx,state){
         final cubit=LoginCubit.get(context).changeSCreen;
-        if(cubit){
-          return Login();
-        }else{
-          return Signup();
-        }
+        return Scaffold(
+          backgroundColor: myGrey,
+          body: cubit? Login():Signup(),
+        );
       },
     );
   }

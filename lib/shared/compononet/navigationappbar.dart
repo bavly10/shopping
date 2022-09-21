@@ -11,9 +11,9 @@ class MyNavigationBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      decoration:  BoxDecoration(
-        color: myWhite,
-        borderRadius: BorderRadius.vertical(top: Radius.circular(45.0))
+      decoration:  const BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.vertical(top: Radius.circular(65.0))
       ),
       child: BottomNavigationBar(
         elevation:0.0,

@@ -194,6 +194,7 @@ class LoginCubit extends Cubit<LoginStates> {
   }
 
   bool accept = false;
+  bool acceptScreen = true;
   changeChecked(bool v) {
     accept = !accept;
     emit(ChooseAcceptState());
