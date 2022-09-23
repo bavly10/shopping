@@ -38,6 +38,7 @@ class CartScreen extends StatelessWidget {
               const SuccessOrder(
                 phone: "06510355051",
               ));
+          ProductCubit.get(context).accept = false;
         } else if (state is InsertOrderErrorState) {
           navigateToFinish(context, const FailedOrder());
           ProductCubit.get(context).accept = false;
@@ -218,31 +219,86 @@ class CartScreen extends StatelessWidget {
                                     fontSize: 18,
                                     fontWeight: FontWeight.bold),
                               ),
-                              onpress: cubit.items.isNotEmpty ? () {
-                                showDialog(
-                                    context: skey.currentContext!,
-                                    builder: (context) {
-                                      return PrivacyPolicyDialog(
-                                        text: salla!.data,
-                                        id: ShopCubit.get(context).userId,
-                                        widget: SignupCartDialog(
-                                          onTaps: () {
-                                            cubit.items.forEach(
-                                                    (key, value) async {
-                                                  print(value.size.toString());
-                                                  print(value.id.toString());
-                                                  print(CustomerCubit.get(context).userId);
-                                                  await cubit.createOrder(size: value.size.toString(),
-                                                    price: value.price.toString(),
-                                                    many: value.quantity.toString(),
-                                                    customerID: CustomerCubit.get(context).userId,
-                                                    productID: value.id.toString(),
-                                                  );
-                                                });
-                                          },
-                                        ),
-                                      );
-                                    });
+                              onpress: cubit.items.isNotEmpty
+                                  ? () {
+                                      if (!cubit.accept) {
+                                        showDialog(
+                                            context: skey.currentContext!,
+                                            builder: (context) {
+                                              return PrivacyPolicyDialog(
+                                                text: salla!.data,
+                                                id: ShopCubit.get(context)
+                                                    .userId,
+                                                widget: SignupCartDialog(
+                                                  onTaps: () {
+                                                    cubit.items.forEach(
+                                                        (key, value) async {
+                                                      print(value.size
+                                                          .toString());
+                                                      print(
+                                                          value.id.toString());
+                                                      print(CustomerCubit.get(
+                                                              context)
+                                                          .userId);
+                                                      await cubit.createOrder(
+                                                        size: value.size
+                                                            .toString(),
+                                                        price: value.price
+                                                            .toString(),
+                                                        many: value.quantity
+                                                            .toString(),
+                                                        customerID:
+                                                            CustomerCubit.get(
+                                                                    context)
+                                                                .userId,
+                                                        productID:
+                                                            value.id.toString(),
+                                                      );
+                                                    });
+                                                    ProductCubit.get(context)
+                                                        .accept = false;
+                                                  },
+                                                ),
+                                              );
+                                            });
+                                      } else {
+                                        showDialog(
+                                            context: context,
+                                            builder: (context) {
+                                              return CheckDialog(
+                                                widget: SignupCartDialog(
+                                                  onTaps: () {
+                                                    cubit.items.forEach(
+                                                        (key, value) async {
+                                                      print(value.size
+                                                          .toString());
+                                                      print(
+                                                          value.id.toString());
+                                                      print(CustomerCubit.get(
+                                                              context)
+                                                          .userId);
+                                                      await cubit.createOrder(
+                                                        size: value.size
+                                                            .toString(),
+                                                        price: value.price
+                                                            .toString(),
+                                                        many: value.quantity
+                                                            .toString(),
+                                                        customerID:
+                                                            CustomerCubit.get(
+                                                                    context)
+                                                                .userId,
+                                                        productID:
+                                                            value.id.toString(),
+                                                      );
+                                                    });
+                                                  },
+                                                ),
+                                                id: ShopCubit.get(context)
+                                                    .userId,
+                                              );
+                                            });
+                                      }
                                     }
                                   : null,
                               hight: 0.07,
