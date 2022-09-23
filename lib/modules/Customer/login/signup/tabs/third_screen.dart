@@ -8,24 +8,20 @@ import 'package:shopping/shared/localization/translate.dart';
 
 class ThirdScreen extends StatelessWidget {
   static TextEditingController storecotroller=TextEditingController();
-  static GlobalKey<FormState> FormThird = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<LoginCubit,LoginStates>(
       builder: (ctx,state){
-        return Form(
-          key: FormThird,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              MyTextField(validate: (String? s) {
-                if (s!.isEmpty) return mytranslate(context, "validateStore");
-              },label:mytranslate(context,"namestore"),controller: storecotroller,prefix: Icons.account_circle,type: TextInputType.text, obcure: false,),
-              const SizedBox(height: 25,),
-              myRow(context)
-            ],
-          ),
+        return Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            MyTextField(validate: (String? s) {
+              if (s!.isEmpty) return mytranslate(context, "validateStore");
+            },label:mytranslate(context,"namestore"),controller: storecotroller,prefix: Icons.account_circle,type: TextInputType.text, obcure: false,),
+            const SizedBox(height: 25,),
+            myRow(context)
+          ],
         );
       },
     );

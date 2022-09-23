@@ -194,7 +194,11 @@ class _SignupState extends State<Signup> with TickerProviderStateMixin{
             width: 0.30,
             onpress: () {
               FocusScope.of(context).unfocus();
-              if(FirstScreen.formFirst.currentState!.validate()){
+              if(pageController.page!.toInt()==0){
+                if(FirstScreen.formFirst.currentState!.validate()){
+                  pagecontroller.animateToPage(pagecontroller.page!.toInt() + 1, duration: const Duration(milliseconds: 400), curve: Curves.bounceIn);
+                }
+              }else{
                 pagecontroller.animateToPage(pagecontroller.page!.toInt() + 1, duration: const Duration(milliseconds: 400), curve: Curves.easeIn);
               }
             }),

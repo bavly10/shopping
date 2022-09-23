@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shopping/modules/Customer/login/cubit/cubit.dart';
 import 'package:shopping/shared/compononet/textField.dart';
 import 'package:shopping/shared/localization/translate.dart';
 
@@ -20,9 +21,15 @@ class FirstScreen extends StatelessWidget {
           const SizedBox(height: 25,),
           MyTextField(validate:(value) => value!.isEmpty ?mytranslate(context, "validateEmail") :validateEmail(value),label:mytranslate(context,"hintogin"),controller: emailcontroller,prefix: Icons.email_outlined,type: TextInputType.emailAddress,obcure: false),
           const SizedBox(height: 25,),
-          MyTextField(validate: (String? s) {
-            if (s!.isEmpty) return mytranslate(context, "validatePass");
-          },label:mytranslate(context,"hintpassword"),controller: passcontroller,prefix: Icons.lock,type: TextInputType.text,obcure: false),
+          MyTextField(
+              validate: (String? s) {
+                if (s!.isEmpty) return mytranslate(context, "validatePass");
+              },
+              label: mytranslate(context, "hintpassword"),
+              controller: passcontroller,
+              prefix: Icons.lock,
+              type: TextInputType.text, obcure: true,
+             ),
         ],
       ),
     );
