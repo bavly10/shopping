@@ -17,15 +17,14 @@ import 'package:shopping/shared/localization/translate.dart';
 import 'package:shopping/shared/my_colors.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
-class Signup extends StatefulWidget{
-
+class Signup extends StatefulWidget {
   Signup({Key? key}) : super(key: key);
 
   @override
   State<Signup> createState() => _SignupState();
 }
 
-class _SignupState extends State<Signup> with TickerProviderStateMixin{
+class _SignupState extends State<Signup> with TickerProviderStateMixin {
   var pageController = PageController();
 
   final GlobalKey<FormState> myform = GlobalKey();
@@ -35,7 +34,8 @@ class _SignupState extends State<Signup> with TickerProviderStateMixin{
     return BlocConsumer<LoginCubit, LoginStates>(
       listener: (ctx, state) {
         if (state is SucessSignupState) {
-          if (state.response.status == false && state.response.errorCode == 6003) {
+          if (state.response.status == false &&
+              state.response.errorCode == 6003) {
             My_CustomAlertDialog(
                 onPress: () => Navigator.pop(context),
                 pressTitle: 'OK',
@@ -43,7 +43,7 @@ class _SignupState extends State<Signup> with TickerProviderStateMixin{
                 icon: Icons.error,
                 bigTitle: "shopping",
                 content:
-                "${state.response.msg} ${mytranslate(context, "errorregister")}",
+                    "${state.response.msg} ${mytranslate(context, "errorregister")}",
                 pressColor: Colors.red,
                 iconColor: Colors.red);
           } else {
@@ -61,8 +61,8 @@ class _SignupState extends State<Signup> with TickerProviderStateMixin{
       },
       builder: (ctx, state) {
         final cubit = LoginCubit.get(context);
-        return  Visibility(
-          replacement:SingleChildScrollView(
+        return Visibility(
+          replacement: SingleChildScrollView(
             child: Padding(
               padding: const EdgeInsets.all(12.0),
               child: Column(
@@ -110,7 +110,8 @@ class _SignupState extends State<Signup> with TickerProviderStateMixin{
                   const SizedBox(
                     height: 15,
                   ),
-                  buttonNP(pageController, context, state is LoadingSignupState),
+                  buttonNP(
+                      pageController, context, state is LoadingSignupState),
                   MyRowLogin(
                       lable1: "text1",
                       lable2: "signin",
@@ -123,14 +124,14 @@ class _SignupState extends State<Signup> with TickerProviderStateMixin{
             ),
           ),
           child: Stack(children: [
-              AnimatedBackground(
+            AnimatedBackground(
               behaviour: BubblesBehaviour(),
-               vsync: this,
+              vsync: this,
               child: const SizedBox(),
             ),
             PrivacyPolicySignupDialog()
           ]),
-          visible: cubit.accept==false?true:false,
+          visible: cubit.accept == false ? true : false,
         );
       },
     );
@@ -149,7 +150,11 @@ class _SignupState extends State<Signup> with TickerProviderStateMixin{
     );
   }
 
-  Widget buttonNP(PageController pagecontroller, context, bool state,) {
+  Widget buttonNP(
+    PageController pagecontroller,
+    context,
+    bool state,
+  ) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -170,34 +175,49 @@ class _SignupState extends State<Signup> with TickerProviderStateMixin{
               }),
         LoginCubit.get(context).lastIndex
             ? BlueButton(
-            title: state
-                ? const SpinKitCircle(
-              color: Colors.white,
-            )
-                : Text(mytranslate(context, "finish"),
-                style: TextStyle(
-                    color: myWhite,
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold)),
-            hight: 0.09,
-            width: 0.30,
-            icon: Icons.done_all,
-            onpress: () {
-              LoginCubit.get(context).signUp();
-            })
+                title: state
+                    ? const SpinKitCircle(
+                        color: Colors.white,
+                      )
+                    : Text(mytranslate(context, "finish"),
+                        style: TextStyle(
+                            color: myWhite,
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold)),
+                hight: 0.09,
+                width: 0.30,
+                icon: Icons.done_all,
+                onpress: () {
+                  LoginCubit.get(context).signUp();
+                })
             : BlueButton(
-            title: Text(mytranslate(context, "next"), style: TextStyle(
-                color: myWhite,
-                fontSize: 18,
-                fontWeight: FontWeight.bold)),
-            hight: 0.09,
-            width: 0.30,
-            onpress: () {
-              FocusScope.of(context).unfocus();
-              if(FirstScreen.formFirst.currentState!.validate()){
-                pagecontroller.animateToPage(pagecontroller.page!.toInt() + 1, duration: const Duration(milliseconds: 400), curve: Curves.easeIn);
-              }
-            }),
+                title: Text(mytranslate(context, "next"),
+                    style: TextStyle(
+                        color: myWhite,
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold)),
+                hight: 0.09,
+                width: 0.30,
+                onpress: () {
+                  FocusScope.of(context).unfocus();
+                  if (FirstScreen.formFirst.currentState!.validate()) {
+                    pagecontroller.animateToPage(
+                        pagecontroller.page!.toInt() + 1,
+                        duration: const Duration(milliseconds: 400),
+                        curve: Curves.easeIn);
+                  } else if (SecondScreen.FormSecond.currentState!.validate()) {
+                    pagecontroller.animateToPage(
+                        pagecontroller.page!.toInt() + 1,
+                        duration: const Duration(milliseconds: 400),
+                        curve: Curves.easeIn);
+                  }
+                  if (ThirdScreen.FormThird.currentState!.validate()) {
+                    pagecontroller.animateToPage(
+                        pagecontroller.page!.toInt() + 1,
+                        duration: const Duration(milliseconds: 400),
+                        curve: Curves.easeIn);
+                  }
+                }),
       ],
     );
   }

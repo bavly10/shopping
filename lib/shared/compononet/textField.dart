@@ -49,7 +49,7 @@ class MyTextField extends StatelessWidget {
             keyboardType: type,
             onChanged: (value) {},
             onTap: () {},
-            validator: validate,
+            validator: validate!,
             controller: controller,
             decoration: InputDecoration(
                 suffix: InkWell(
