@@ -38,7 +38,7 @@ class CartScreen extends StatelessWidget {
               const SuccessOrder(
                 phone: "06510355051",
               ));
-          ProductCubit.get(context).accept = false;
+          //  ProductCubit.get(context).accept = false;
         } else if (state is InsertOrderErrorState) {
           navigateToFinish(context, const FailedOrder());
           ProductCubit.get(context).accept = false;
