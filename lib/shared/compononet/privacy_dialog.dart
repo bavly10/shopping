@@ -17,7 +17,6 @@ class PrivacyPolicyDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var model = ProductCubit.get(context).privacySalla;
     return BlocConsumer<ProductCubit, ProductStates>(
       listener: (context, state) {
         if (ProductCubit.get(context).accept) {}
@@ -56,7 +55,7 @@ class PrivacyPolicyDialog extends StatelessWidget {
                           style: const TextStyle(fontSize: 20),
                           maxLines: 40,
                         ),
-                        Spacer(),
+                        const Spacer(),
                         Row(
                           children: [
                             Checkbox(
@@ -93,7 +92,7 @@ class PrivacyPolicyDialog extends StatelessWidget {
                     child: CircleAvatar(
                       backgroundColor: myBlue,
                       radius: 50,
-                      child: Icon(
+                      child: const Icon(
                         Icons.privacy_tip_rounded,
                         color: Colors.white,
                         size: 45,

@@ -41,7 +41,7 @@ class SignupDialog extends StatelessWidget {
         child: Stack(
           children: <Widget>[
             Container(
-              height: MediaQuery.of(context).size.height * .69,
+              height: MediaQuery.of(context).size.height * .80,
               width: MediaQuery.of(context).size.width * .99,
               padding: const EdgeInsets.only(
                 top: 18.0,

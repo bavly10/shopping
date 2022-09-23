@@ -23,6 +23,7 @@ class ShopCubit extends Cubit<ShopStates> {
   Locale? locale_cubit;
   String? lang;
   static bool xtranslate = false;
+
   void changeLang(lang) async {
     Locale currentLocale = await setLocale(lang.lang_Code);
     changLocale(currentLocale);
@@ -33,6 +34,7 @@ class ShopCubit extends Cubit<ShopStates> {
   }
 
   Future<Locale> locale(String lang) async {
+    emit(cons_Change_Loading());
     switch (lang) {
       case "en":
         xtranslate = false;
@@ -47,6 +49,7 @@ class ShopCubit extends Cubit<ShopStates> {
         locale_cubit = const Locale("ar", "SA");
     }
     emit(cons_Change_Language());
+    print(locale_cubit);
     return locale_cubit!;
   }
 

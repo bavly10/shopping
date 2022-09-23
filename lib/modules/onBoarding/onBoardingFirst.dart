@@ -25,7 +25,6 @@ class OnBoardingFirst extends StatelessWidget {
     return BlocBuilder<ShopCubit, ShopStates>(
       builder: (ctx, state) {
         final cubit = ShopCubit.get(context);
-
         return Scaffold(
           appBar: AppBar(
             elevation: 0,
@@ -61,7 +60,7 @@ class OnBoardingFirst extends StatelessWidget {
               ),
             ],
           ),
-          body: splashModel == null
+          body: state is cons_Change_Loading? const CircularProgressIndicator():splashModel == null
               ? const ErrorPage()
               : Column(
                   children: [

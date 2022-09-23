@@ -103,21 +103,23 @@ class CheckDialog extends StatelessWidget {
                         onTap: () {
                           FocusScope.of(context).unfocus();
                           if (formKey.currentState!.validate()) {
-                            CustomerCubit.get(context)
-                                .checkUser(phoneCheckController.text)
-                                .then((value) {
+                            CustomerCubit.get(context).checkUser(phoneCheckController.text).then((value) {
                               if (CustomerCubit.get(context).check == false) {
                                 showDialog(
+                                  barrierDismissible: false,
                                     context: context,
                                     builder: (context) {
                                       return widget;
                                     });
-                                // Navigator.of(context).pop();
                               } else {
-                                CustomerCubit.get(context)
-                                    .connectStore(context: context, userId: id)
+                                CustomerCubit.get(context).connectStore(context: context, userId: id)
                                     .then((value) {
-                                  myToast(message: "You Are Avialable");
+                                  showDialog(
+                                      barrierDismissible: false,
+                                      context: context,
+                                      builder: (context) {
+                                        return widget;
+                                      });
                                 });
                               }
 

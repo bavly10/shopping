@@ -10,27 +10,20 @@ import 'package:shopping/modules/Customer/MyOrders/cubit/cubit.dart';
 import 'package:shopping/modules/Customer/cubit/cubit.dart';
 import 'package:shopping/modules/Customer/login/cubit/cubit.dart';
 import 'package:shopping/modules/Customer/products/cubit/cubit.dart';
-import 'package:shopping/modules/OrderStauts/failed.dart';
 import 'package:shopping/modules/Splash_screen/splash.dart';
-import 'package:shopping/modules/test.dart';
-
 import 'package:shopping/shared/diohelper/dioHelpoer.dart';
 import 'package:shopping/shared/localization/set_localization.dart';
 import 'package:shopping/shared/my_colors.dart';
 import 'package:shopping/shared/shared_prefernces.dart';
 
-import 'modules/OrderStauts/Success.dart';
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  SystemChrome.setPreferredOrientations(
-      [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
   Bloc.observer = MyBlocObserver();
-  DioHelper.init();
   await CashHelper.init();
+  DioHelper.init();
   runApp(MyApp());
 }
-
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -51,9 +44,7 @@ class MyApp extends StatelessWidget {
             create: (context) =>
                 CustomerOrderCubit()..getOrders(context: context)),
         BlocProvider(
-            create: (context) => CustomerCubit()
-              ..getProductCustomer(LoginCubit.get(context).loginModel?.data?.id)
-              ..getStatisticCustomer(18, context)),
+            create: (context) => CustomerCubit()..getProductCustomer(LoginCubit.get(context).loginModel?.data?.id)..getStatisticCustomer(18, context)),
       ],
       child: BlocBuilder<ShopCubit, ShopStates>(
         builder: (context, state) {

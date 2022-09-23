@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shopping/Cubit/cubit.dart';
 import 'package:shopping/Cubit/states.dart';
+import 'package:shopping/model/language.dart';
 import 'package:shopping/modules/mainScreen/screen/cateogry.dart';
 import 'package:shopping/modules/mainScreen/screen/customer.dart';
 import 'package:shopping/shared/compononet/arrowBack.dart';
+import 'package:shopping/shared/compononet/componotents.dart';
+import 'package:shopping/shared/diohelper/dioHelpoer.dart';
 import 'package:shopping/shared/localization/translate.dart';
 import 'package:shopping/shared/my_colors.dart';
 import 'package:simple_animations/simple_animations.dart';
@@ -57,15 +60,16 @@ class HomeScreen extends StatelessWidget {
 
   Widget myAppBar(context) {
     return Padding(
-      padding: const EdgeInsets.all(12.0),
+      padding: const EdgeInsets.all(4.0),
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Card(
             color: Colors.grey,
-            shape: const StadiumBorder(
+            shape:  StadiumBorder(
               side: BorderSide(
-                style: BorderStyle.solid,
-                color: Colors.grey,
+                style: BorderStyle.none,
+                color: myBlack,
                 width: 6.0,
               ),
             ),
@@ -73,28 +77,47 @@ class HomeScreen extends StatelessWidget {
             child: IconButton(
                 icon: Icon(
                   Icons.search_sharp,
-                  size: 35,
-                  color: myBlue,
+                  size: 25,
+                  color: myBlack,
                 ),
                 onPressed: () {
                   ShopCubit.get(context).changeSearchAppBar();
-
                 }),
           ),
-          SizedBox(
-            width: MediaQuery.of(context).size.width * 0.25,
-          ),
+          SizedBox(width: 10,),
           Text(
             mytranslate(context, "home"),
             style: TextStyle(
-                color: myBlack, fontWeight: FontWeight.bold, fontSize: 25),
+                color: myBlue, fontWeight: FontWeight.bold, fontSize: 22),
           ),
           const Spacer(),
-          MyArrowBack(
-            onPress: () {
-              Navigator.pop(context);
+          DropdownButton(
+            onChanged: (lang) {
+              ShopCubit.get(context).changeLang(lang);
+              DioHelper.init();
+              ShopCubit.get(context).getCategoriesData().then((value) =>ShopCubit.get(context).getCustomerData(10)).then((value) =>build(context));
             },
-          )
+            items: lanugage.lang_list
+                .map<DropdownMenuItem<lanugage>>(
+                    (lang) => DropdownMenuItem(
+                  value: lang,
+                  child: Row(
+                    children: [
+                      Text(lang.flag!),
+                      const SizedBox(
+                        width: 10,
+                      ),
+                      Text(lang.name!)
+                    ],
+                  ),
+                ))
+                .toList(),
+            underline: const SizedBox(),
+            icon: const Icon(
+              Icons.language,
+              size: 30.0,
+            ),
+          ),
         ],
       ),
     );

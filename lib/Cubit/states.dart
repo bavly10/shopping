@@ -2,6 +2,7 @@ abstract class ShopStates {}
 
 class Shop_InitalState extends ShopStates {}
 
+class cons_Change_Loading extends ShopStates {}
 class cons_Change_Language extends ShopStates {}
 
 class cons_Change_Language_locale extends ShopStates {}

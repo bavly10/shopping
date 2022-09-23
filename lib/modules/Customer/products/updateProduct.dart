@@ -610,7 +610,9 @@ class UpdateProduct extends StatelessWidget {
                                       descAr: describeProduct.text.isEmpty
                                           ? model.data!.productData!.descAr
                                           : describeProduct.text,
-                                      descEn: "dawdwa",
+                                      descEn: describeProduct.text.isEmpty
+                                          ? model.data!.productData!.descAr
+                                          : describeProduct.text,
                                       many: amountProduct.text.isEmpty
                                           ? model.data!.productData!.many
                                           : amountProduct.text,
