@@ -5,7 +5,6 @@ import 'package:shopping/model/product.dart';
 import 'package:shopping/modules/Customer/products/cubit/cubit.dart';
 import 'package:shopping/modules/Customer/products/cubit/states.dart';
 import 'package:shopping/modules/Customer/products/updateProduct.dart';
-import 'package:shopping/shared/compononet/LoagingDialog.dart';
 import 'package:shopping/shared/compononet/componotents.dart';
 import 'package:shopping/shared/compononet/myToast.dart';
 import 'package:shopping/shared/localization/translate.dart';
@@ -32,7 +31,7 @@ class MoreProductsCustomer extends StatelessWidget {
         return Scaffold(
             backgroundColor: myGrey,
             appBar: AppBar(
-              title: Text("My product"),
+              title: Text(mytranslate(context, "my")),
               leading: TextField(
                 controller: search,
                 onChanged: (value) {
@@ -100,8 +99,9 @@ class MoreProductsCustomer extends StatelessWidget {
           decoration: BoxDecoration(
             color: Colors.white, //background color of dropdown button
             border: Border.all(
+                color: myGrey!,
                 //color: HexColor('#A7B3CF'),
-                width: 1), //border of dropdown button
+                width: 5), //border of dropdown button
             borderRadius: BorderRadius.circular(20),
           ),
           child: Column(children: [
@@ -129,7 +129,7 @@ class MoreProductsCustomer extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.only(bottom: 8.0),
                       child: Text(pro.titleAr!,
-                          style: TextStyle(
+                          style: const TextStyle(
                             // color: HexColor(
                             //     '#A7B3CF'),
                             fontSize: 18,
@@ -145,8 +145,9 @@ class MoreProductsCustomer extends StatelessWidget {
                                   color: Colors.black87,
                                   fontSize: 14,
                                   fontWeight: FontWeight.bold)),
+                          const TextSpan(text: " "),
                           TextSpan(
-                              text: "WD",
+                              text: mytranslate(context, "wd"),
                               style: TextStyle(
                                   color: Colors.grey[400],
                                   fontSize: 14,
@@ -165,7 +166,8 @@ class MoreProductsCustomer extends StatelessWidget {
             Row(
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(top: 10.0, left: 20),
+                  padding: const EdgeInsets.only(
+                      top: 10.0, left: 20, right: 10, bottom: 15),
                   child: Text("${pro.many!}  ${mytranslate(context, "pic")}",
                       style: const TextStyle(
                           color: Colors.black54, fontWeight: FontWeight.bold)),
@@ -177,7 +179,7 @@ class MoreProductsCustomer extends StatelessWidget {
                           (value) => {navigateTo(context, UpdateProduct())});
                     },
                     child: Text(
-                      "Edit Product",
+                      mytranslate(context, "editt"),
                       style: TextStyle(
                           decoration: TextDecoration.underline,
                           color: myBlue,
