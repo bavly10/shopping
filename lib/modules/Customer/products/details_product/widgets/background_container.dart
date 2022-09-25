@@ -16,10 +16,7 @@ class CustomBackgroundContainer extends StatelessWidget {
       height: MediaQuery.of(context).size.height,
       width: MediaQuery.of(context).size.width,
       child: Padding(
-        padding: const EdgeInsets.only(
-          top: 15,
-          right: 15,
-        ),
+        padding: const EdgeInsets.only(top: 15, right: 3, left: 5),
         child: Row(
           children: [
             MaterialButton(
@@ -38,27 +35,30 @@ class CustomBackgroundContainer extends StatelessWidget {
             const Spacer(),
             InkWell(
               onTap: cartShopping,
-              child: Badge(
-                animationDuration: const Duration(milliseconds: 300),
-                position: BadgePosition.topEnd(top: -13),
-                animationType: BadgeAnimationType.fade,
-                showBadge: true,
-                toAnimate: true,
-                shape: BadgeShape.circle,
-                badgeColor: Colors.red,
-                borderRadius: BorderRadius.circular(10),
-                badgeContent: //  if (x != 0)
-                    Text(
-                  x.toString(),
-                  style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold),
-                ),
-                child: Icon(
-                  Icons.shopping_cart_outlined,
-                  color: myBlue,
-                  size: 35,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Badge(
+                  animationDuration: const Duration(milliseconds: 300),
+                  position: BadgePosition.topEnd(top: -13),
+                  animationType: BadgeAnimationType.fade,
+                  showBadge: true,
+                  toAnimate: true,
+                  shape: BadgeShape.circle,
+                  badgeColor: Colors.red,
+                  borderRadius: BorderRadius.circular(10),
+                  badgeContent: //  if (x != 0)
+                      Text(
+                    x.toString(),
+                    style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold),
+                  ),
+                  child: Icon(
+                    Icons.shopping_cart_outlined,
+                    color: myBlue,
+                    size: 35,
+                  ),
                 ),
               ),
             )

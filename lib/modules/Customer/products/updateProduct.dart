@@ -13,7 +13,6 @@ import 'package:shopping/shared/compononet/describe_text_feild.dart';
 import 'package:shopping/shared/compononet/product_textField.dart';
 import 'package:shopping/shared/localization/translate.dart';
 import 'package:shopping/shared/my_colors.dart';
-import 'package:shopping/shared/network.dart';
 import 'package:shopping/shared/compononet/verification_dialog.dart';
 
 class UpdateProduct extends StatelessWidget {
@@ -150,8 +149,8 @@ class UpdateProduct extends StatelessWidget {
                               return CustomDialog(
                                 btnName: mytranslate(context, "ok"),
                                 text: mytranslate(context, "upd"),
-                                onTap: () =>
-                                    navigateTo(context, CustomerHome().build(context)),
+                                onTap: () => navigateTo(
+                                    context, CustomerHome().build(context)),
                               );
                             });
                       }
@@ -583,12 +582,16 @@ class UpdateProduct extends StatelessWidget {
                             child: Container(
                               width: MediaQuery.of(context).size.width * .40,
                               height: MediaQuery.of(context).size.height * .1,
-                              decoration: BoxDecoration(color: myBlue, shape: BoxShape.rectangle, borderRadius: BorderRadius.circular(20)),
+                              decoration: BoxDecoration(
+                                  color: myBlue,
+                                  shape: BoxShape.rectangle,
+                                  borderRadius: BorderRadius.circular(20)),
                               child: MaterialButton(
                                 onPressed: () async {
                                   print(typeProduct.text.toString());
                                   List y = [];
-                                  for (var x in ProductCubit.get(context).imageFileList) {
+                                  for (var x in ProductCubit.get(context)
+                                      .imageFileList) {
                                     y.add(MultipartFile.fromFileSync(x.path));
                                   }
                                   if (cubit.cat_id == null) {
@@ -623,8 +626,8 @@ class UpdateProduct extends StatelessWidget {
                                       id: model.data!.productData!.id,
                                       img: y.isEmpty ? model.data!.images : y,
                                     );
-                                    cubit.catSelect=null;
-                                    cubit.cat_id=null;
+                                    cubit.catSelect = null;
+                                    cubit.cat_id = null;
                                   }
                                 },
                                 child: Text(

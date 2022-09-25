@@ -1,11 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shopping/modules/Customer/login/cubit/cubit.dart';
-import 'package:shopping/modules/Customer/login/signup/signup.dart';
-import 'package:shopping/modules/Customer/products/cubit/cubit.dart';
-import 'package:shopping/modules/Customer/products/cubit/states.dart';
-import 'package:shopping/shared/compononet/check_phone_cart.dart';
-import 'package:shopping/shared/compononet/componotents.dart';
 import 'package:shopping/shared/localization/translate.dart';
 import 'package:shopping/shared/my_colors.dart';
 
@@ -59,11 +54,15 @@ class PrivacyPolicySignupDialog extends StatelessWidget {
                           const SizedBox(
                             height: 5,
                           ),
-                          state is PrivacyPolicyLoadingState ?const CircularProgressIndicator():Text(
-                            model!.data!,
-                            style: const TextStyle(fontSize: 20),
-                            maxLines: 40,
-                          ),
+                          model == null
+                              ? const Center(
+                                  child: CircularProgressIndicator(),
+                                )
+                              : Text(
+                                  model.data!,
+                                  style: const TextStyle(fontSize: 20),
+                                  maxLines: 40,
+                                ),
                           const Spacer(),
                           Row(
                             children: [

@@ -20,7 +20,11 @@ class OnBoardingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final splashModel = ShopCubit.get(context).splashModel;
-    List textbtn = ["Start", "Start", "Start"];
+    List textbtn = [
+      mytranslate(context, "start"),
+      mytranslate(context, "start"),
+      mytranslate(context, "start")
+    ];
     List mylist = [
       onBoardingItem(
           splashModel: splashModel!.data!.male.toString(),
@@ -64,6 +68,9 @@ class OnBoardingScreen extends StatelessWidget {
                               .textTheme
                               .subtitle2
                               ?.copyWith(color: myBlack, fontSize: 18)),
+                      const SizedBox(
+                        height: 5,
+                      ),
                       Expanded(
                         child: PageView.builder(
                             onPageChanged: (value) {

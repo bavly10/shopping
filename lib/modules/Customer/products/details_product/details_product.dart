@@ -19,9 +19,9 @@ class DetailsProduct extends StatelessWidget {
       final model = ProductCubit.get(context).proInf;
       final cubit = ProductCubit.get(context);
       return model == null
-          ? Padding(
-              padding: const EdgeInsets.all(27.0),
-              child: const CircularProgressIndicator(),
+          ? const Padding(
+              padding: EdgeInsets.all(27.0),
+              child: CircularProgressIndicator(),
             )
           : Scaffold(
               body: SingleChildScrollView(

@@ -18,12 +18,14 @@ import 'package:shopping/shared/shared_prefernces.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
+  SystemChrome.setPreferredOrientations(
+      [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
   Bloc.observer = MyBlocObserver();
   await CashHelper.init();
   DioHelper.init();
   runApp(MyApp());
 }
+
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -44,7 +46,10 @@ class MyApp extends StatelessWidget {
             create: (context) =>
                 CustomerOrderCubit()..getOrders(context: context)),
         BlocProvider(
-            create: (context) => CustomerCubit()..getProductCustomer(LoginCubit.get(context).loginModel?.data?.id)..getStatisticCustomer(18, context)),
+            create: (context) => CustomerCubit()
+              ..getProductCustomer(LoginCubit.get(context).loginModel?.data?.id)
+              ..getStatisticCustomer(
+                  LoginCubit.get(context).loginModel?.data?.id, context)),
       ],
       child: BlocBuilder<ShopCubit, ShopStates>(
         builder: (context, state) {

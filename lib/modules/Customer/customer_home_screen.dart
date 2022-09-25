@@ -1,18 +1,14 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_hex_color/flutter_hex_color.dart';
 
 import 'package:shopping/Cubit/cubit.dart';
-import 'package:shopping/model/CustomerModel.dart';
 import 'package:shopping/model/product.dart';
 import 'package:shopping/modules/Customer/MyOrders/cubit/cubit.dart';
 import 'package:shopping/modules/Customer/MyOrders/mainOrder.dart';
 import 'package:shopping/modules/Customer/Static/static.dart';
 import 'package:shopping/modules/Customer/cubit/cubit.dart';
-import 'package:shopping/modules/Customer/cubit/state.dart';
 import 'package:shopping/modules/Customer/more/more.dart';
 import 'package:shopping/modules/Customer/products/cubit/cubit.dart';
 import 'package:shopping/modules/Customer/products/cubit/states.dart';
@@ -33,27 +29,29 @@ class CustomerHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ProductCubit.get(context).getProducts(context, 1);
+    ShopCubit.get(context).getMyShared();
     return BlocConsumer<ProductCubit, ProductStates>(
         listener: (context, state) {
-          if (state is LoadingShowCustomer) {
-            showDialog(context: context, builder: (context) => const LoadingDialog());
-          } else if (state is ShowingCustomerData) {
-            navigateTo(context, UpdateCustomer());
-          } else if (state is FailShowCustomerData) {
-            myToast(message: mytranslate(context, "noData"));
-          }else if (state is GettingProductDataLoading){
-            EasyLoading.showToast("loading..",
-                toastPosition: EasyLoadingToastPosition.bottom,
-                duration: const Duration(milliseconds: 3));
-          }else{}
-        }, builder: (context, state) {
+      if (state is LoadingShowCustomer) {
+        showDialog(
+            context: context, builder: (context) => const LoadingDialog());
+      } else if (state is ShowingCustomerData) {
+        navigateTo(context, UpdateCustomer());
+      } else if (state is FailShowCustomerData) {
+        myToast(message: mytranslate(context, "noData"));
+      } else if (state is GettingProductDataLoading) {
+        EasyLoading.showToast("loading..",
+            toastPosition: EasyLoadingToastPosition.bottom,
+            duration: const Duration(milliseconds: 3));
+      } else {}
+    }, builder: (context, state) {
       var productItem = ProductCubit.get(context).listProduct;
       return Scaffold(
         appBar: AppBar(leading: SizedBox(), actions: [
           InkWell(
             onTap: () {
               ProductCubit.get(context).getLogout(context).whenComplete(
-                      () => {navigateToFinish(context, MainScreen())});
+                  () => {navigateToFinish(context, const MainScreen())});
             },
             child: Padding(
               padding: const EdgeInsets.all(8.0),
@@ -88,7 +86,7 @@ class CustomerHome extends StatelessWidget {
                         decoration: BoxDecoration(
                           color: HexColor("#A7B3CF"),
                           borderRadius:
-                          const BorderRadius.all(Radius.circular(20)),
+                              const BorderRadius.all(Radius.circular(20)),
                         ),
                         height: MediaQuery.of(context).size.height * .20,
                         width: MediaQuery.of(context).size.width * .42,
@@ -135,16 +133,17 @@ class CustomerHome extends StatelessWidget {
                         decoration: BoxDecoration(
                           color: HexColor("#A7B3CF"),
                           borderRadius:
-                          const BorderRadius.all(Radius.circular(20)),
+                              const BorderRadius.all(Radius.circular(20)),
                         ),
                         height: MediaQuery.of(context).size.height * .20,
                         width: MediaQuery.of(context).size.width * .42,
                         child: InkWell(
                           onTap: () {
                             CustomerCubit.get(context)
-                                .getStatisticCustomer(18, context)
+                                .getStatisticCustomer(
+                                    ShopCubit.get(context).customerId, context)
                                 .then((value) =>
-                                navigateTo(context, StaticMain()));
+                                    navigateTo(context, StaticMain()));
                           },
                           child: Padding(
                             padding: const EdgeInsets.only(top: 35.0),
@@ -190,6 +189,9 @@ class CustomerHome extends StatelessWidget {
                           borderRadius: BorderRadius.circular(20)),
                       child: MaterialButton(
                         onPressed: () {
+                          ProductCubit.get(context).imageFileList = [];
+                          // ProductCubit.get(context).imageFileList.length = 0;
+
                           navigateTo(
                               context,
                               CreatePro(
@@ -220,7 +222,11 @@ class CustomerHome extends StatelessWidget {
                       TextButton(
                           onPressed: () {
                             ProductCubit.get(context).pagnationDataLimit();
-                            ProductCubit.get(context).getProducts(context, ProductCubit.get(context).limit).then((value) =>  navigateTo(context,MoreProductsCustomer()));
+                            ProductCubit.get(context)
+                                .getProducts(
+                                    context, ProductCubit.get(context).limit)
+                                .then((value) => navigateTo(
+                                    context, MoreProductsCustomer()));
                           },
                           child: Text(
                             mytranslate(context, "more"),
@@ -233,13 +239,13 @@ class CustomerHome extends StatelessWidget {
                     ],
                   ),
                   ListView.builder(
-                      physics: NeverScrollableScrollPhysics(),
+                      physics: const NeverScrollableScrollPhysics(),
                       shrinkWrap: true,
                       itemBuilder: (context, index) {
                         return productItem.isEmpty
                             ? const Center(
-                          child: CircularProgressIndicator(),
-                        )
+                                child: CircularProgressIndicator(),
+                              )
                             : myCard(context: context, pro: productItem[index]);
                       },
                       itemCount: productItem.length)
@@ -321,19 +327,20 @@ class CustomerHome extends StatelessWidget {
             Row(
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(top: 10.0, left: 20),
+                  padding:
+                      const EdgeInsets.only(right: 10, top: 10.0, left: 20),
                   child: Text("${pro.many!}  ${mytranslate(context, "pic")}",
                       style: const TextStyle(
                           color: Colors.black54, fontWeight: FontWeight.bold)),
                 ),
-                Spacer(),
+                const Spacer(),
                 TextButton(
                     onPressed: () async {
                       ProductCubit.get(context).showPro(pro.id, context).then(
-                              (value) => {navigateTo(context, UpdateProduct())});
+                          (value) => {navigateTo(context, UpdateProduct())});
                     },
                     child: Text(
-                      "Edit Product",
+                      mytranslate(context, "editt"),
                       style: TextStyle(
                           decoration: TextDecoration.underline,
                           color: myBlue,

@@ -27,22 +27,25 @@ class CustomerCubit extends Cubit<CustomerStates> {
 // ignore: non_constant_identifier_names
   List<ProductsItem> list = [];
   List<ProductsItem> lists = [];
-  int pageCurrent=1;
+  int pageCurrent = 1;
   int pagnationDataCurrent() {
     return pageCurrent += 1;
   }
+
   Future getProductCustomer(id) async {
     emit(ProductCustomerLoading());
     list = [];
     Map<String, dynamic> data = {"user_id": id};
     await DioHelper.postData(url: getProducts, data: data).then((value) {
       final res = value.data['data']['data'];
-      if(res.isEmpty){
+      if (res.isEmpty) {
         emit(ProductCustomerNull());
-        pageCurrent=1;
-      }else{
+        pageCurrent = 1;
+      } else {
         for (var value in res) {
-          final pro = list.indexWhere((element) => element.id == value["id"].toString(),);
+          final pro = list.indexWhere(
+            (element) => element.id == value["id"].toString(),
+          );
           if (pro >= 0) {
             list[pro] = ProductsItem(
               id: value["id"].toString(),
@@ -58,8 +61,7 @@ class CustomerCubit extends Cubit<CustomerStates> {
               desc: value["desc"],
               image: value["image"],
             );
-          }
-          else {
+          } else {
             list.add(ProductsItem(
               id: value["id"].toString(),
               title: value["title"],
@@ -83,17 +85,21 @@ class CustomerCubit extends Cubit<CustomerStates> {
       emit(ProductCustomerFail());
     });
   }
+
   Future getProductCustomerPagination(id) async {
+    lists = [];
     emit(ProductCustomerLoading());
-    Map<String, dynamic> data = {"user_id": id,"page":pageCurrent};
+    Map<String, dynamic> data = {"user_id": id, "page": pageCurrent};
     await DioHelper.postData(url: getProducts, data: data).then((value) {
       final res = value.data['data']['data'];
-      if(res.isEmpty){
+      if (res.isEmpty) {
         emit(ProductCustomerNullPagi());
-        pageCurrent=1;
-      }else{
+        pageCurrent = 1;
+      } else {
         for (var value in res) {
-          final pro = lists.indexWhere((element) => element.id == value["id"].toString(),);
+          final pro = lists.indexWhere(
+            (element) => element.id == value["id"].toString(),
+          );
           if (pro >= 0) {
             lists[pro] = ProductsItem(
               id: value["id"].toString(),
@@ -102,8 +108,7 @@ class CustomerCubit extends Cubit<CustomerStates> {
               desc: value["desc"],
               image: value["image"],
             );
-          }
-          else {
+          } else {
             lists.add(ProductsItem(
               id: value["id"].toString(),
               title: value["title"],
@@ -178,7 +183,6 @@ class CustomerCubit extends Cubit<CustomerStates> {
 
   ////////////////////////Show Customer Data////////////////////
 
-
   ////////////////////////////Update Customer////////////////
   MultipartFile? mFile;
   updateCustomer({nameStore, name, pass, phone, adress, img, context}) async {
@@ -215,7 +219,10 @@ class CustomerCubit extends Cubit<CustomerStates> {
   List<ProductsItem> search = [];
   List<dynamic> searchCustomer(String quary) {
     search = [];
-    var searching = list.where((element) => element.title!.toLowerCase().contains(quary.toLowerCase())).toList();
+    var searching = list
+        .where((element) =>
+            element.title!.toLowerCase().contains(quary.toLowerCase()))
+        .toList();
     search = searching;
     // print(search[0].title);
     emit(SearchingProduct());
@@ -338,15 +345,21 @@ class CustomerCubit extends Cubit<CustomerStates> {
   //////////////////////////Stactic////////////
 
   Statistics? modelStatis;
-  Future getStatisticCustomer(id,context) async {
+  Future getStatisticCustomer(id, context) async {
     emit(GettingStatisticLoading());
     ShopCubit.get(context).getMyShared();
-    Map<String, dynamic> data = {"user_id": id,"auth-token":ShopCubit.get(context).customerToken};
-    Map<String, dynamic> header = {"auth-token":ShopCubit.get(context).customerToken};
-    await DioHelper.postData(url: statistics, data: data,option: header).then((value) {
-      modelStatis=Statistics.fromJson(value.data);
+    Map<String, dynamic> data = {
+      "user_id": id,
+      "auth-token": ShopCubit.get(context).customerToken
+    };
+    Map<String, dynamic> header = {
+      "auth-token": ShopCubit.get(context).customerToken
+    };
+    await DioHelper.postData(url: statistics, data: data, option: header)
+        .then((value) {
+      modelStatis = Statistics.fromJson(value.data);
       print("Done static");
-        emit(GettingStatisticSucess());
+      emit(GettingStatisticSucess());
     }).catchError((error) {
       print("stastic: ${error.toString()}");
       emit(GettingStatisticError());

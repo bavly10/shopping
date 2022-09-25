@@ -25,10 +25,9 @@ class Login extends StatelessWidget {
     return BlocConsumer<LoginCubit, LoginStates>(
       listener: (ctx, state) {
         if (state is SucessLoginState) {
-          navigateTo(context,
+          navigateToFinish(context,
               CustomerHome(id: LoginCubit.get(context).loginModel!.data!.id));
-        }
-        else if (state is ErrorLoginState) {
+        } else if (state is ErrorLoginState) {
           if (state.code == "6004") {
             My_CustomAlertDialog(
                 onPress: () => Navigator.pop(context),
@@ -39,20 +38,18 @@ class Login extends StatelessWidget {
                 content: "Invalid email or Password",
                 pressColor: Colors.red,
                 iconColor: Colors.red);
+          } else if (state.code == "6005") {
+            My_CustomAlertDialog(
+                onPress: () => Navigator.pop(context),
+                pressTitle: 'OK',
+                context: context,
+                icon: Icons.error,
+                bigTitle: "shopping",
+                content: mytranslate(context, "verfi"),
+                pressColor: Colors.red,
+                iconColor: Colors.red);
           }
-          else if (state.code=="6005"){
-              My_CustomAlertDialog(
-                  onPress: () => Navigator.pop(context),
-                  pressTitle: 'OK',
-                  context: context,
-                  icon: Icons.error,
-                  bigTitle: "shopping",
-                  content:mytranslate(context, "verfi"),
-                  pressColor: Colors.red,
-                  iconColor: Colors.red);
-          }
-        }
-        else {}
+        } else {}
       },
       builder: (ctx, state) {
         final cubit = LoginCubit.get(context);
@@ -89,7 +86,8 @@ class Login extends StatelessWidget {
                   ),
                   MyTextField(
                       validate: (String? s) {
-                        if (s!.isEmpty) return mytranslate(context, "validateEmail");
+                        if (s!.isEmpty)
+                          return mytranslate(context, "validateEmail");
                       },
                       label: mytranslate(context, "hintogin"),
                       controller: emailcontroller,
@@ -101,7 +99,8 @@ class Login extends StatelessWidget {
                   ),
                   MyTextField(
                       validate: (String? s) {
-                        if (s!.isEmpty) return mytranslate(context, "validatePass");
+                        if (s!.isEmpty)
+                          return mytranslate(context, "validatePass");
                       },
                       label: mytranslate(context, "hintpassword"),
                       controller: passcontroller,
@@ -119,7 +118,9 @@ class Login extends StatelessWidget {
                       onPressed: () {
                         navigateTo(
                             context,
-                            InAppWebView(initialUrlRequest: URLRequest(url: Uri.parse(forgetPass))));
+                            InAppWebView(
+                                initialUrlRequest:
+                                    URLRequest(url: Uri.parse(forgetPass))));
                       },
                       child: Text(
                         mytranslate(context, "ForgetPassword"),
@@ -134,9 +135,10 @@ class Login extends StatelessWidget {
                   BlueButton(
                     onpress: () {
                       FocusScope.of(context).unfocus();
-                       if(_form.currentState!.validate()) {
-                         LoginCubit.get(context).getLogin(emailcontroller.text, passcontroller.text);
-                       }
+                      if (_form.currentState!.validate()) {
+                        LoginCubit.get(context).getLogin(
+                            emailcontroller.text, passcontroller.text);
+                      }
                     },
                     title: state is LoadingLoginState
                         ? CircularProgressIndicator(

@@ -8,7 +8,6 @@ import 'package:shopping/model/categoryModel.dart';
 import 'package:shopping/modules/Customer/customer_home_screen.dart';
 import 'package:shopping/modules/Customer/products/cubit/cubit.dart';
 import 'package:shopping/modules/Customer/products/cubit/states.dart';
-import 'package:shopping/modules/mainScreen/screen/singleCustomerProduct/mainCustomer.dart';
 import 'package:shopping/shared/compononet/componotents.dart';
 import 'package:shopping/shared/compononet/describe_text_feild.dart';
 import 'package:shopping/shared/compononet/product_textField.dart';
@@ -16,7 +15,6 @@ import 'package:shopping/shared/localization/translate.dart';
 import 'package:shopping/shared/my_colors.dart';
 
 import '../../../shared/compononet/verification_dialog.dart';
-import '../../mainScreen/screen/HomeScreen.dart';
 
 class CreatePro extends StatelessWidget {
   int? id;
@@ -128,8 +126,9 @@ class CreatePro extends StatelessWidget {
                             builder: (context) {
                               return CustomDialog(
                                 btnName: mytranslate(context, "ok"),
-                                text: mytranslate(context, "upd"),
-                                onTap: () => navigateTo(context, CustomerHome().build(context)),
+                                text: mytranslate(context, "add"),
+                                onTap: () => navigateTo(
+                                    context, CustomerHome().build(context)),
                               );
                             });
                       }
@@ -473,7 +472,10 @@ class CreatePro extends StatelessWidget {
                                   onPressed: () async {
                                     print(typeProduct.text.toString());
                                     List y = [];
-                                    for (var x in ProductCubit.get(context).imageFileList) {y.add(MultipartFile.fromFileSync(x.path));}
+                                    for (var x in ProductCubit.get(context)
+                                        .imageFileList) {
+                                      y.add(MultipartFile.fromFileSync(x.path));
+                                    }
                                     cubit.create(
                                       context: context,
                                       userid: id,
@@ -485,8 +487,8 @@ class CreatePro extends StatelessWidget {
                                       tittleEn: "dwadwad",
                                       img: y,
                                     );
-                                    cubit.catSelect=null;
-                                    cubit.cat_id=null;
+                                    cubit.catSelect = null;
+                                    cubit.cat_id = null;
                                   },
                                   child: Text(
                                     mytranslate(context, "save"),

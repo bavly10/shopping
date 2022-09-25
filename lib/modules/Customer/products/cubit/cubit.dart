@@ -7,13 +7,8 @@ import 'package:image_picker/image_picker.dart';
 import 'package:shopping/Cubit/cubit.dart';
 import 'package:shopping/model/CustomerModel.dart';
 import 'package:shopping/model/cart.dart';
-import 'package:shopping/model/categoryModel.dart';
-import 'package:shopping/model/latest_product.dart';
 import 'package:shopping/model/product.dart';
 import 'package:shopping/model/product_info.dart';
-import 'package:shopping/model/show_product_model.dart';
-import 'package:shopping/model/show_product_model.dart';
-import 'package:shopping/model/show_product_model.dart';
 import 'package:shopping/model/show_product_model.dart';
 import 'package:shopping/modules/Customer/login/cubit/cubit.dart';
 import 'package:shopping/modules/Customer/products/cubit/states.dart';
@@ -47,6 +42,7 @@ class ProductCubit extends Cubit<ProductStates> {
   final ImagePicker imagePicker = ImagePicker();
 
   void selectImages(context) async {
+    // imageFileList = [];
     final List<XFile>? selectedImages = await imagePicker.pickMultiImage();
     if (selectedImages!.isNotEmpty) {
       if (selectedImages.length <= 6 && imageFileList.length <= 6) {

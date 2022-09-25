@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_advanced_drawer/flutter_advanced_drawer.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hex_color/flutter_hex_color.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:shopping/modules/Customer/cubit/cubit.dart';
 import 'package:shopping/modules/Customer/cubit/state.dart';
 import 'package:shopping/modules/Customer/products/cubit/cubit.dart';
@@ -52,7 +51,7 @@ class StoreScreen extends StatelessWidget {
         // openScale: 1.0,
         disabledGestures: false,
         childDecoration: const BoxDecoration(
-          borderRadius: const BorderRadius.all(Radius.circular(16)),
+          borderRadius: BorderRadius.all(Radius.circular(16)),
         ),
         drawer: CustomDrawer(
           tiltle: title,
@@ -107,14 +106,18 @@ class StoreScreen extends StatelessWidget {
                   child: TopScreen(
                       adress: adress, image: image, title: title, rate: rate)),
               Padding(
-                padding: const EdgeInsets.only(top: 20.0, left: 20, bottom: 20),
+                padding: const EdgeInsets.only(
+                    top: 20.0, left: 20, bottom: 20, right: 12),
                 child: Text(mytranslate(context, "best"),
                     style: const TextStyle(
                         fontSize: 22, fontWeight: FontWeight.bold)),
               ),
               Container(
                 height: MediaQuery.of(context).size.width * .7,
-                padding: const EdgeInsets.only(right: 8, left: 8),
+                padding: const EdgeInsets.only(
+                  right: 8,
+                  left: 8,
+                ),
                 // width: MediaQuery.of(context).size.width,
                 child: latest.isEmpty
                     ? Center(
@@ -147,8 +150,8 @@ class StoreScreen extends StatelessWidget {
               Row(
                 children: [
                   Padding(
-                    padding:
-                        const EdgeInsets.only(top: 20.0, left: 20, bottom: 20),
+                    padding: const EdgeInsets.only(
+                        top: 20.0, left: 20, bottom: 20, right: 12),
                     child: Text(mytranslate(context, "recent"),
                         style: const TextStyle(
                             fontSize: 22, fontWeight: FontWeight.bold)),

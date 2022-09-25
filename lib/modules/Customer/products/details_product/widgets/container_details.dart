@@ -192,7 +192,7 @@ class CustomContainerDetails extends StatelessWidget {
                 const SizedBox(
                   width: 25,
                 ),
-                Container(
+                SizedBox(
                   width: MediaQuery.of(context).size.width * .6,
                   height: MediaQuery.of(context).size.height * .06,
                   child: MaterialButton(

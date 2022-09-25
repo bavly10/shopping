@@ -50,11 +50,15 @@ class PrivacyPolicyDialog extends StatelessWidget {
                         const SizedBox(
                           height: 5,
                         ),
-                        Text(
-                          text!,
-                          style: const TextStyle(fontSize: 20),
-                          maxLines: 40,
-                        ),
+                        text == null
+                            ? const Center(
+                                child: CircularProgressIndicator(),
+                              )
+                            : Text(
+                                text!,
+                                style: const TextStyle(fontSize: 20),
+                                maxLines: 40,
+                              ),
                         const Spacer(),
                         Row(
                           children: [

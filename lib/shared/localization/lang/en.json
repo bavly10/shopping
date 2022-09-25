@@ -126,5 +126,10 @@
    "tax": "Tax",
    "Start": "Start",
    "policy": "Privacy Policy",
-   "accept": "Accept"
+   "accept": "Accept",
+   "add": "Adding product successfully",
+   "my": "My products",
+   "start": "Start",
+   "get": "Get Started",
+   "editt": "Edit Product"
 }
