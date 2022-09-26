@@ -153,12 +153,16 @@ class CustomerHome extends StatelessWidget {
                             padding: const EdgeInsets.only(top: 35.0),
                             child: Column(
                               children: [
-                                Text(
-                                  mytranslate(context, "track"),
-                                  style: TextStyle(
-                                      color: myWhite,
-                                      fontSize: 17,
-                                      fontWeight: FontWeight.w600),
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                      left: 8.0, right: 8),
+                                  child: Text(
+                                    mytranslate(context, "track"),
+                                    style: TextStyle(
+                                        color: myWhite,
+                                        fontSize: 17,
+                                        fontWeight: FontWeight.w600),
+                                  ),
                                 ),
                                 const SizedBox(
                                   height: 5,
