@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:shopping/modules/Customer/Static/widgets/custom_chart.dart';
 import 'package:shopping/modules/Customer/Static/widgets/warning_container.dart';
 import 'package:shopping/modules/Customer/cubit/cubit.dart';
 import 'package:shopping/modules/Customer/cubit/state.dart';
-
 import 'package:shopping/shared/compononet/componotents.dart';
 import 'package:shopping/shared/localization/translate.dart';
 import 'package:shopping/shared/my_colors.dart';
@@ -20,11 +20,15 @@ class StaticMain extends StatelessWidget {
   List earnsOfMonth = [];
 
   TabController? controlle;
+
+  StaticMain({
+    Key? key,
+  }) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    final cubit = CustomerCubit.get(context).modelStatis!;
     return BlocBuilder<CustomerCubit, CustomerStates>(
       builder: (ctx, state) {
-        final cubit = CustomerCubit.get(context).modelStatis!;
         print(cubit.data?.years!.keys);
         customerOfYear = [];
         customerOfMonth = [];

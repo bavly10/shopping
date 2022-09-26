@@ -9,6 +9,7 @@ import 'package:shopping/modules/Customer/MyOrders/cubit/cubit.dart';
 import 'package:shopping/modules/Customer/MyOrders/mainOrder.dart';
 import 'package:shopping/modules/Customer/Static/static.dart';
 import 'package:shopping/modules/Customer/cubit/cubit.dart';
+import 'package:shopping/modules/Customer/cubit/state.dart';
 import 'package:shopping/modules/Customer/more/more.dart';
 import 'package:shopping/modules/Customer/products/cubit/cubit.dart';
 import 'package:shopping/modules/Customer/products/cubit/states.dart';
@@ -43,6 +44,9 @@ class CustomerHome extends StatelessWidget {
         EasyLoading.showToast("loading..",
             toastPosition: EasyLoadingToastPosition.bottom,
             duration: const Duration(milliseconds: 3));
+      } else if (state is GettingStatisticLoading) {
+        showDialog(
+            context: context, builder: (context) => const LoadingDialog());
       } else {}
     }, builder: (context, state) {
       var productItem = ProductCubit.get(context).listProduct;

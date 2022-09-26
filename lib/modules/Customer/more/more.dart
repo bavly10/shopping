@@ -56,19 +56,28 @@ class MoreProductsCustomer extends StatelessWidget {
                     child: LayoutBuilder(builder: (context, constraint) {
                       return Stack(
                         children: [
-                          ListView.builder(
-                            controller: scrollController,
-                            itemBuilder: (ctx, index) => Padding(
-                              padding: const EdgeInsets.only(
-                                  top: 8.0, left: 12, right: 12, bottom: 8),
-                              child: search.text.isEmpty
-                                  ? myCard(context: context, pro: cubit[index])
-                                  : myCard(context: context, pro: model[index]),
-                            ),
-                            itemCount: search.text.isEmpty
-                                ? cubit.length
-                                : model.length,
-                          ),
+                          cubit.isNotEmpty
+                              ? ListView.builder(
+                                  controller: scrollController,
+                                  itemBuilder: (ctx, index) => Padding(
+                                    padding: const EdgeInsets.only(
+                                        top: 8.0,
+                                        left: 12,
+                                        right: 12,
+                                        bottom: 8),
+                                    child: search.text.isEmpty
+                                        ? myCard(
+                                            context: context, pro: cubit[index])
+                                        : myCard(
+                                            context: context,
+                                            pro: model[index]),
+                                  ),
+                                  itemCount: search.text.isEmpty
+                                      ? cubit.length
+                                      : model.length,
+                                )
+                              : const Center(
+                                  child: CircularProgressIndicator()),
                           if (state is GettingProductDataLoading) ...[
                             Positioned(
                               left: 0,
