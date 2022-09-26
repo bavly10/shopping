@@ -20,11 +20,7 @@ class OnBoardingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final splashModel = ShopCubit.get(context).splashModel;
-    List textbtn = [
-      mytranslate(context, "start"),
-      mytranslate(context, "start"),
-      mytranslate(context, "start")
-    ];
+    List textbtn = ["Start", "Start", "Start"];
     List mylist = [
       onBoardingItem(
           splashModel: splashModel!.data!.male.toString(),
