@@ -47,7 +47,7 @@ class MoreProductsCustomer extends StatelessWidget {
                   hintText: mytranslate(context, "search"),
                 ),
               ),
-              leadingWidth: 200,
+              leadingWidth: 300,
             ),
             body: search.text.isNotEmpty &&
                     ProductCubit.get(context).search.isEmpty
@@ -61,10 +61,10 @@ class MoreProductsCustomer extends StatelessWidget {
                                   controller: scrollController,
                                   itemBuilder: (ctx, index) => Padding(
                                     padding: const EdgeInsets.only(
-                                        top: 8.0,
-                                        left: 12,
-                                        right: 12,
-                                        bottom: 8),
+                                      top: 10,
+                                      left: 12,
+                                      right: 12,
+                                    ),
                                     child: search.text.isEmpty
                                         ? myCard(
                                             context: context, pro: cubit[index])
@@ -138,12 +138,12 @@ class MoreProductsCustomer extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.only(bottom: 8.0),
                       child: Text(pro.titleAr!,
-                          style: const TextStyle(
-                            // color: HexColor(
-                            //     '#A7B3CF'),
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                          )),
+                          style: TextStyle(
+                              // color: HexColor(
+                              //     '#A7B3CF'),
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.red[600])),
                     ),
                     RichText(
                       text: TextSpan(
@@ -181,7 +181,7 @@ class MoreProductsCustomer extends StatelessWidget {
                       style: const TextStyle(
                           color: Colors.black54, fontWeight: FontWeight.bold)),
                 ),
-                Spacer(),
+                const Spacer(),
                 TextButton(
                     onPressed: () async {
                       ProductCubit.get(context).showPro(pro.id, context).then(
