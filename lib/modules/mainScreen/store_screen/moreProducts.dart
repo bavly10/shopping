@@ -6,6 +6,7 @@ import 'package:shopping/modules/Customer/cubit/state.dart';
 import 'package:shopping/modules/Customer/products/cubit/cubit.dart';
 import 'package:shopping/modules/Customer/products/details_product/details_product.dart';
 import 'package:shopping/modules/mainScreen/store_screen/widgets/latest_product.dart';
+import 'package:shopping/shared/compononet/arrowBack.dart';
 import 'package:shopping/shared/compononet/componotents.dart';
 import 'package:shopping/shared/compononet/myToast.dart';
 import 'package:shopping/shared/localization/translate.dart';
@@ -48,6 +49,9 @@ class MoreProCustomer extends StatelessWidget {
                 hintText: mytranslate(context, "search"),
               ),
             ),
+            actions: [
+              MyArrowBack(onPress: (){Navigator.pop(context);})
+            ],
             centerTitle: true,
             leadingWidth: 200,
           ),

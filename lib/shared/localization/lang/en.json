@@ -17,10 +17,12 @@
    "signup1": "please do\nFill in your store information",
    "signup2": "Create a new account",
    "name": "Name",
+   "nameEn": "Name In English",
    "mobile": "Mobile Number",
    "address": "Address",
    "map": "Add your store location on the map",
    "namestore": "Name Of Store",
+   "namestoreEn": "Name Of Store In English",
    "men": "Men",
    "Women": "Women",
    "baby": "Baby",
@@ -32,10 +34,12 @@
    "errorregister": "Or maybe email is used,try another one",
    "signin": "Sign in",
    "namepro": "Name of product",
+   "nameproEn": "Name of product In English",
    "typepro": "Type Of Product",
    "price": "Price",
    "amount": "Availble Amount Of product",
    "describe": "Describe of Product",
+   "describeEn": "Describe of Product In English",
    "size": "Required sizes",
    "imagepro": "Image Of Product",
    "save": "Save",
@@ -132,5 +136,6 @@
    "start": "Start",
    "get": "Get Started",
    "editt": "Edit Product",
-   "namee": "Name :"
+   "namee": "Name :",
+   "INVALIDFIELD": "INVALID FIELD"
 }

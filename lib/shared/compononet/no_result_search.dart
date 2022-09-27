@@ -22,9 +22,6 @@ class NoResultSearch extends StatelessWidget {
               image: AssetImage('assets/no.png'),
             ),
           ),
-          // const SizedBox(
-          //   height: 5,
-          // ),
           Text(
             mytranslate(context, "result"),
             style: TextStyle(

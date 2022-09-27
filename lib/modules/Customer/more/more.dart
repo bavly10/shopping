@@ -5,6 +5,7 @@ import 'package:shopping/model/product.dart';
 import 'package:shopping/modules/Customer/products/cubit/cubit.dart';
 import 'package:shopping/modules/Customer/products/cubit/states.dart';
 import 'package:shopping/modules/Customer/products/updateProduct.dart';
+import 'package:shopping/shared/compononet/arrowBack.dart';
 import 'package:shopping/shared/compononet/componotents.dart';
 import 'package:shopping/shared/compononet/myToast.dart';
 import 'package:shopping/shared/localization/translate.dart';
@@ -48,9 +49,11 @@ class MoreProductsCustomer extends StatelessWidget {
                 ),
               ),
               leadingWidth: 300,
+              actions: [
+                MyArrowBack(onPress: (){Navigator.pop(context);})
+              ],
             ),
-            body: search.text.isNotEmpty &&
-                    ProductCubit.get(context).search.isEmpty
+            body: search.text.isNotEmpty && ProductCubit.get(context).search.isEmpty
                 ? const NoResultSearch()
                 : SafeArea(
                     child: LayoutBuilder(builder: (context, constraint) {
@@ -76,8 +79,7 @@ class MoreProductsCustomer extends StatelessWidget {
                                       ? cubit.length
                                       : model.length,
                                 )
-                              : const Center(
-                                  child: CircularProgressIndicator()),
+                              : const NoResultSearch(),
                           if (state is GettingProductDataLoading) ...[
                             Positioned(
                               left: 0,
@@ -92,7 +94,7 @@ class MoreProductsCustomer extends StatelessWidget {
                                 ),
                               ),
                             )
-                          ]
+                          ],
                         ],
                       );
                     }),

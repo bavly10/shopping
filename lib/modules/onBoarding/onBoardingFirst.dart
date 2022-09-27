@@ -8,6 +8,7 @@ import 'package:shopping/modules/onBoarding/onBoarding_screen.dart';
 import 'package:shopping/shared/compononet/blueButton.dart';
 import 'package:shopping/shared/compononet/componotents.dart';
 import 'package:shopping/shared/compononet/error_page.dart';
+import 'package:shopping/shared/diohelper/dioHelpoer.dart';
 import 'package:shopping/shared/localization/translate.dart';
 
 import '../../shared/my_colors.dart';
@@ -29,6 +30,7 @@ class OnBoardingFirst extends StatelessWidget {
                 padding: const EdgeInsets.only(left: 8.0, right: 8.0),
                 child: DropdownButton(
                   onChanged: (lang) {
+                    DioHelper.init();
                     cubit.changeLang(lang);
                   },
                   items: lanugage.lang_list

@@ -20,10 +20,12 @@ class CreatePro extends StatelessWidget {
   int? id;
   CreatePro({Key? key, this.id}) : super(key: key);
   TextEditingController nameProduct = TextEditingController();
+  TextEditingController nameProductEn = TextEditingController();
   TextEditingController typeProduct = TextEditingController();
   TextEditingController priceProduct = TextEditingController();
   TextEditingController amountProduct = TextEditingController();
   TextEditingController describeProduct = TextEditingController();
+  TextEditingController describeProductEn = TextEditingController();
   final GlobalKey<FormState> form = GlobalKey();
   @override
   Widget build(BuildContext context) {
@@ -53,6 +55,23 @@ class CreatePro extends StatelessWidget {
                           padding: const EdgeInsets.only(top: 8.0, bottom: 15),
                           child: MyProTextField(
                             controller: nameProduct,
+                            obcure: false,
+                            validate: (value) {
+                              if (value!.isEmpty) {
+                                return 'You should Fill Field!!';
+                              }
+                            },
+                          ),
+                        ),
+                        Text(
+                          mytranslate(context, "nameproEn"),
+                          style: const TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 18),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 8.0, bottom: 15),
+                          child: MyProTextField(
+                            controller: nameProductEn,
                             obcure: false,
                             validate: (value) {
                               if (value!.isEmpty) {
@@ -108,6 +127,28 @@ class CreatePro extends StatelessWidget {
                                 const EdgeInsets.only(top: 8.0, bottom: 15),
                             child: MyDescribeTextField(
                                 controller: describeProduct,
+                                label: "",
+                                maxline: 10,
+                                validate: (value) {
+                                  if (value!.isEmpty) {
+                                    return 'You should Fill Field!!';
+                                  }
+                                }),
+                          ),
+                        ),
+                        Text(
+                          mytranslate(context, "describeEn"),
+                          style: const TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 18),
+                        ),
+                        SizedBox(
+                          height: MediaQuery.of(context).size.height * .17,
+                          width: MediaQuery.of(context).size.width,
+                          child: Padding(
+                            padding:
+                            const EdgeInsets.only(top: 8.0, bottom: 15),
+                            child: MyDescribeTextField(
+                                controller: describeProductEn,
                                 label: "",
                                 maxline: 10,
                                 validate: (value) {
@@ -481,10 +522,10 @@ class CreatePro extends StatelessWidget {
                                       userid: id,
                                       price: priceProduct.text,
                                       descAr: describeProduct.text,
-                                      descEn: "dawdwa",
+                                      descEn: describeProductEn.text,
                                       many: amountProduct.text,
                                       tittleAr: nameProduct.text,
-                                      tittleEn: "dwadwad",
+                                      tittleEn:nameProductEn.text,
                                       img: y,
                                     );
                                     cubit.catSelect = null;

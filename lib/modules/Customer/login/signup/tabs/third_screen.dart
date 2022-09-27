@@ -8,6 +8,7 @@ import 'package:shopping/shared/localization/translate.dart';
 
 class ThirdScreen extends StatelessWidget {
   static TextEditingController storecotroller=TextEditingController();
+  static TextEditingController storecotrollerEn=TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -19,6 +20,9 @@ class ThirdScreen extends StatelessWidget {
             MyTextField(validate: (String? s) {
               if (s!.isEmpty) return mytranslate(context, "validateStore");
             },label:mytranslate(context,"namestore"),controller: storecotroller,prefix: Icons.account_circle,type: TextInputType.text, obcure: false,),
+            MyTextField(validate: (String? s) {
+              if (s!.isEmpty) return mytranslate(context, "validateStore");
+            },label:mytranslate(context,"namestoreEn"),controller: storecotrollerEn,prefix: Icons.account_circle,type: TextInputType.text, obcure: false,),
             const SizedBox(height: 25,),
             myRow(context)
           ],

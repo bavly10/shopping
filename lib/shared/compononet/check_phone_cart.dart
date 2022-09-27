@@ -73,7 +73,7 @@ class CheckDialog extends StatelessWidget {
                         controller: phoneCheckController,
                         obcure: false,
                         validate: (value) {
-                          if (value!.isEmpty) return "INVALID FIELD";
+                          if (value!.isEmpty) return mytranslate(context, "INVALIDFIELD");
                           return null;
                         },
                         label: mytranslate(context, "mobile")),

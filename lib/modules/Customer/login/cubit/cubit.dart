@@ -134,7 +134,7 @@ class LoginCubit extends Cubit<LoginStates> {
     emit(LoadingSignupState());
     FormData formData = FormData.fromMap({
       "name_ar": FirstScreen.namecontroller.text,
-      "name_en": "s",
+      "name_en": FirstScreen.namecontrollerEn.text,
       "email": FirstScreen.emailcontroller.text,
       "password": FirstScreen.passcontroller.text,
       "phone": SecondScreen.mobilecontroller.text,
@@ -142,7 +142,7 @@ class LoginCubit extends Cubit<LoginStates> {
       "longitude": 456,
       "latitude": 468456,
       "title_ar": ThirdScreen.storecotroller.text,
-      "title_en": "s",
+      "title_en":ThirdScreen.storecotrollerEn.text,
       "male": colorMen,
       "female": colorWomen,
       "baby": colorBaby,

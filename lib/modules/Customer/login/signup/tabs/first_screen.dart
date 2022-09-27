@@ -5,6 +5,7 @@ import 'package:shopping/shared/localization/translate.dart';
 
 class FirstScreen extends StatelessWidget {
   static TextEditingController namecontroller=TextEditingController();
+  static TextEditingController namecontrollerEn=TextEditingController();
   static TextEditingController emailcontroller=TextEditingController();
   static TextEditingController passcontroller=TextEditingController();
   static GlobalKey<FormState> formFirst = GlobalKey();
@@ -18,6 +19,9 @@ class FirstScreen extends StatelessWidget {
           MyTextField(validate: (String? s) {
             if (s!.isEmpty) return mytranslate(context, "validateName");
           },label:mytranslate(context,"name"),controller: namecontroller,prefix: Icons.account_circle,type: TextInputType.text, obcure: false,),
+          MyTextField(validate: (String? s) {
+            if (s!.isEmpty) return mytranslate(context, "validateName");
+          },label:mytranslate(context,"nameEn"),controller: namecontrollerEn,prefix: Icons.account_circle,type: TextInputType.text, obcure: false,),
           const SizedBox(height: 25,),
           MyTextField(validate:(value) => value!.isEmpty ?mytranslate(context, "validateEmail") :validateEmail(value),label:mytranslate(context,"hintogin"),controller: emailcontroller,prefix: Icons.email_outlined,type: TextInputType.emailAddress,obcure: false),
           const SizedBox(height: 25,),

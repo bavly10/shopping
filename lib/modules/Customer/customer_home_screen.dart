@@ -19,6 +19,7 @@ import 'package:shopping/modules/mainScreen/mainScreen.dart';
 import 'package:shopping/shared/compononet/LoagingDialog.dart';
 import 'package:shopping/shared/compononet/componotents.dart';
 import 'package:shopping/shared/compononet/myToast.dart';
+import 'package:shopping/shared/compononet/no_result_search.dart';
 import 'package:shopping/shared/localization/translate.dart';
 import 'package:shopping/shared/my_colors.dart';
 
@@ -37,7 +38,7 @@ class CustomerHome extends StatelessWidget {
         showDialog(
             context: context, builder: (context) => const LoadingDialog());
       } else if (state is ShowingCustomerData) {
-        navigateTo(context, UpdateCustomer());
+        navigateToFinish(context, UpdateCustomer());
       } else if (state is FailShowCustomerData) {
         myToast(message: mytranslate(context, "noData"));
       } else if (state is GettingProductDataLoading) {
@@ -226,7 +227,7 @@ class CustomerHome extends StatelessWidget {
                               fontSize: 18, fontWeight: FontWeight.w600),
                         ),
                       ),
-                      Spacer(),
+                      const Spacer(),
                       TextButton(
                           onPressed: () {
                             ProductCubit.get(context).pagnationDataLimit();
@@ -246,14 +247,12 @@ class CustomerHome extends StatelessWidget {
                           )),
                     ],
                   ),
-                  ListView.builder(
+                 state is GettingProductDataNull? const NoResultSearch(): ListView.builder(
                       physics: const NeverScrollableScrollPhysics(),
                       shrinkWrap: true,
                       itemBuilder: (context, index) {
                         return productItem.isEmpty
-                            ? const Center(
-                                child: CircularProgressIndicator(),
-                              )
+                            ? const NoResultSearch()
                             : myCard(context: context, pro: productItem[index]);
                       },
                       itemCount: productItem.length)
