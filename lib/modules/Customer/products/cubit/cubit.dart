@@ -276,7 +276,7 @@ class ProductCubit extends Cubit<ProductStates> {
   }
 
   Future getProducts(context, numberPage) async {
-    // listProduct = [];
+    listProduct = [];
     ShopCubit.get(context).getMyShared();
     emit(GettingProductDataLoading());
     Map<String, dynamic> data = {

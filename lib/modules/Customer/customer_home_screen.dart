@@ -247,15 +247,18 @@ class CustomerHome extends StatelessWidget {
                           )),
                     ],
                   ),
-                 state is GettingProductDataNull? const NoResultSearch(): ListView.builder(
-                      physics: const NeverScrollableScrollPhysics(),
-                      shrinkWrap: true,
-                      itemBuilder: (context, index) {
-                        return productItem.isEmpty
-                            ? const NoResultSearch()
-                            : myCard(context: context, pro: productItem[index]);
-                      },
-                      itemCount: productItem.length)
+                  state is GettingProductDataNull
+                      ? const NoResultSearch()
+                      : ListView.builder(
+                          physics: const NeverScrollableScrollPhysics(),
+                          shrinkWrap: true,
+                          itemBuilder: (context, index) {
+                            return productItem.isEmpty
+                                ? const NoResultSearch()
+                                : myCard(
+                                    context: context, pro: productItem[index]);
+                          },
+                          itemCount: productItem.length)
                 ]),
           ),
         ),
@@ -343,6 +346,7 @@ class CustomerHome extends StatelessWidget {
                 const Spacer(),
                 TextButton(
                     onPressed: () async {
+                      ProductCubit.get(context).imageFileList = [];
                       ProductCubit.get(context).showPro(pro.id, context).then(
                           (value) => {navigateTo(context, UpdateProduct())});
                     },

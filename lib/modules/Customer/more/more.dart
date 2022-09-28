@@ -19,6 +19,7 @@ class MoreProductsCustomer extends StatelessWidget {
   MoreProductsCustomer({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    // ProductCubit.get(context).listProduct = [];
     getMoreProduct(context);
     return BlocConsumer<ProductCubit, ProductStates>(
       listener: (context, state) {
@@ -50,10 +51,14 @@ class MoreProductsCustomer extends StatelessWidget {
               ),
               leadingWidth: 300,
               actions: [
-                MyArrowBack(onPress: (){Navigator.pop(context);})
+                MyArrowBack(onPress: () {
+                  ProductCubit.get(context).getProducts(context, 1);
+                  Navigator.pop(context);
+                })
               ],
             ),
-            body: search.text.isNotEmpty && ProductCubit.get(context).search.isEmpty
+            body: search.text.isNotEmpty &&
+                    ProductCubit.get(context).search.isEmpty
                 ? const NoResultSearch()
                 : SafeArea(
                     child: LayoutBuilder(builder: (context, constraint) {
