@@ -1,6 +1,12 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:shopping/Cubit/cubit.dart';
+import 'package:shopping/modules/Splash_screen/splash.dart';
+import 'package:shopping/modules/onBoarding/onBoardingFirst.dart';
+import 'package:shopping/modules/onBoarding/onBoarding_screen.dart';
+import 'package:shopping/shared/compononet/blueButton.dart';
+import 'package:shopping/shared/localization/translate.dart';
 import 'package:shopping/shared/my_colors.dart';
 
 class ErrorPage extends StatelessWidget {
@@ -20,9 +26,32 @@ class ErrorPage extends StatelessWidget {
             ),
           ),
           Text(
-            "Something Is Error!\n        Try Again",
+            mytranslate(context, "error"),
             style: TextStyle(
                 color: myBlue, fontSize: 25, fontWeight: FontWeight.bold),
+          ),
+          BlueButton(
+            title: Text(
+              mytranslate(context, "try"),
+              style: const TextStyle(
+                  color: Colors.white, fontWeight: FontWeight.bold),
+            ),
+            hight: .05,
+            width: .4,
+            onpress: () {
+              ShopCubit.get(context).getSplashData();
+              ShopCubit.get(context).getCategoriesData();
+              ShopCubit.get(context).getCustomerData(10);
+              ShopCubit.get(context).getLocale();
+
+              Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(
+                    builder: (context) =>
+                        const OnBoardingFirst()), // this mainpage is your page to refresh
+                (Route<dynamic> route) => true,
+              );
+            },
           )
         ],
       ),
