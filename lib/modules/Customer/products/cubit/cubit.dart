@@ -7,6 +7,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:shopping/Cubit/cubit.dart';
 import 'package:shopping/model/CustomerModel.dart';
 import 'package:shopping/model/cart.dart';
+import 'package:shopping/model/owner_earn_model.dart';
 import 'package:shopping/model/product.dart';
 import 'package:shopping/model/product_info.dart';
 import 'package:shopping/model/show_product_model.dart';
@@ -478,9 +479,15 @@ class ProductCubit extends Cubit<ProductStates> {
   }
 
   String? earn;
+  String? ship;
+  OwnerEarn? ownerEarn;
   getEarn() {
     DioHelper.getData(url: "/earn-num").then((value) {
-      earn = value.data["data"];
+      ownerEarn = OwnerEarn.fromMap(value.data);
+      earn = ownerEarn?.data?.ownerEarn;
+      ship = ownerEarn?.data?.shopingEarn;
+
+      // earn = value.data["data"];
       emit(ShopEarnSuessState());
     }).catchError((onError) {
       print(onError.toString());

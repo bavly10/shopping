@@ -43,14 +43,13 @@ class ErrorPage extends StatelessWidget {
               ShopCubit.get(context).getCategoriesData();
               ShopCubit.get(context).getCustomerData(10);
               ShopCubit.get(context).getLocale();
-
               Navigator.pushAndRemoveUntil(
                 context,
                 MaterialPageRoute(
                     builder: (context) =>
                         const OnBoardingFirst()), // this mainpage is your page to refresh
                 (Route<dynamic> route) => true,
-              );
+              ).then((value) {});
             },
           )
         ],

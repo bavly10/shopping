@@ -64,7 +64,7 @@ class ProCustomer {
 
   factory ProCustomer.fromJson(Map<String, dynamic> json) => ProCustomer(
       id: json["id"],
-      name: json["name"],
+      name: json["title"],
       phone: json["phone"],
       address: json["address"],
       longitude: json["longitude"],
@@ -76,7 +76,7 @@ class ProCustomer {
       rate: json["rate"]);
 
   Map<String, dynamic> toJson() => {
-        "name": name,
+        "title": name,
         "phone": phone,
         "address": address,
         "longitude": longitude,

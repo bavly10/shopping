@@ -1,19 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shopping/Cubit/cubit.dart';
+import 'package:shopping/model/owner_earn_model.dart';
 import 'package:shopping/modules/Customer/cubit/cubit.dart';
 import 'package:shopping/modules/Customer/products/cubit/cubit.dart';
 import 'package:shopping/modules/Customer/products/cubit/states.dart';
 import 'package:shopping/modules/OrderStauts/Success.dart';
 import 'package:shopping/modules/OrderStauts/failed.dart';
 import 'package:shopping/modules/cart/widget/widget_cart.dart';
-import 'package:shopping/modules/mainScreen/mainScreen.dart';
-import 'package:shopping/modules/mainScreen/screen/singleCustomerProduct/mainCustomer.dart';
 import 'package:shopping/shared/compononet/blueButton.dart';
 import 'package:shopping/shared/compononet/componotents.dart';
 import 'package:shopping/shared/compononet/privacy_dialog.dart';
-import 'package:shopping/shared/compononet/sign_up_dialog.dart';
-import 'package:shopping/shared/compononet/verification_phone_dialog.dart';
 import 'package:shopping/shared/localization/translate.dart';
 import 'package:shopping/shared/my_colors.dart';
 
@@ -23,7 +20,7 @@ import '../../shared/compononet/sign_up_cart.dart';
 class CartScreen extends StatelessWidget {
   double x = 0.0;
   double y = 0.0;
-  double d = 30.0;
+  var d;
   final GlobalKey<ScaffoldState> skey = GlobalKey<ScaffoldState>();
 
   @override
@@ -47,7 +44,14 @@ class CartScreen extends StatelessWidget {
       builder: (ctx, state) {
         final cubit = ProductCubit.get(context);
         x = cubit.totalamount;
-        var totall = (x + d) + double.parse(cubit.earn!);
+        final ownerEarn = cubit.ownerEarn;
+        ownerEarn!.data!.shopingEarnActive == "true"
+            ? d = ownerEarn.data?.shopingEarn
+            : d = 0.0;
+        var totall;
+        ownerEarn.data?.ownerEarnActive == "true"
+            ? totall = (x + double.parse(d)) + double.parse(cubit.earn!)
+            : (x + d);
         return SafeArea(
           child: Scaffold(
             key: skey,
@@ -163,34 +167,39 @@ class CartScreen extends StatelessWidget {
                                       fontWeight: FontWeight.bold)),
                             ],
                           ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(mytranslate(context, "cost"),
-                                  style: const TextStyle(
-                                    fontSize: 18,
-                                  )),
-                              Text(
-                                  "${d.toStringAsFixed(2)} ${mytranslate(context, "wd")}",
-                                  style: const TextStyle(
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.bold)),
-                            ],
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(mytranslate(context, "tax"),
-                                  style: const TextStyle(
-                                    fontSize: 18,
-                                  )),
-                              Text(
-                                  "${double.parse(cubit.earn!)} ${mytranslate(context, "wd")}",
-                                  style: const TextStyle(
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.bold)),
-                            ],
-                          ),
+                          ownerEarn.data?.shopingEarnActive == "true"
+                              ? Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(mytranslate(context, "cost"),
+                                        style: const TextStyle(
+                                          fontSize: 18,
+                                        )),
+                                    Text("$d ${mytranslate(context, "wd")}",
+                                        style: const TextStyle(
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.bold)),
+                                  ],
+                                )
+                              : const SizedBox.shrink(),
+                          ownerEarn.data?.ownerEarnActive == "true"
+                              ? Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(mytranslate(context, "tax"),
+                                        style: const TextStyle(
+                                          fontSize: 18,
+                                        )),
+                                    Text(
+                                        "${double.parse(cubit.earn!)} ${mytranslate(context, "wd")}",
+                                        style: const TextStyle(
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.bold)),
+                                  ],
+                                )
+                              : const SizedBox.shrink(),
                           const Divider(
                             color: Colors.blueAccent,
                           ),
