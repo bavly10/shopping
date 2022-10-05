@@ -39,24 +39,19 @@ class OnBoardingScreen extends StatelessWidget {
           lisIndex: 3,
           lable: "Start"),
     ];
-    return BlocConsumer<ShopCubit, ShopStates>(
-      listener: (ctx, state) {
-        if (state is LoadingCat) {
-          LoadingDialog();
-        }
-      },
+    return BlocBuilder<ShopCubit, ShopStates>(
       builder: (ctx, state) {
         return Scaffold(
           backgroundColor: myWhite,
           body: splashModel == null
-              ? ErrorPage()
+              ? const ErrorPage()
               : Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                       Image(
                           height: MediaQuery.of(context).size.height * 0.10,
                           width: double.infinity,
-                          image: ExactAssetImage("assets/logo.png")),
+                          image: const ExactAssetImage("assets/logo.png")),
                       Text(mytranslate(context, "splash_screenText1"),
                           style: TextStyle(
                               color: myBlack,

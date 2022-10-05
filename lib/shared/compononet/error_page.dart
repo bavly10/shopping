@@ -2,9 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:shopping/Cubit/cubit.dart';
-import 'package:shopping/modules/Splash_screen/splash.dart';
 import 'package:shopping/modules/onBoarding/onBoardingFirst.dart';
-import 'package:shopping/modules/onBoarding/onBoarding_screen.dart';
 import 'package:shopping/shared/compononet/blueButton.dart';
 import 'package:shopping/shared/localization/translate.dart';
 import 'package:shopping/shared/my_colors.dart';
@@ -40,8 +38,8 @@ class ErrorPage extends StatelessWidget {
             width: .4,
             onpress: () {
               ShopCubit.get(context).getSplashData();
-              ShopCubit.get(context).getCategoriesData("male");
-              ShopCubit.get(context).getCustomerData(10);
+              //ShopCubit.get(context).getCategoriesData("male");
+              //  ShopCubit.get(context).getCustomerData(10);
               ShopCubit.get(context).getLocale();
               Navigator.pushAndRemoveUntil(
                 context,

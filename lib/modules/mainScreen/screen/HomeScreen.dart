@@ -37,7 +37,7 @@ class HomeScreen extends StatelessWidget {
                 ),
                 // ignore: prefer_const_constructors
                 cubit.categoryModel == null
-                    ? Center(child: CircularProgressIndicator())
+                    ? const Center(child: CircularProgressIndicator())
                     : CategoryScreen(
                         colntroller: search,
                       ),
@@ -87,7 +87,7 @@ class HomeScreen extends StatelessWidget {
                   ShopCubit.get(context).changeSearchAppBar();
                 }),
           ),
-          SizedBox(
+          const SizedBox(
             width: 10,
           ),
           Text(
