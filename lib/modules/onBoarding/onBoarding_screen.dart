@@ -111,8 +111,8 @@ class OnBoardingScreen extends StatelessWidget {
                                   .getCategoriesData(ShopCubit.get(context)
                                       .type[ShopCubit.get(context).counter!])
                                   .then(
-                                    (value) => navigateToFinish(
-                                        context, const MainScreen()),
+                                    (value) =>
+                                        navigateTo(context, const MainScreen()),
                                   );
                             } else {
                               navigateToFinish(
