@@ -40,7 +40,7 @@ class ErrorPage extends StatelessWidget {
             width: .4,
             onpress: () {
               ShopCubit.get(context).getSplashData();
-              ShopCubit.get(context).getCategoriesData();
+              ShopCubit.get(context).getCategoriesData("male");
               ShopCubit.get(context).getCustomerData(10);
               ShopCubit.get(context).getLocale();
               Navigator.pushAndRemoveUntil(

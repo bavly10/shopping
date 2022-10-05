@@ -36,9 +36,11 @@ class HomeScreen extends StatelessWidget {
                   height: 15,
                 ),
                 // ignore: prefer_const_constructors
-                CategoryScreen(
-                  colntroller: search,
-                ),
+                cubit.categoryModel == null
+                    ? Center(child: CircularProgressIndicator())
+                    : CategoryScreen(
+                        colntroller: search,
+                      ),
                 const SizedBox(
                   height: 5,
                 ),
@@ -46,7 +48,8 @@ class HomeScreen extends StatelessWidget {
                   height: 1,
                   color: Colors.black,
                 ),
-                if (state is LoadingProCustomerState)const CircularProgressIndicator(),
+                if (state is LoadingProCustomerState)
+                  const CircularProgressIndicator(),
                 if (state is DoneProCustomerState) CustomerScreen(),
                 if (state is emptyProCustomerState) const Text("No data"),
                 if (state is ChangeIndexTabs) CustomerScreen(),
@@ -66,7 +69,7 @@ class HomeScreen extends StatelessWidget {
         children: [
           Card(
             color: Colors.grey,
-            shape:  StadiumBorder(
+            shape: StadiumBorder(
               side: BorderSide(
                 style: BorderStyle.none,
                 color: myBlack,
@@ -84,7 +87,9 @@ class HomeScreen extends StatelessWidget {
                   ShopCubit.get(context).changeSearchAppBar();
                 }),
           ),
-          SizedBox(width: 10,),
+          SizedBox(
+            width: 10,
+          ),
           Text(
             mytranslate(context, "home"),
             style: TextStyle(
@@ -95,22 +100,25 @@ class HomeScreen extends StatelessWidget {
             onChanged: (lang) {
               ShopCubit.get(context).changeLang(lang);
               DioHelper.init();
-              ShopCubit.get(context).getCategoriesData().then((value) =>ShopCubit.get(context).getCustomerData(10)).then((value) =>build(context));
+              ShopCubit.get(context)
+                  .getCategoriesData(ShopCubit.get(context)
+                      .type[ShopCubit.get(context).counter!])
+                  .then((value) => ShopCubit.get(context).getCustomerData(10))
+                  .then((value) => build(context));
             },
             items: lanugage.lang_list
-                .map<DropdownMenuItem<lanugage>>(
-                    (lang) => DropdownMenuItem(
-                  value: lang,
-                  child: Row(
-                    children: [
-                      Text(lang.flag!),
-                      const SizedBox(
-                        width: 10,
+                .map<DropdownMenuItem<lanugage>>((lang) => DropdownMenuItem(
+                      value: lang,
+                      child: Row(
+                        children: [
+                          Text(lang.flag!),
+                          const SizedBox(
+                            width: 10,
+                          ),
+                          Text(lang.name!)
+                        ],
                       ),
-                      Text(lang.name!)
-                    ],
-                  ),
-                ))
+                    ))
                 .toList(),
             underline: const SizedBox(),
             icon: const Icon(

@@ -117,9 +117,10 @@ class ShopCubit extends Cubit<ShopStates> {
 
   //////////////////////////
   CategoryModel? categoryModel;
-  Future<void> getCategoriesData() async {
+  List<String> type = ["male", "female", "baby"];
+  Future<void> getCategoriesData(type) async {
     emit(LoadingCat());
-    Map<String, dynamic> data = {"type": "male"};
+    Map<String, dynamic> data = {"type": type};
     DioHelper.postData(url: category, data: data).then((value) {
       categoryModel = CategoryModel.fromJson(value.data);
       print("done categoryModel ${categoryModel!.status}");

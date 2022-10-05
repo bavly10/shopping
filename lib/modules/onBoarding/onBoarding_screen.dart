@@ -4,6 +4,7 @@ import 'package:shopping/Cubit/cubit.dart';
 import 'package:shopping/Cubit/states.dart';
 import 'package:shopping/model/splash.dart';
 import 'package:shopping/modules/onBoarding/widget/on_boarding_item.dart';
+import 'package:shopping/shared/compononet/LoagingDialog.dart';
 import 'package:shopping/shared/compononet/error_page.dart';
 import 'package:shopping/shared/localization/translate.dart';
 import 'package:shopping/shared/my_colors.dart';
@@ -38,7 +39,12 @@ class OnBoardingScreen extends StatelessWidget {
           lisIndex: 3,
           lable: "Start"),
     ];
-    return BlocBuilder<ShopCubit, ShopStates>(
+    return BlocConsumer<ShopCubit, ShopStates>(
+      listener: (ctx, state) {
+        if (state is LoadingCat) {
+          LoadingDialog();
+        }
+      },
       builder: (ctx, state) {
         return Scaffold(
           backgroundColor: myWhite,
@@ -106,7 +112,13 @@ class OnBoardingScreen extends StatelessWidget {
                           onpress: () {
                             ShopCubit.get(context).getMyShared();
                             if (ShopCubit.get(context).customerToken == null) {
-                              navigateToFinish(context, const MainScreen());
+                              ShopCubit.get(context)
+                                  .getCategoriesData(ShopCubit.get(context)
+                                      .type[ShopCubit.get(context).counter!])
+                                  .then(
+                                    (value) => navigateToFinish(
+                                        context, const MainScreen()),
+                                  );
                             } else {
                               navigateToFinish(
                                   context,
