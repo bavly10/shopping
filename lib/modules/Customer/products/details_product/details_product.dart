@@ -6,7 +6,9 @@ import 'package:shopping/modules/Customer/products/details_product/widgets/backg
 import 'package:shopping/modules/Customer/products/details_product/widgets/container_details.dart';
 import 'package:shopping/modules/Customer/products/details_product/widgets/image_container.dart';
 import 'package:shopping/modules/cart/cart.dart';
+import 'package:shopping/shared/compononet/LoagingDialog.dart';
 import 'package:shopping/shared/compononet/componotents.dart';
+import 'package:shopping/shared/compononet/myToast.dart';
 
 import '../../../mainScreen/mainScreen.dart';
 
@@ -15,7 +17,17 @@ class DetailsProduct extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ProductCubit, ProductStates>(builder: (context, state) {
+    return BlocConsumer<ProductCubit, ProductStates>(
+      listener: (ctx,state){
+        if (state is ShopEarnLoadingState ){
+          const LoadingDialog();
+        }else if (state is ShopEarnSuessState){
+          navigateTo(context, CartScreen());
+        }else if (state is ErrorEarnState){
+          myToast(message: "Try again");
+        }else{}
+      },
+        builder: (context, state) {
       final model = ProductCubit.get(context).proInf;
       final cubit = ProductCubit.get(context);
       return model == null
@@ -34,8 +46,8 @@ class DetailsProduct extends StatelessWidget {
                           Navigator.pop(context);
                         },
                         cartShopping: () {
-                          navigateTo(context, CartScreen());
-                        },
+                         ProductCubit.get(context).getEarn();
+                         },
                         x: cubit.itemcount,
                       ),
                       Align(

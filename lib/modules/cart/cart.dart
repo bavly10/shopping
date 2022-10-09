@@ -20,7 +20,7 @@ import '../../shared/compononet/sign_up_cart.dart';
 class CartScreen extends StatelessWidget {
   double x = 0.0;
   double y = 0.0;
-  var d;
+  double? d;
   final GlobalKey<ScaffoldState> skey = GlobalKey<ScaffoldState>();
 
   @override
@@ -46,12 +46,10 @@ class CartScreen extends StatelessWidget {
         x = cubit.totalamount;
         final ownerEarn = cubit.ownerEarn;
         ownerEarn!.data!.shopingEarnActive == "true"
-            ? d = ownerEarn.data?.shopingEarn
+            ? d = double.parse("${ownerEarn.data?.shopingEarn}")
             : d = 0.0;
         var totall;
-        ownerEarn.data?.ownerEarnActive == "true"
-            ? totall = (x + double.parse(d)) + double.parse(cubit.earn!)
-            : (x + d);
+        ownerEarn.data?.ownerEarnActive == "true" ? totall = (x + d!) + double.parse(cubit.earn!): (x + d!);
         return SafeArea(
           child: Scaffold(
             key: skey,
@@ -167,8 +165,7 @@ class CartScreen extends StatelessWidget {
                                       fontWeight: FontWeight.bold)),
                             ],
                           ),
-                          ownerEarn.data?.shopingEarnActive == "true"
-                              ? Row(
+                         Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
@@ -176,30 +173,32 @@ class CartScreen extends StatelessWidget {
                                         style: const TextStyle(
                                           fontSize: 18,
                                         )),
-                                    Text("$d ${mytranslate(context, "wd")}",
+                                    ownerEarn.data?.shopingEarnActive == "true"? Text("$d ${mytranslate(context, "wd")}",
+                                        style: const TextStyle(
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.bold)):Text(mytranslate(context, "free"),
                                         style: const TextStyle(
                                             fontSize: 18,
                                             fontWeight: FontWeight.bold)),
                                   ],
-                                )
-                              : const SizedBox.shrink(),
-                          ownerEarn.data?.ownerEarnActive == "true"
-                              ? Row(
+                                ),
+
+                          Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Text(mytranslate(context, "tax"),
-                                        style: const TextStyle(
+                                    Text(mytranslate(context, "tax"), style: const TextStyle(
                                           fontSize: 18,
                                         )),
+                                    ownerEarn.data?.ownerEarnActive == "true"?
                                     Text(
-                                        "${double.parse(cubit.earn!)} ${mytranslate(context, "wd")}",
+                                        "${cubit.earn!} ${mytranslate(context, "wd")}",
                                         style: const TextStyle(
                                             fontSize: 18,
-                                            fontWeight: FontWeight.bold)),
-                                  ],
-                                )
-                              : const SizedBox.shrink(),
+                                            fontWeight: FontWeight.bold)) : Text(mytranslate(context, "free")),
+                                  ]
+                                ),
+
                           const Divider(
                             color: Colors.blueAccent,
                           ),
@@ -210,7 +209,7 @@ class CartScreen extends StatelessWidget {
                                   style: const TextStyle(
                                     fontSize: 18,
                                   )),
-                              Text(
+                              totall==null? Text("$x ${mytranslate(context, "wd")}"):Text(
                                   "${totall.toStringAsFixed(2)} ${mytranslate(context, "wd")}",
                                   style: const TextStyle(
                                       fontSize: 18,
@@ -236,32 +235,20 @@ class CartScreen extends StatelessWidget {
                                             builder: (context) {
                                               return PrivacyPolicyDialog(
                                                 text: salla!.data,
-                                                id: ShopCubit.get(context)
-                                                    .userId,
+                                                id: ShopCubit.get(context).userId,
                                                 widget: SignupCartDialog(
                                                   onTaps: () {
                                                     cubit.items.forEach(
                                                         (key, value) async {
-                                                      print(value.size
-                                                          .toString());
-                                                      print(
-                                                          value.id.toString());
-                                                      print(CustomerCubit.get(
-                                                              context)
-                                                          .userId);
+                                                      print(value.size.toString());
+                                                      print(value.id.toString());
+                                                      print(CustomerCubit.get(context).userId);
                                                       await cubit.createOrder(
-                                                        size: value.size
-                                                            .toString(),
-                                                        price: value.price
-                                                            .toString(),
-                                                        many: value.quantity
-                                                            .toString(),
-                                                        customerID:
-                                                            CustomerCubit.get(
-                                                                    context)
-                                                                .userId,
-                                                        productID:
-                                                            value.id.toString(),
+                                                        size: value.size.toString(),
+                                                        price: value.price.toString(),
+                                                        many: value.quantity.toString(),
+                                                        customerID: CustomerCubit.get(context).userId,
+                                                        productID: value.id.toString(),
                                                       );
                                                     });
                                                     ProductCubit.get(context)

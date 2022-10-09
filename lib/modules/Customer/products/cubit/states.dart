@@ -74,6 +74,7 @@ class ShowingCustomerData extends ProductStates {}
 
 class FailShowCustomerData extends ProductStates {}
 
+class ShopEarnLoadingState extends ProductStates {}
 class ShopEarnSuessState extends ProductStates {}
 
 class ErrorEarnState extends ProductStates {}
