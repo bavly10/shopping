@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shopping/model/ProductsCustomer.dart';
 import 'package:shopping/model/latest_product.dart';
+import 'package:shopping/shared/localization/translate.dart';
 
 import '../../../../shared/my_colors.dart';
 
@@ -12,11 +13,13 @@ class LatestPro extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: const BoxDecoration(
-        borderRadius: BorderRadius.all(Radius.circular(15)),
-        color: Colors.white,
+      decoration:  BoxDecoration(
+        borderRadius: const BorderRadius.all(Radius.circular(15)),
+        color: myWhite,
       ),
-      child: Stack(alignment: AlignmentDirectional.centerEnd, children: [
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+          children: [
         Align(
           alignment: Alignment.topRight,
           child: Padding(
@@ -38,46 +41,34 @@ class LatestPro extends StatelessWidget {
             ),
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Align(
-            alignment: Alignment.topLeft,
-            child: Image(
-              image: NetworkImage(productsItem.image!),
-              width: MediaQuery.of(context).size.width * .33,
-              height: MediaQuery.of(context).size.height * .13,
-              // fit: BoxFit.cover,
-            ),
-          ),
+        Image(
+          image: NetworkImage(productsItem.image!),
+          width:MediaQuery.of(context).size.width * .40,
+          height: MediaQuery.of(context).size.height * .15,
+           fit: BoxFit.fitWidth,
         ),
-        Positioned(
-          top: 110,
-          child: Padding(
-            padding: const EdgeInsets.only(top: 20, left: 10, right: 10),
-            child: Text(
-              productsItem.title!,
-              overflow: TextOverflow.ellipsis,
-              style: TextStyle(
-                  height: 1.4,
-                  fontSize: 18,
-                  fontWeight: FontWeight.w600,
-                  color: myBlue),
-            ),
-          ),
+        Text(
+          productsItem.title!,
+          overflow: TextOverflow.ellipsis,
+          style: TextStyle(
+              height: 1.4,
+              fontSize: 20,
+              fontWeight: FontWeight.w600,
+              color: myBlue),
         ),
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Align(
-            alignment: AlignmentDirectional.bottomCenter,
-            child: Text(
-              "${productsItem.price!}WD",
-              overflow: TextOverflow.ellipsis,
-              // maxLines: 2,
-              style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w500,
-                  color: Colors.red[900]),
-            ),
+        const Spacer(),
+        Container(
+          alignment: AlignmentDirectional.bottomCenter,
+          decoration: BoxDecoration(color: myBlue,borderRadius: BorderRadius.circular(5)),
+          padding:const EdgeInsetsDirectional.all(5),
+          child: Text(
+            "${productsItem.price!} ${mytranslate(context, "wd")}",
+            overflow: TextOverflow.ellipsis,
+            // maxLines: 2,
+            style: TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.w700,
+                color:myWhite),
           ),
         ),
       ]),

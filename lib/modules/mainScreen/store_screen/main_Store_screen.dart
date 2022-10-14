@@ -200,7 +200,7 @@ class StoreScreen extends StatelessWidget {
                                   crossAxisCount: 2,
                                   mainAxisSpacing: 18,
                                   crossAxisSpacing: 18,
-                                  childAspectRatio: .9),
+                                  childAspectRatio: .650),
                           childrenDelegate: SliverChildBuilderDelegate(
                               (context, index) => InkWell(
                                   onTap: () {

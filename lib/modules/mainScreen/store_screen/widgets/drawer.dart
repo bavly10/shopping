@@ -9,6 +9,7 @@ import 'package:shopping/modules/mainScreen/screen/singleCustomerProduct/mainCus
 import 'package:shopping/modules/mainScreen/store_screen/widgets/top_screen.dart';
 import 'package:shopping/modules/prinavcy_policy/privacy_policy.dart';
 import 'package:shopping/shared/compononet/componotents.dart';
+import 'package:shopping/shared/compononet/connection_dialog.dart';
 import 'package:shopping/shared/compononet/myToast.dart';
 import 'package:shopping/shared/compononet/sign_up_dialog.dart';
 import 'package:shopping/shared/compononet/verification_phone_dialog.dart';
@@ -131,22 +132,11 @@ class CustomDrawer extends StatelessWidget {
               showDialog(
                   context: skey!.currentContext!,
                   builder: (context) {
-                    return CheckingDialog(
-                      widget: SignupDialog(
-                          onTaps: () async {
-                            await CustomerCubit.get(context).connectStore(
-                                context: skey!.currentContext!, userId: id);
-                          },
-                          phoneStore: phoneStore),
-                      id: id,
+                    return ConnectoinDialog(
                       phoneStore: phoneStore,
                     );
                   });
-              //   } else {
-              // navigateToFinish(
-              //     context, MainCustomer(id: id!, title: tiltle!));
-              // }
-            },
+           },
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,

@@ -64,12 +64,12 @@ class BestCard extends StatelessWidget {
                       ),
                     ),
                   ),
-                  Spacer(),
+                  const Spacer(),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
                       '${pro!.price!}\n${mytranslate(context, "wd")}',
-                      style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600),
+                      style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w600),
                     ),
                   )
                 ],
