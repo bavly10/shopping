@@ -90,3 +90,6 @@ class SallaPrivacyPolicyLoadingState extends ProductStates {}
 class SallaPrivacyPolicySueccState extends ProductStates {}
 
 class SallaPrivacyPolicyErrorState extends ProductStates {}
+class LoadingCat extends ProductStates {}
+class DoneCat extends ProductStates {}
+class ErrorCat extends ProductStates {}

@@ -21,23 +21,23 @@ class OnBoardingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final splashModel = ShopCubit.get(context).splashModel;
-    List textbtn = ["Start", "Start", "Start"];
+    List textbtn = ["men", "Women", "baby"];
     List mylist = [
       onBoardingItem(
           splashModel: splashModel!.data!.male.toString(),
           index: curnnetindex,
           lisIndex: 3,
-          lable: "Start"),
+          lable: "men"),
       onBoardingItem(
           splashModel: splashModel.data!.female.toString(),
           index: curnnetindex,
           lisIndex: 3,
-          lable: "Start"),
+          lable: "Women"),
       onBoardingItem(
           splashModel: splashModel.data!.baby.toString(),
           index: curnnetindex,
           lisIndex: 3,
-          lable: "Start"),
+          lable: "baby"),
     ];
     return BlocBuilder<ShopCubit, ShopStates>(
       builder: (ctx, state) {

@@ -5,6 +5,7 @@ import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:shopping/modules/Customer/login/cubit/cubit.dart';
 import 'package:shopping/modules/Customer/login/cubit/state.dart';
 import 'package:shopping/modules/Customer/customer_home_screen.dart';
+import 'package:shopping/shared/compononet/arrowBack.dart';
 import 'package:shopping/shared/compononet/blueButton.dart';
 import 'package:shopping/shared/compononet/componotents.dart';
 import 'package:shopping/shared/compononet/dialog.dart';
@@ -116,11 +117,7 @@ class Login extends StatelessWidget {
                   ),
                   TextButton(
                       onPressed: () {
-                        navigateTo(
-                            context,
-                            InAppWebView(
-                                initialUrlRequest:
-                                    URLRequest(url: Uri.parse(forgetPass))));
+                        navigateTo(context, Scaffold( appBar: AppBar(),body: InAppWebView(initialUrlRequest: URLRequest(url: Uri.parse(forgetPass)))));
                       },
                       child: Text(
                         mytranslate(context, "ForgetPassword"),
@@ -136,8 +133,7 @@ class Login extends StatelessWidget {
                     onpress: () {
                       FocusScope.of(context).unfocus();
                       if (_form.currentState!.validate()) {
-                        LoginCubit.get(context).getLogin(
-                            emailcontroller.text, passcontroller.text);
+                        LoginCubit.get(context).getLogin(emailcontroller.text, passcontroller.text);
                       }
                     },
                     title: state is LoadingLoginState

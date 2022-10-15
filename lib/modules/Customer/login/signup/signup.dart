@@ -85,7 +85,7 @@ class _SignupState extends State<Signup> with TickerProviderStateMixin{
                     height: 15,
                   ),
                   Container(
-                    height: MediaQuery.of(context).size.height * 0.49,
+                    height: MediaQuery.of(context).size.height * 0.60,
                     width: double.infinity,
                     color: Colors.white,
                     child: PageView.builder(

@@ -32,6 +32,7 @@ class CustomerHome extends StatelessWidget {
   Widget build(BuildContext context) {
     ProductCubit.get(context).getProducts(context, 1);
     ShopCubit.get(context).getMyShared();
+    ProductCubit.get(context).getCategoriesData();
     return BlocConsumer<ProductCubit, ProductStates>(
         listener: (context, state) {
       if (state is LoadingShowCustomer) {
@@ -48,7 +49,12 @@ class CustomerHome extends StatelessWidget {
       } else if (state is GettingStatisticLoading) {
         showDialog(
             context: context, builder: (context) => const LoadingDialog());
-      } else {}
+      } else if(state is LoadingCat){
+        showDialog(
+            context: context, builder: (context) => const LoadingDialog());
+      }else if (state is ErrorCat ){
+        myToast(message: mytranslate(context, "error"));
+      }else{}
     }, builder: (context, state) {
       var productItem = ProductCubit.get(context).listProduct;
       return Scaffold(
@@ -97,8 +103,8 @@ class CustomerHome extends StatelessWidget {
                         width: MediaQuery.of(context).size.width * .42,
                         child: InkWell(
                           onTap: () {
-                            ProductCubit.get(context).showCustomerData(
-                                ShopCubit.get(context).customerId, context);
+                            ShopCubit.get(context).getMyShared();
+                            ProductCubit.get(context).showCustomerData(ShopCubit.get(context).customerId, context);
                           },
                           child: Padding(
                             padding: const EdgeInsets.only(top: 50.0),
@@ -200,12 +206,7 @@ class CustomerHome extends StatelessWidget {
                         onPressed: () {
                           ProductCubit.get(context).imageFileList = [];
                           // ProductCubit.get(context).imageFileList.length = 0;
-
-                          navigateTo(
-                              context,
-                              CreatePro(
-                                id: id,
-                              ));
+                          navigateTo(context, CreatePro(id: id,)) ;
                         },
                         child: Text(
                           mytranslate(context, "addpro"),
@@ -348,7 +349,9 @@ class CustomerHome extends StatelessWidget {
                     onPressed: () async {
                       ProductCubit.get(context).imageFileList = [];
                       ProductCubit.get(context).showPro(pro.id, context).then(
-                          (value) => {navigateTo(context, UpdateProduct())});
+                          (value) => {
+                            navigateTo(context, UpdateProduct())
+                          });
                     },
                     child: Text(
                       mytranslate(context, "editt"),

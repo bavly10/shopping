@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shopping/Cubit/cubit.dart';
 
 import 'package:shopping/model/product.dart';
 import 'package:shopping/modules/Customer/products/cubit/cubit.dart';
 import 'package:shopping/modules/Customer/products/cubit/states.dart';
 import 'package:shopping/modules/Customer/products/updateProduct.dart';
+import 'package:shopping/shared/compononet/LoagingDialog.dart';
 import 'package:shopping/shared/compononet/arrowBack.dart';
 import 'package:shopping/shared/compononet/componotents.dart';
 import 'package:shopping/shared/compononet/myToast.dart';
@@ -19,13 +21,19 @@ class MoreProductsCustomer extends StatelessWidget {
   MoreProductsCustomer({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    // ProductCubit.get(context).listProduct = [];
     getMoreProduct(context);
     return BlocConsumer<ProductCubit, ProductStates>(
       listener: (context, state) {
         if (state is GettingProductDataNull) {
           myToast(message: mytranslate(context, "noData"));
-        } else {}
+        }else if(state is LoadingCat){
+          showDialog(
+              context: context, builder: (context) => const LoadingDialog());
+        }else if (state is DoneCat){
+          navigateToFinish(context, UpdateProduct());
+        }else if (state is ErrorCat ){
+          myToast(message: mytranslate(context, "error"));
+        }else{}
       },
       builder: (context, state) {
         final cubit = ProductCubit.get(context).listProducts;
@@ -190,9 +198,8 @@ class MoreProductsCustomer extends StatelessWidget {
                 ),
                 const Spacer(),
                 TextButton(
-                    onPressed: () async {
-                      ProductCubit.get(context).showPro(pro.id, context).then(
-                          (value) => {navigateTo(context, UpdateProduct())});
+                    onPressed: (){
+                      ProductCubit.get(context).showPro(pro.id, context).whenComplete(() => ProductCubit.get(context).getCategoriesData());
                     },
                     child: Text(
                       mytranslate(context, "editt"),

@@ -49,34 +49,7 @@ class TopScreen extends StatelessWidget {
                 rate: rate,
                 star: star,
               ),
-              // RatingBarIndicator(
-              //   rating: double.parse(rate!),
-              //   itemBuilder: (context, index) => Icon(
-              //     Icons.star,
-              //     color: star ?? myBlue,
-              //   ),
-              //   itemCount: 5,
-              //   itemSize: 15,
-              //   direction: Axis.horizontal,
-              //   itemPadding: const EdgeInsets.symmetric(horizontal: 4.0),
-              // ),
-              // RatingBar.builder(
-              //   itemSize: 15,
-              //   initialRating: double.parse(rate!),
-              //   minRating: 0,
-              //   direction: Axis.horizontal,
-              //   allowHalfRating: true,
-              //   itemCount: 5,
-              //   itemPadding: const EdgeInsets.symmetric(horizontal: 4.0),
-              //   itemBuilder: (context, _) => Icon(
-              //     Icons.star,
-              //     color: star ?? myBlue,
-              //   ),
-              //   onRatingUpdate: (rating) {
 
-              //     // print(rating);
-              //   },
-              // ),
               adress == null
                   ? const SizedBox()
                   : Padding(

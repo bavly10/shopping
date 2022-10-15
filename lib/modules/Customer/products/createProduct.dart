@@ -176,7 +176,7 @@ class CreatePro extends StatelessWidget {
                     },
                     builder: (context, state) {
                       final cubit = ProductCubit.get(context);
-                      final list = ShopCubit.get(context).categoryModel;
+                      final list = ProductCubit.get(context).categoryModel;
                       return Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -391,13 +391,8 @@ class CreatePro extends StatelessWidget {
                                         size: 35,
                                       ),
                                       items: list!.data!
-                                          .map<DropdownMenuItem<CatItem>>(
-                                              (cat) => DropdownMenuItem(
-                                                    value: cat,
-                                                    child: Center(
-                                                      child: Text(cat.title!),
-                                                    ),
-                                                  ))
+                                          .map<DropdownMenuItem<CatItem>>((cat) => DropdownMenuItem(
+                                        value: cat, child: Center(child: Text(cat.title!),),))
                                           .toList(),
                                       onChanged: (val) {
                                         cubit.changeSelectCategory(val);

@@ -36,40 +36,43 @@ class DetailsProduct extends StatelessWidget {
               child: CircularProgressIndicator(),
             )
           : Scaffold(
-              body: SingleChildScrollView(
-                physics: const NeverScrollableScrollPhysics(),
-                child: Column(
-                  children: [
-                    Stack(children: [
-                      CustomBackgroundContainer(
-                        arrowBack: () {
-                          Navigator.pop(context);
-                        },
-                        cartShopping: () {
-                         ProductCubit.get(context).getEarn();
-                         },
-                        x: cubit.itemcount,
-                      ),
-                      Align(
-                          alignment: Alignment.topCenter,
-                          child: Padding(
-                              padding: const EdgeInsets.only(top: 70),
-                              child: CustomImageContainer(
-                                  image: model.data!.images!))),
-                      Positioned(
-                          top: MediaQuery.of(context).size.height * .52,
-                          child: CustomContainerDetails(
-                            id: model.data!.id,
-                            name: model.data!.title,
-                            price: model.data!.price,
-                            rating: 4,
-                            image: model.data!.images![0].logo,
-                            desc: model.data!.desc,
-                            many: cubit.itemCount,
-                          )),
-                    ]),
-                    const SizedBox(height: 1)
-                  ],
+              body: SafeArea(
+                child: SingleChildScrollView(
+                  physics: const NeverScrollableScrollPhysics(),
+                  child: Column(
+                    children: [
+                      Stack(
+                          children: [
+                        CustomBackgroundContainer(
+                          arrowBack: () {
+                            Navigator.pop(context);
+                          },
+                          cartShopping: () {
+                           ProductCubit.get(context).getEarn();
+                           },
+                          x: cubit.itemcount,
+                        ),
+                        Align(
+                            alignment: Alignment.topCenter,
+                            child: Padding(
+                                padding: const EdgeInsets.only(top: 70),
+                                child: CustomImageContainer(
+                                    image: model.data!.images!))),
+                        Positioned(
+                            top: MediaQuery.of(context).size.height * .52,
+                            child: CustomContainerDetails(
+                              id: model.data!.id,
+                              name: model.data!.title,
+                              price: model.data!.price,
+                              rating: 4,
+                              image: model.data!.images![0].logo,
+                              desc: model.data!.desc,
+                              many: cubit.itemCount,
+                            )),
+                      ]),
+                      const SizedBox(height: 1)
+                    ],
+                  ),
                 ),
               ),
             );

@@ -7,6 +7,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:shopping/Cubit/cubit.dart';
 import 'package:shopping/model/CustomerModel.dart';
 import 'package:shopping/model/cart.dart';
+import 'package:shopping/model/categoryModel.dart';
 import 'package:shopping/model/owner_earn_model.dart';
 import 'package:shopping/model/product.dart';
 import 'package:shopping/model/product_info.dart';
@@ -131,7 +132,6 @@ class ProductCubit extends Cubit<ProductStates> {
       "id": id,
       "title_ar": tittleAr,
       "title_en": tittleEn,
-      "category_id": cat_id,
       "price": price,
       "many": many,
       "desc_ar": descAr ?? "",
@@ -443,9 +443,12 @@ class ProductCubit extends Cubit<ProductStates> {
 /////////////////////Delete Product//////////////////////
   deletePro({id, context}) async {
     ShopCubit.get(context).getMyShared();
-
     FormData formData = FormData.fromMap({"id": id});
+    Map<String, dynamic> header = {
+      "auth-token": LoginCubit.get(context).loginModel!.data!.token,
+    };
     DioHelper.postData1(
+      option: header,
       url: deleteProduct,
       data: formData,
     ).then((value) {
@@ -651,6 +654,22 @@ class ProductCubit extends Cubit<ProductStates> {
     }).catchError((onError) {
       print(onError.toString());
       emit(SallaPrivacyPolicyErrorState());
+    });
+  }
+
+
+  ////Categories Update & Create Product/////
+  CategoryModel? categoryModel;
+  Future<void> getCategoriesData() async {
+    emit(LoadingCat());
+    Map<String, dynamic> data = {"type": ""};
+    DioHelper.postData(url: category, data: data).then((value) {
+      categoryModel = CategoryModel.fromJson(value.data);
+      print("done categoryModel ${categoryModel!.status}");
+      emit(DoneCat());
+    }).catchError((onError) {
+      print(onError.toString());
+      emit(ErrorCat());
     });
   }
 }

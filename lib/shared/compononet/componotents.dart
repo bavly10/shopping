@@ -4,9 +4,8 @@ import 'package:shopping/shared/my_colors.dart';
 navigateTo(context, widget) =>
     Navigator.push(context, MaterialPageRoute(builder: (context) => widget));
 
-void navigateToFinish(context, widget) => Navigator.pushReplacement(
-    context, MaterialPageRoute(builder: (context) => widget));
-var textStyle = TextStyle(
+void navigateToFinish(context, widget) => Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => widget));
+var textStyle = const TextStyle(
   fontWeight: FontWeight.bold,
   fontSize: 18,
 );

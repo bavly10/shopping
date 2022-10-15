@@ -8,6 +8,7 @@ import 'package:shopping/model/categoryModel.dart';
 import 'package:shopping/modules/Customer/products/cubit/cubit.dart';
 import 'package:shopping/modules/Customer/products/cubit/states.dart';
 import 'package:shopping/modules/Customer/customer_home_screen.dart';
+import 'package:shopping/shared/compononet/arrowBack.dart';
 import 'package:shopping/shared/compononet/componotents.dart';
 import 'package:shopping/shared/compononet/describe_text_feild.dart';
 import 'package:shopping/shared/compononet/product_textField.dart';
@@ -25,8 +26,6 @@ class UpdateProduct extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final model = ProductCubit.get(context).showProd!;
-    final list = ShopCubit.get(context).categoryModel;
-    final cubit = ProductCubit.get(context);
     var listimage = model.data!.images!;
     return Scaffold(
       appBar: AppBar(
@@ -47,7 +46,11 @@ class UpdateProduct extends StatelessWidget {
                 child: Icon(Icons.delete, color: myBlue)),
           )
         ],
-        title: Text(mytranslate(context, "addpro")),
+        leading: MyArrowBack(onPress: (){
+          ShopCubit.get(context).getMyShared();
+          navigateToFinish(context, CustomerHome(id: ShopCubit.get(context).customerId,));
+        }),
+        title: Text(mytranslate(context, "editt")),
       ),
       body: SingleChildScrollView(
         child: Form(
@@ -158,6 +161,8 @@ class UpdateProduct extends StatelessWidget {
                       navigateToFinish(context, CustomerHome().build(context));
                     } else {}
                   }, builder: (context, state) {
+                    final list = ProductCubit.get(context).categoryModel;
+                    final cubit = ProductCubit.get(context);
                     return Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [

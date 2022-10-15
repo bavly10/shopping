@@ -22,38 +22,37 @@ class HomeScreen extends StatelessWidget {
         final cubit = ShopCubit.get(context);
         return Scaffold(
           backgroundColor: myGrey,
-          body: SingleChildScrollView(
-            physics: const NeverScrollableScrollPhysics(),
-            child: Column(
-              children: [
-                const SizedBox(
-                  height: 15,
-                ),
-                cubit.changeAppBar
-                    ? myAppBar(context)
-                    : myAppBarSearch(context),
-                const SizedBox(
-                  height: 15,
-                ),
-                // ignore: prefer_const_constructors
-                cubit.categoryModel == null
-                    ? const Center(child: CircularProgressIndicator())
-                    : CategoryScreen(
-                        colntroller: search,
-                      ),
-                const SizedBox(
-                  height: 5,
-                ),
-                const Divider(
-                  height: 1,
-                  color: Colors.black,
-                ),
-                if (state is LoadingProCustomerState)
-                  const CircularProgressIndicator(),
-                if (state is DoneProCustomerState) CustomerScreen(),
-                if (state is emptyProCustomerState) const Text("No data"),
-                if (state is ChangeIndexTabs) CustomerScreen(),
-              ],
+          body: SafeArea(
+            child: SingleChildScrollView(
+              physics: const NeverScrollableScrollPhysics(),
+              child: Column(
+                children: [
+                   cubit.changeAppBar
+                      ? myAppBar(context)
+                      : myAppBarSearch(context),
+                  const SizedBox(
+                    height: 15,
+                  ),
+                  // ignore: prefer_const_constructors
+                  cubit.categoryModel == null
+                      ? const Center(child: CircularProgressIndicator())
+                      : CategoryScreen(
+                          colntroller: search,
+                        ),
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  const Divider(
+                    height: 1,
+                    color: Colors.black,
+                  ),
+                  if (state is LoadingProCustomerState)
+                    const CircularProgressIndicator(),
+                  if (state is DoneProCustomerState) CustomerScreen(),
+                  if (state is emptyProCustomerState) const Text("No data"),
+                  if (state is ChangeIndexTabs) CustomerScreen(),
+                ],
+              ),
             ),
           ),
         );
@@ -87,15 +86,7 @@ class HomeScreen extends StatelessWidget {
                   ShopCubit.get(context).changeSearchAppBar();
                 }),
           ),
-          const SizedBox(
-            width: 10,
-          ),
-          Text(
-            mytranslate(context, "home"),
-            style: TextStyle(
-                color: myBlue, fontWeight: FontWeight.bold, fontSize: 22),
-          ),
-          const Spacer(),
+          MyArrowBack(onPress: ()=>Navigator.pop(context)),
           DropdownButton(
             onChanged: (lang) {
               ShopCubit.get(context).changeLang(lang);

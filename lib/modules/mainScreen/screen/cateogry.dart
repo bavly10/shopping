@@ -55,7 +55,7 @@ class CategoryScreen extends StatelessWidget {
                         child: AnimatedContainer(
                             duration: const Duration(milliseconds: 400),
                             width: index == ShopCubit.get(context).selected
-                                ? 100
+                                ? 120
                                 : 80,
                             height: index == ShopCubit.get(context).selected
                                 ? 60
