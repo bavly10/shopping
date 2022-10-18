@@ -130,6 +130,7 @@ class ProductCubit extends Cubit<ProductStates> {
     };
     FormData formData = FormData.fromMap({
       "id": id,
+      "category_id": cat_id,
       "title_ar": tittleAr,
       "title_en": tittleEn,
       "price": price,
@@ -145,13 +146,18 @@ class ProductCubit extends Cubit<ProductStates> {
       "four_xl": four_xll,
       "image[]": img
     });
-    await DioHelper.postData1(
-            url: updateProduct, data: formData, option: header)
-        .then((value) {
-      print(value.data.toString());
-      emit(UpdatingSueccs());
+    await DioHelper.postData1(url: updateProduct, data: formData, option: header)
+        .then((value) {debugPrint(value.data.toString());
+          if(value.data['status']==true) {
+            emit(UpdatingSueccs());
+          }
+            else{
+            emit(UpdatingProductError(value.data['msg']));
+          }
+
     }).catchError((error) {
-      print(error.toString());
+      debugPrint(error.toString());
+      emit(UpdatingError(error));
     });
   }
 
@@ -425,8 +431,9 @@ class ProductCubit extends Cubit<ProductStates> {
 
 ////////////////////////// clear image/////////////////////
   Future deleteImage({id, context}) async {
+    ShopCubit.get(context).getMyShared();
     Map<String, dynamic> header = {
-      "auth-token": LoginCubit.get(context).loginModel!.data!.token,
+      "auth-token": ShopCubit.get(context).customerToken,
     };
     FormData formData = FormData.fromMap({"id": id});
     DioHelper.postData1(url: deleteProductImage, data: formData, option: header)

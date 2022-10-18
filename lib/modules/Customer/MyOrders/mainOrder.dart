@@ -37,14 +37,14 @@ class Orders extends StatelessWidget {
             child: state is CustomerOrderLoading
                 ? const Center(child: CircularProgressIndicator())
                 : SingleChildScrollView(
+              physics: const BouncingScrollPhysics(),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Padding(
                             padding: const EdgeInsets.all(12.0),
-                            child: Container(
-                                height:
-                                    MediaQuery.of(context).size.height * .06,
+                            child: SizedBox(
+                                height: MediaQuery.of(context).size.height * .06,
                                 width: double.infinity,
                                 child: ListView.separated(
                                     separatorBuilder: ((context, index) {
@@ -72,6 +72,7 @@ class Orders extends StatelessWidget {
                                 ),
                               ))
                             : ListView.builder(
+                          physics: const NeverScrollableScrollPhysics(),
                                 shrinkWrap: true,
                                 itemBuilder: (ctx, index) => Padding(
                                   padding: const EdgeInsets.all(12.0),

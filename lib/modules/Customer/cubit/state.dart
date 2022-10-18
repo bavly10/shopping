@@ -24,6 +24,9 @@ class TakeImageState extends CustomerStates {}
 class WaitingCustomerUpdtatingState extends CustomerStates {}
 
 class CustomerUpdatingSucessState extends CustomerStates {}
+class CustomerUpdatingErrorDataState extends CustomerStates {final String error;
+
+  CustomerUpdatingErrorDataState(this.error);}
 
 class CustomerUpdatingErrorState extends CustomerStates {}
 

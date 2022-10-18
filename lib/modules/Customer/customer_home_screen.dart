@@ -49,10 +49,7 @@ class CustomerHome extends StatelessWidget {
       } else if (state is GettingStatisticLoading) {
         showDialog(
             context: context, builder: (context) => const LoadingDialog());
-      } else if(state is LoadingCat){
-        showDialog(
-            context: context, builder: (context) => const LoadingDialog());
-      }else if (state is ErrorCat ){
+      } else if (state is ErrorCat ){
         myToast(message: mytranslate(context, "error"));
       }else{}
     }, builder: (context, state) {

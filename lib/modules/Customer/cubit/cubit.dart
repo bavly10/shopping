@@ -185,7 +185,7 @@ class CustomerCubit extends Cubit<CustomerStates> {
 
   ////////////////////////////Update Customer////////////////
   MultipartFile? mFile;
-  updateCustomer({nameStore, name, pass, phone, adress, img, context}) async {
+  updateCustomer({nameStore,nameStoreEn ,name,nameEn, pass, phone, adress, img, context}) async {
     emit(WaitingCustomerUpdtatingState());
     Map<String, dynamic> header = {
       "auth-token": ShopCubit.get(context).customerToken,
@@ -194,13 +194,13 @@ class CustomerCubit extends Cubit<CustomerStates> {
       "user_id": ShopCubit.get(context).customerId,
       "name_ar": name,
       "password": pass,
-      "name_en": name,
+      "name_en": nameEn,
       "phone": phone,
       "address": adress,
       "longitude": 456,
       "latitude": 468456,
       "title_ar": nameStore,
-      "title_en": nameStore,
+      "title_en": nameStoreEn,
       "male": colorMen,
       "female": colorWomen,
       "baby": colorBaby,
@@ -208,8 +208,13 @@ class CustomerCubit extends Cubit<CustomerStates> {
     });
     DioHelper.postData1(url: updateUser, data: formData, option: header)
         .then((value) {
-      print(value.data.toString());
-      emit(CustomerUpdatingSucessState());
+      if(value.data['status']==true) {
+        emit(CustomerUpdatingSucessState());
+      }
+      else{
+        emit(CustomerUpdatingErrorDataState(value.data['msg']));
+      }
+      debugPrint(value.data.toString());
     }).catchError((error) {
       emit(CustomerUpdatingErrorState());
       print(error.toString());

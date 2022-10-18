@@ -6,6 +6,7 @@ import 'package:shopping/modules/Customer/Static/widgets/warning_container.dart'
 import 'package:shopping/modules/Customer/cubit/cubit.dart';
 import 'package:shopping/modules/Customer/cubit/state.dart';
 import 'package:shopping/shared/compononet/componotents.dart';
+import 'package:shopping/shared/compononet/no_result_search.dart';
 import 'package:shopping/shared/localization/translate.dart';
 import 'package:shopping/shared/my_colors.dart';
 
@@ -60,9 +61,7 @@ class StaticMain extends StatelessWidget {
                   style: textStyle1,
                 )),
             body: cubit.data == null
-                ? const Center(
-                    child: CircularProgressIndicator(),
-                  )
+                ? const NoResultSearch()
                 : Column(
                     children: [
                       Padding(

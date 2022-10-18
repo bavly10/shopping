@@ -18,6 +18,7 @@ import 'package:shopping/shared/compononet/verification_dialog.dart';
 
 class UpdateProduct extends StatelessWidget {
   TextEditingController nameProduct = TextEditingController();
+  TextEditingController nameProductEn = TextEditingController();
   TextEditingController typeProduct = TextEditingController();
   TextEditingController priceProduct = TextEditingController();
   TextEditingController amountProduct = TextEditingController();
@@ -47,8 +48,7 @@ class UpdateProduct extends StatelessWidget {
           )
         ],
         leading: MyArrowBack(onPress: (){
-          ShopCubit.get(context).getMyShared();
-          navigateToFinish(context, CustomerHome(id: ShopCubit.get(context).customerId,));
+          Navigator.of(context).pop();
         }),
         title: Text(mytranslate(context, "editt")),
       ),
@@ -75,6 +75,24 @@ class UpdateProduct extends StatelessWidget {
                           child: MyProTextField(
                             label: model.data!.productData!.titleAr!,
                             controller: nameProduct,
+                            obcure: false,
+                            validate: (value) {
+                              if (value!.isEmpty) {
+                                return 'You should Fill Field!!';
+                              }
+                            },
+                          ),
+                        ),
+                        Text(
+                          mytranslate(context, "nameproEn"),
+                          style: const TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 18),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 8.0, bottom: 15),
+                          child: MyProTextField(
+                            label: model.data!.productData!.titleEn!,
+                            controller: nameProductEn,
                             obcure: false,
                             validate: (value) {
                               if (value!.isEmpty) {
@@ -159,8 +177,24 @@ class UpdateProduct extends StatelessWidget {
                       }
                     } else if (state is DeletingImageProduct) {
                       navigateToFinish(context, CustomerHome().build(context));
-                    } else {}
-                  }, builder: (context, state) {
+                    }
+                    else if (state is DeletingImageProduct){
+                      ShopCubit.get(context).getMyShared();
+                      navigateToFinish(context, CustomerHome(id:ShopCubit.get(context).customerId));
+                    }
+                    else if (state is UpdatingProductError){
+                      showDialog(
+                          context: context,
+                          builder: (context) {
+                            return CustomDialog(
+                              btnName: mytranslate(context, "ok"),
+                              text: state.error,
+                              onTap: () => Navigator.pop(context),
+                            );
+                          });
+                    }else{}
+                  },
+                      builder: (context, state) {
                     final list = ProductCubit.get(context).categoryModel;
                     final cubit = ProductCubit.get(context);
                     return Column(
@@ -595,8 +629,7 @@ class UpdateProduct extends StatelessWidget {
                                 onPressed: () async {
                                   print(typeProduct.text.toString());
                                   List y = [];
-                                  for (var x in ProductCubit.get(context)
-                                      .imageFileList) {
+                                  for (var x in ProductCubit.get(context).imageFileList) {
                                     y.add(MultipartFile.fromFileSync(x.path));
                                   }
                                   if (cubit.cat_id == null) {
@@ -627,7 +660,9 @@ class UpdateProduct extends StatelessWidget {
                                       tittleAr: nameProduct.text.isEmpty
                                           ? model.data!.productData!.titleAr
                                           : nameProduct.text,
-                                      tittleEn: "dwadwad",
+                                      tittleEn: nameProductEn.text.isEmpty
+                                          ? model.data!.productData!.titleEn
+                                          : nameProductEn.text,
                                       id: model.data!.productData!.id,
                                       img: y.isEmpty ? model.data!.images : y,
                                     );

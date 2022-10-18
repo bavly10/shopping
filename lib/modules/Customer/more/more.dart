@@ -12,7 +12,6 @@ import 'package:shopping/shared/compononet/componotents.dart';
 import 'package:shopping/shared/compononet/myToast.dart';
 import 'package:shopping/shared/localization/translate.dart';
 import 'package:shopping/shared/my_colors.dart';
-
 import '../../../shared/compononet/no_result_search.dart';
 
 class MoreProductsCustomer extends StatelessWidget {
@@ -26,10 +25,8 @@ class MoreProductsCustomer extends StatelessWidget {
       listener: (context, state) {
         if (state is GettingProductDataNull) {
           myToast(message: mytranslate(context, "noData"));
-        }else if(state is LoadingCat){
-          showDialog(
-              context: context, builder: (context) => const LoadingDialog());
-        }else if (state is DoneCat){
+        }
+      else if (state is DoneCat){
           navigateToFinish(context, UpdateProduct());
         }else if (state is ErrorCat ){
           myToast(message: mytranslate(context, "error"));
@@ -199,7 +196,7 @@ class MoreProductsCustomer extends StatelessWidget {
                 const Spacer(),
                 TextButton(
                     onPressed: (){
-                      ProductCubit.get(context).showPro(pro.id, context).whenComplete(() => ProductCubit.get(context).getCategoriesData());
+                      ProductCubit.get(context).showPro(pro.id, context).then((value) => ProductCubit.get(context).getCategoriesData());
                     },
                     child: Text(
                       mytranslate(context, "editt"),

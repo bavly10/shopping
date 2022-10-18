@@ -35,6 +35,12 @@ class failProduct extends ProductStates {}
 class DeletingImageProduct extends ProductStates {}
 
 class UpdatingSueccs extends ProductStates {}
+class UpdatingError extends ProductStates {final String error;
+
+  UpdatingError(this.error);}
+class UpdatingProductError extends ProductStates {final String error;
+
+UpdatingProductError(this.error);}
 
 class CreatingSueccs extends ProductStates {}
 

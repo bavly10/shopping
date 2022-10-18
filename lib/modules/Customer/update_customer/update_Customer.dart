@@ -7,10 +7,9 @@ import 'package:flutter_hex_color/flutter_hex_color.dart';
 
 import 'package:image_picker/image_picker.dart';
 import 'package:shopping/modules/Customer/cubit/state.dart';
+import 'package:shopping/shared/compononet/arrowBack.dart';
 import 'package:shopping/shared/localization/translate.dart';
 
-import '../../../Cubit/cubit.dart';
-import '../../../model/categoryModel.dart';
 import '../../../shared/compononet/borderSignup.dart';
 import '../../../shared/compononet/componotents.dart';
 import '../../../shared/compononet/product_textField.dart';
@@ -27,17 +26,19 @@ class UpdateCustomer extends StatelessWidget {
   }) : super(key: key);
   TextEditingController phoneCustomer = TextEditingController();
   TextEditingController namerStore = TextEditingController();
+  TextEditingController namerStoreEN = TextEditingController();
   TextEditingController adressCustomer = TextEditingController();
 
   TextEditingController passwordCustomer = TextEditingController();
   TextEditingController nameCustomer = TextEditingController();
+  TextEditingController nameCustomerEN = TextEditingController();
   final GlobalKey<FormState> form = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
     var model = ProductCubit.get(context).prosCustomerModel;
     return Scaffold(
-        appBar: AppBar(title: Text(mytranslate(context, "updcus")),leading: const SizedBox(),),
+        appBar: AppBar(title: Text(mytranslate(context, "updcus")),leading: const SizedBox(),actions: [MyArrowBack(onPress: ()=>Navigator.pop(context))],),
         body: SingleChildScrollView(
             child: Form(
                 key: form,
@@ -166,7 +167,27 @@ class UpdateCustomer extends StatelessWidget {
                                       );
                                     });
                               }
-                            }
+                            }else if (state is CustomerUpdatingErrorDataState){
+                              showDialog(
+                                  context: context,
+                                  builder: (context) {
+                                    return CustomDialog(
+                                      btnName: mytranslate(context, "ok"),
+                                      text: state.error,
+                                      onTap: () => Navigator.pop(context),
+                                    );
+                                  });
+                            }else if (state is CustomerUpdatingErrorState){
+                              showDialog(
+                                  context: context,
+                                  builder: (context) {
+                                    return CustomDialog(
+                                      btnName: mytranslate(context, "ok"),
+                                      text:mytranslate(context, "error"),
+                                      onTap: () => Navigator.pop(context),
+                                    );
+                                  });
+                            }else{}
                           }), builder: (context, state) {
                             return Column(
                               mainAxisAlignment: MainAxisAlignment.start,
@@ -304,93 +325,6 @@ class UpdateCustomer extends StatelessWidget {
                                         )),
                                   ),
                                 ),
-                                // Expanded(
-                                //   child: DecoratedBox(
-                                //     decoration: BoxDecoration(
-                                //         color: Colors
-                                //             .white, //background color of dropdown button
-                                //         border: Border.all(
-                                //             color: myGrey!,
-                                //             width:
-                                //                 3), //border of dropdown button
-                                //         borderRadius:
-                                //             BorderRadius.circular(
-                                //                 30), //border raiuds of dropdown button
-                                //         boxShadow: <BoxShadow>[
-                                //           //apply shadow on Dropdown button
-                                //           BoxShadow(
-                                //               color: myBlue,
-                                //               blurRadius:
-                                //                   0.1), //shadow for button
-                                //         ]),
-                                //     child: DropdownButton(
-                                //       focusColor: myBlue,
-                                //       isExpanded: true,
-                                //       underline: const SizedBox(),
-                                //       elevation: 2,
-                                //       hint: cubit.catSelect == null
-                                //           ? Padding(
-                                //               padding:
-                                //                   const EdgeInsets
-                                //                       .all(8.0),
-                                //               child: Center(
-                                //                 child: Text(
-                                //                   mytranslate(context,
-                                //                       "service"),
-                                //                   style: TextStyle(
-                                //                       color: myBlue,
-                                //                       fontWeight:
-                                //                           FontWeight
-                                //                               .bold,
-                                //                       fontSize: 20),
-                                //                 ),
-                                //               ),
-                                //             )
-                                //           : Padding(
-                                //               padding:
-                                //                   const EdgeInsets
-                                //                       .all(4.0),
-                                //               child: Center(
-                                //                 child: Text(
-                                //                     cubit.catSelect!,
-                                //                     textAlign:
-                                //                         TextAlign
-                                //                             .center,
-                                //                     style: TextStyle(
-                                //                         color: myBlue,
-                                //                         fontSize: 20,
-                                //                         fontWeight:
-                                //                             FontWeight
-                                //                                 .bold)),
-                                //               ),
-                                //             ),
-                                //       // value: cubit.catSelect??,
-                                //       icon: Icon(
-                                //         Icons
-                                //             .keyboard_arrow_down_sharp,
-                                //         color: myBlue,
-                                //         size: 35,
-                                //       ),
-                                //       items: list!.data!
-                                //           .map<
-                                //               DropdownMenuItem<
-                                //                   CatItem>>((cat) =>
-                                //               DropdownMenuItem(
-                                //                 value: cat,
-                                //                 child: Center(
-                                //                   child: Text(
-                                //                       cat.title!),
-                                //                 ),
-                                //               ))
-                                //           .toList(),
-                                //       onChanged: (val) {
-                                //         cubit.changeSelectCategory(
-                                //             val);
-                                //       },
-                                //     ),
-                                //   ),
-                                // ),
-
                                 Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: Text(
@@ -501,9 +435,15 @@ class UpdateCustomer extends StatelessWidget {
                                             nameStore: namerStore.text.isEmpty
                                                 ? model.data!.titleAr
                                                 : namerStore.text,
+                                            nameStoreEn: namerStoreEN.text.isEmpty
+                                                ? model.data!.titleEn
+                                                : namerStoreEN.text,
                                             name: nameCustomer.text.isEmpty
                                                 ? model.data!.nameAr
                                                 : nameCustomer.text,
+                                            nameEn: nameCustomerEN.text.isEmpty
+                                                ? model.data!.nameEn
+                                                : nameCustomerEN.text,
                                             context: context,
                                             pass: passwordCustomer.text.isEmpty
                                                 ? null
