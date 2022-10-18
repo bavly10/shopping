@@ -16,7 +16,7 @@ class CategoryScreen extends StatelessWidget {
     return SingleChildScrollView(
       physics: const NeverScrollableScrollPhysics(),
       child: SizedBox(
-          height: MediaQuery.of(context).size.height * 0.16,
+          height: MediaQuery.of(context).size.height * 0.18,
           width: double.infinity,
           child: colntroller!.text.isNotEmpty &&
                   ShopCubit.get(context).searchCat.isEmpty
@@ -47,7 +47,7 @@ class CategoryScreen extends StatelessWidget {
                   ],
                 ))
               : list!.data!.isEmpty
-                  ? Center(child: CircularProgressIndicator())
+                  ? const Center(child: CircularProgressIndicator())
                   : ListView.builder(
                       scrollDirection: Axis.horizontal,
                       itemBuilder: (ctx, index) => Padding(
@@ -56,10 +56,10 @@ class CategoryScreen extends StatelessWidget {
                             duration: const Duration(milliseconds: 400),
                             width: index == ShopCubit.get(context).selected
                                 ? 120
-                                : 80,
+                                : 100,
                             height: index == ShopCubit.get(context).selected
-                                ? 60
-                                : 60,
+                                ? 160
+                                : 120,
                             alignment: Alignment.center,
                             decoration: BoxDecoration(
                               color: index == ShopCubit.get(context).selected
@@ -87,43 +87,40 @@ class CategoryScreen extends StatelessWidget {
         ShopCubit.get(context).getselected(x);
         ShopCubit.get(context).getCustomerData(item.id!);
       },
-      child: Padding(
-        padding: const EdgeInsets.all(14.0),
-        child: Column(
-          children: [
-            SizedBox(
-              height: 40,
-              width: 100,
-              child: CachedNetworkImage(
-                imageBuilder: (context, imageProvider) => Container(
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: imageProvider,
-                      fit: BoxFit.fitWidth,
-                    ),
+      child: Column(
+        children: [
+          SizedBox(
+            height: MediaQuery.of(context).size.height*0.10,
+            width: double.infinity,
+            child: CachedNetworkImage(
+              imageBuilder: (context, imageProvider) => Container(
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: imageProvider,
+                    fit: BoxFit.cover,
                   ),
                 ),
-                imageUrl: "${item.logo}",
-                placeholder: (context, url) =>
-                    const CircularProgressIndicator(),
-                errorWidget: (context, url, error) => const Icon(Icons.error),
               ),
+              imageUrl: "${item.logo}",
+              placeholder: (context, url) =>
+                  const CircularProgressIndicator(),
+              errorWidget: (context, url, error) => const Icon(Icons.error),
             ),
-            const SizedBox(
-              height: 10,
-            ),
-            Expanded(
-                child: Text(
-              "${item.title}",
-              style: TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.bold,
-                  color: x == ShopCubit.get(context).selected
-                      ? Colors.white
-                      : Colors.black87),
-            )),
-          ],
-        ),
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          Expanded(
+              child: Text(
+            "${item.title}",
+            style: TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.w600,
+                color: x == ShopCubit.get(context).selected
+                    ? Colors.white
+                    : Colors.black87),
+          )),
+        ],
       ),
     );
   }

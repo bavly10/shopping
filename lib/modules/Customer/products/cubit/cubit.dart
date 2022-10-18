@@ -497,7 +497,6 @@ class ProductCubit extends Cubit<ProductStates> {
       ownerEarn = OwnerEarn.fromMap(value.data);
       earn = ownerEarn?.data?.ownerEarn.toString();
       ship = ownerEarn?.data?.shopingEarn.toString();
-
       // earn = value.data["data"];
       emit(ShopEarnSuessState());
     }).catchError((onError) {

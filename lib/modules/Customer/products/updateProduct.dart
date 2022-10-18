@@ -48,7 +48,7 @@ class UpdateProduct extends StatelessWidget {
           )
         ],
         leading: MyArrowBack(onPress: (){
-          Navigator.of(context).pop();
+          Navigator.pop(context);
         }),
         title: Text(mytranslate(context, "editt")),
       ),

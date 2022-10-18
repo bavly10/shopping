@@ -39,7 +39,6 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => LoginCubit()..getPrivacyPolicy()),
         BlocProvider(
             create: (context) => ProductCubit()
-              ..getEarn()
               ..getPrivacyPolicy()),
         BlocProvider(
             create: (context) =>

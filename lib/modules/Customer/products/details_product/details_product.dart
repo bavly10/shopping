@@ -20,9 +20,10 @@ class DetailsProduct extends StatelessWidget {
     return BlocConsumer<ProductCubit, ProductStates>(
       listener: (ctx,state){
         if (state is ShopEarnLoadingState ){
-          const LoadingDialog();
+          showDialog(
+              context: context, builder: (context) => const LoadingDialog());
         }else if (state is ShopEarnSuessState){
-          navigateTo(context, CartScreen());
+          navigateToFinish(context, CartScreen());
         }else if (state is ErrorEarnState){
           myToast(message: "Try again");
         }else{}

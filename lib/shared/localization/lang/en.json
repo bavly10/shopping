@@ -140,5 +140,9 @@
    "INVALIDFIELD": "INVALID FIELD",
    "error": "Something is error",
    "try": "Try Again",
-   "free": "Free"
+   "free": "Free",
+   "static": "Press above any column to get additional information  ",
+   "cartMS": "Your All Product Here \uD83D\uDC49 ",
+   "setting": "Setting",
+   "lang": "Change Language"
 }

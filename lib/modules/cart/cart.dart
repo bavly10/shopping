@@ -20,12 +20,11 @@ import '../../shared/compononet/sign_up_cart.dart';
 class CartScreen extends StatelessWidget {
   double x = 0.0;
   double y = 0.0;
-  double? d;
+  double? d=0.0;
   final GlobalKey<ScaffoldState> skey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
-    // ProductCubit.get(context).getPrivacyPolicy();
     var salla = ProductCubit.get(context).privacySalla;
     return BlocConsumer<ProductCubit, ProductStates>(
       listener: (ctx, state) {
@@ -45,9 +44,7 @@ class CartScreen extends StatelessWidget {
         final cubit = ProductCubit.get(context);
         x = cubit.totalamount;
         final ownerEarn = cubit.ownerEarn;
-        ownerEarn!.data!.shopingEarnActive == "true"
-            ? d = double.parse("${ownerEarn.data?.shopingEarn}")
-            : d = 0.0;
+        ownerEarn!.data!.shopingEarnActive == "true" ? d = double.parse("${ownerEarn.data?.shopingEarn}") : d = 0.0;
         var totall;
         ownerEarn.data?.ownerEarnActive == "true" ? totall = (x + d!) + double.parse(cubit.earn!): (x + d!);
         return SafeArea(

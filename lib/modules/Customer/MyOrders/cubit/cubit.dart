@@ -11,20 +11,12 @@ class CustomerOrderCubit extends Cubit<CustomerOrderStates> {
 
   static CustomerOrderCubit get(context) => BlocProvider.of(context);
   int limit = 0;
-  // int pagnationDataLimit() {
-  //   print(limit);
-  //   if (limit <= pages.length - 1) {
-  //     return limit += 1;
-  //   } else
-  //     return limit = 1;
-  // }
 
   List<DataOrder> list = [];
   List<int> pages = [];
   OrdersCutomer? ordersCutomer;
   Future getOrders({context, page}) async {
     list = [];
-    // pages = [];
     emit(CustomerOrderLoading());
     Map<String, dynamic> header = {
       "auth-token": ShopCubit.get(context).customerToken
@@ -69,6 +61,21 @@ class CustomerOrderCubit extends Cubit<CustomerOrderStates> {
       emit(CustomerGetOrderFail());
     });
   }
+
+  List<DataOrder> search = [];
+  List<dynamic> searchCustomerInOrders(String quary) {
+    search = [];
+    var searching = list
+        .where((element) =>
+        element.userInfo!.name!.toLowerCase().contains(quary.toLowerCase()))
+        .toList();
+    search = searching;
+    // print(search[0].title);
+    emit(SearchingCustomer());
+    return search;
+  }
+
+
 
   int? selected;
   void getselected(int x) {

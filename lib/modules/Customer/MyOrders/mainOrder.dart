@@ -3,20 +3,24 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:shopping/modules/Customer/MyOrders/Search/search.dart';
 import 'package:shopping/modules/Customer/MyOrders/cubit/cubit.dart';
 import 'package:shopping/modules/Customer/MyOrders/cubit/state.dart';
 import 'package:shopping/modules/Customer/MyOrders/widget/EXPTile.dart';
 import 'package:shopping/modules/Customer/MyOrders/widget/pages_container.dart';
+import 'package:shopping/shared/compononet/no_result_search.dart';
 import 'package:shopping/shared/localization/translate.dart';
 import 'package:shopping/shared/my_colors.dart';
 
 class Orders extends StatelessWidget {
-  const Orders({Key? key}) : super(key: key);
+ Orders({Key? key}) : super(key: key);
+  TextEditingController search=TextEditingController();
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<CustomerOrderCubit, CustomerOrderStates>(
       builder: (ctx, state) {
         final cubit = CustomerOrderCubit.get(context).list;
+        var model = CustomerOrderCubit.get(context).search;
         return Scaffold(
           appBar: AppBar(
               centerTitle: false,
@@ -24,18 +28,12 @@ class Orders extends StatelessWidget {
                 mytranslate(context, "orders"),
                 style: const TextStyle(fontSize: 16),
               ),
-              actions: [
-                CircleAvatar(
-                  child: Icon(
-                    Icons.search,
-                    color: myBlue,
-                  ),
-                  backgroundColor: myGrey,
-                ),
-              ]),
+              leading: MyTextFiledSearch(search),
+              leadingWidth: 300,
+             ),
           body: SafeArea(
-            child: state is CustomerOrderLoading
-                ? const Center(child: CircularProgressIndicator())
+            child:search.text.isNotEmpty && CustomerOrderCubit.get(context).search.isEmpty
+                ? const NoResultSearch()
                 : SingleChildScrollView(
               physics: const BouncingScrollPhysics(),
                     child: Column(
@@ -52,8 +50,7 @@ class Orders extends StatelessWidget {
                                         width: 20,
                                       );
                                     }),
-                                    itemCount: CustomerOrderCubit.get(context)
-                                        .pages
+                                    itemCount: CustomerOrderCubit.get(context).pages
                                         .length,
                                     shrinkWrap: true,
                                     scrollDirection: Axis.horizontal,
@@ -72,11 +69,11 @@ class Orders extends StatelessWidget {
                                 ),
                               ))
                             : ListView.builder(
-                          physics: const NeverScrollableScrollPhysics(),
+                              physics: const NeverScrollableScrollPhysics(),
                                 shrinkWrap: true,
                                 itemBuilder: (ctx, index) => Padding(
                                   padding: const EdgeInsets.all(12.0),
-                                  child: Container(
+                                  child:search.text.isEmpty? Container(
                                       decoration: BoxDecoration(
                                         color: myGrey,
                                         border: Border.all(
@@ -85,9 +82,18 @@ class Orders extends StatelessWidget {
                                         borderRadius: const BorderRadius.all(
                                             Radius.circular(10)),
                                       ),
-                                      child: EXPTile(order: cubit[index])),
+                                      child: EXPTile(order: cubit[index])): Container(
+                                      decoration: BoxDecoration(
+                                        color: myGrey,
+                                        border: Border.all(
+                                            color: Colors.grey[200]!),
+                                        // color: myGrey,
+                                        borderRadius: const BorderRadius.all(
+                                            Radius.circular(10)),
+                                      ),
+                                      child: EXPTile(order: model[index])),
                                 ),
-                                itemCount: cubit.length,
+                                itemCount: search.text.isEmpty?cubit.length:model.length,
                               ),
                       ],
                     ),

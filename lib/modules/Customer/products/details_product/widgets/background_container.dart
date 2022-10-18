@@ -27,8 +27,6 @@ class CustomBackgroundContainer extends StatelessWidget {
                 Icons.arrow_back_ios_rounded,
                 size: 24,
               ),
-              //
-              //
               padding: EdgeInsets.all(8),
               shape: CircleBorder(),
             ),

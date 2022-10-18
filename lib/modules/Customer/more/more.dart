@@ -26,6 +26,10 @@ class MoreProductsCustomer extends StatelessWidget {
         if (state is GettingProductDataNull) {
           myToast(message: mytranslate(context, "noData"));
         }
+        else if (state is LoadingCat){
+          showDialog(
+              context: context, builder: (context) => const LoadingDialog());
+        }
       else if (state is DoneCat){
           navigateToFinish(context, UpdateProduct());
         }else if (state is ErrorCat ){
@@ -62,8 +66,7 @@ class MoreProductsCustomer extends StatelessWidget {
                 })
               ],
             ),
-            body: search.text.isNotEmpty &&
-                    ProductCubit.get(context).search.isEmpty
+            body: search.text.isNotEmpty && ProductCubit.get(context).search.isEmpty
                 ? const NoResultSearch()
                 : SafeArea(
                     child: LayoutBuilder(builder: (context, constraint) {

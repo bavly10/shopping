@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shopping/shared/compononet/componotents.dart';
+import 'package:shopping/shared/localization/translate.dart';
 
 import '../../../../shared/my_colors.dart';
 
@@ -17,10 +18,10 @@ class InfoContainer extends StatelessWidget {
             Icons.info_outline,
             color: myBlack,
           ),
-          SizedBox(width: 3),
+         const SizedBox(width: 3),
           Expanded(
             child: Text(
-              "Press above any column to get additional information  ",
+              mytranslate(context, "static"),
               style: textStyle3,
             ),
           ),

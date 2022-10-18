@@ -11,3 +11,4 @@ class CustomerGetOrderFail extends CustomerOrderStates {}
 class CustomerOrderError extends CustomerOrderStates {}
 
 class ChangeSelcect extends CustomerOrderStates {}
+class SearchingCustomer extends CustomerOrderStates {}

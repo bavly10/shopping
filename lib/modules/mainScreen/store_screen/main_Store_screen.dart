@@ -13,6 +13,7 @@ import 'package:shopping/modules/mainScreen/store_screen/widgets/latest_product.
 import 'package:shopping/modules/mainScreen/store_screen/widgets/top_screen.dart';
 import 'package:shopping/shared/compononet/arrowBack.dart';
 import 'package:shopping/shared/compononet/componotents.dart';
+import 'package:shopping/shared/compononet/myToast.dart';
 import 'package:shopping/shared/localization/translate.dart';
 import 'package:shopping/shared/my_colors.dart';
 
@@ -203,10 +204,9 @@ class StoreScreen extends StatelessWidget {
                                   childAspectRatio: .650),
                           childrenDelegate: SliverChildBuilderDelegate(
                               (context, index) => InkWell(
+                                  onDoubleTap: () {},
                                   onTap: () {
-                                    ProductCubit.get(context)
-                                        .productInfo(
-                                            cubit.list[index].id, context)
+                                    ProductCubit.get(context).productInfo(cubit.list[index].id, context)
                                         .then((value) => {
                                               navigateTo(context,
                                                   const DetailsProduct())

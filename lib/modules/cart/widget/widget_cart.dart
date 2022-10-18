@@ -109,8 +109,7 @@ class Cartitemapp extends StatelessWidget {
                                     border: Border.all(color: myBlue),
                                     borderRadius: BorderRadius.circular(10)),
                                 child: Row(
-                                  // crossAxisAlignment: CrossAxisAlignment.center,
-                                  // mainAxisAlignment: MainAxisAlignment.center,
+                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
                                     Expanded(
                                         child: InkWell(
@@ -134,15 +133,18 @@ class Cartitemapp extends StatelessWidget {
                                       style: TextStyle(
                                         color: myBlue,
                                         fontWeight: FontWeight.bold,
-                                        fontSize: 16,
+                                        fontSize: 18,
                                       ),
                                     ),
                                     Expanded(
                                       child: InkWell(
-                                        child: Icon(
-                                          Icons.minimize,
-                                          size: 22,
-                                          color: myBlue,
+                                        child: Padding(
+                                          padding: const EdgeInsets.only(bottom: 25.0),
+                                          child: Icon(
+                                            Icons.minimize,
+                                            size: 22,
+                                            color: myBlue,
+                                          ),
                                         ),
                                         onTap: () {
                                           ProductCubit.get(context)

@@ -1,10 +1,15 @@
+import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shopping/Cubit/cubit.dart';
 import 'package:shopping/Cubit/states.dart';
 import 'package:shopping/model/language.dart';
+import 'package:shopping/modules/Customer/products/cubit/cubit.dart';
+import 'package:shopping/modules/Customer/products/details_product/widgets/background_container.dart';
+import 'package:shopping/modules/cart/cart.dart';
 import 'package:shopping/modules/mainScreen/screen/cateogry.dart';
 import 'package:shopping/modules/mainScreen/screen/customer.dart';
+import 'package:shopping/modules/mainScreen/screen/myCart.dart';
 import 'package:shopping/shared/compononet/arrowBack.dart';
 import 'package:shopping/shared/compononet/componotents.dart';
 import 'package:shopping/shared/diohelper/dioHelpoer.dart';
@@ -24,16 +29,12 @@ class HomeScreen extends StatelessWidget {
           backgroundColor: myGrey,
           body: SafeArea(
             child: SingleChildScrollView(
-              physics: const NeverScrollableScrollPhysics(),
               child: Column(
                 children: [
                    cubit.changeAppBar
                       ? myAppBar(context)
                       : myAppBarSearch(context),
-                  const SizedBox(
-                    height: 15,
-                  ),
-                  // ignore: prefer_const_constructors
+                 const  CartWidget(),
                   cubit.categoryModel == null
                       ? const Center(child: CircularProgressIndicator())
                       : CategoryScreen(
@@ -46,6 +47,7 @@ class HomeScreen extends StatelessWidget {
                     height: 1,
                     color: Colors.black,
                   ),
+                  const SizedBox(height: 10,),
                   if (state is LoadingProCustomerState)
                     const CircularProgressIndicator(),
                   if (state is DoneProCustomerState) CustomerScreen(),
@@ -62,12 +64,13 @@ class HomeScreen extends StatelessWidget {
 
   Widget myAppBar(context) {
     return Padding(
-      padding: const EdgeInsets.all(4.0),
+      padding: const EdgeInsets.all(2.0),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Card(
-            color: Colors.grey,
+            color:myBlue,
             shape: StadiumBorder(
               side: BorderSide(
                 style: BorderStyle.none,
@@ -80,43 +83,19 @@ class HomeScreen extends StatelessWidget {
                 icon: Icon(
                   Icons.search_sharp,
                   size: 25,
-                  color: myBlack,
+                  color: myWhite,
                 ),
                 onPressed: () {
                   ShopCubit.get(context).changeSearchAppBar();
                 }),
           ),
-          MyArrowBack(onPress: ()=>Navigator.pop(context)),
-          DropdownButton(
-            onChanged: (lang) {
-              ShopCubit.get(context).changeLang(lang);
-              DioHelper.init();
-              ShopCubit.get(context)
-                  .getCategoriesData(ShopCubit.get(context)
-                      .type[ShopCubit.get(context).counter!])
-                  .then((value) => ShopCubit.get(context).getCustomerData(10))
-                  .then((value) => build(context));
-            },
-            items: lanugage.lang_list
-                .map<DropdownMenuItem<lanugage>>((lang) => DropdownMenuItem(
-                      value: lang,
-                      child: Row(
-                        children: [
-                          Text(lang.flag!),
-                          const SizedBox(
-                            width: 10,
-                          ),
-                          Text(lang.name!)
-                        ],
-                      ),
-                    ))
-                .toList(),
-            underline: const SizedBox(),
-            icon: const Icon(
-              Icons.language,
-              size: 30.0,
-            ),
+          Text(
+            mytranslate(context, "home"),
+            style: TextStyle(
+                color: myBlue, fontWeight: FontWeight.bold, fontSize: 22),
           ),
+
+          MyArrowBack(onPress: ()=>Navigator.pop(context)),
         ],
       ),
     );

@@ -24,8 +24,11 @@ class MainScreen extends StatelessWidget {
           onTap: cubit.changeIndex,
           iconData0:MdiIcons.home,
           lable0: mytranslate(context, "main"),
+          lable1:  mytranslate(context, "setting"),
+          iconData1:MdiIcons.settingsHelper,
           iconData3:MdiIcons.accountSupervisorCircleOutline,
           lable3: mytranslate(context, "customer"),
+
         ),
       );
       },);

@@ -4,6 +4,7 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_hex_color/flutter_hex_color.dart';
 
 import 'package:shopping/Cubit/cubit.dart';
+import 'package:shopping/model/language.dart';
 import 'package:shopping/model/product.dart';
 import 'package:shopping/modules/Customer/MyOrders/cubit/cubit.dart';
 import 'package:shopping/modules/Customer/MyOrders/mainOrder.dart';
@@ -16,10 +17,12 @@ import 'package:shopping/modules/Customer/products/cubit/states.dart';
 import 'package:shopping/modules/Customer/products/updateProduct.dart';
 import 'package:shopping/modules/Customer/update_customer/update_Customer.dart';
 import 'package:shopping/modules/mainScreen/mainScreen.dart';
+import 'package:shopping/modules/onBoarding/onBoarding_screen.dart';
 import 'package:shopping/shared/compononet/LoagingDialog.dart';
 import 'package:shopping/shared/compononet/componotents.dart';
 import 'package:shopping/shared/compononet/myToast.dart';
 import 'package:shopping/shared/compononet/no_result_search.dart';
+import 'package:shopping/shared/diohelper/dioHelpoer.dart';
 import 'package:shopping/shared/localization/translate.dart';
 import 'package:shopping/shared/my_colors.dart';
 
@@ -55,11 +58,13 @@ class CustomerHome extends StatelessWidget {
     }, builder: (context, state) {
       var productItem = ProductCubit.get(context).listProduct;
       return Scaffold(
-        appBar: AppBar(leading: SizedBox(), actions: [
+        appBar: AppBar(
+          leading: SizedBox(),
+       actions: [
           InkWell(
             onTap: () {
               ProductCubit.get(context).getLogout(context).whenComplete(
-                  () => {navigateToFinish(context, const MainScreen())});
+                  () => {navigateToFinish(context,OnBoardingScreen())});
             },
             child: Padding(
               padding: const EdgeInsets.all(8.0),
@@ -77,6 +82,33 @@ class CustomerHome extends StatelessWidget {
                 navigateTo(context, Orders());
               },
               icon: Icon(Icons.gps_not_fixed)),
+         const Spacer(),
+         DropdownButton(
+           onChanged: (lang) {
+             DioHelper.init();
+             ShopCubit.get(context).changeLang(lang);
+           },
+           items: lanugage.lang_list
+               .map<DropdownMenuItem<lanugage>>(
+                   (lang) => DropdownMenuItem(
+                 value: lang,
+                 child: Row(
+                   children: [
+                     Text(lang.flag!),
+                     const SizedBox(
+                       width: 10,
+                     ),
+                     Text(lang.name!)
+                   ],
+                 ),
+               ))
+               .toList(),
+           underline: const SizedBox(),
+           icon:  Icon(Icons.language,
+             color: myBlue,
+             size: 30.0,
+           ),
+         ),
         ]),
         body: SingleChildScrollView(
           physics: const BouncingScrollPhysics(),

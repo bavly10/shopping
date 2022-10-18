@@ -7,9 +7,9 @@ import 'package:shopping/model/categoryModel.dart';
 import 'package:shopping/model/privacy_policy.dart';
 import 'package:shopping/model/splash.dart';
 import 'package:shopping/modules/Customer/login/main.dart';
+import 'package:shopping/modules/Setting/setting.dart';
 import 'package:shopping/modules/cart/cart.dart';
 import 'package:shopping/modules/mainScreen/screen/HomeScreen.dart';
-import 'package:shopping/modules/test.dart';
 import 'package:shopping/shared/diohelper/dioHelpoer.dart';
 import 'package:shopping/shared/network.dart';
 import 'package:shopping/shared/shared_prefernces.dart';
@@ -64,7 +64,7 @@ class ShopCubit extends Cubit<ShopStates> {
   }
 
   int currentindex = 0;
-  List<Widget> screen = [HomeScreen(), MainLogin()];
+  List<Widget> screen = [HomeScreen(), MainLogin(),Setting()];
 
   void changeIndex(int index) {
     currentindex = index;

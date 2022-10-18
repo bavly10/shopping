@@ -15,6 +15,7 @@ class BestCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
+      onDoubleTap: () {},
       onTap: (){
         ProductCubit.get(context)
             .productInfo(list[index].id, context)
