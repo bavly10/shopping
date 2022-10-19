@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:shopping/Cubit/cubit.dart';
 import 'package:shopping/model/ProCustomer.dart';
+import 'package:shopping/modules/mainScreen/screen/Welcomebage.dart';
 import 'package:shopping/modules/mainScreen/store_screen/main_Store_screen.dart';
 import 'package:shopping/shared/compononet/componotents.dart';
 import 'package:shopping/shared/compononet/no_result_search.dart';
@@ -14,11 +15,10 @@ class CustomerScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final prosCustomerModel = ShopCubit.get(context).prosCustomerModel;
-    return SizedBox(
-      height: MediaQuery.of(context).size.height *1,
+    return  prosCustomerModel==null?  const Welcome():SizedBox(
+      height: MediaQuery.of(context).size.height *0.16,
       width: double.infinity,
-      child:prosCustomerModel==null? ///screen animation
-      const NoResultSearch(): GridView.custom(
+      child :GridView.custom(
         physics: NeverScrollableScrollPhysics(),
           gridDelegate: SliverWovenGridDelegate.count(
             crossAxisCount: 2,

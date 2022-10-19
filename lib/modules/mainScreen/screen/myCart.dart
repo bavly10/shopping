@@ -44,7 +44,7 @@ class CartWidget extends StatelessWidget {
               children: [
                 Text(mytranslate(context, "cartMS"),style: TextStyle(color: myWhite,fontWeight: FontWeight.w500,fontSize: 20),),
                 Container(margin: const EdgeInsetsDirectional.all(6.0),height: 30,width: 1,color: myWhite,),
-              const SizedBox(width: 45,),
+              const SizedBox(width:15,),
                 InkWell(
                   onDoubleTap: (){},
                   onTap: ()=>cubit.getEarn(),

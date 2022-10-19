@@ -48,8 +48,7 @@ class HomeScreen extends StatelessWidget {
                     color: Colors.black,
                   ),
                   const SizedBox(height: 10,),
-                  if (state is LoadingProCustomerState)
-                    const CircularProgressIndicator(),
+                  if (state is LoadingProCustomerState)const CircularProgressIndicator(),
                   if (state is DoneProCustomerState) CustomerScreen(),
                   if (state is emptyProCustomerState) const Text("No data"),
                   if (state is ChangeIndexTabs) CustomerScreen(),
