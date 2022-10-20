@@ -157,7 +157,7 @@ class StoreScreen extends StatelessWidget {
                         style: const TextStyle(
                             fontSize: 22, fontWeight: FontWeight.bold)),
                   ),
-                  Spacer(),
+                 const  Spacer(),
                  TextButton(
                       onPressed: () {
                         CustomerCubit.get(context).lists = [];

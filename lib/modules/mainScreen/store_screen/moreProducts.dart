@@ -55,11 +55,10 @@ class MoreProCustomer extends StatelessWidget {
             centerTitle: true,
             leadingWidth: 200,
           ),
-          body: search.text.isNotEmpty &&
-                  CustomerCubit.get(context).search.isEmpty
+          body: search.text.isNotEmpty && CustomerCubit.get(context).search.isEmpty
               ? const NoResultSearch()
               : Padding(
-                  padding: const EdgeInsets.all(12.0),
+                  padding: const EdgeInsets.all(2.0),
                   child: SafeArea(
                     child: LayoutBuilder(builder: (context, constraint) {
                       return Stack(children: [
@@ -68,28 +67,17 @@ class MoreProCustomer extends StatelessWidget {
                             shrinkWrap: true,
                             gridDelegate:
                                 const SliverGridDelegateWithFixedCrossAxisCount(
-                              childAspectRatio: .9,
+                              childAspectRatio: .7,
                               crossAxisCount: 2,
-                              mainAxisSpacing: 20,
+                              mainAxisSpacing:20,
                               crossAxisSpacing: 20,
-                              // pattern: [
-                              //   const WovenGridTile(7 / 7),
-                              //   const WovenGridTile(
-                              //     7 / 7,
-                              //     crossAxisRatio: .9,
-                              //     alignment: AlignmentDirectional.centerEnd,
-                              //   ),
-                              // ],
                             ),
                             childrenDelegate: SliverChildBuilderDelegate(
                                 (context, index) => InkWell(
+                                  onDoubleTap: (){},
                                     onTap: () {
-                                      ProductCubit.get(context)
-                                          .productInfo(cubit[index].id, context)
-                                          .then((value) => {
-                                                navigateTo(context,
-                                                    const DetailsProduct())
-                                              });
+                                      ProductCubit.get(context).productInfo(cubit[index].id, context).then((value) => {navigateTo(context, const DetailsProduct())
+                                      });
                                     },
                                     child: search.text.isEmpty
                                         ? Padding(

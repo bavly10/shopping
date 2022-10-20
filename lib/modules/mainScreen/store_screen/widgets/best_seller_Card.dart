@@ -57,11 +57,12 @@ class BestCard extends StatelessWidget {
                         color: Colors.black,
                         shape: BoxShape.rectangle,
                         borderRadius: BorderRadius.circular(10)),
-                    child: const Center(
-                      child: Icon(
-                        Icons.badge_rounded,
+                    child:  Center(
+                      child: IconButton(
+                        onPressed:(){},
+                        icon: const Icon(Icons.badge_rounded) ,
                         color: Colors.white,
-                        size: 20,
+                        iconSize: 20,
                       ),
                     ),
                   ),

@@ -227,8 +227,7 @@ class MoreProductsCustomer extends StatelessWidget {
       if (scrollController.position.pixels >=
           scrollController.position.maxScrollExtent) {
         ProductCubit.get(context).pagnationDataLimit();
-        ProductCubit.get(context)
-            .getProducts(context, ProductCubit.get(context).limit);
+        ProductCubit.get(context).getProducts(context, ProductCubit.get(context).limit);
         print("new Data Loading");
       }
     });

@@ -18,9 +18,9 @@ import '../../shared/compononet/check_phone_cart.dart';
 import '../../shared/compononet/sign_up_cart.dart';
 
 class CartScreen extends StatelessWidget {
-  double x = 0.0;
-  double y = 0.0;
-  double? d=0.0;
+  double totalamount = 0.0;
+  double? priceShip=0.0;
+  double? priceOwner=0.0;
   final GlobalKey<ScaffoldState> skey = GlobalKey<ScaffoldState>();
 
   @override
@@ -42,11 +42,11 @@ class CartScreen extends StatelessWidget {
       },
       builder: (ctx, state) {
         final cubit = ProductCubit.get(context);
-        x = cubit.totalamount;
+        totalamount = cubit.totalamount;
         final ownerEarn = cubit.ownerEarn;
-        ownerEarn!.data!.shopingEarnActive == "true" ? d = double.parse("${ownerEarn.data?.shopingEarn}") : d = 0.0;
-        var totall;
-        ownerEarn.data?.ownerEarnActive == "true" ? totall = (x + d!) + double.parse(cubit.earn!): (x + d!);
+        ownerEarn!.data!.shopingEarnActive == "true" ? priceShip = double.parse("${ownerEarn.data?.shopingEarn}") : priceShip = 0.0;
+        ownerEarn.data?.ownerEarnActive == "true" ? priceOwner = double.parse("${ownerEarn.data?.ownerEarn}") : priceOwner = 0.0;
+        double result=totalamount+priceShip!+priceOwner!;
         return SafeArea(
           child: Scaffold(
             key: skey,
@@ -156,7 +156,7 @@ class CartScreen extends StatelessWidget {
                                   style: const TextStyle(
                                       fontSize: 18,
                                       fontWeight: FontWeight.w400)),
-                              Text("$x ${mytranslate(context, "wd")}",
+                              Text("$totalamount ${mytranslate(context, "wd")}",
                                   style: const TextStyle(
                                       fontSize: 18,
                                       fontWeight: FontWeight.bold)),
@@ -170,7 +170,7 @@ class CartScreen extends StatelessWidget {
                                         style: const TextStyle(
                                           fontSize: 18,
                                         )),
-                                    ownerEarn.data?.shopingEarnActive == "true"? Text("$d ${mytranslate(context, "wd")}",
+                                    ownerEarn.data?.shopingEarnActive == "true"? Text("$priceShip ${mytranslate(context, "wd")}",
                                         style: const TextStyle(
                                             fontSize: 18,
                                             fontWeight: FontWeight.bold)):Text(mytranslate(context, "free"),
@@ -189,7 +189,7 @@ class CartScreen extends StatelessWidget {
                                         )),
                                     ownerEarn.data?.ownerEarnActive == "true"?
                                     Text(
-                                        "${cubit.earn!} ${mytranslate(context, "wd")}",
+                                        "$priceOwner ${mytranslate(context, "wd")}",
                                         style: const TextStyle(
                                             fontSize: 18,
                                             fontWeight: FontWeight.bold)) : Text(mytranslate(context, "free")),
@@ -206,11 +206,7 @@ class CartScreen extends StatelessWidget {
                                   style: const TextStyle(
                                     fontSize: 18,
                                   )),
-                              totall==null? Text("$x ${mytranslate(context, "wd")}"):Text(
-                                  "${totall.toStringAsFixed(2)} ${mytranslate(context, "wd")}",
-                                  style: const TextStyle(
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.bold)),
+                              Text("$result ${mytranslate(context, "wd")}")
                             ],
                           ),
                           BlueButton(

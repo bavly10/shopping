@@ -23,7 +23,7 @@ class DetailsProduct extends StatelessWidget {
           showDialog(
               context: context, builder: (context) => const LoadingDialog());
         }else if (state is ShopEarnSuessState){
-          navigateToFinish(context, CartScreen());
+          navigateTo(context, CartScreen());
         }else if (state is ErrorEarnState){
           myToast(message: "Try again");
         }else{}

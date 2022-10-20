@@ -488,16 +488,11 @@ class ProductCubit extends Cubit<ProductStates> {
     return {..._items};
   }
 
-  String? earn;
-  String? ship;
   OwnerEarn? ownerEarn;
   Future <void> getEarn() async {
     emit(ShopEarnLoadingState());
    await DioHelper.getData(url: "/earn-num").then((value) {
       ownerEarn = OwnerEarn.fromMap(value.data);
-      earn = ownerEarn?.data?.ownerEarn.toString();
-      ship = ownerEarn?.data?.shopingEarn.toString();
-      // earn = value.data["data"];
       emit(ShopEarnSuessState());
     }).catchError((onError) {
       print(onError.toString());

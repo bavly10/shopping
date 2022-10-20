@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shopping/Cubit/cubit.dart';
 import 'package:shopping/Cubit/states.dart';
 import 'package:shopping/model/language.dart';
+import 'package:shopping/modules/Map/map.dart';
 import 'package:shopping/modules/onBoarding/onBoarding_screen.dart';
 import 'package:shopping/shared/compononet/blueButton.dart';
 import 'package:shopping/shared/compononet/componotents.dart';
@@ -99,12 +100,8 @@ class OnBoardingFirst extends StatelessWidget {
                                 width: 0.80,
                                 icon: Icons.arrow_back,
                                 onpress: () {
-                                  // ProductCubit.get(context).getProducts(4);
-                                  navigateToFinish(context, OnBoardingScreen());
-                                  //   ProductCubit.get(context).showPro(39,context).then((value) => {
-                                  // navigateTo(context, UpdateProduct(id: 39),)
-                                  //   });
-                                  //CashHelper.removeData("userId");
+                                navigateToFinish(context, OnBoardingScreen());
+                                 // navigateToFinish(context, Maps());
                                 }))
                       ],
                     ),

@@ -16,10 +16,10 @@ class CustomerScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final prosCustomerModel = ShopCubit.get(context).prosCustomerModel;
     return  prosCustomerModel==null?  const Welcome():SizedBox(
-      height: MediaQuery.of(context).size.height *0.16,
+      height: MediaQuery.of(context).size.height *0.45,
       width: double.infinity,
       child :GridView.custom(
-        physics: NeverScrollableScrollPhysics(),
+
           gridDelegate: SliverWovenGridDelegate.count(
             crossAxisCount: 2,
             mainAxisSpacing:12,

@@ -87,7 +87,6 @@ class CustomerCubit extends Cubit<CustomerStates> {
   }
 
   Future getProductCustomerPagination(id) async {
-    lists = [];
     emit(ProductCustomerLoading());
     Map<String, dynamic> data = {"user_id": id, "page": pageCurrent};
     await DioHelper.postData(url: getProducts, data: data).then((value) {
