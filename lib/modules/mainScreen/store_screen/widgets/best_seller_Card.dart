@@ -3,6 +3,7 @@ import 'package:shopping/model/latest_product.dart';
 import 'package:shopping/modules/Customer/products/cubit/cubit.dart';
 import 'package:shopping/modules/Customer/products/details_product/details_product.dart';
 import 'package:shopping/shared/compononet/componotents.dart';
+import 'package:shopping/shared/compononet/myToast.dart';
 import 'package:shopping/shared/localization/translate.dart';
 
 import '../../../../model/ProductsCustomer.dart';
@@ -59,7 +60,16 @@ class BestCard extends StatelessWidget {
                         borderRadius: BorderRadius.circular(10)),
                     child:  Center(
                       child: IconButton(
-                        onPressed:(){},
+                        onPressed:(){
+                          ProductCubit.get(context).additem(
+                              proid: pro!.id.toString(),
+                              imgurl: pro!.image.toString(),
+                              title: pro!.title.toString(),
+                              size: ProductCubit.get(context).selectSize.toString(),
+                              price: double.parse(pro!.price!),
+                              qua: ProductCubit.get(context).itemCount);
+                          myToast(message: "${pro!.title} Is Added ");
+                        },
                         icon: const Icon(Icons.badge_rounded) ,
                         color: Colors.white,
                         iconSize: 20,

@@ -38,8 +38,8 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
       body: Center(
         child: ScaleTransition(
           scale: _animation,
-          child:  Padding(
-            padding: EdgeInsets.all(8.0),
+           child:  Padding(
+            padding:const EdgeInsets.all(8.0),
             child: Image(
               height: MediaQuery.of(context).size.height * 0.20,
               width: double.infinity,

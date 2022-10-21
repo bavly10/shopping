@@ -3,10 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:shopping/Cubit/cubit.dart';
 import 'package:shopping/model/ProCustomer.dart';
-import 'package:shopping/modules/mainScreen/screen/Welcomebage.dart';
 import 'package:shopping/modules/mainScreen/store_screen/main_Store_screen.dart';
 import 'package:shopping/shared/compononet/componotents.dart';
-import 'package:shopping/shared/compononet/no_result_search.dart';
+import 'package:shopping/shared/compononet/custom_rating.dart';
 import 'package:shopping/shared/my_colors.dart';
 
 class CustomerScreen extends StatelessWidget {
@@ -14,19 +13,18 @@ class CustomerScreen extends StatelessWidget {
   Color color=myBlue;
   @override
   Widget build(BuildContext context) {
-    final prosCustomerModel = ShopCubit.get(context).prosCustomerModel;
-    return  prosCustomerModel==null?  const Welcome():SizedBox(
+    final prosCustomerModel = ShopCubit.get(context).prosCustomerModel!;
+    return SizedBox(
       height: MediaQuery.of(context).size.height *0.45,
       width: double.infinity,
       child :GridView.custom(
-
           gridDelegate: SliverWovenGridDelegate.count(
             crossAxisCount: 2,
-            mainAxisSpacing:12,
+            mainAxisSpacing:16,
             crossAxisSpacing:2,
             pattern: [
-              const WovenGridTile(13 / 22, crossAxisRatio: .7),
-              const WovenGridTile(13 / 22, crossAxisRatio: .7,
+              const WovenGridTile(13 / 26, crossAxisRatio: .7),
+              const WovenGridTile(13 / 26, crossAxisRatio: .7,
               ),
             ],
           ),
@@ -52,13 +50,19 @@ class CustomerScreen extends StatelessWidget {
       },
       child: Container(
         decoration: BoxDecoration(
-          shape: BoxShape.rectangle,
           color: color,
           borderRadius: BorderRadius.circular(35.0),
         ),
-        width: MediaQuery.of(context).size.height * 0.25,
+        width: MediaQuery.of(context).size.width * 0.25,
         child: Column(
           children: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: CustomRating(
+                rate: pro.rate,
+                star: myWhite,
+              ),
+            ),
             SizedBox(
               height: MediaQuery.of(context).size.height*0.22,
               width: double.infinity,
@@ -74,18 +78,14 @@ class CustomerScreen extends StatelessWidget {
                   ),
                 ),
                 placeholder: (context, url) =>
-                    const CircularProgressIndicator(),
+                const CircularProgressIndicator(),
                 errorWidget: (context, url, error) => const Icon(Icons.error),
               ),
             ),
             Center(
-              child: Container(
+              child: SizedBox(
                 width: MediaQuery.of(context).size.width * 0.35,
                 height: MediaQuery.of(context).size.height * .08,
-                decoration: BoxDecoration(
-                  color:color,
-                  borderRadius: BorderRadius.circular(35.0),
-                ),
                 child: Column(
                   children: [
                     Expanded(
@@ -100,7 +100,7 @@ class CustomerScreen extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                         Icon(
+                        Icon(
                           Icons.location_pin,
                           size: 20,
                           color: myWhite,

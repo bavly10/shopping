@@ -1,18 +1,12 @@
-import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shopping/Cubit/cubit.dart';
 import 'package:shopping/Cubit/states.dart';
-import 'package:shopping/model/language.dart';
-import 'package:shopping/modules/Customer/products/cubit/cubit.dart';
-import 'package:shopping/modules/Customer/products/details_product/widgets/background_container.dart';
-import 'package:shopping/modules/cart/cart.dart';
+import 'package:shopping/modules/mainScreen/screen/Welcomebage.dart';
 import 'package:shopping/modules/mainScreen/screen/cateogry.dart';
 import 'package:shopping/modules/mainScreen/screen/customer.dart';
 import 'package:shopping/modules/mainScreen/screen/myCart.dart';
 import 'package:shopping/shared/compononet/arrowBack.dart';
-import 'package:shopping/shared/compononet/componotents.dart';
-import 'package:shopping/shared/diohelper/dioHelpoer.dart';
 import 'package:shopping/shared/localization/translate.dart';
 import 'package:shopping/shared/my_colors.dart';
 import 'package:simple_animations/simple_animations.dart';
@@ -52,6 +46,7 @@ class HomeScreen extends StatelessWidget {
                   if (state is DoneProCustomerState) CustomerScreen(),
                   if (state is emptyProCustomerState) const Text("No data"),
                   if (state is ChangeIndexTabs) CustomerScreen(),
+                   const Welcome(),
                 ],
               ),
             ),
