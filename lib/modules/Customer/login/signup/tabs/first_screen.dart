@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shopping/modules/Customer/login/cubit/cubit.dart';
 import 'package:shopping/shared/compononet/textField.dart';
+import 'package:shopping/shared/error_compon.dart';
 import 'package:shopping/shared/localization/translate.dart';
 
 class FirstScreen extends StatelessWidget {
@@ -38,12 +39,4 @@ class FirstScreen extends StatelessWidget {
       ),
     );
   }
-}
-String? validateEmail(String value) {
-  late String pattern = r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[gmail,yahoo,cloud]+.com";
-  RegExp regex =  RegExp(pattern);
-  if (!regex.hasMatch(value) || value.isEmpty) {
-    return 'Enter a valid email address';
-  }
-  return null;
 }

@@ -32,19 +32,19 @@ class CartWidget extends StatelessWidget {
         return Padding(
           padding: const EdgeInsets.all(4.0),
           child: Container(
+            width:MediaQuery.of(context).size.width*.80,
             margin: const EdgeInsetsDirectional.all(15.0),
-            padding: const EdgeInsetsDirectional.all(15.0),
+            padding: const EdgeInsetsDirectional.all(8.0),
             decoration: BoxDecoration(
                 borderRadius: const BorderRadius.all(Radius.circular(25.0) ,
                 ),
                 color: myBlue
             ),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(mytranslate(context, "cartMS"),style: TextStyle(color: myWhite,fontWeight: FontWeight.w500,fontSize: 20),),
-                Container(margin: const EdgeInsetsDirectional.all(6.0),height: 30,width: 1,color: myWhite,),
-              const SizedBox(width:15,),
+                Text(mytranslate(context, "cartMS"),style: TextStyle(color: myWhite,fontWeight: FontWeight.w500,fontSize: 17),),
+                Container(margin: const EdgeInsetsDirectional.all(4.0),height: 30,width: 1,color: myWhite,),
+                const Spacer(),
                 InkWell(
                   onDoubleTap: (){},
                   onTap: ()=>cubit.getEarn(),

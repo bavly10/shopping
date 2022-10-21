@@ -1,26 +1,44 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
-
 import 'package:shopping/modules/Customer/login/cubit/cubit.dart';
 import 'package:shopping/modules/Customer/login/cubit/state.dart';
 import 'package:shopping/modules/Customer/customer_home_screen.dart';
-import 'package:shopping/shared/compononet/arrowBack.dart';
 import 'package:shopping/shared/compononet/blueButton.dart';
 import 'package:shopping/shared/compononet/componotents.dart';
 import 'package:shopping/shared/compononet/dialog.dart';
 import 'package:shopping/shared/compononet/rowLogin.dart';
 import 'package:shopping/shared/compononet/textField.dart';
+import 'package:shopping/shared/error_compon.dart';
 import 'package:shopping/shared/localization/translate.dart';
 import 'package:shopping/shared/my_colors.dart';
 import 'package:shopping/shared/network.dart';
-import 'package:shopping/shared/shared_prefernces.dart';
 
-class Login extends StatelessWidget {
+
+class Login extends StatefulWidget {
+
+  Login({Key? key}) : super(key: key);
+
+  @override
+  State<Login> createState() => _LoginState();
+}
+
+class _LoginState extends State<Login> {
   TextEditingController emailcontroller = TextEditingController();
   TextEditingController passcontroller = TextEditingController();
   final GlobalKey<FormState> _form = GlobalKey();
-  Login({Key? key}) : super(key: key);
+  @override
+  void initState() {
+    super.initState();
+    emailcontroller=TextEditingController();
+    passcontroller=TextEditingController();
+  }
+  @override
+  void dispose() {
+    emailcontroller.dispose();
+    passcontroller.dispose();
+    super.dispose();
+  }
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<LoginCubit, LoginStates>(
@@ -35,8 +53,8 @@ class Login extends StatelessWidget {
                 pressTitle: 'OK',
                 context: context,
                 icon: Icons.error,
-                bigTitle: "shopping",
-                content: "Invalid email or Password",
+                bigTitle: mytranslate(context, "nameApp"),
+                content: mytranslate(context, "error"),
                 pressColor: Colors.red,
                 iconColor: Colors.red);
           } else if (state.code == "6005") {
@@ -45,12 +63,22 @@ class Login extends StatelessWidget {
                 pressTitle: 'OK',
                 context: context,
                 icon: Icons.error,
-                bigTitle: "shopping",
+                bigTitle:mytranslate(context, "nameApp"),
                 content: mytranslate(context, "verfi"),
                 pressColor: Colors.red,
                 iconColor: Colors.red);
+          }else {
+            My_CustomAlertDialog(
+                onPress: () => Navigator.pop(context),
+                pressTitle: 'OK',
+                context: context,
+                icon: Icons.error,
+                bigTitle: mytranslate(context, "nameApp"),
+                content: mytranslate(context, "error"),
+                pressColor: Colors.red,
+                iconColor: Colors.red);
           }
-        } else {}
+        }else{}
       },
       builder: (ctx, state) {
         final cubit = LoginCubit.get(context);
@@ -86,10 +114,7 @@ class Login extends StatelessWidget {
                     height: 25,
                   ),
                   MyTextField(
-                      validate: (String? s) {
-                        if (s!.isEmpty)
-                          return mytranslate(context, "validateEmail");
-                      },
+                      validate:(value) => value!.isEmpty ?mytranslate(context, "validateEmail") :validateEmail(value),
                       label: mytranslate(context, "hintogin"),
                       controller: emailcontroller,
                       prefix: Icons.account_circle,
@@ -100,8 +125,9 @@ class Login extends StatelessWidget {
                   ),
                   MyTextField(
                       validate: (String? s) {
-                        if (s!.isEmpty)
+                        if (s!.isEmpty) {
                           return mytranslate(context, "validatePass");
+                        }
                       },
                       label: mytranslate(context, "hintpassword"),
                       controller: passcontroller,
@@ -110,7 +136,7 @@ class Login extends StatelessWidget {
                       obcure: cubit.isPassword,
                       suffix: cubit.iconVisiblity,
                       suffixPressed: () {
-                        cubit.changPasswordVisibilty();
+                         cubit.changPasswordVisibilty();
                       }),
                   const SizedBox(
                     height: 25,

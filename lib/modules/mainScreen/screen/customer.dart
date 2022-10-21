@@ -15,9 +15,10 @@ class CustomerScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final prosCustomerModel = ShopCubit.get(context).prosCustomerModel!;
     return SizedBox(
-      height: MediaQuery.of(context).size.height *0.45,
+      height: MediaQuery.of(context).size.height *1,
       width: double.infinity,
       child :GridView.custom(
+        physics: const NeverScrollableScrollPhysics(),
           gridDelegate: SliverWovenGridDelegate.count(
             crossAxisCount: 2,
             mainAxisSpacing:16,
@@ -82,20 +83,18 @@ class CustomerScreen extends StatelessWidget {
                 errorWidget: (context, url, error) => const Icon(Icons.error),
               ),
             ),
-            Center(
+            Expanded(
               child: SizedBox(
                 width: MediaQuery.of(context).size.width * 0.35,
                 height: MediaQuery.of(context).size.height * .08,
                 child: Column(
                   children: [
-                    Expanded(
-                      child: Text(
-                        pro.name,
-                        style: TextStyle(
-                            color: myWhite,
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold),
-                      ),
+                    Text(
+                      pro.name,
+                      style: TextStyle(
+                          color: myWhite,
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold),
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,

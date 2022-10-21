@@ -146,5 +146,7 @@
    "setting": "Setting",
    "lang": "Change Language",
    "nameApp": "Kash5tak",
-   "wel": "Welcome to your Special Place."
+   "wel": "Welcome to your Special Place.",
+   "invaild": "Invalid email or Password",
+
 }

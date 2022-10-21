@@ -41,14 +41,9 @@ class MyTextField extends StatelessWidget {
             )
           ]),
           child: TextFormField(
-            scrollPadding: EdgeInsets.all(8),
-            // Added this
-
-            //  cursorHeight: MediaQuery.of(context).size.height * .08,
+            scrollPadding: const EdgeInsets.all(8),
             obscureText: obcure,
             keyboardType: type,
-            onChanged: (value) {},
-            onTap: () {},
             validator: validate,
             controller: controller,
             decoration: InputDecoration(

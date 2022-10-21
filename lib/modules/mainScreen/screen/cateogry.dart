@@ -16,7 +16,7 @@ class CategoryScreen extends StatelessWidget {
     return SingleChildScrollView(
       physics: const NeverScrollableScrollPhysics(),
       child: SizedBox(
-          height: MediaQuery.of(context).size.height * 0.18,
+          height: MediaQuery.of(context).size.height * 0.19,
           width: double.infinity,
           child: colntroller!.text.isNotEmpty &&
                   ShopCubit.get(context).searchCat.isEmpty
