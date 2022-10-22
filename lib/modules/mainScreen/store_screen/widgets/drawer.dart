@@ -1,22 +1,13 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hex_color/flutter_hex_color.dart';
 import 'package:shopping/Cubit/cubit.dart';
 
-import 'package:shopping/modules/mainScreen/screen/singleCustomerProduct/mainCustomer.dart';
 import 'package:shopping/modules/mainScreen/store_screen/widgets/top_screen.dart';
-import 'package:shopping/modules/prinavcy_policy/privacy_policy.dart';
-import 'package:shopping/shared/compononet/componotents.dart';
 import 'package:shopping/shared/compononet/connection_dialog.dart';
-import 'package:shopping/shared/compononet/myToast.dart';
-import 'package:shopping/shared/compononet/sign_up_dialog.dart';
-import 'package:shopping/shared/compononet/verification_phone_dialog.dart';
-
-import '../../../../shared/localization/translate.dart';
-import '../../../../shared/my_colors.dart';
-import '../../../Customer/cubit/cubit.dart';
+import 'package:shopping/shared/localization/translate.dart';
+import 'package:shopping/shared/my_colors.dart';
 
 class CustomDrawer extends StatelessWidget {
   String? image, address, phoneStore, rate;

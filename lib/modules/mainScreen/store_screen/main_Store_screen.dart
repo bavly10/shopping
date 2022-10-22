@@ -2,10 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_advanced_drawer/flutter_advanced_drawer.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hex_color/flutter_hex_color.dart';
+import 'package:shopping/Cubit/cubit.dart';
+import 'package:shopping/Cubit/states.dart';
 import 'package:shopping/modules/Customer/cubit/cubit.dart';
-import 'package:shopping/modules/Customer/cubit/state.dart';
-import 'package:shopping/modules/Customer/products/cubit/cubit.dart';
-import 'package:shopping/modules/Customer/products/details_product/details_product.dart';
 import 'package:shopping/modules/mainScreen/store_screen/moreProducts.dart';
 import 'package:shopping/modules/mainScreen/store_screen/widgets/best_seller_Card.dart';
 import 'package:shopping/modules/mainScreen/store_screen/widgets/drawer.dart';
@@ -13,9 +12,9 @@ import 'package:shopping/modules/mainScreen/store_screen/widgets/latest_product.
 import 'package:shopping/modules/mainScreen/store_screen/widgets/top_screen.dart';
 import 'package:shopping/shared/compononet/arrowBack.dart';
 import 'package:shopping/shared/compononet/componotents.dart';
-import 'package:shopping/shared/compononet/myToast.dart';
 import 'package:shopping/shared/localization/translate.dart';
 import 'package:shopping/shared/my_colors.dart';
+
 
 class StoreScreen extends StatelessWidget {
   String? adress, phone, image, rate;
@@ -36,12 +35,12 @@ class StoreScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    CustomerCubit.get(context).getProductCustomer(id);
-    CustomerCubit.get(context).latestproducts(id: id);
-    return BlocBuilder<CustomerCubit, CustomerStates>(
+    ShopCubit.get(context).getProductCustomer(id);
+    ShopCubit.get(context).latestproducts(id: id);
+    return BlocBuilder<ShopCubit, ShopStates>(
         builder: (context, state) {
-      var cubit = CustomerCubit.get(context);
-      var latest = CustomerCubit.get(context).latestPro;
+      var cubit = ShopCubit.get(context);
+      var latest = ShopCubit.get(context).latestPro;
       return AdvancedDrawer(
         backdropColor: HexColor('#2F69F8'),
         controller: _advancedDrawerController,
@@ -160,11 +159,9 @@ class StoreScreen extends StatelessWidget {
                  const  Spacer(),
                  TextButton(
                       onPressed: () {
-                        CustomerCubit.get(context).lists = [];
-                        CustomerCubit.get(context)
-                            .getProductCustomerPagination(id)
-                            .then((value) =>
-                                navigateTo(context, MoreProCustomer(id!)));
+                        ShopCubit.get(context).lists = [];
+                        ShopCubit.get(context).getProductCustomerPagination(id).then((value) =>
+                            navigateTo(context, MoreProCustomer(id!)));
                       },
                       child: Text(
                         mytranslate(context, "more"),
@@ -203,20 +200,7 @@ class StoreScreen extends StatelessWidget {
                                   crossAxisSpacing: 18,
                                   childAspectRatio: .650),
                           childrenDelegate: SliverChildBuilderDelegate(
-                              (context, index) => InkWell(
-                                  onDoubleTap: () {},
-                                  onTap: () {
-                                    ProductCubit.get(context).productInfo(cubit.list[index].id, context)
-                                        .then((value) => {
-                                              navigateTo(context,
-                                                  const DetailsProduct())
-                                            });
-                                  },
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(5.0),
-                                    child: LatestPro(
-                                        productsItem: cubit.list[index]),
-                                  )),
+                              (context, index) => LatestPro(productsItem: cubit.list[index]),
                               childCount: cubit.list.length)),
                     ),
             ]),

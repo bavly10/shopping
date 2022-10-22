@@ -3,16 +3,32 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shopping/Cubit/cubit.dart';
 import 'package:shopping/Cubit/states.dart';
 import 'package:shopping/model/language.dart';
-import 'package:shopping/modules/Setting/widget/CustomListTile.dart';
+import 'package:shopping/modules/mainScreen/Setting/Fav/Fav.dart';
+import 'package:shopping/shared/compononet/LoagingDialog.dart';
+import 'package:shopping/shared/compononet/componotents.dart';
+import 'package:shopping/shared/compononet/myToast.dart';
 import 'package:shopping/shared/diohelper/dioHelpoer.dart';
 import 'package:shopping/shared/localization/translate.dart';
 import 'package:shopping/shared/my_colors.dart';
+
+import 'widget/CustomListTile.dart';
 class Setting extends StatelessWidget {
   const Setting({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ShopCubit,ShopStates>(
+    return BlocConsumer<ShopCubit,ShopStates>(
+      listener: (ctx,state){
+        if(state is LoadingCat){
+          showDialog(
+              context: context, builder: (context) => const LoadingDialog());
+        }else if (state is DoneCat){
+          Navigator.pop(context);
+        }else if (state is ErrorCat){
+          Navigator.pop(context);
+          myToast(message: mytranslate(context, "error"));
+        }else {}
+      },
       builder: (ctx,state){
         return SafeArea(
           child: Padding(
@@ -23,6 +39,7 @@ class Setting extends StatelessWidget {
                   backgroundImage: AssetImage('assets/logo.png'),
                   radius: 50,
                 ),
+                Text(mytranslate(context, "nameApp"),style:textStyle1,),
                 Padding(
                   padding: const EdgeInsets.only(right: 13, left: 15),
                   child: Container(
@@ -52,9 +69,7 @@ class Setting extends StatelessWidget {
                       onChanged: (lang) {
                         ShopCubit.get(context).changeLang(lang);
                         DioHelper.init();
-                        ShopCubit.get(context)
-                            .getCategoriesData(ShopCubit.get(context).type[ShopCubit.get(context).counter!])
-                            .then((value) => build(context));
+                        ShopCubit.get(context).getCategoriesData(ShopCubit.get(context).type[ShopCubit.get(context).counter!]);
                       },
 
                       hint: Text(
@@ -93,13 +108,17 @@ class Setting extends StatelessWidget {
                       ),
                     )),
                 Padding(
-                  padding: const EdgeInsets.only(right: 13, left: 15),
-                  child: Container(
-                    height: 1,
-                    width: MediaQuery.of(context).size.width,
-                    color: Colors.grey[100],
-                  ),
-                ),
+                    padding: const EdgeInsets.only(
+                      right: 5,
+                      bottom: 8,
+                      top: 5,
+                    ),
+                    child: CustomListTile(
+                      textTitle: "fav",
+                      trailingIcon: Icons.arrow_forward_ios_rounded,
+                      onTap: () {navigateTo(context, const Favorite());
+                      },
+                    )),
               ],
             ),
           ),

@@ -32,22 +32,12 @@ class MyApp extends StatelessWidget {
     SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom]);
     return MultiBlocProvider(
       providers: [
-        BlocProvider(
-            create: (context) => ShopCubit()
-              ..getSplashData()
-              ..getLocale()),
+        BlocProvider(create: (context) => ShopCubit()..getSplashData()..getLocale()..createDatabase()),
         BlocProvider(create: (context) => LoginCubit()..getPrivacyPolicy()),
-        BlocProvider(
-            create: (context) => ProductCubit()
-              ..getPrivacyPolicy()),
-        BlocProvider(
-            create: (context) =>
-                CustomerOrderCubit()..getOrders(context: context)),
-        BlocProvider(
-            create: (context) => CustomerCubit()
-              ..getProductCustomer(LoginCubit.get(context).loginModel?.data?.id)
-              ..getStatisticCustomer(
-                  LoginCubit.get(context).loginModel?.data?.id, context)),
+        BlocProvider(create: (context) => ProductCubit()..getPrivacyPolicy()),
+        BlocProvider(create: (context) => CustomerOrderCubit()..getOrders(context: context)),
+        BlocProvider(create: (context) => CustomerCubit()..getStatisticCustomer(LoginCubit.get(context).loginModel?.data?.id, context)),
+        //..getProductCustomer(LoginCubit.get(context).loginModel?.data?.id)
       ],
       child: BlocBuilder<ShopCubit, ShopStates>(
         builder: (context, state) {
@@ -73,7 +63,7 @@ class MyApp extends StatelessWidget {
               Locale('en', 'US'), // English, no country code
               Locale('ar', 'SA'), // Spanish, no country code
             ],
-            title: "Shopping",
+            title: "Kash5tak",
             debugShowCheckedModeBanner: false,
             theme: ThemeData(
               fontFamily: 'Cairo',

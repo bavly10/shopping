@@ -531,7 +531,8 @@ class ProductCubit extends Cubit<ProductStates> {
               size: value.size,
               imgurl: value.imgurl,
               rate: value.rate));
-    } else {
+    }
+    else {
       _items.putIfAbsent(
           proid,
           () => CartItem(

@@ -104,8 +104,7 @@ class ConnectoinDialog extends StatelessWidget {
                               child: const Icon(MdiIcons.whatsapp,
                                   size: 26, color: Colors.white)),
                           onTap: () async {
-                            var whatsappUrl =
-                                "whatsapp://send?phone=$phoneStore";
+                            var whatsappUrl = "whatsapp://send?phone=$phoneStore";
                             await canLaunch(whatsappUrl)
                                 ? launch(whatsappUrl)
                                 : myToast(

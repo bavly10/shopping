@@ -148,5 +148,11 @@
    "nameApp": "Kash5tak",
    "wel": "Welcome to your Special Place.",
    "invaild": "Invalid email or Password",
+   "donefav":"Is Added to Your Favorite",
+   "morefav":"Its Already In Your Favorite",
+   "fav": "Your Favorite Products",
+   "emptyFav": "Ops!!!! You Are don't Have Any Product to See",
+   "del": "Do you Want to Delete This item?"
+
 
 }

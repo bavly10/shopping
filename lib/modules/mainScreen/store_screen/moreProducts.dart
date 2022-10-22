@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:shopping/Cubit/cubit.dart';
+import 'package:shopping/Cubit/states.dart';
 import 'package:shopping/modules/Customer/cubit/cubit.dart';
 import 'package:shopping/modules/Customer/cubit/state.dart';
 import 'package:shopping/modules/Customer/products/cubit/cubit.dart';
@@ -22,22 +24,22 @@ class MoreProCustomer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     getMoreProduct(context);
-    return BlocConsumer<CustomerCubit, CustomerStates>(
+    return BlocConsumer<ShopCubit, ShopStates>(
       listener: (context, state) {
         if (state is ProductCustomerNullPagi) {
           myToast(message: mytranslate(context, "noData"));
         } else {}
       },
       builder: (context, state) {
-        var model = CustomerCubit.get(context).search;
-        final cubit = CustomerCubit.get(context).lists;
+        var model = ShopCubit.get(context).search;
+        final cubit = ShopCubit.get(context).lists;
         return Scaffold(
           backgroundColor: myGrey,
           appBar: AppBar(
             leading: TextField(
               controller: search,
               onChanged: (value) {
-                CustomerCubit.get(context).searchCustomer(value);
+                ShopCubit.get(context).searchCustomer(value);
               },
               decoration: InputDecoration(
                 prefixIcon: search.text.isEmpty
@@ -55,7 +57,7 @@ class MoreProCustomer extends StatelessWidget {
             centerTitle: true,
             leadingWidth: 200,
           ),
-          body: search.text.isNotEmpty && CustomerCubit.get(context).search.isEmpty
+          body: search.text.isNotEmpty && ShopCubit.get(context).search.isEmpty
               ? const NoResultSearch()
               : Padding(
                   padding: const EdgeInsets.all(2.0),
@@ -82,13 +84,11 @@ class MoreProCustomer extends StatelessWidget {
                                     child: search.text.isEmpty
                                         ? Padding(
                                             padding: const EdgeInsets.all(5.0),
-                                            child: LatestPro(
-                                                productsItem: cubit[index]),
+                                            child: LatestPro(productsItem: cubit[index]),
                                           )
                                         : Padding(
                                             padding: const EdgeInsets.all(5.0),
-                                            child: LatestPro(
-                                                productsItem: model[index]),
+                                            child: LatestPro(productsItem: model[index],),
                                           )),
                                 childCount: search.text.isEmpty
                                     ? cubit.length
@@ -121,8 +121,8 @@ class MoreProCustomer extends StatelessWidget {
     scrollController.addListener(() async {
       if (scrollController.position.pixels >=
           scrollController.position.maxScrollExtent) {
-        CustomerCubit.get(context).pagnationDataCurrent();
-        CustomerCubit.get(context).getProductCustomerPagination(id);
+        ShopCubit.get(context).pagnationDataCurrent();
+        ShopCubit.get(context).getProductCustomerPagination(id);
         print("new Data Loading");
       }
     });

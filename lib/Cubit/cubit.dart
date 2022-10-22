@@ -4,15 +4,18 @@ import 'package:shopping/Cubit/states.dart';
 import 'package:shopping/model/ProCustomer.dart';
 import 'package:shopping/model/ProductsCustomer.dart';
 import 'package:shopping/model/categoryModel.dart';
+import 'package:shopping/model/latest_product.dart';
 import 'package:shopping/model/privacy_policy.dart';
 import 'package:shopping/model/splash.dart';
 import 'package:shopping/modules/Customer/login/main.dart';
-import 'package:shopping/modules/Setting/setting.dart';
+
 import 'package:shopping/modules/cart/cart.dart';
+import 'package:shopping/modules/mainScreen/Setting/setting.dart';
 import 'package:shopping/modules/mainScreen/screen/HomeScreen.dart';
 import 'package:shopping/shared/diohelper/dioHelpoer.dart';
 import 'package:shopping/shared/network.dart';
 import 'package:shopping/shared/shared_prefernces.dart';
+import 'package:sqflite/sqflite.dart';
 
 import '../model/shippingcompanies.dart';
 
@@ -58,8 +61,12 @@ class ShopCubit extends Cubit<ShopStates> {
     return locale(langCode);
   }
 
-  Future<Locale> getLocale() async {
-    lang = CashHelper.getData("locale");
+  Future<Locale> getLocale()async{
+    if(lang==null){
+      lang = "ar";
+    }else{
+      lang = CashHelper.getData("locale");
+    }
     return locale(lang!);
   }
 
@@ -194,6 +201,220 @@ class ShopCubit extends Cubit<ShopStates> {
     emit(ChangeButtonText());
   }
 
-  /////////////////////////////Get Earn Number////////
+  List<ProductsItem> list = [];
+  List<ProductsItem> lists = [];
+  int pageCurrent = 1;
+  int pagnationDataCurrent() {
+    return pageCurrent += 1;
+  }
+  Future getProductCustomer(id) async {
+    emit(ProductCustomerLoading());
+    list = [];
+    Map<String, dynamic> data = {"user_id": id};
+    await DioHelper.postData(url: getProducts, data: data).then((value) {
+      final res = value.data['data']['data'];
+      if (res.isEmpty) {
+        emit(ProductCustomerNull());
+        pageCurrent = 1;
+      } else {
+        for (var value in res) {
+          final pro = list.indexWhere(
+                (element) => element.id == value["id"].toString(),
+          );
+          if (pro >= 0) {
+            list[pro] = ProductsItem(
+              id: value["id"].toString(),
+              title: value["title"],
+              price: value["price"],
+              desc: value["desc"],
+              image: value["image"],
+            );
+            lists[pro] = ProductsItem(
+              id: value["id"].toString(),
+              title: value["title"],
+              price: value["price"],
+              desc: value["desc"],
+              image: value["image"],
+            );
+          } else {
+            list.add(ProductsItem(
+              id: value["id"].toString(),
+              title: value["title"],
+              price: value["price"],
+              desc: value["desc"],
+              image: value["image"],
+            ));
+            lists.add(ProductsItem(
+              id: value["id"].toString(),
+              title: value["title"],
+              price: value["price"],
+              desc: value["desc"],
+              image: value["image"],
+            ));
+          }
+        }
+        emit(ProductCustomerDone());
+      }
+    }).catchError((error) {
+      print(error.toString());
+      emit(ProductCustomerFail());
+    });
+  }
+  Future getProductCustomerPagination(id) async {
+    emit(ProductCustomerLoading());
+    Map<String, dynamic> data = {"user_id": id, "page": pageCurrent};
+    await DioHelper.postData(url: getProducts, data: data).then((value) {
+      final res = value.data['data']['data'];
+      if (res.isEmpty) {
+        emit(ProductCustomerNullPagi());
+        pageCurrent = 1;
+      } else {
+        for (var value in res) {
+          final pro = lists.indexWhere(
+                (element) => element.id == value["id"].toString(),
+          );
+          if (pro >= 0) {
+            lists[pro] = ProductsItem(
+              id: value["id"].toString(),
+              title: value["title"],
+              price: value["price"],
+              desc: value["desc"],
+              image: value["image"],
+            );
+          } else {
+            lists.add(ProductsItem(
+              id: value["id"].toString(),
+              title: value["title"],
+              price: value["price"],
+              desc: value["desc"],
+              image: value["image"],
+            ));
+          }
+        }
+        emit(ProductCustomerDonePagi());
+      }
+    }).catchError((error) {
+      print(error.toString());
+      emit(ProductCustomerFailPagi());
+    });
+  }
+  LatestProduct? latestProduct;
+  List<LatestProductItem> latestPro = [];
+  Future latestproducts({id}) async {
+    emit(LoadingLatestProduct());
+    Map<String, dynamic> data = {"user_id": id};
+    latestPro = [];
+    await DioHelper.postData(url: latestProducts, data: data).then((value) {
+      latestProduct = LatestProduct.fromMap(value.data);
+      // print(latestPro);
+      final res = value.data['data'];
+      for (var value in res) {
+        final pro = latestPro.indexWhere(
+              (element) => element.id == value["id"],
+        );
+        if (pro >= 0) {
+          latestPro[pro] = LatestProductItem(
+              image: value["image"],
+              price: value["price"],
+              title: value["title"],
+              id: value["id"],
+              desc: value["desc"],
+              userId: value["user_id"]);
+        } else {
+          latestPro.add(LatestProductItem(
+              image: value["image"],
+              price: value["price"],
+              title: value["title"],
+              id: value["id"],
+              desc: value["desc"],
+              userId: value["user_id"]));
+        }
+      }
+      emit(GettingLatestProductSucess());
+    }).catchError((error) {
+      print(error.toString());
+      emit(GettingLatestProductError());
+    });
+  }
 
+  List<ProductsItem> search = [];
+  List<dynamic> searchCustomer(String quary) {
+    search = [];
+    var searching = list
+        .where((element) =>
+        element.title!.toLowerCase().contains(quary.toLowerCase()))
+        .toList();
+    search = searching;
+    // print(search[0].title);
+    emit(SearchingProduct());
+    return search;
+  }
+
+///////////////SqLite////////////////
+  Database? db;
+  List<Map> favItem=[];
+  bool isFav=false;
+  void createDatabase() {
+    openDatabase("Kashtak.db", version: 1,
+        onCreate: (database, verison) {
+          print("database is created");
+          database
+              .execute(
+              'CREATE TABLE fav (id INTEGER PRIMARY KEY, title TEXT, idPro TEXT,price TEXT,img TEXT,status TEXT )')
+              .then((value) {
+            print("table created");
+          }).catchError((onError) {
+            print("erros in crate teable ${onError.toString()}");
+          });
+        }, onOpen: (database) {
+          getdatabase(database);
+          print("database is open");
+        }).then((value){
+      db=value;
+      emit(AppCreateDatabaseState());
+    });
+  }
+  String? idProFav;
+  void getdatabase(db){
+    favItem=[];
+    emit(AppGetDatabaseloadingState());
+    db.rawQuery("SELECT * FROM fav").then((value) {
+      value.forEach((element) {
+        if(element['status']=="new")
+        {
+          idProFav=element["idPro"];
+          favItem.add(element);
+        }
+      });
+      emit(AppGetDatabaseState());
+    });
+  }
+  Future insertDatabase({required String title, proid, price,img})  async{
+    final pro = favItem.indexWhere((element) => idProFav == proid);
+    if (pro >= 0) {
+      emit(AppInsertsDatabaseState());
+    }else{
+      await db!.insert("fav", {
+        "title": title,
+        "idPro": proid,
+        "price": price,
+        "img":img,
+        "status": "new",
+      }).then((value) {
+        isFav=true;
+        emit(AppInsertDatabaseState());
+        print("$value inster tmam,${title}");
+        getdatabase(db);
+      }).catchError((onError) {
+        print("error fel insert $onError");
+      });
+    }
+  }
+  Future<int> deleteDatabase({required int id})  async{
+    return await db!.rawDelete('DELETE FROM fav WHERE id = ?', [id]).whenComplete(() => {
+      getdatabase(db),
+      emit(AppDeletDatabaseState())
+    }
+    );
+  }
 }

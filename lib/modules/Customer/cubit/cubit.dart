@@ -8,10 +8,13 @@ import 'package:image_picker/image_picker.dart';
 import 'package:shopping/Cubit/cubit.dart';
 import 'package:shopping/model/ProductsCustomer.dart';
 import 'package:shopping/model/Stactic.dart';
+import 'package:shopping/model/cart.dart';
 import 'package:shopping/model/latest_product.dart';
 import 'package:shopping/modules/Customer/cubit/state.dart';
 import 'package:shopping/shared/diohelper/dioHelpoer.dart';
 import 'package:shopping/shared/shared_prefernces.dart';
+import 'package:sqflite/sqflite.dart';
+import 'package:sqflite/sqlite_api.dart';
 
 import '../../../Cubit/states.dart';
 import '../../../model/CustomerModel.dart';
@@ -21,109 +24,9 @@ import '../../../shared/network.dart';
 
 class CustomerCubit extends Cubit<CustomerStates> {
   CustomerCubit() : super(Customer_InitalState());
-
   static CustomerCubit get(context) => BlocProvider.of(context);
 
 // ignore: non_constant_identifier_names
-  List<ProductsItem> list = [];
-  List<ProductsItem> lists = [];
-  int pageCurrent = 1;
-  int pagnationDataCurrent() {
-    return pageCurrent += 1;
-  }
-
-  Future getProductCustomer(id) async {
-    emit(ProductCustomerLoading());
-    list = [];
-    Map<String, dynamic> data = {"user_id": id};
-    await DioHelper.postData(url: getProducts, data: data).then((value) {
-      final res = value.data['data']['data'];
-      if (res.isEmpty) {
-        emit(ProductCustomerNull());
-        pageCurrent = 1;
-      } else {
-        for (var value in res) {
-          final pro = list.indexWhere(
-            (element) => element.id == value["id"].toString(),
-          );
-          if (pro >= 0) {
-            list[pro] = ProductsItem(
-              id: value["id"].toString(),
-              title: value["title"],
-              price: value["price"],
-              desc: value["desc"],
-              image: value["image"],
-            );
-            lists[pro] = ProductsItem(
-              id: value["id"].toString(),
-              title: value["title"],
-              price: value["price"],
-              desc: value["desc"],
-              image: value["image"],
-            );
-          } else {
-            list.add(ProductsItem(
-              id: value["id"].toString(),
-              title: value["title"],
-              price: value["price"],
-              desc: value["desc"],
-              image: value["image"],
-            ));
-            lists.add(ProductsItem(
-              id: value["id"].toString(),
-              title: value["title"],
-              price: value["price"],
-              desc: value["desc"],
-              image: value["image"],
-            ));
-          }
-        }
-        emit(ProductCustomerDone());
-      }
-    }).catchError((error) {
-      print(error.toString());
-      emit(ProductCustomerFail());
-    });
-  }
-
-  Future getProductCustomerPagination(id) async {
-    emit(ProductCustomerLoading());
-    Map<String, dynamic> data = {"user_id": id, "page": pageCurrent};
-    await DioHelper.postData(url: getProducts, data: data).then((value) {
-      final res = value.data['data']['data'];
-      if (res.isEmpty) {
-        emit(ProductCustomerNullPagi());
-        pageCurrent = 1;
-      } else {
-        for (var value in res) {
-          final pro = lists.indexWhere(
-            (element) => element.id == value["id"].toString(),
-          );
-          if (pro >= 0) {
-            lists[pro] = ProductsItem(
-              id: value["id"].toString(),
-              title: value["title"],
-              price: value["price"],
-              desc: value["desc"],
-              image: value["image"],
-            );
-          } else {
-            lists.add(ProductsItem(
-              id: value["id"].toString(),
-              title: value["title"],
-              price: value["price"],
-              desc: value["desc"],
-              image: value["image"],
-            ));
-          }
-        }
-        emit(ProductCustomerDonePagi());
-      }
-    }).catchError((error) {
-      print(error.toString());
-      emit(ProductCustomerFailPagi());
-    });
-  }
 
   bool changeColorMen = false;
   int colorMen = 0;
@@ -220,19 +123,6 @@ class CustomerCubit extends Cubit<CustomerStates> {
     });
   }
 
-  List<ProductsItem> search = [];
-  List<dynamic> searchCustomer(String quary) {
-    search = [];
-    var searching = list
-        .where((element) =>
-            element.title!.toLowerCase().contains(quary.toLowerCase()))
-        .toList();
-    search = searching;
-    // print(search[0].title);
-    emit(SearchingProduct());
-    return search;
-  }
-
   User? userModel;
   bool? check;
 
@@ -307,44 +197,6 @@ class CustomerCubit extends Cubit<CustomerStates> {
   }
   ///////////////Latest Products/////////////////////
 
-  LatestProduct? latestProduct;
-  List<LatestProductItem> latestPro = [];
-  Future latestproducts({id}) async {
-    emit(LoadingLatestProduct());
-    Map<String, dynamic> data = {"user_id": id};
-    latestPro = [];
-    await DioHelper.postData(url: latestProducts, data: data).then((value) {
-      latestProduct = LatestProduct.fromMap(value.data);
-      // print(latestPro);
-      final res = value.data['data'];
-      for (var value in res) {
-        final pro = latestPro.indexWhere(
-          (element) => element.id == value["id"],
-        );
-        if (pro >= 0) {
-          latestPro[pro] = LatestProductItem(
-              image: value["image"],
-              price: value["price"],
-              title: value["title"],
-              id: value["id"],
-              desc: value["desc"],
-              userId: value["user_id"]);
-        } else {
-          latestPro.add(LatestProductItem(
-              image: value["image"],
-              price: value["price"],
-              title: value["title"],
-              id: value["id"],
-              desc: value["desc"],
-              userId: value["user_id"]));
-        }
-      }
-      emit(GettingLatestProductSucess());
-    }).catchError((error) {
-      print(error.toString());
-      emit(GettingLatestProductError());
-    });
-  }
 
   //////////////////////////Stactic////////////
 
@@ -369,4 +221,6 @@ class CustomerCubit extends Cubit<CustomerStates> {
       emit(GettingStatisticError());
     });
   }
+  //////////////////Fav////////////
+
 }

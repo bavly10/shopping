@@ -74,3 +74,26 @@ class ShopPrivacyPolicyErrorState extends ShopStates {}
 class ChangedPrivacyState extends ShopStates {}
 
 class ChangeButtonText extends ShopStates {}
+
+class AppCreateDatabaseState extends ShopStates {}
+class AppGetDatabaseloadingState extends ShopStates {}
+class AppGetDatabaseState extends ShopStates {}
+class AppInsertDatabaseState extends ShopStates {}
+class AppInsertsDatabaseState extends ShopStates {}
+class AppDeletDatabaseState extends ShopStates {}
+
+class ProductCustomerDone extends ShopStates {}
+class ProductCustomerDonePagi extends ShopStates {}
+class ProductCustomerNull extends ShopStates {}
+class ProductCustomerNullPagi extends ShopStates {}
+class ProductCustomerFail extends ShopStates {}
+class ProductCustomerFailPagi extends ShopStates {}
+class ProductCustomerLoading extends ShopStates {}
+
+class LoadingLatestProduct extends ShopStates {}
+class GettingLatestProductSucess extends ShopStates {}
+class GettingLatestProductError extends ShopStates {}
+class SearchingProduct extends ShopStates {}
+
+
+

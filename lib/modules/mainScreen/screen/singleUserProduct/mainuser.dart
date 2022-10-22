@@ -2,30 +2,29 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:shopping/Cubit/cubit.dart';
-import 'package:shopping/modules/Customer/cubit/cubit.dart';
-import 'package:shopping/modules/Customer/cubit/state.dart';
+import 'package:shopping/Cubit/states.dart';
 import 'package:shopping/modules/Customer/products/cubit/cubit.dart';
 import 'package:shopping/modules/Customer/products/details_product/details_product.dart';
-import 'package:shopping/modules/mainScreen/screen/singleCustomerProduct/products_card.dart';
+import 'package:shopping/modules/mainScreen/screen/singleUserProduct/products_card.dart';
 import 'package:shopping/shared/compononet/componotents.dart';
 import 'package:shopping/shared/compononet/no_result_search.dart';
 import 'package:shopping/shared/localization/translate.dart';
 import 'package:shopping/shared/my_colors.dart';
 
-class MainCustomer extends StatelessWidget {
+class MainUser extends StatelessWidget {
   final String title;
   final int id;
-  MainCustomer({Key? key, required this.id, required this.title})
+  MainUser({Key? key, required this.id, required this.title})
       : super(key: key);
   var search = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    CustomerCubit.get(context).getProductCustomer(id);
-    return BlocConsumer<CustomerCubit, CustomerStates>(
+    ShopCubit.get(context).getProductCustomer(id);
+    return BlocConsumer<ShopCubit, ShopStates>(
       listener: (ctx, state) {},
       builder: (ctx, state) {
-        final cubit = CustomerCubit.get(context);
+        final cubit = ShopCubit.get(context);
         return Scaffold(
           backgroundColor: myGrey,
           appBar: AppBar(
@@ -36,7 +35,7 @@ class MainCustomer extends StatelessWidget {
               leading: TextField(
                 controller: search,
                 onChanged: (value) {
-                  CustomerCubit.get(context).searchCustomer(value);
+                  cubit.searchCustomer(value);
                 },
                 decoration: InputDecoration(
                   prefixIcon: search.text.isEmpty
@@ -67,8 +66,7 @@ class MainCustomer extends StatelessWidget {
                   ),
                 )
               ]),
-          body: search.text.isNotEmpty &&
-                  CustomerCubit.get(context).search.isEmpty
+          body: search.text.isNotEmpty && cubit.search.isEmpty
               ? const NoResultSearch()
               : Padding(
                   padding: const EdgeInsets.all(14.0),
