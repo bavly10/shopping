@@ -35,15 +35,15 @@ class TopScreen extends StatelessWidget {
                       ));
             },
             child: CircleAvatar(
-                backgroundImage: NetworkImage(image!), radius: 50)),
+                backgroundImage: NetworkImage(image!), radius: 45)),
         Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(3.0),
           child: Column(
             children: [
               Text(title,
                   style: TextStyle(
                       color: textColor ?? Colors.black,
-                      fontSize: 28,
+                      fontSize: 22,
                       fontWeight: FontWeight.bold)),
               CustomRating(
                 rate: rate,

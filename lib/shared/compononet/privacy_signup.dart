@@ -35,11 +35,11 @@ class PrivacyPolicySignupDialog extends StatelessWidget {
                 alignment: Alignment.topCenter,
                 children: [
                   SizedBox(
-                    height: MediaQuery.of(context).size.height * .80,
+                    height: MediaQuery.of(context).size.height,
                     width: MediaQuery.of(context).size.height * 1,
                     child: Padding(
                       padding: const EdgeInsets.fromLTRB(10, 70, 10, 10),
-                      child: Column(
+                      child: state is PrivacyPolicyErrorState?Text(mytranslate(context, "error")): Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Center(
@@ -54,15 +54,15 @@ class PrivacyPolicySignupDialog extends StatelessWidget {
                           const SizedBox(
                             height: 5,
                           ),
-                          model == null
-                              ? const Center(
-                                  child: CircularProgressIndicator(),
-                                )
-                              : Text(
-                                  model.data!,
-                                  style: const TextStyle(fontSize: 20),
-                                  maxLines: 40,
-                                ),
+                          state is PrivacyPolicyLoadingState?
+                              ?  const CircularProgressIndicator()
+                              : SingleChildScrollView(
+                                child: Text(
+                                    model!.data!,
+                                    style: const TextStyle(fontSize: 20),
+                                    maxLines: 40,
+                                  ),
+                              ),
                           const Spacer(),
                           Row(
                             children: [

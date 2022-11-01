@@ -15,6 +15,7 @@ import 'package:shopping/shared/diohelper/dioHelpoer.dart';
 import 'package:shopping/shared/localization/set_localization.dart';
 import 'package:shopping/shared/my_colors.dart';
 import 'package:shopping/shared/shared_prefernces.dart';
+import 'package:sizer/sizer.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -42,52 +43,55 @@ class MyApp extends StatelessWidget {
       child: BlocBuilder<ShopCubit, ShopStates>(
         builder: (context, state) {
           final cubit = ShopCubit.get(context);
-          return MaterialApp(
-            locale: cubit.locale_cubit,
-            localizationsDelegates: const [
-              SetLocalztion.localizationsDelegate,
-              GlobalMaterialLocalizations.delegate,
-              GlobalWidgetsLocalizations.delegate,
-              GlobalCupertinoLocalizations.delegate,
-            ],
-            localeResolutionCallback: (deviceLocal, supportedLocales) {
-              for (var local in supportedLocales) {
-                if (local.languageCode == deviceLocal!.languageCode &&
-                    local.countryCode == deviceLocal.countryCode) {
-                  return deviceLocal;
+          return Sizer (builder: (context, orientation, deviceType){
+            return MaterialApp(
+              locale: cubit.locale_cubit,
+              localizationsDelegates: const [
+                SetLocalztion.localizationsDelegate,
+                GlobalMaterialLocalizations.delegate,
+                GlobalWidgetsLocalizations.delegate,
+                GlobalCupertinoLocalizations.delegate,
+              ],
+              localeResolutionCallback: (deviceLocal, supportedLocales) {
+                for (var local in supportedLocales) {
+                  if (local.languageCode == deviceLocal!.languageCode &&
+                      local.countryCode == deviceLocal.countryCode) {
+                    return deviceLocal;
+                  }
                 }
-              }
-              return supportedLocales.first;
-            },
-            supportedLocales: const [
-              Locale('en', 'US'), // English, no country code
-              Locale('ar', 'SA'), // Spanish, no country code
-            ],
-            title: "Kash5tak",
-            debugShowCheckedModeBanner: false,
-            theme: ThemeData(
-              fontFamily: 'Cairo',
-              appBarTheme: AppBarTheme(
-                  titleTextStyle: TextStyle(
-                      fontFamily: 'Cairo',
-                      color: myBlue,
-                      fontSize: 22,
-                      fontWeight: FontWeight.w600),
-                  backgroundColor: Colors.white,
-                  elevation: 0,
-                  centerTitle: true,
-                  systemOverlayStyle: const SystemUiOverlayStyle(
-                      statusBarColor: Colors.white,
-                      statusBarIconBrightness: Brightness.dark,
-                      statusBarBrightness: Brightness.dark),
-                  iconTheme: IconThemeData(color: myBlue)),
-              scaffoldBackgroundColor: Colors.white,
-              visualDensity: VisualDensity.adaptivePlatformDensity,
-              primarySwatch: Colors.amber,
-            ),
-            themeMode: ThemeMode.light,
-            home: const SplashScreen(),
-            builder: EasyLoading.init(),
+                return supportedLocales.first;
+              },
+              supportedLocales: const [
+                Locale('en', 'US'), // English, no country code
+                Locale('ar', 'SA'), // Spanish, no country code
+              ],
+              title: "Kash5tak",
+              debugShowCheckedModeBanner: false,
+              theme: ThemeData(
+                fontFamily: 'Cairo',
+                appBarTheme: AppBarTheme(
+                    titleTextStyle: TextStyle(
+                        fontFamily: 'Cairo',
+                        color: myBlue,
+                        fontSize: 22,
+                        fontWeight: FontWeight.w600),
+                    backgroundColor: Colors.white,
+                    elevation: 0,
+                    centerTitle: true,
+                    systemOverlayStyle: const SystemUiOverlayStyle(
+                        statusBarColor: Colors.white,
+                        statusBarIconBrightness: Brightness.dark,
+                        statusBarBrightness: Brightness.dark),
+                    iconTheme: IconThemeData(color: myBlue)),
+                scaffoldBackgroundColor: Colors.white,
+                visualDensity: VisualDensity.adaptivePlatformDensity,
+                primarySwatch: Colors.amber,
+              ),
+              themeMode: ThemeMode.light,
+              home: const SplashScreen(),
+              builder: EasyLoading.init(),
+            );
+          }
           );
         },
       ),

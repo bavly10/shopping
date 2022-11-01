@@ -54,9 +54,8 @@ dependencies:
   syncfusion_flutter_charts: ^19.4.55
   url_launcher: ^6.1.5
   animated_background: ^2.0.0
-  google_maps_flutter: ^2.2.1
-  geolocator: ^7.7.0
   sqflite: ^2.1.0+1
+  sizer: ^2.0.15
 
 dev_dependencies:
   flutter_test:

@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:shopping/model/myOrderCustomer.dart';
+import 'package:shopping/shared/compononet/MyCachedNetworkImage.dart';
 import 'package:shopping/shared/localization/translate.dart';
 import 'package:shopping/shared/my_colors.dart';
 
@@ -98,10 +99,10 @@ class EXPTile extends StatelessWidget {
                 children: [
                   Row(
                     children: [
-                      Container(
-                        width: MediaQuery.of(context).size.width * .1,
-                        height: MediaQuery.of(context).size.height * .1,
-                        child: Image.network(order.productOrder!.image!),
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width * .3,
+                        height: MediaQuery.of(context).size.height * .15,
+                        child:  MyCachedNetWorkImage(logo: order.productOrder!.image!,radius: 0.0),
                       ),
                       const SizedBox(
                         width: 10,

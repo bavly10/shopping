@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:shopping/shared/compononet/MyCachedNetworkImage.dart';
 
 class onBoardingItem extends StatelessWidget {
   String splashModel;
@@ -20,20 +21,7 @@ class onBoardingItem extends StatelessWidget {
     return SizedBox(
       height: MediaQuery.of(context).size.height * 0.50,
       width: double.infinity,
-      child: CachedNetworkImage(
-        imageUrl: splashModel,
-        imageBuilder: (context, imageProvider) => Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(25.0),
-            image: DecorationImage(
-              image: imageProvider,
-              fit: BoxFit.cover,
-            ),
-          ),
-        ),
-        placeholder: (context, url) => const Icon(Icons.downloading),
-        errorWidget: (context, url, error) => const Icon(Icons.error),
-      ),
+      child:MyCachedNetWorkImage(logo: splashModel,radius:25.0,)
     );
   }
 }

@@ -39,6 +39,7 @@ class BlueButton extends StatelessWidget {
                     icon,
                     color: myWhite,
                   ),
+                const SizedBox(width: 5,),
                 title,
               ],
             ),

@@ -2,9 +2,11 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:shopping/Cubit/cubit.dart';
 import 'package:shopping/model/categoryModel.dart';
+import 'package:shopping/shared/compononet/MyCachedNetworkImage.dart';
 import 'package:shopping/shared/compononet/no_result_search.dart';
 import 'package:shopping/shared/localization/translate.dart';
 import 'package:shopping/shared/my_colors.dart';
+import 'package:sizer/sizer.dart';
 
 class CategoryScreen extends StatelessWidget {
   TextEditingController? colntroller;
@@ -16,7 +18,7 @@ class CategoryScreen extends StatelessWidget {
     return SingleChildScrollView(
       physics: const NeverScrollableScrollPhysics(),
       child: SizedBox(
-          height: MediaQuery.of(context).size.height * 0.19,
+          height: 18.5.h,
           width: double.infinity,
           child: colntroller!.text.isNotEmpty &&
                   ShopCubit.get(context).searchCat.isEmpty
@@ -25,7 +27,7 @@ class CategoryScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Container(
+                    SizedBox(
                       height: MediaQuery.of(context).size.height * .06,
                       child: const Image(
                         image: AssetImage('assets/no.png'),
@@ -47,7 +49,7 @@ class CategoryScreen extends StatelessWidget {
                   ],
                 ))
               : list!.data!.isEmpty
-                  ? const Center(child: CircularProgressIndicator())
+                  ? Center(child: Text(mytranslate(context, "error")))
                   : ListView.builder(
                       scrollDirection: Axis.horizontal,
                       itemBuilder: (ctx, index) => Padding(
@@ -64,7 +66,7 @@ class CategoryScreen extends StatelessWidget {
                             decoration: BoxDecoration(
                               color: index == ShopCubit.get(context).selected
                                   ? myBlue
-                                  : Colors.grey,
+                                  : myLightBlue,
                               borderRadius: BorderRadius.circular(15.0),
                             ),
                             child: ShopCubit.get(context).searchCat.isEmpty
@@ -90,22 +92,9 @@ class CategoryScreen extends StatelessWidget {
       child: Column(
         children: [
           SizedBox(
-            height: MediaQuery.of(context).size.height*0.10,
+            height:10.h,
             width: double.infinity,
-            child: CachedNetworkImage(
-              imageBuilder: (context, imageProvider) => Container(
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                    image: imageProvider,
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              ),
-              imageUrl: "${item.logo}",
-              placeholder: (context, url) =>
-                  const CircularProgressIndicator(),
-              errorWidget: (context, url, error) => const Icon(Icons.error),
-            ),
+            child: MyCachedNetWorkImage(logo: item.logo!,radius: 10.0,)
           ),
           const SizedBox(
             height: 10,
@@ -114,7 +103,7 @@ class CategoryScreen extends StatelessWidget {
               child: Text(
             "${item.title}",
             style: TextStyle(
-                fontSize: 14,
+                fontSize: 12,
                 fontWeight: FontWeight.w600,
                 color: x == ShopCubit.get(context).selected
                     ? Colors.white

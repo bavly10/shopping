@@ -94,6 +94,7 @@ class DataOrder {
     this.many,
     this.size,
     this.price,
+    // this.readOrNow,
     this.productOrder,
     this.userInfo,
     this.total,
@@ -103,6 +104,7 @@ class DataOrder {
   String? many;
   String? size;
   String? price;
+  // String? readOrNow;
   ProductOrder? productOrder;
   UserInfoOrder? userInfo;
   int? total;
@@ -112,6 +114,7 @@ class DataOrder {
     many: json["many"],
     size: json["size"],
     price: json["price"],
+    // readOrNow: json["readOrNow"],
     productOrder: ProductOrder.fromJson(json["product"]),
     userInfo: UserInfoOrder.fromJson(json["user_info"]),
     total: json["total"],

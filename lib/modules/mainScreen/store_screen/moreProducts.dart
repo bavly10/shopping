@@ -75,21 +75,15 @@ class MoreProCustomer extends StatelessWidget {
                               crossAxisSpacing: 20,
                             ),
                             childrenDelegate: SliverChildBuilderDelegate(
-                                (context, index) => InkWell(
-                                  onDoubleTap: (){},
-                                    onTap: () {
-                                      ProductCubit.get(context).productInfo(cubit[index].id, context).then((value) => {navigateTo(context, const DetailsProduct())
-                                      });
-                                    },
-                                    child: search.text.isEmpty
-                                        ? Padding(
-                                            padding: const EdgeInsets.all(5.0),
-                                            child: LatestPro(productsItem: cubit[index]),
-                                          )
-                                        : Padding(
-                                            padding: const EdgeInsets.all(5.0),
-                                            child: LatestPro(productsItem: model[index],),
-                                          )),
+                                (context, index) => search.text.isEmpty
+                                    ? Padding(
+                                        padding: const EdgeInsets.all(5.0),
+                                        child: LatestPro(productsItem: cubit[index]),
+                                      )
+                                    : Padding(
+                                        padding: const EdgeInsets.all(5.0),
+                                        child: LatestPro(productsItem: model[index],),
+                                      ),
                                 childCount: search.text.isEmpty
                                     ? cubit.length
                                     : model.length)),

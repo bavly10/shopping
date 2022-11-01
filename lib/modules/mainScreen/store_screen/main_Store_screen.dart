@@ -14,6 +14,7 @@ import 'package:shopping/shared/compononet/arrowBack.dart';
 import 'package:shopping/shared/compononet/componotents.dart';
 import 'package:shopping/shared/localization/translate.dart';
 import 'package:shopping/shared/my_colors.dart';
+import 'package:sizer/sizer.dart';
 
 
 class StoreScreen extends StatelessWidget {
@@ -113,7 +114,7 @@ class StoreScreen extends StatelessWidget {
                         fontSize: 22, fontWeight: FontWeight.bold)),
               ),
               Container(
-                height: MediaQuery.of(context).size.width * .7,
+                height: 38.h,
                 padding: const EdgeInsets.only(
                   right: 8,
                   left: 8,

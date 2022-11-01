@@ -5,11 +5,13 @@ import 'package:shopping/Cubit/states.dart';
 import 'package:shopping/model/ProductsCustomer.dart';
 import 'package:shopping/modules/Customer/products/cubit/cubit.dart';
 import 'package:shopping/modules/Customer/products/details_product/details_product.dart';
+import 'package:shopping/shared/compononet/MyCachedNetworkImage.dart';
 import 'package:shopping/shared/compononet/componotents.dart';
 import 'package:shopping/shared/compononet/myToast.dart';
 import 'package:shopping/shared/localization/translate.dart';
+import 'package:shopping/shared/my_colors.dart';
+import 'package:sizer/sizer.dart';
 
-import '../../../../shared/my_colors.dart';
 
 class LatestPro extends StatelessWidget {
   final ProductsItem productsItem;
@@ -33,7 +35,6 @@ class LatestPro extends StatelessWidget {
               },
               child: Container(
                 margin: const EdgeInsetsDirectional.all(5.0),
-                padding:const EdgeInsetsDirectional.all(5.0),
                 decoration:  BoxDecoration(
                   borderRadius: const BorderRadius.all(Radius.circular(15)),
                   color: myWhite,
@@ -46,30 +47,26 @@ class LatestPro extends StatelessWidget {
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Container(
-                            height: MediaQuery.of(context).size.height * .04,
-                            width: MediaQuery.of(context).size.width * .077,
+                            height:5.h,
+                            width:6.h,
                             decoration: BoxDecoration(
                                 color: Colors.black,
                                 shape: BoxShape.rectangle,
                                 borderRadius: BorderRadius.circular(10)),
                             child: Center(
-                              child: IconButton(
-                                onPressed: (){
+                              child: InkWell(
+                                onTap: (){
                                   cubit.insertDatabase(title:productsItem.title!,img:productsItem.image ,price: productsItem.price ,proid:productsItem.id,);
                                 },
-                                icon: const Icon(Icons.favorite),
-                                color: Colors.white,
-                                iconSize: 18,
+                                child: const Icon(Icons.favorite,  color: Colors.white, size: 18,),
                               ),
                             ),
                           ),
                         ),
                       ),
-                      Image(
-                        image: NetworkImage(productsItem.image!),
-                        width:MediaQuery.of(context).size.width * .40,
-                        height: MediaQuery.of(context).size.height * .15,
-                        fit: BoxFit.fitWidth,
+                      SizedBox(
+                        height: 15.h,
+                        child:  MyCachedNetWorkImage(logo: productsItem.image!,radius: 35.0,)
                       ),
                       Text(
                         productsItem.title!,

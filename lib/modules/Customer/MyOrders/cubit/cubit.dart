@@ -11,8 +11,9 @@ class CustomerOrderCubit extends Cubit<CustomerOrderStates> {
 
   static CustomerOrderCubit get(context) => BlocProvider.of(context);
   int limit = 0;
-
   List<DataOrder> list = [];
+  List<DataOrder> listNew = [];
+
   List<int> pages = [];
   OrdersCutomer? ordersCutomer;
   Future getOrders({context, page}) async {
@@ -28,12 +29,9 @@ class CustomerOrderCubit extends Cubit<CustomerOrderStates> {
     DioHelper.postData(url: myorder, data: data, option: header).then((value) {
       ordersCutomer = OrdersCutomer.fromJson(value.data);
       pages = List.generate(ordersCutomer!.data!.total!, (i) => i + 1);
-
       final res = value.data['data']['data'];
       for (var value in res) {
-        final pro = list.indexWhere(
-          (element) => element.id == value["id"],
-        );
+        final pro = list.indexWhere((element) => element.id == value["id"],);
         if (pro >= 0) {
           list[pro] = DataOrder(
               id: value["id"],
@@ -62,6 +60,16 @@ class CustomerOrderCubit extends Cubit<CustomerOrderStates> {
     });
   }
 
+  // void getNewList(){
+  //   for (var x in list){
+  //     if(x.readOrNow=="true"){
+  //       listNew.add(x);
+  //       emit(GetNewOrderCustomer());
+  //     }else{}
+  //   }
+  // }
+
+
   List<DataOrder> search = [];
   List<dynamic> searchCustomerInOrders(String quary) {
     search = [];
@@ -75,7 +83,9 @@ class CustomerOrderCubit extends Cubit<CustomerOrderStates> {
     return search;
   }
 
-
+  int get itemOrder {
+    return listNew.length;
+  }
 
   int? selected;
   void getselected(int x) {

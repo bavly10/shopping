@@ -9,6 +9,9 @@ import 'package:shopping/modules/cart/cart.dart';
 import 'package:shopping/shared/compononet/LoagingDialog.dart';
 import 'package:shopping/shared/compononet/componotents.dart';
 import 'package:shopping/shared/compononet/myToast.dart';
+import 'package:shopping/shared/localization/translate.dart';
+import 'package:shopping/shared/my_colors.dart';
+import 'package:sizer/sizer.dart';
 
 import '../../../mainScreen/mainScreen.dart';
 
@@ -20,8 +23,7 @@ class DetailsProduct extends StatelessWidget {
     return BlocConsumer<ProductCubit, ProductStates>(
       listener: (ctx,state){
         if (state is ShopEarnLoadingState ){
-          showDialog(
-              context: context, builder: (context) => const LoadingDialog());
+          showDialog(context: context, builder: (context) => const LoadingDialog());
         }else if (state is ShopEarnSuessState){
           navigateTo(context, CartScreen());
         }else if (state is ErrorEarnState){
@@ -32,48 +34,40 @@ class DetailsProduct extends StatelessWidget {
       final model = ProductCubit.get(context).proInf;
       final cubit = ProductCubit.get(context);
       return model == null
-          ? const Padding(
-              padding: EdgeInsets.all(27.0),
-              child: CircularProgressIndicator(),
-            )
+          ?Text(mytranslate(context, "error"))
           : Scaffold(
+        backgroundColor: myGrey,
               body: SafeArea(
                 child: SingleChildScrollView(
                   physics: const NeverScrollableScrollPhysics(),
                   child: Column(
-                    children: [
-                      Stack(
-                          children: [
+                      children: [
                         CustomBackgroundContainer(
                           arrowBack: () {
                             Navigator.pop(context);
                           },
                           cartShopping: () {
-                           ProductCubit.get(context).getEarn();
-                           },
+                            ProductCubit.get(context).getEarn();
+                          },
                           x: cubit.itemcount,
                         ),
                         Align(
                             alignment: Alignment.topCenter,
                             child: Padding(
-                                padding: const EdgeInsets.only(top: 70),
+                                padding: const EdgeInsets.only(top: 10),
                                 child: CustomImageContainer(
                                     image: model.data!.images!))),
-                        Positioned(
-                            top: MediaQuery.of(context).size.height * .52,
-                            child: CustomContainerDetails(
-                              id: model.data!.id,
-                              name: model.data!.title,
-                              price: model.data!.price,
-                              rating: 4,
-                              image: model.data!.images![0].logo,
-                              desc: model.data!.desc,
-                              many: cubit.itemCount,
-                            )),
+                        const SizedBox(height: 15,),
+                        CustomContainerDetails(
+                          id: model.data!.id,
+                          name: model.data!.title,
+                          price: model.data!.price,
+                          rating: 4,
+                          image: model.data!.images![0].logo,
+                          desc: model.data!.desc,
+                          many: cubit.itemCount,
+                        )
                       ]),
-                      const SizedBox(height: 1)
-                    ],
-                  ),
                 ),
               ),
             );

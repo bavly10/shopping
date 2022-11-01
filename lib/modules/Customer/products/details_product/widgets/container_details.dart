@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:shopping/Cubit/cubit.dart';
 import 'package:shopping/modules/Customer/cubit/cubit.dart';
 import 'package:shopping/modules/Customer/products/cubit/cubit.dart';
 import 'package:shopping/modules/Customer/products/details_product/widgets/counter.dart';
 import 'package:shopping/shared/compononet/myToast.dart';
 import 'package:shopping/shared/localization/translate.dart';
 import 'package:shopping/shared/my_colors.dart';
+import 'package:sizer/sizer.dart';
 
 import '../../../../../shared/compononet/componotents.dart';
 import '../../../../cart/cart.dart';
@@ -26,13 +28,13 @@ class CustomContainerDetails extends StatelessWidget {
       this.desc,
       this.many,
       this.size,
-      required this.id});
+        required this.id});
 
   @override
   Widget build(BuildContext context) {
     return Container(
       width: MediaQuery.of(context).size.width,
-      height: MediaQuery.of(context).size.height * 0.7,
+      height:55.h,
       decoration: const BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.only(
@@ -45,8 +47,7 @@ class CustomContainerDetails extends StatelessWidget {
         child: SingleChildScrollView(
           physics: const BouncingScrollPhysics(),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            mainAxisAlignment: MainAxisAlignment.end,
+           crossAxisAlignment:ShopCubit.xtranslate?CrossAxisAlignment.start :CrossAxisAlignment.end,
             children: [
               Padding(
                 padding: const EdgeInsets.all(10.0),
@@ -68,9 +69,9 @@ class CustomContainerDetails extends StatelessWidget {
                 style: const TextStyle(
                   fontSize: 15,
                   color: Colors.black,
-                ),
-                maxLines: 3,
+                ),maxLines: 9,
               ),
+
 
               Padding(
                 padding: const EdgeInsets.all(10.0),
@@ -192,37 +193,37 @@ class CustomContainerDetails extends StatelessWidget {
                 const SizedBox(
                   width: 25,
                 ),
-                SizedBox(
-                  width: MediaQuery.of(context).size.width * .6,
-                  height: MediaQuery.of(context).size.height * .06,
-                  child: MaterialButton(
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10.0)),
-                    color: myBlue,
-                    onPressed: () {
-                      ProductCubit.get(context).additem(
-                          proid: id.toString(),
-                          imgurl: image.toString(),
-                          title: name.toString(),
-                          size: ProductCubit.get(context).selectSize.toString(),
-                          price: double.parse(price),
-                          qua: ProductCubit.get(context).itemCount);
-                      myToast(message: "$name Is Added ");
-                    },
-                    child: Text(
-                      mytranslate(context, "order"),
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 24,
-                        letterSpacing: 2,
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 8.0),
+                  child: SizedBox(
+                    width: MediaQuery.of(context).size.width * .6,
+                    height: MediaQuery.of(context).size.height * .06,
+                    child: MaterialButton(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10.0)),
+                      color: myBlue,
+                      onPressed: () {
+                        ProductCubit.get(context).additem(
+                            proid: id.toString(),
+                            imgurl: image.toString(),
+                            title: name.toString(),
+                            size: ProductCubit.get(context).selectSize.toString(),
+                            price: double.parse(price),
+                            qua: ProductCubit.get(context).itemCount);
+                        myToast(message: "$name Is Added ");
+                      },
+                      child: Text(
+                        mytranslate(context, "order"),
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 24,
+                          letterSpacing: 2,
+                        ),
                       ),
                     ),
                   ),
                 ),
               ]),
-              // const SizedBox(
-              //   height: 1,
-              // )
 
               // Spacer(),
             ],

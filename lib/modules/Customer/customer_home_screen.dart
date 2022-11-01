@@ -19,15 +19,18 @@ import 'package:shopping/modules/Customer/update_customer/update_Customer.dart';
 import 'package:shopping/modules/mainScreen/mainScreen.dart';
 import 'package:shopping/modules/onBoarding/onBoarding_screen.dart';
 import 'package:shopping/shared/compononet/LoagingDialog.dart';
+import 'package:shopping/shared/compononet/MyCachedNetworkImage.dart';
 import 'package:shopping/shared/compononet/componotents.dart';
 import 'package:shopping/shared/compononet/myToast.dart';
 import 'package:shopping/shared/compononet/no_result_search.dart';
 import 'package:shopping/shared/diohelper/dioHelpoer.dart';
 import 'package:shopping/shared/localization/translate.dart';
 import 'package:shopping/shared/my_colors.dart';
+import 'package:sizer/sizer.dart';
 
 import 'products/createProduct.dart';
 
+// ignore: must_be_immutable
 class CustomerHome extends StatelessWidget {
   var id;
   CustomerHome({Key? key, this.id}) : super(key: key);
@@ -81,7 +84,7 @@ class CustomerHome extends StatelessWidget {
                     page: CustomerOrderCubit.get(context).limit);
                 navigateTo(context, Orders());
               },
-              icon: Icon(Icons.gps_not_fixed)),
+              icon: const Icon(Icons.bookmark_border_outlined)),
          const Spacer(),
          DropdownButton(
            onChanged: (lang) {
@@ -115,7 +118,7 @@ class CustomerHome extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.all(12.0),
             child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: ShopCubit.xtranslate?CrossAxisAlignment.start:CrossAxisAlignment.end,
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Row(
@@ -124,44 +127,27 @@ class CustomerHome extends StatelessWidget {
                     children: [
                       Container(
                         decoration: BoxDecoration(
-                          color: HexColor("#A7B3CF"),
+                          gradient: myLinear,
                           borderRadius:
                               const BorderRadius.all(Radius.circular(20)),
                         ),
-                        height: MediaQuery.of(context).size.height * .20,
-                        width: MediaQuery.of(context).size.width * .42,
+                        height:15.h,
+                        width: 40.w,
                         child: InkWell(
                           onTap: () {
                             ShopCubit.get(context).getMyShared();
                             ProductCubit.get(context).showCustomerData(ShopCubit.get(context).customerId, context);
                           },
-                          child: Padding(
-                            padding: const EdgeInsets.only(top: 50.0),
-                            child: Column(
-                              children: [
-                                Text(
-                                  mytranslate(context, "editdata"),
-                                  style: TextStyle(
-                                      color: myWhite,
-                                      fontSize: 17,
-                                      fontWeight: FontWeight.w600),
-                                ),
-                                const SizedBox(
-                                  height: 20,
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 76.0),
-                                  child: CircleAvatar(
-                                    radius: 15,
-                                    backgroundColor: myBlue,
-                                    child: const Icon(
-                                      Icons.arrow_forward_ios,
-                                      color: Colors.white,
-                                      size: 15,
-                                    ),
-                                  ),
-                                )
-                              ],
+                          child: Center(
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text(
+                                mytranslate(context, "editdata"),
+                                style: TextStyle(
+                                    color: myWhite,
+                                    fontSize: 17,
+                                    fontWeight: FontWeight.w600),
+                              ),
                             ),
                           ),
                         ),
@@ -171,12 +157,12 @@ class CustomerHome extends StatelessWidget {
                       ),
                       Container(
                         decoration: BoxDecoration(
-                          color: HexColor("#A7B3CF"),
+                          gradient: myLinear,
                           borderRadius:
                               const BorderRadius.all(Radius.circular(20)),
                         ),
-                        height: MediaQuery.of(context).size.height * .20,
-                        width: MediaQuery.of(context).size.width * .42,
+                        height:15.h,
+                        width:40.w,
                         child: InkWell(
                           onTap: () {
                             CustomerCubit.get(context)
@@ -185,37 +171,16 @@ class CustomerHome extends StatelessWidget {
                                 .then((value) =>
                                     navigateTo(context, StaticMain()));
                           },
-                          child: Padding(
-                            padding: const EdgeInsets.only(top: 35.0),
-                            child: Column(
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 8.0, right: 8),
-                                  child: Text(
-                                    mytranslate(context, "track"),
-                                    style: TextStyle(
-                                        color: myWhite,
-                                        fontSize: 17,
-                                        fontWeight: FontWeight.w600),
-                                  ),
-                                ),
-                                const SizedBox(
-                                  height: 5,
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 76.0),
-                                  child: CircleAvatar(
-                                    radius: 15,
-                                    backgroundColor: myBlue,
-                                    child: const Icon(
-                                      Icons.arrow_forward_ios,
-                                      color: Colors.white,
-                                      size: 15,
-                                    ),
-                                  ),
-                                )
-                              ],
+                          child: Center(
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text(
+                                mytranslate(context, "track"),
+                                style: TextStyle(
+                                    color: myWhite,
+                                    fontSize: 17,
+                                    fontWeight: FontWeight.w600),
+                              ),
                             ),
                           ),
                         ),
@@ -247,14 +212,15 @@ class CustomerHome extends StatelessWidget {
                       ),
                     ),
                   ),
+                  Divider(height: 1,color: myBlack,),
                   Row(
                     children: [
                       Padding(
-                        padding: const EdgeInsets.all(14.0),
+                        padding: const EdgeInsets.all(4.0),
                         child: Text(
                           mytranslate(context, "pro"),
                           style: const TextStyle(
-                              fontSize: 18, fontWeight: FontWeight.w600),
+                              fontSize: 14, fontWeight: FontWeight.w600),
                         ),
                       ),
                       const Spacer(),
@@ -282,11 +248,11 @@ class CustomerHome extends StatelessWidget {
                       : ListView.builder(
                           physics: const NeverScrollableScrollPhysics(),
                           shrinkWrap: true,
+                          reverse: true,
                           itemBuilder: (context, index) {
                             return productItem.isEmpty
                                 ? const NoResultSearch()
-                                : myCard(
-                                    context: context, pro: productItem[index]);
+                                : myCard(context: context, pro: productItem[index]);
                           },
                           itemCount: productItem.length)
                 ]),
@@ -313,16 +279,11 @@ class CustomerHome extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(top: 15.0, bottom: 15),
-                  child: Container(
-                    width: MediaQuery.of(context).size.width * .33,
+                  padding: const EdgeInsets.all(16.0),
+                  child: SizedBox(
+                    width: MediaQuery.of(context).size.width * .25,
                     height: MediaQuery.of(context).size.height * .10,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      image: DecorationImage(
-                        image: NetworkImage(pro.images![0].logo!),
-                      ),
-                    ),
+                    child: MyCachedNetWorkImage(logo: pro.images![0].logo!,radius:1.0 ),
                   ),
                 ),
                 Column(

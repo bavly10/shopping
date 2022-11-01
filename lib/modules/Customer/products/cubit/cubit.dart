@@ -303,8 +303,7 @@ class ProductCubit extends Cubit<ProductStates> {
         emit(GettingProductDataNull());
       } else {
         for (var value in mylist) {
-          final pro = listProduct.indexWhere(
-            (element) => element.id == value["id"].toString(),
+          final pro = listProduct.indexWhere((element) => element.id == value["id"].toString(),
           );
           if (pro >= 0) {
             listProduct[pro] = ProductItemMainCustomer(

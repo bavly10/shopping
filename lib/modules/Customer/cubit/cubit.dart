@@ -10,17 +10,11 @@ import 'package:shopping/model/ProductsCustomer.dart';
 import 'package:shopping/model/Stactic.dart';
 import 'package:shopping/model/cart.dart';
 import 'package:shopping/model/latest_product.dart';
+import 'package:shopping/model/user_model.dart';
 import 'package:shopping/modules/Customer/cubit/state.dart';
 import 'package:shopping/shared/diohelper/dioHelpoer.dart';
+import 'package:shopping/shared/network.dart';
 import 'package:shopping/shared/shared_prefernces.dart';
-import 'package:sqflite/sqflite.dart';
-import 'package:sqflite/sqlite_api.dart';
-
-import '../../../Cubit/states.dart';
-import '../../../model/CustomerModel.dart';
-import '../../../model/ProCustomer.dart';
-import '../../../model/user_model.dart';
-import '../../../shared/network.dart';
 
 class CustomerCubit extends Cubit<CustomerStates> {
   CustomerCubit() : super(Customer_InitalState());

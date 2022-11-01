@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shopping/model/latest_product.dart';
 import 'package:shopping/modules/Customer/products/cubit/cubit.dart';
@@ -5,8 +6,8 @@ import 'package:shopping/modules/Customer/products/details_product/details_produ
 import 'package:shopping/shared/compononet/componotents.dart';
 import 'package:shopping/shared/compononet/myToast.dart';
 import 'package:shopping/shared/localization/translate.dart';
+import 'package:sizer/sizer.dart';
 
-import '../../../../model/ProductsCustomer.dart';
 
 class BestCard extends StatelessWidget {
   LatestProductItem? pro;
@@ -18,9 +19,7 @@ class BestCard extends StatelessWidget {
     return InkWell(
       onDoubleTap: () {},
       onTap: (){
-        ProductCubit.get(context)
-            .productInfo(list[index].id, context)
-            .then((value) => {navigateTo(context, const DetailsProduct())});
+        ProductCubit.get(context).productInfo(list[index].id, context).then((value) => {navigateTo(context, const DetailsProduct())});
       },
       child: Card(
         elevation: 0,
@@ -29,66 +28,59 @@ class BestCard extends StatelessWidget {
             Radius.circular(15),
           ),
         ),
-        child: Container(
-          width: MediaQuery.of(context).size.width * .20,
-          height: MediaQuery.of(context).size.width * .9,
-          child: Column(children: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Container(
-                height: 120,
-                width: 500,
-                child: Image(
-                  image: NetworkImage(pro!.image!),
-                ),
+        child: Column(children: [
+          Padding(
+            padding: const EdgeInsets.all(2.0),
+            child: SizedBox(
+              height: 20.h,
+              child: Image(
+                image: NetworkImage(pro!.image!),
               ),
             ),
-            Text(
-              pro!.title!,
-              style: const TextStyle(fontWeight: FontWeight.w900, fontSize: 18),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(
-                children: [
-                  Container(
-                    height: MediaQuery.of(context).size.height * .06,
-                    width: MediaQuery.of(context).size.width * .089,
-                    decoration: BoxDecoration(
-                        color: Colors.black,
-                        shape: BoxShape.rectangle,
-                        borderRadius: BorderRadius.circular(10)),
-                    child:  Center(
-                      child: IconButton(
-                        onPressed:(){
-                          ProductCubit.get(context).additem(
-                              proid: pro!.id.toString(),
-                              imgurl: pro!.image.toString(),
-                              title: pro!.title.toString(),
-                              size: ProductCubit.get(context).selectSize.toString(),
-                              price: double.parse(pro!.price!),
-                              qua: ProductCubit.get(context).itemCount);
-                          myToast(message: "${pro!.title} Is Added ");
-                        },
-                        icon: const Icon(Icons.badge_rounded) ,
-                        color: Colors.white,
-                        iconSize: 20,
-                      ),
-                    ),
+          ),
+          Text(
+            pro!.title!,
+            style: const TextStyle(fontWeight: FontWeight.w900, fontSize: 18),
+          ),
+          const Spacer(),
+          Padding(
+            padding: const EdgeInsets.only(left: 5.0,right: 5.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Container(
+                  height:5.h,
+                  decoration: BoxDecoration(
+                      color: Colors.black,
+                      shape: BoxShape.rectangle,
+                      borderRadius: BorderRadius.circular(10)),
+                  child:  IconButton(
+                    onPressed:(){
+                      ProductCubit.get(context).additem(
+                          proid: pro!.id.toString(),
+                          imgurl: pro!.image.toString(),
+                          title: pro!.title.toString(),
+                          size: ProductCubit.get(context).selectSize.toString(),
+                          price: double.parse(pro!.price!),
+                          qua: ProductCubit.get(context).itemCount);
+                      myToast(message: "${pro!.title} Is Added ");
+                    },
+                    icon: const Icon(Icons.badge_rounded) ,
+                    color: Colors.white,
+                    iconSize: 18,
                   ),
-                  const Spacer(),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(
-                      '${pro!.price!}\n${mytranslate(context, "wd")}',
-                      style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w600),
-                    ),
-                  )
-                ],
-              ),
-            )
-          ]),
-        ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    "${pro!.price!} ${mytranslate(context, "wd")}",
+                    style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w600),
+                  ),
+                )
+              ],
+            ),
+          )
+        ]),
       ),
     );
   }

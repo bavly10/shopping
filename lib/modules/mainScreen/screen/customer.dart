@@ -4,18 +4,22 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:shopping/Cubit/cubit.dart';
 import 'package:shopping/model/ProCustomer.dart';
 import 'package:shopping/modules/mainScreen/store_screen/main_Store_screen.dart';
+import 'package:shopping/shared/compononet/MyCachedNetworkImage.dart';
 import 'package:shopping/shared/compononet/componotents.dart';
 import 'package:shopping/shared/compononet/custom_rating.dart';
+import 'package:shopping/shared/localization/translate.dart';
 import 'package:shopping/shared/my_colors.dart';
+import 'package:sizer/sizer.dart';
 
+// ignore: must_be_immutable
 class CustomerScreen extends StatelessWidget {
   CustomerScreen({Key? key}) : super(key: key);
   Color color=myBlue;
   @override
   Widget build(BuildContext context) {
     final prosCustomerModel = ShopCubit.get(context).prosCustomerModel!;
-    return SizedBox(
-      height: MediaQuery.of(context).size.height *1,
+    return  prosCustomerModel.data!.isEmpty? Text(mytranslate(context, "error")):SizedBox(
+      height: MediaQuery.of(context).size.height,
       width: double.infinity,
       child :GridView.custom(
         physics: const NeverScrollableScrollPhysics(),
@@ -24,8 +28,8 @@ class CustomerScreen extends StatelessWidget {
             mainAxisSpacing:16,
             crossAxisSpacing:2,
             pattern: [
-              const WovenGridTile(13 / 26, crossAxisRatio: .7),
-              const WovenGridTile(13 / 26, crossAxisRatio: .7,
+              const WovenGridTile(13 / 24, crossAxisRatio: .7),
+              const WovenGridTile(13 / 24, crossAxisRatio: .7,
               ),
             ],
           ),
@@ -54,7 +58,7 @@ class CustomerScreen extends StatelessWidget {
           color: color,
           borderRadius: BorderRadius.circular(35.0),
         ),
-        width: MediaQuery.of(context).size.width * 0.25,
+        width:25.h,
         child: Column(
           children: [
             Padding(
@@ -65,61 +69,16 @@ class CustomerScreen extends StatelessWidget {
               ),
             ),
             SizedBox(
-              height: MediaQuery.of(context).size.height*0.22,
+              height:22.h,
               width: double.infinity,
-              child: CachedNetworkImage(
-                imageUrl: pro.logo!,
-                imageBuilder: (context, imageProvider) => Container(
-                  decoration: BoxDecoration(
-                    shape: BoxShape.rectangle,
-                    color:myWhite,
-                    borderRadius: BorderRadius.circular(35.0),
-                    image: DecorationImage(
-                        image: imageProvider, fit: BoxFit.cover),
-                  ),
-                ),
-                placeholder: (context, url) =>
-                const CircularProgressIndicator(),
-                errorWidget: (context, url, error) => const Icon(Icons.error),
-              ),
+              child: MyCachedNetWorkImage(logo: pro.logo!,radius: 35.0,)
             ),
-            Expanded(
-              child: SizedBox(
-                width: MediaQuery.of(context).size.width * 0.35,
-                height: MediaQuery.of(context).size.height * .08,
-                child: Column(
-                  children: [
-                    Text(
-                      pro.name,
-                      style: TextStyle(
-                          color: myWhite,
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold),
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(
-                          Icons.location_pin,
-                          size: 20,
-                          color: myWhite,
-                        ),
-                        const SizedBox(
-                          width: 5,
-                        ),
-                        Text(
-                          pro.address!,
-                          style: TextStyle(
-                              color: myWhite,
-                              fontWeight: FontWeight.bold,
-                              fontStyle: FontStyle.italic,
-                              fontSize: 14),
-                        )
-                      ],
-                    )
-                  ],
-                ),
-              ),
+            Text(
+              pro.name,
+              style: TextStyle(
+                  color: myWhite,
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold),
             ),
           ],
         ),

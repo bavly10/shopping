@@ -2,6 +2,7 @@ import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:shopping/shared/my_colors.dart';
+import 'package:sizer/sizer.dart';
 
 class CustomBackgroundContainer extends StatelessWidget {
   void Function()? arrowBack;
@@ -13,10 +14,10 @@ class CustomBackgroundContainer extends StatelessWidget {
     return Container(
       alignment: Alignment.topRight,
       color: myGrey,
-      height: MediaQuery.of(context).size.height,
+      height:10.h,
       width: MediaQuery.of(context).size.width,
       child: Padding(
-        padding: const EdgeInsets.only(top: 15, right: 3, left: 5),
+        padding: const EdgeInsets.only(top: 5, right: 3, left: 10),
         child: Row(
           children: [
             MaterialButton(

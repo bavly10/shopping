@@ -16,38 +16,38 @@ class HomeScreen extends StatelessWidget {
   var search = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ShopCubit, ShopStates>(
+    return BlocConsumer<ShopCubit, ShopStates>(
+      listener: (ctx,state){
+        if(state is LoadingCat){
+          const Center(child: CircularProgressIndicator());
+        }else {}
+      },
       builder: (ctx, state) {
         final cubit = ShopCubit.get(context);
         return Scaffold(
           backgroundColor: myGrey,
-          body: SafeArea(
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                   cubit.changeAppBar
-                      ? myAppBar(context)
-                      : myAppBarSearch(context),
-                 const  CartWidget(),
-                  cubit.categoryModel == null
-                      ? const Center(child: CircularProgressIndicator())
-                      : CategoryScreen(
-                          colntroller: search,
-                        ),
-                  const SizedBox(
-                    height: 5,
-                  ),
-                  const Divider(
-                    height: 1,
-                    color: Colors.black,
-                  ),
-                  const SizedBox(height: 10,),
-                  if (state is LoadingProCustomerState)const CircularProgressIndicator(),
-                  if (state is DoneProCustomerState) CustomerScreen(),
-                  if (state is emptyProCustomerState)  Text(mytranslate(context, "noData"),style: const TextStyle(),),
-                  if (state is ChangeIndexTabs) CustomerScreen(),
-                ],
-              ),
+          body: SingleChildScrollView(
+            child: Column(
+              children: [
+                 cubit.changeAppBar
+                    ? myAppBar(context)
+                    : myAppBarSearch(context),
+               const  CartWidget(),
+               state is LoadingCat?
+               const Center(child: CircularProgressIndicator())
+                   :CategoryScreen(
+                        colntroller: search,
+                      ),
+                const SizedBox(height: 5,),
+                const Divider(
+                  height: 1,
+                  color: Colors.black,
+                ),
+                const SizedBox(height: 10,),
+                if (state is LoadingProCustomerState)const CircularProgressIndicator(),
+               state is DoneProCustomerState? CustomerScreen(): const Welcome(),
+                if (state is emptyProCustomerState)  Text(mytranslate(context, "noData"),style: const TextStyle(),),
+              ],
             ),
           ),
         );
@@ -85,9 +85,8 @@ class HomeScreen extends StatelessWidget {
           Text(
             mytranslate(context, "home"),
             style: TextStyle(
-                color: myBlue, fontWeight: FontWeight.bold, fontSize: 22),
+                color: myBlue, fontWeight: FontWeight.bold, fontSize: 18),
           ),
-
           MyArrowBack(onPress: ()=>Navigator.pop(context)),
         ],
       ),
