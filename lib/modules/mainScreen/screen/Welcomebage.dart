@@ -21,7 +21,7 @@ class _WelcomeState extends State<Welcome> {
           Text(mytranslate(context, "wel"),style: TextStyle(fontSize: 22,fontWeight: FontWeight.bold,color: myWhite,letterSpacing: 1),),
           const Image(
            image:  ExactAssetImage("assets/ch.png")),
-          Padding(padding:const EdgeInsetsDirectional.all(12),child:  Text("Choose Your Best Category From above",style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold,color: myWhite),),),
+          Padding(padding:const EdgeInsetsDirectional.all(12),child:  Text(mytranslate(context, "content"),style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold,color: myWhite),),),
         ],
       ),
     );

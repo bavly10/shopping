@@ -1,3 +1,5 @@
+import 'package:device_preview/device_preview.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -25,6 +27,10 @@ void main() async {
   await CashHelper.init();
   DioHelper.init();
   runApp(MyApp());
+  // runApp(DevicePreview(
+  //       enabled: !kReleaseMode,
+  //       builder: (context) => MyApp(), // Wrap your app
+  //     ),);
 }
 
 class MyApp extends StatelessWidget {
@@ -45,6 +51,7 @@ class MyApp extends StatelessWidget {
           final cubit = ShopCubit.get(context);
           return Sizer (builder: (context, orientation, deviceType){
             return MaterialApp(
+              useInheritedMediaQuery: true,
               locale: cubit.locale_cubit,
               localizationsDelegates: const [
                 SetLocalztion.localizationsDelegate,

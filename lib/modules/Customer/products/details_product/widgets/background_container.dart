@@ -28,11 +28,12 @@ class CustomBackgroundContainer extends StatelessWidget {
                 Icons.arrow_back_ios_rounded,
                 size: 24,
               ),
-              padding: EdgeInsets.all(8),
-              shape: CircleBorder(),
+              padding: const EdgeInsets.all(8),
+              shape: const CircleBorder(),
             ),
             const Spacer(),
             InkWell(
+              onDoubleTap: (){},
               onTap: cartShopping,
               child: Padding(
                 padding: const EdgeInsets.all(8.0),

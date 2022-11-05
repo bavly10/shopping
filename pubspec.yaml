@@ -56,7 +56,7 @@ dependencies:
   animated_background: ^2.0.0
   sqflite: ^2.1.0+1
   sizer: ^2.0.15
-
+  device_preview: ^1.1.0
 dev_dependencies:
   flutter_test:
     sdk: flutter

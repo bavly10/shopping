@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:shopping/shared/my_colors.dart';
 
 class MyCachedNetWorkImage extends StatelessWidget {
@@ -20,7 +21,7 @@ class MyCachedNetWorkImage extends StatelessWidget {
               image: imageProvider, fit: BoxFit.cover),
         ),
       ),
-      placeholder: (context, url) => CircularProgressIndicator(color: myBlacks),
+      placeholder: (context, url) => const Icon(MdiIcons.arrowDownCircle),
       errorWidget: (context, url, error) => const Icon(Icons.error),
     );
   }

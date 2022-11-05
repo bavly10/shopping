@@ -54,10 +54,11 @@ class _LoginState extends State<Login> {
                 context: context,
                 icon: Icons.error,
                 bigTitle: mytranslate(context, "nameApp"),
-                content: mytranslate(context, "error"),
+                content: mytranslate(context, "invaild"),
                 pressColor: Colors.red,
                 iconColor: Colors.red);
-          } else if (state.code == "6005") {
+          }
+          else if (state.code == "6005") {
             My_CustomAlertDialog(
                 onPress: () => Navigator.pop(context),
                 pressTitle: 'OK',
@@ -67,7 +68,19 @@ class _LoginState extends State<Login> {
                 content: mytranslate(context, "verfi"),
                 pressColor: Colors.red,
                 iconColor: Colors.red);
-          }else {
+          }
+          else if (state.code == "6003") {
+            My_CustomAlertDialog(
+                onPress: () => Navigator.pop(context),
+                pressTitle: 'OK',
+                context: context,
+                icon: Icons.error,
+                bigTitle:mytranslate(context, "nameApp"),
+                content: mytranslate(context, "invaild"),
+                pressColor: Colors.red,
+                iconColor: Colors.red);
+          }
+          else {
             My_CustomAlertDialog(
                 onPress: () => Navigator.pop(context),
                 pressTitle: 'OK',

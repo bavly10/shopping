@@ -7,11 +7,11 @@ class MyArrowBack extends StatelessWidget {
   MyArrowBack({Key? key,  required this.onPress}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return Card(elevation: 4,
+    return Card(elevation: 2,
       shape: const StadiumBorder(
         side: BorderSide(
           color: Colors.white,
-          width: 2.0,
+          width: 1.0,
         ),
       ),
       child: IconButton(

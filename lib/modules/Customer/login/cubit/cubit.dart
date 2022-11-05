@@ -171,8 +171,8 @@ class LoginCubit extends Cubit<LoginStates> {
         emit(SucessLoginState(loginModel!));
         print(loginModel!.data!.id);
       } else {
-        emit(ErrorLoginState(
-            loginModel!.msg.toString(), loginModel!.errorCode.toString()));
+        emit(ErrorLoginState(loginModel!.msg.toString(), loginModel!.errorCode.toString()));
+        print(loginModel!.errorCode);
       }
     }).catchError((error) {
       print(error.toString());
