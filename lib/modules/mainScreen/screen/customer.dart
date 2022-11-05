@@ -46,6 +46,7 @@ class CustomerScreen extends StatelessWidget {
       onDoubleTap: () {},
       onTap: () {
         navigateTo(context, StoreScreen(
+          long: pro.longitude,
                 id: pro.id,
                 title: pro.name,
                 image: pro.logo,

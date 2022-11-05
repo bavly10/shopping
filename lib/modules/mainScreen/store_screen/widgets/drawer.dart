@@ -6,11 +6,13 @@ import 'package:shopping/Cubit/cubit.dart';
 
 import 'package:shopping/modules/mainScreen/store_screen/widgets/top_screen.dart';
 import 'package:shopping/shared/compononet/connection_dialog.dart';
+import 'package:shopping/shared/compononet/myToast.dart';
 import 'package:shopping/shared/localization/translate.dart';
 import 'package:shopping/shared/my_colors.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 class CustomDrawer extends StatelessWidget {
-  String? image, address, phoneStore, rate;
+  String? image, address, phoneStore, rate,long;
   final String tiltle;
   int? id;
   GlobalKey<ScaffoldState>? skey;
@@ -20,6 +22,7 @@ class CustomDrawer extends StatelessWidget {
       this.address,
       this.image,
       this.id,
+      this.long,
       this.skey,
       this.phoneStore,
       this.rate})
@@ -78,7 +81,14 @@ class CustomDrawer extends StatelessWidget {
                   BoxShadow(color: myBlue, blurRadius: 0.1), //shadow for button
                 ]),
             child: InkWell(
-              onTap: () {},
+              onTap: () {
+                if(long!.startsWith("https:/")){
+                  launchUrlString(long!);
+                }
+              else{
+                myToast(message: "Not availbe ");
+                }
+              },
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,

@@ -5,6 +5,7 @@ import 'package:shopping/shared/compononet/myToast.dart';
 import 'package:shopping/shared/localization/translate.dart';
 import 'package:shopping/shared/my_colors.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 class ConnectoinDialog extends StatelessWidget {
   void Function()? onTap;
@@ -86,7 +87,7 @@ class ConnectoinDialog extends StatelessWidget {
                                 size: 25,
                                 color: myWhite,
                               )),
-                          onTap: () => launch('tel:$phoneStore')),
+                          onTap: () => launchUrlString('tel:$phoneStore')),
                       const Spacer(),
                       InkWell(
                           child: Container(
@@ -105,8 +106,8 @@ class ConnectoinDialog extends StatelessWidget {
                                   size: 26, color: Colors.white)),
                           onTap: () async {
                             var whatsappUrl = "whatsapp://send?phone=$phoneStore";
-                            await canLaunch(whatsappUrl)
-                                ? launch(whatsappUrl)
+                            await canLaunchUrlString(whatsappUrl)
+                                ? launchUrlString(whatsappUrl)
                                 : myToast(
                                     message: mytranslate(context, "what"));
                           })

@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shopping/modules/Customer/login/cubit/cubit.dart';
 import 'package:shopping/shared/localization/translate.dart';
 import 'package:shopping/shared/my_colors.dart';
+import 'package:sizer/sizer.dart';
 
 import '../../modules/Customer/login/cubit/state.dart';
 
@@ -36,7 +37,7 @@ class PrivacyPolicySignupDialog extends StatelessWidget {
                 children: [
                   SizedBox(
                     height: MediaQuery.of(context).size.height,
-                    width: MediaQuery.of(context).size.height * 1,
+                    width: MediaQuery.of(context).size.height * 0.50,
                     child: Padding(
                       padding: const EdgeInsets.fromLTRB(10, 70, 10, 10),
                       child: state is PrivacyPolicyErrorState?Text(mytranslate(context, "error")): Column(
@@ -56,14 +57,15 @@ class PrivacyPolicySignupDialog extends StatelessWidget {
                           ),
                           state is PrivacyPolicyLoadingState?
                               ?  const CircularProgressIndicator()
-                              : SingleChildScrollView(
-                                child: Text(
-                                    model!.data!,
-                                    style: const TextStyle(fontSize: 20),
-                                    maxLines: 40,
-                                  ),
+                              : SizedBox(
+                            height: 60.h,
+                                child: SingleChildScrollView(
+                                  child: Text(
+                                      model!.data!,
+                                      style: const TextStyle(fontSize: 18,height: 2,wordSpacing: 5),
+                                    ),
+                                ),
                               ),
-                          const Spacer(),
                           Row(
                             children: [
                               Checkbox(

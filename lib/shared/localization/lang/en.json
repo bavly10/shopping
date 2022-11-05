@@ -153,7 +153,8 @@
    "morefav":"Its Already In Your Favorite",
    "fav": "Your Favorite Products",
    "emptyFav": "Ops!!!! You Are don't Have Any Product to See",
-   "del": "Do you Want to Delete This item?"
+   "del": "Do you Want to Delete This item?",
+   "location": "Your Link on Google Map"
 
 
 }

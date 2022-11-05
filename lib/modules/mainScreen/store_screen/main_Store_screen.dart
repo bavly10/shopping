@@ -18,7 +18,7 @@ import 'package:sizer/sizer.dart';
 
 
 class StoreScreen extends StatelessWidget {
-  String? adress, phone, image, rate;
+  String? adress, phone, image, rate,long;
   final String title;
   int? id;
 
@@ -28,6 +28,7 @@ class StoreScreen extends StatelessWidget {
       required this.title,
       this.image,
       this.adress,
+      this.long,
       this.phone,
       this.rate})
       : super(key: key);
@@ -55,6 +56,7 @@ class StoreScreen extends StatelessWidget {
           borderRadius: BorderRadius.all(Radius.circular(16)),
         ),
         drawer: CustomDrawer(
+          long: long,
           tiltle: title,
           address: adress,
           image: image,

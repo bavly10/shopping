@@ -28,10 +28,10 @@ class UpdateCustomer extends StatelessWidget {
   TextEditingController namerStore = TextEditingController();
   TextEditingController namerStoreEN = TextEditingController();
   TextEditingController adressCustomer = TextEditingController();
-
   TextEditingController passwordCustomer = TextEditingController();
   TextEditingController nameCustomer = TextEditingController();
   TextEditingController nameCustomerEN = TextEditingController();
+  TextEditingController storeLocation = TextEditingController();
   final GlobalKey<FormState> form = GlobalKey();
 
   @override
@@ -103,6 +103,26 @@ class UpdateCustomer extends StatelessWidget {
                                   child: MyProTextField(
                                     label: model.data!.address,
                                     controller: adressCustomer,
+                                    obcure: false,
+                                    validate: (value) {
+                                      if (value!.isEmpty) {
+                                        return 'You should Fill Field!!';
+                                      }
+                                    },
+                                  ),
+                                ),
+                                Text(
+                                  mytranslate(context, "loc"),
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 18),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                      top: 8.0, bottom: 15),
+                                  child: MyProTextField(
+                                    label: model.data!.longitude,
+                                    controller: storeLocation,
                                     obcure: false,
                                     validate: (value) {
                                       if (value!.isEmpty) {
@@ -274,69 +294,6 @@ class UpdateCustomer extends StatelessWidget {
                                 Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: Center(
-                                    child: DecoratedBox(
-                                        decoration: BoxDecoration(
-                                            color: HexColor(
-                                                '#A7B3CF'), //background color of dropdown button
-                                            border: Border.all(
-                                                color: myGrey!,
-                                                width:
-                                                    0), //border of dropdown button
-                                            borderRadius: BorderRadius.circular(
-                                                25), //border raiuds of dropdown button
-                                            boxShadow: <BoxShadow>[
-                                              //apply shadow on Dropdown button
-                                              BoxShadow(
-                                                  color: myBlue,
-                                                  blurRadius:
-                                                      0.1), //shadow for button
-                                            ]),
-                                        child: InkWell(
-                                          onTap: (() {}),
-                                          child: Row(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.center,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              CircleAvatar(
-                                                backgroundColor: myBlue,
-                                                radius: 15,
-                                                child: const Icon(
-                                                  Icons.add,
-                                                  color: Colors.white,
-                                                ),
-                                              ),
-                                              const SizedBox(width: 30),
-                                              Padding(
-                                                padding:
-                                                    const EdgeInsets.all(5.0),
-                                                child: Text(
-                                                  mytranslate(context, "loc"),
-                                                  style: const TextStyle(
-                                                      color: Colors.white,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      fontSize: 20),
-                                                ),
-                                              )
-                                            ],
-                                          ),
-                                        )),
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Text(
-                                    mytranslate(context, "logos"),
-                                    style: const TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 18),
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Center(
                                       child: DecoratedBox(
                                     decoration: BoxDecoration(
                                         color: HexColor(
@@ -444,6 +401,9 @@ class UpdateCustomer extends StatelessWidget {
                                             nameEn: nameCustomerEN.text.isEmpty
                                                 ? model.data!.nameEn
                                                 : nameCustomerEN.text,
+                                            storeLocation: storeLocation.text.isEmpty
+                                                ? model.data!.longitude
+                                                : storeLocation.text,
                                             context: context,
                                             pass: passwordCustomer.text.isEmpty
                                                 ? null
@@ -457,6 +417,7 @@ class UpdateCustomer extends StatelessWidget {
                                                         .path)
                                                 : null,
                                           );
+                                          print(storeLocation.text);
                                         },
                                         child: Text(
                                           mytranslate(context, "update"),

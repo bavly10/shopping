@@ -11,6 +11,7 @@ import 'package:shopping/shared/strings.dart';
 class SecondScreen extends StatelessWidget {
    SecondScreen({Key? key}) : super(key: key);
    static TextEditingController mobilecontroller=TextEditingController();
+   static TextEditingController AdressController=TextEditingController();
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<LoginCubit,LoginStates>(
@@ -58,8 +59,9 @@ class SecondScreen extends StatelessWidget {
              },
            ),
            const SizedBox(height: 25,),
-           location(context)
-
+           MyTextField(validate: (String? s) {
+             if (s!.isEmpty) return mytranslate(context, "location");
+           },label:mytranslate(context,"location"),controller: AdressController,prefix: Icons.account_circle,type: TextInputType.url, obcure: false,),
          ],
        );
      },

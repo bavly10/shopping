@@ -139,7 +139,7 @@ class LoginCubit extends Cubit<LoginStates> {
       "phone": SecondScreen.mobilecontroller.text,
       "address": mycity ?? "Saudi",
       "longitude": 456,
-      "latitude": 468456,
+      "latitude": "0",
       "title_ar": ThirdScreen.storecotroller.text,
       "title_en":ThirdScreen.storecotrollerEn.text,
       "male": colorMen,
