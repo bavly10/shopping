@@ -8,6 +8,7 @@ import 'package:shopping/modules/Customer/MyOrders/cubit/cubit.dart';
 import 'package:shopping/modules/Customer/MyOrders/cubit/state.dart';
 import 'package:shopping/modules/Customer/MyOrders/widget/EXPTile.dart';
 import 'package:shopping/modules/Customer/MyOrders/widget/pages_container.dart';
+import 'package:shopping/shared/compononet/arrowBack.dart';
 import 'package:shopping/shared/compononet/no_result_search.dart';
 import 'package:shopping/shared/localization/translate.dart';
 import 'package:shopping/shared/my_colors.dart';
@@ -24,9 +25,17 @@ class Orders extends StatelessWidget {
         return Scaffold(
           appBar: AppBar(
               centerTitle: false,
-              title: Text(
-                mytranslate(context, "orders"),
-                style: const TextStyle(fontSize: 16),
+              title: Row(
+                children: [
+                  Text(
+                    mytranslate(context, "orders"),
+                    style: const TextStyle(fontSize: 15),
+                  ),
+                  const Spacer(),
+                  MyArrowBack(onPress: (){
+                    Navigator.pop(context);
+                  }),
+                ],
               ),
               leading: MyTextFiledSearch(search),
               leadingWidth: 300,
@@ -82,7 +91,7 @@ class Orders extends StatelessWidget {
                                         borderRadius: const BorderRadius.all(
                                             Radius.circular(10)),
                                       ),
-                                      child: EXPTile(order: cubit[index])): Container(
+                                      child: EXPTile(order: cubit[index],visable: false,index: index,)): Container(
                                       decoration: BoxDecoration(
                                         color: myGrey,
                                         border: Border.all(
@@ -91,7 +100,7 @@ class Orders extends StatelessWidget {
                                         borderRadius: const BorderRadius.all(
                                             Radius.circular(10)),
                                       ),
-                                      child: EXPTile(order: model[index])),
+                                      child: EXPTile(order: model[index],index: index,visable: false)),
                                 ),
                                 itemCount: search.text.isEmpty?cubit.length:model.length,
                               ),

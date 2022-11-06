@@ -82,11 +82,11 @@ class CustomDrawer extends StatelessWidget {
                 ]),
             child: InkWell(
               onTap: () {
-                if(long!.startsWith("https:/")){
+                if(long!.startsWith("https://goo.gl/maps")){
                   launchUrlString(long!);
                 }
               else{
-                myToast(message: "Not availbe ");
+                myToast(message: mytranslate(context, "loca"));
                 }
               },
               child: Row(

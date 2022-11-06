@@ -1,7 +1,9 @@
+import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_hex_color/flutter_hex_color.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 import 'package:shopping/Cubit/cubit.dart';
 import 'package:shopping/model/language.dart';
@@ -12,6 +14,7 @@ import 'package:shopping/modules/Customer/Static/static.dart';
 import 'package:shopping/modules/Customer/cubit/cubit.dart';
 import 'package:shopping/modules/Customer/cubit/state.dart';
 import 'package:shopping/modules/Customer/more/more.dart';
+import 'package:shopping/modules/Customer/MyOrders/widget/newOrderWidget.dart';
 import 'package:shopping/modules/Customer/products/cubit/cubit.dart';
 import 'package:shopping/modules/Customer/products/cubit/states.dart';
 import 'package:shopping/modules/Customer/products/updateProduct.dart';
@@ -29,6 +32,7 @@ import 'package:shopping/shared/my_colors.dart';
 import 'package:sizer/sizer.dart';
 
 import 'products/createProduct.dart';
+import 'products/details_product/widgets/background_container.dart';
 
 // ignore: must_be_immutable
 class CustomerHome extends StatelessWidget {
@@ -64,6 +68,15 @@ class CustomerHome extends StatelessWidget {
         appBar: AppBar(
           leading: SizedBox(),
        actions: [
+         IconButton(
+           onPressed: (){
+             CustomerOrderCubit.get(context).getOrders(context: context, page: CustomerOrderCubit.get(context).limit).then((value) =>
+                 navigateTo(context, Orders()));
+           },
+           icon: const Icon( MdiIcons.cardsHeart,),
+           color: myBlue,
+           iconSize: 35,
+         ),
           InkWell(
             onTap: () {
               ProductCubit.get(context).getLogout(context).whenComplete(
@@ -77,14 +90,6 @@ class CustomerHome extends StatelessWidget {
               ),
             ),
           ),
-          IconButton(
-              onPressed: () {
-                CustomerOrderCubit.get(context).getOrders(
-                    context: context,
-                    page: CustomerOrderCubit.get(context).limit);
-                navigateTo(context, Orders());
-              },
-              icon: const Icon(Icons.bookmark_border_outlined)),
          const Spacer(),
          DropdownButton(
            onChanged: (lang) {
@@ -113,149 +118,153 @@ class CustomerHome extends StatelessWidget {
            ),
          ),
         ]),
-        body: SingleChildScrollView(
-          physics: const BouncingScrollPhysics(),
-          child: Padding(
-            padding: const EdgeInsets.all(12.0),
-            child: Column(
-                crossAxisAlignment: ShopCubit.xtranslate?CrossAxisAlignment.start:CrossAxisAlignment.end,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Container(
-                        decoration: BoxDecoration(
-                          gradient: myLinear,
-                          borderRadius:
-                              const BorderRadius.all(Radius.circular(20)),
-                        ),
-                        height:15.h,
-                        width: 40.w,
-                        child: InkWell(
-                          onTap: () {
-                            ShopCubit.get(context).getMyShared();
-                            ProductCubit.get(context).showCustomerData(ShopCubit.get(context).customerId, context);
-                          },
-                          child: Center(
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text(
-                                mytranslate(context, "editdata"),
-                                style: TextStyle(
-                                    color: myWhite,
-                                    fontSize: 17,
-                                    fontWeight: FontWeight.w600),
+        body: RefreshIndicator(
+          onRefresh:()async=>await CustomerOrderCubit.get(context).getOrders(context: context,page:0),
+          child: SingleChildScrollView(
+            physics: const BouncingScrollPhysics(),
+            child: Padding(
+              padding: const EdgeInsets.all(12.0),
+              child: Column(
+                  crossAxisAlignment: ShopCubit.xtranslate?CrossAxisAlignment.start:CrossAxisAlignment.end,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                   const NewOrderWidget(),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Container(
+                          decoration: BoxDecoration(
+                            gradient: myLinear,
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(20)),
+                          ),
+                          height:15.h,
+                          width: 40.w,
+                          child: InkWell(
+                            onTap: () {
+                              ShopCubit.get(context).getMyShared();
+                              ProductCubit.get(context).showCustomerData(ShopCubit.get(context).customerId, context);
+                            },
+                            child: Center(
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text(
+                                  mytranslate(context, "editdata"),
+                                  style: TextStyle(
+                                      color: myWhite,
+                                      fontSize: 17,
+                                      fontWeight: FontWeight.w600),
+                                ),
                               ),
                             ),
                           ),
                         ),
-                      ),
-                      const SizedBox(
-                        width: 10,
-                      ),
-                      Container(
-                        decoration: BoxDecoration(
-                          gradient: myLinear,
-                          borderRadius:
-                              const BorderRadius.all(Radius.circular(20)),
+                        const SizedBox(
+                          width: 10,
                         ),
-                        height:15.h,
-                        width:40.w,
-                        child: InkWell(
-                          onTap: () {
-                            CustomerCubit.get(context)
-                                .getStatisticCustomer(
-                                    ShopCubit.get(context).customerId, context)
-                                .then((value) =>
-                                    navigateTo(context, StaticMain()));
-                          },
-                          child: Center(
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text(
-                                mytranslate(context, "track"),
-                                style: TextStyle(
-                                    color: myWhite,
-                                    fontSize: 17,
-                                    fontWeight: FontWeight.w600),
+                        Container(
+                          decoration: BoxDecoration(
+                            gradient: myLinear,
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(20)),
+                          ),
+                          height:15.h,
+                          width:40.w,
+                          child: InkWell(
+                            onTap: () {
+                              CustomerCubit.get(context)
+                                  .getStatisticCustomer(
+                                      ShopCubit.get(context).customerId, context)
+                                  .then((value) =>
+                                      navigateTo(context, StaticMain()));
+                            },
+                            child: Center(
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text(
+                                  mytranslate(context, "track"),
+                                  style: TextStyle(
+                                      color: myWhite,
+                                      fontSize: 17,
+                                      fontWeight: FontWeight.w600),
+                                ),
                               ),
                             ),
                           ),
                         ),
-                      ),
-                    ],
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(20.0),
-                    child: Container(
-                      width: MediaQuery.of(context).size.width * .90,
-                      height: MediaQuery.of(context).size.height * .07,
-                      decoration: BoxDecoration(
-                          color: myBlue,
-                          shape: BoxShape.rectangle,
-                          borderRadius: BorderRadius.circular(20)),
-                      child: MaterialButton(
-                        onPressed: () {
-                          ProductCubit.get(context).imageFileList = [];
-                          // ProductCubit.get(context).imageFileList.length = 0;
-                          navigateTo(context, CreatePro(id: id,)) ;
-                        },
-                        child: Text(
-                          mytranslate(context, "addpro"),
-                          style: const TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 18),
+                      ],
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(20.0),
+                      child: Container(
+                        width: MediaQuery.of(context).size.width * .90,
+                        height: MediaQuery.of(context).size.height * .07,
+                        decoration: BoxDecoration(
+                            color: myBlue,
+                            shape: BoxShape.rectangle,
+                            borderRadius: BorderRadius.circular(20)),
+                        child: MaterialButton(
+                          onPressed: () {
+                            ProductCubit.get(context).imageFileList = [];
+                            // ProductCubit.get(context).imageFileList.length = 0;
+                            navigateTo(context, CreatePro(id: id,)) ;
+                          },
+                          child: Text(
+                            mytranslate(context, "addpro"),
+                            style: const TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 18),
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                  Divider(height: 1,color: myBlack,),
-                  Row(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(4.0),
-                        child: Text(
-                          mytranslate(context, "pro"),
-                          style: const TextStyle(
-                              fontSize: 14, fontWeight: FontWeight.w600),
-                        ),
-                      ),
-                      const Spacer(),
-                      TextButton(
-                          onPressed: () {
-                            ProductCubit.get(context).pagnationDataLimit();
-                            ProductCubit.get(context)
-                                .getProducts(
-                                    context, ProductCubit.get(context).limit)
-                                .then((value) => navigateTo(
-                                    context, MoreProductsCustomer()));
-                          },
+                    Divider(height: 1,color: myBlack,),
+                    Row(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(4.0),
                           child: Text(
-                            mytranslate(context, "more"),
-                            style: TextStyle(
-                                decoration: TextDecoration.underline,
-                                color: myBlue,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 16),
-                          )),
-                    ],
-                  ),
-                  state is GettingProductDataNull
-                      ? const NoResultSearch()
-                      : ListView.builder(
-                          physics: const NeverScrollableScrollPhysics(),
-                          shrinkWrap: true,
-                          reverse: true,
-                          itemBuilder: (context, index) {
-                            return productItem.isEmpty
-                                ? const NoResultSearch()
-                                : myCard(context: context, pro: productItem[index]);
-                          },
-                          itemCount: productItem.length)
-                ]),
+                            mytranslate(context, "pro"),
+                            style: const TextStyle(
+                                fontSize: 14, fontWeight: FontWeight.w600),
+                          ),
+                        ),
+                        const Spacer(),
+                        TextButton(
+                            onPressed: () {
+                              ProductCubit.get(context).pagnationDataLimit();
+                              ProductCubit.get(context)
+                                  .getProducts(
+                                      context, ProductCubit.get(context).limit)
+                                  .then((value) => navigateTo(
+                                      context, MoreProductsCustomer()));
+                            },
+                            child: Text(
+                              mytranslate(context, "more"),
+                              style: TextStyle(
+                                  decoration: TextDecoration.underline,
+                                  color: myBlue,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16),
+                            )),
+                      ],
+                    ),
+                    state is GettingProductDataNull
+                        ? const NoResultSearch()
+                        : ListView.builder(
+                            physics: const NeverScrollableScrollPhysics(),
+                            shrinkWrap: true,
+                            reverse: true,
+                            itemBuilder: (context, index) {
+                              return productItem.isEmpty
+                                  ? const NoResultSearch()
+                                  : myCard(context: context, pro: productItem[index]);
+                            },
+                            itemCount: productItem.length)
+                  ]),
+            ),
           ),
         ),
       );

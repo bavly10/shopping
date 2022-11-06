@@ -96,12 +96,12 @@ class HomeScreen extends StatelessWidget {
   Widget myAppBarSearch(context) {
     return Padding(
       padding: const EdgeInsets.all(12.0),
-      child: PlayAnimation<double>(
+      child: PlayAnimationBuilder<double>(
         tween: Tween(begin: 0.0, end: MediaQuery.of(context).size.width * 0.75),
         duration: const Duration(seconds: 1),
         delay: const Duration(milliseconds: 20),
         curve: Curves.easeOut,
-        builder: (context, child, value) {
+        builder: (context, value, child) {
           return Row(
             children: [
               Container(

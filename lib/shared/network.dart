@@ -28,3 +28,4 @@ String latestProducts = "/latest-product";
 String statistics = "/get-statistics";
 String forgetPass = "https://kash5tak.com/password/reset";
 String sallaPrivacy = "/privacy-policy-sala";
+String updateOrder = "/read-talap";

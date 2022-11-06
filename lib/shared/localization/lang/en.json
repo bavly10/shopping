@@ -104,7 +104,7 @@
    "ph": "Please Enter Your phone number",
    "no": "Phone Number :",
    "costt": "Purchase amount per product:  ",
-   "tot": "Total",
+
    "q": "Quantity",
    "excd": "Operation accomplished successfully",
    "prog": "It is being worked on and will be contacted at the number below.",
@@ -154,7 +154,9 @@
    "fav": "Your Favorite Products",
    "emptyFav": "Ops!!!! You Are don't Have Any Product to See",
    "del": "Do you Want to Delete This item?",
-   "location": "Your Link on Google Map"
-
-
+   "location": "Your Link on Google Map",
+   "loca": "Sorry this Location Not Available",
+   "newOrder": "Ooh You Get a a Lot Of Orders",
+   "dialogOrder":"Are You Sure to confirm This order?",
+   "time": "Date :"
 }

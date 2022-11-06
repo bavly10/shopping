@@ -15,3 +15,11 @@ LinearGradient myLinear=const LinearGradient(
     Color(0xFf515151)
   ],
 );
+LinearGradient myLinears=const LinearGradient(
+  begin: Alignment.topRight,
+  end: Alignment.bottomLeft,
+  colors: [
+   Colors.redAccent,
+   Colors.red
+  ],
+);
