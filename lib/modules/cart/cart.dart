@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shopping/Cubit/cubit.dart';
@@ -132,27 +133,25 @@ class CartScreen extends StatelessWidget {
                   const SizedBox(
                     height: 5,
                   ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Container(
-                      height: 1,
-                      width: MediaQuery.of(context).size.width * .6,
-                      color: Colors.black45,
-                    ),
-                  ),
                   Container(
-                    margin:
-                        const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
-                    // height: MediaQuery.of(context).size.height * .3,
-                    color: myLightBlue,
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    margin:const  EdgeInsets.symmetric(horizontal: 2),
+                    decoration: BoxDecoration(
+                      borderRadius:BorderRadius.circular(25.0),
+                      border: Border.all(color: Colors.black,width: 0.5)
+                    ),
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                       mainAxisSize: MainAxisSize.min,
                         children: [
+                          Text(mytranslate(context, "paymentDet"),style: const TextStyle(fontWeight: FontWeight.bold,color: Colors.black,fontSize: 18),),
+                          const SizedBox(height: 10,),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text(mytranslate(context, "price"),
+                              Text(mytranslate(context, "pricee"),
                                   style: const TextStyle(
                                       fontSize: 18,
                                       fontWeight: FontWeight.w400)),
@@ -179,7 +178,6 @@ class CartScreen extends StatelessWidget {
                                             fontWeight: FontWeight.bold)),
                                   ],
                                 ),
-
                           Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
@@ -195,7 +193,6 @@ class CartScreen extends StatelessWidget {
                                             fontWeight: FontWeight.bold)) : Text(mytranslate(context, "free")),
                                   ]
                                 ),
-
                           const Divider(
                             color: Colors.blueAccent,
                           ),
@@ -206,10 +203,11 @@ class CartScreen extends StatelessWidget {
                                   style: const TextStyle(
                                     fontSize: 18,
                                   )),
-                              Text("$result ${mytranslate(context, "wd")}")
+                              Text("$result ${mytranslate(context, "wd")}",style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold),)
                             ],
                           ),
                           BlueButton(
+
                               color: cubit.items.isEmpty
                                   ? Colors.grey[600]
                                   : myBlue,
@@ -233,9 +231,6 @@ class CartScreen extends StatelessWidget {
                                                   onTaps: () {
                                                     cubit.items.forEach(
                                                         (key, value) async {
-                                                      print(value.size.toString());
-                                                      print(value.id.toString());
-                                                      print(CustomerCubit.get(context).userId);
                                                       await cubit.createOrder(
                                                         size: value.size.toString(),
                                                         price: value.price.toString(),
@@ -254,37 +249,25 @@ class CartScreen extends StatelessWidget {
                                         showDialog(
                                             context: context,
                                             builder: (context) {
-                                              return CheckDialog(
-                                                widget: SignupCartDialog(
-                                                  onTaps: () {
-                                                    cubit.items.forEach(
-                                                        (key, value) async {
-                                                      print(value.size
-                                                          .toString());
-                                                      print(
-                                                          value.id.toString());
-                                                      print(CustomerCubit.get(
-                                                              context)
-                                                          .userId);
-                                                      await cubit.createOrder(
-                                                        size: value.size
-                                                            .toString(),
-                                                        price: value.price
-                                                            .toString(),
-                                                        many: value.quantity
-                                                            .toString(),
-                                                        customerID:
-                                                            CustomerCubit.get(
-                                                                    context)
-                                                                .userId,
-                                                        productID:
-                                                            value.id.toString(),
-                                                      );
-                                                    });
-                                                  },
+                                              return PrivacyPolicyDialog(
+                                                text: salla!.data,
+                                                id: ShopCubit.get(context).userId,
+                                                widget: CheckDialog(
+                                                  widget: SignupCartDialog(
+                                                    onTaps: () {
+                                                      cubit.items.forEach((key, value) async {
+                                                        await cubit.createOrder(
+                                                          size: value.size.toString(),
+                                                          price: value.price.toString(),
+                                                          many: value.quantity.toString(),
+                                                          customerID: CustomerCubit.get(context).userId,
+                                                          productID: value.id.toString(),
+                                                        );
+                                                      });
+                                                    },
+                                                  ),
+                                                  id: ShopCubit.get(context).userId,
                                                 ),
-                                                id: ShopCubit.get(context)
-                                                    .userId,
                                               );
                                             });
                                       }

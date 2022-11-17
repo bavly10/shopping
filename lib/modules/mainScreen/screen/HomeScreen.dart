@@ -29,6 +29,7 @@ class HomeScreen extends StatelessWidget {
           body: SingleChildScrollView(
             child: Column(
               children: [
+                const SizedBox(height: 20,),
                  cubit.changeAppBar
                     ? myAppBar(context)
                     : myAppBarSearch(context),

@@ -55,7 +55,7 @@ class Setting extends StatelessWidget {
                       top: 5,
                     ),
                     child: CustomListTile(
-                      textTitle: "privacy",
+                      textTitle: "about",
                       trailingIcon: Icons.arrow_forward_ios_rounded,
                       onTap: () {
 
@@ -69,7 +69,7 @@ class Setting extends StatelessWidget {
                       onChanged: (lang) {
                         ShopCubit.get(context).changeLang(lang);
                         DioHelper.init();
-                        ShopCubit.get(context).getCategoriesData(ShopCubit.get(context).type[ShopCubit.get(context).counter!]);
+                        ShopCubit.get(context).getCategoriesData(ShopCubit.get(context).type[ShopCubit.get(context).counter!]).then((value) => Navigator.pop(context));
                       },
 
                       hint: Text(

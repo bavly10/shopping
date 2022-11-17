@@ -1,9 +1,7 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:shopping/Cubit/cubit.dart';
 import 'package:shopping/model/categoryModel.dart';
 import 'package:shopping/shared/compononet/MyCachedNetworkImage.dart';
-import 'package:shopping/shared/compononet/no_result_search.dart';
 import 'package:shopping/shared/localization/translate.dart';
 import 'package:shopping/shared/my_colors.dart';
 import 'package:sizer/sizer.dart';
@@ -66,7 +64,7 @@ class CategoryScreen extends StatelessWidget {
                             decoration: BoxDecoration(
                               color: index == ShopCubit.get(context).selected
                                   ? myBlue
-                                  : myLightBlue,
+                                  : Colors.grey,
                               borderRadius: BorderRadius.circular(15.0),
                             ),
                             child: ShopCubit.get(context).searchCat.isEmpty

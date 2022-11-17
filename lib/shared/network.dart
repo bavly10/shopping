@@ -5,15 +5,13 @@ String login = "/login";
 String logout = "/logout";
 String category = "/categories";
 String createProduct = "/create-product";
-String getProduct =
-    "/get-product"; //userid; // بتاع الشخص هيرجعلك المنتجات بتاعته كلها بالباجينيشن كل صفحة فيها 3 منتجات
+String getProduct = "/get-product"; //userid; // بتاع الشخص هيرجعلك المنتجات بتاعته كلها بالباجينيشن كل صفحة فيها 3 منتجات
 String updateProduct = "/update-product"; //id
 String showProduct = "/show-product";
 String deleteProduct = "/delete-product"; //id
 String deleteProductImage = "/delete-product-image"; //id
 String updateUser = "/update-user"; //user_id
 String showUser = "/show-user"; //user_id
-String ship = "/ship";
 String shipView = "/ship-view"; //id
 String getCustomer = "/get-customer"; //category_id
 String insertCustomer = "/insert-customer";

@@ -80,14 +80,14 @@
    "amu": "Amount",
    "order": "Order Now",
    "sizes": "Sizes",
-   "confirm": "Confirm Order",
-   "cost": "Shipping cost",
+   "confirm": "Place order",
+   "cost": "Delivery fees",
    "empty": "Card is empty",
    "bag": "My Bag",
    "prod": "Products",
    "total": "Total Cost",
    "wd": "WD",
-   "pricee": "Price :",
+   "pricee": "Subtotal",
    "totals": "Total : ",
    "exc": "Exceeding Avialable Quantitiy",
    "nott": "Not Allowed",
@@ -158,5 +158,7 @@
    "loca": "Sorry this Location Not Available",
    "newOrder": "Ooh You Get a a Lot Of Orders",
    "dialogOrder":"Are You Sure to confirm This order?",
-   "time": "Date :"
+   "time": "Date :",
+   "about": "About us",
+   "paymentDet": "Payment details"
 }

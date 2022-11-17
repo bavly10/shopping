@@ -90,23 +90,6 @@ class ShopCubit extends Cubit<ShopStates> {
     emit(ChangeIndexBar());
   }
 
-  ///////////////Get Shipping////////////
-  ShippingModel? shippingModel;
-  Future<void> getShippingData(context) async {
-    emit(GettingShippingDataLoadingState());
-    Map<String, dynamic> header = {
-      "auth-token": ShopCubit.get(context).customerToken
-    };
-    DioHelper.getData(url: ship, option: header).then((value) {
-      shippingModel = ShippingModel.fromJson(value.data);
-      print(shippingModel.toString());
-      print(value.data);
-      emit(GettingShippingDataSueccesState());
-    }).catchError((onError) {
-      print(onError.toString());
-      emit(GettingShippingDataErrorState());
-    });
-  }
 
 //////////////////////////splash///////////
   SplashModel? splashModel;

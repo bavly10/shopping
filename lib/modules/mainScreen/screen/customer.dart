@@ -28,8 +28,8 @@ class CustomerScreen extends StatelessWidget {
             mainAxisSpacing:16,
             crossAxisSpacing:2,
             pattern: [
-              const WovenGridTile(13 / 24, crossAxisRatio: .7),
-              const WovenGridTile(13 / 24, crossAxisRatio: .7,
+              const WovenGridTile(13 / 22, crossAxisRatio: .8),
+              const WovenGridTile(13 / 22, crossAxisRatio: .8,
               ),
             ],
           ),

@@ -81,6 +81,7 @@ class CheckDialog extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.all(25.0),
                     child: InkWell(
+                        onDoubleTap: (){},
                         child: Container(
                           width: MediaQuery.of(context).size.width * .5,
                           padding: const EdgeInsets.all(15),

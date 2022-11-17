@@ -110,7 +110,7 @@ class _LoginState extends State<Login> {
                     mytranslate(context, "loginText1"),
                     style: TextStyle(
                         color: myBlack,
-                        fontSize: 22,
+                        fontSize: 18,
                         fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(

@@ -5,6 +5,7 @@ import 'package:shopping/modules/Customer/products/cubit/states.dart';
 import 'package:shopping/shared/compononet/check_phone_cart.dart';
 import 'package:shopping/shared/localization/translate.dart';
 import 'package:shopping/shared/my_colors.dart';
+import 'package:sizer/sizer.dart';
 
 class PrivacyPolicyDialog extends StatelessWidget {
   String? text;
@@ -31,7 +32,7 @@ class PrivacyPolicyDialog extends StatelessWidget {
               alignment: Alignment.topCenter,
               children: [
                 SizedBox(
-                  height: MediaQuery.of(context).size.height * .80,
+                  height:85.h,
                   width: MediaQuery.of(context).size.width * .999,
                   child: Padding(
                     padding: const EdgeInsets.fromLTRB(10, 70, 10, 10),
@@ -54,12 +55,15 @@ class PrivacyPolicyDialog extends StatelessWidget {
                             ? const Center(
                                 child: CircularProgressIndicator(),
                               )
-                            : Text(
-                                text!,
-                                style: const TextStyle(fontSize: 20),
-                                maxLines: 40,
-                              ),
-                        const Spacer(),
+                            : SizedBox(
+                          height: 60.h,
+                          child: SingleChildScrollView(
+                            child: Text(
+                             text!,
+                              style: const TextStyle(fontSize: 18,height: 2,wordSpacing: 5),
+                            ),
+                          ),
+                        ),
                         Row(
                           children: [
                             Checkbox(
