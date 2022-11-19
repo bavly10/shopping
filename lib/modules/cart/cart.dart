@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:shopping/modules/cart/widget/floatingOrder.dart';
 import 'package:shopping/shared/compononet/myToast.dart';
 import 'package:slide_popup_dialog_null_safety/slide_popup_dialog.dart' as slideDialog;
@@ -38,11 +39,9 @@ class CartScreen extends StatelessWidget {
         return SafeArea(
           child: Scaffold(
             floatingActionButton: x?null:(
-                FloatingActionButton.extended(
+                FloatingActionButton(
               elevation: 2,
-              label: const Text('Approve'),
-              icon: const Icon(Icons.thumb_up),
-              backgroundColor: myLightBlue,
+              child: const Icon(MdiIcons.goKart),
               onPressed: () async{
                await cubit.getEarn();
               },

@@ -27,7 +27,7 @@ class Cartitemapp extends StatelessWidget {
     return Card(
       elevation: 2,
       color: myWhite,
-      margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+      margin: const EdgeInsets.symmetric(vertical: 2),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -80,9 +80,9 @@ class Cartitemapp extends StatelessWidget {
                       onTap: () {
                         ProductCubit.get(context).removeitem(proid);
                       },
-                      child: Icon(
+                      child: const Icon(
                         Icons.cancel_sharp,
-                        color: myBlue,
+                        color: Colors.red,
                       ),
                     ),
                   ),
@@ -95,14 +95,15 @@ class Cartitemapp extends StatelessWidget {
                       children: [
                         Expanded(child: Container(
                           decoration: BoxDecoration(
-                              border: Border.all(color: myBlack),
-                              borderRadius: BorderRadius.circular(15)),
+                            color: myBlue,
+                              border: Border.all(color: myBlue),
+                              borderRadius: BorderRadius.circular(10)),
                           child: InkWell(
                             child: Center(
                               child: Icon(
                                 Icons.add,
                                 size: 22,
-                                color: myBlue,
+                                color: myWhite,
                               ),
                             ),
                             onTap: () {
@@ -123,7 +124,7 @@ class Cartitemapp extends StatelessWidget {
                             style: TextStyle(
                               color: myBlue,
                               fontWeight: FontWeight.bold,
-                              fontSize: 20,
+                              fontSize: 18,
                             ),
                           ),
                         ),
@@ -134,13 +135,14 @@ class Cartitemapp extends StatelessWidget {
                             },
                             child: Container(
                               decoration: BoxDecoration(
-                                color: Colors.red,
-                                  border: Border.all(color: myBlack),
-                                  borderRadius: BorderRadius.circular(15)),
-                              child: Icon(
-                               MdiIcons.minus,
-                                size: 22,
-                                color: myWhite,
+                                color: myBlacks,
+                                  borderRadius: BorderRadius.circular(10)),
+                              child: Center(
+                                child: Icon(
+                                 MdiIcons.minus,
+                                  size: 22,
+                                  color: myWhite,
+                                ),
                               ),
                             ),
                           ),
