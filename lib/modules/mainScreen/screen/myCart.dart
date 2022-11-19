@@ -15,18 +15,7 @@ class CartWidget extends StatelessWidget {
   const CartWidget({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<ProductCubit,ProductStates>(
-      listener: (ctx,state){
-        if (state is ShopEarnLoadingState ){
-          showDialog(
-              context: context, builder: (context) => const LoadingDialog());
-        }else if (state is ShopEarnSuessState){
-          navigateToFinish(context, CartScreen());
-        }else if (state is ErrorEarnState){
-          Navigator.pop(context);
-          myToast(message:mytranslate(context, "error"));
-        }else{}
-      },
+    return BlocBuilder<ProductCubit,ProductStates>(
       builder: (ctx,state){
         final cubit=ProductCubit.get(context);
         return Padding(
@@ -47,7 +36,9 @@ class CartWidget extends StatelessWidget {
                 const Spacer(),
                 InkWell(
                   onDoubleTap: (){},
-                  onTap: ()=>cubit.getEarn(),
+                  onTap: () {
+                    navigateToFinish(context, CartScreen());
+                  },
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Badge(

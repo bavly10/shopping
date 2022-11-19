@@ -1,56 +1,53 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shopping/Cubit/cubit.dart';
-import 'package:shopping/model/owner_earn_model.dart';
-import 'package:shopping/modules/Customer/cubit/cubit.dart';
+import 'package:shopping/modules/cart/widget/floatingOrder.dart';
+import 'package:shopping/shared/compononet/myToast.dart';
+import 'package:slide_popup_dialog_null_safety/slide_popup_dialog.dart' as slideDialog;
 import 'package:shopping/modules/Customer/products/cubit/cubit.dart';
 import 'package:shopping/modules/Customer/products/cubit/states.dart';
-import 'package:shopping/modules/OrderStauts/Success.dart';
-import 'package:shopping/modules/OrderStauts/failed.dart';
 import 'package:shopping/modules/cart/widget/widget_cart.dart';
-import 'package:shopping/shared/compononet/blueButton.dart';
-import 'package:shopping/shared/compononet/componotents.dart';
-import 'package:shopping/shared/compononet/privacy_dialog.dart';
 import 'package:shopping/shared/localization/translate.dart';
 import 'package:shopping/shared/my_colors.dart';
 
-import '../../shared/compononet/check_phone_cart.dart';
-import '../../shared/compononet/sign_up_cart.dart';
 
 class CartScreen extends StatelessWidget {
-  double totalamount = 0.0;
-  double? priceShip=0.0;
-  double? priceOwner=0.0;
-  final GlobalKey<ScaffoldState> skey = GlobalKey<ScaffoldState>();
-
+  bool x=false;
   @override
   Widget build(BuildContext context) {
-    var salla = ProductCubit.get(context).privacySalla;
     return BlocConsumer<ProductCubit, ProductStates>(
       listener: (ctx, state) {
-        if (state is InsertOrderSucessState) {
-          navigateToFinish(
-              context,
-              const SuccessOrder(
-                phone: "06510355051",
-              ));
-          //  ProductCubit.get(context).accept = false;
-        } else if (state is InsertOrderErrorState) {
-          navigateToFinish(context, const FailedOrder());
-          ProductCubit.get(context).accept = false;
-        }
+        if (state is ShopEarnLoadingState ){
+          x=true;
+          myToast(message:mytranslate(context, "loading"));
+        }else if (state is ShopEarnSuessState){
+          x=false;
+          slideDialog.showSlideDialog(
+            context: context,
+            child: MyFloating(),
+            pillColor: Colors.red,
+            backgroundColor: myWhite,
+          );
+        }else if (state is ErrorEarnState){
+          x=false;
+          Navigator.pop(context);
+          myToast(message:mytranslate(context, "error"));
+        }else{}
       },
       builder: (ctx, state) {
         final cubit = ProductCubit.get(context);
-        totalamount = cubit.totalamount;
-        final ownerEarn = cubit.ownerEarn;
-        ownerEarn!.data!.shopingEarnActive == "true" ? priceShip = double.parse("${ownerEarn.data?.shopingEarn}") : priceShip = 0.0;
-        ownerEarn.data?.ownerEarnActive == "true" ? priceOwner = double.parse("${ownerEarn.data?.ownerEarn}") : priceOwner = 0.0;
-        double result=totalamount+priceShip!+priceOwner!;
         return SafeArea(
           child: Scaffold(
-            key: skey,
+            floatingActionButton: x?null:(
+                FloatingActionButton.extended(
+              elevation: 2,
+              label: const Text('Approve'),
+              icon: const Icon(Icons.thumb_up),
+              backgroundColor: myLightBlue,
+              onPressed: () async{
+               await cubit.getEarn();
+              },
+            )),
+            backgroundColor: myWhite,
             body: Padding(
               padding: const EdgeInsets.all(4.0),
               child: Column(
@@ -113,6 +110,7 @@ class CartScreen extends StatelessWidget {
                                 color: myBlue),
                           ))
                         : ListView.builder(
+                            physics: const BouncingScrollPhysics(),
                             itemCount: cubit.items.length,
                             itemBuilder: (ctx, index) => Cartitemapp(
                                   size: cubit.items.values.toList()[index].size,
@@ -129,155 +127,6 @@ class CartScreen extends StatelessWidget {
                                       cubit.items.values.toList()[index].price,
                                   rate: cubit.items.values.toList()[index].rate,
                                 )),
-                  ),
-                  const SizedBox(
-                    height: 5,
-                  ),
-                  Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 10),
-                    margin:const  EdgeInsets.symmetric(horizontal: 2),
-                    decoration: BoxDecoration(
-                      borderRadius:BorderRadius.circular(25.0),
-                      border: Border.all(color: Colors.black,width: 0.5)
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                       mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Text(mytranslate(context, "paymentDet"),style: const TextStyle(fontWeight: FontWeight.bold,color: Colors.black,fontSize: 18),),
-                          const SizedBox(height: 10,),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(mytranslate(context, "pricee"),
-                                  style: const TextStyle(
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.w400)),
-                              Text("$totalamount ${mytranslate(context, "wd")}",
-                                  style: const TextStyle(
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.bold)),
-                            ],
-                          ),
-                         Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(mytranslate(context, "cost"),
-                                        style: const TextStyle(
-                                          fontSize: 18,
-                                        )),
-                                    ownerEarn.data?.shopingEarnActive == "true"? Text("$priceShip ${mytranslate(context, "wd")}",
-                                        style: const TextStyle(
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.bold)):Text(mytranslate(context, "free"),
-                                        style: const TextStyle(
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.bold)),
-                                  ],
-                                ),
-                          Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(mytranslate(context, "tax"), style: const TextStyle(
-                                          fontSize: 18,
-                                        )),
-                                    ownerEarn.data?.ownerEarnActive == "true"?
-                                    Text(
-                                        "$priceOwner ${mytranslate(context, "wd")}",
-                                        style: const TextStyle(
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.bold)) : Text(mytranslate(context, "free")),
-                                  ]
-                                ),
-                          const Divider(
-                            color: Colors.blueAccent,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(mytranslate(context, "total"),
-                                  style: const TextStyle(
-                                    fontSize: 18,
-                                  )),
-                              Text("$result ${mytranslate(context, "wd")}",style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold),)
-                            ],
-                          ),
-                          BlueButton(
-
-                              color: cubit.items.isEmpty
-                                  ? Colors.grey[600]
-                                  : myBlue,
-                              title: Text(
-                                mytranslate(context, "confirm"),
-                                style: TextStyle(
-                                    color: myWhite,
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                              onpress: cubit.items.isNotEmpty
-                                  ? () {
-                                      if (!cubit.accept) {
-                                        showDialog(
-                                            context: skey.currentContext!,
-                                            builder: (context) {
-                                              return PrivacyPolicyDialog(
-                                                text: salla!.data,
-                                                id: ShopCubit.get(context).userId,
-                                                widget: SignupCartDialog(
-                                                  onTaps: () {
-                                                    cubit.items.forEach(
-                                                        (key, value) async {
-                                                      await cubit.createOrder(
-                                                        size: value.size.toString(),
-                                                        price: value.price.toString(),
-                                                        many: value.quantity.toString(),
-                                                        customerID: CustomerCubit.get(context).userId,
-                                                        productID: value.id.toString(),
-                                                      );
-                                                    });
-                                                    ProductCubit.get(context)
-                                                        .accept = false;
-                                                  },
-                                                ),
-                                              );
-                                            });
-                                      } else {
-                                        showDialog(
-                                            context: context,
-                                            builder: (context) {
-                                              return PrivacyPolicyDialog(
-                                                text: salla!.data,
-                                                id: ShopCubit.get(context).userId,
-                                                widget: CheckDialog(
-                                                  widget: SignupCartDialog(
-                                                    onTaps: () {
-                                                      cubit.items.forEach((key, value) async {
-                                                        await cubit.createOrder(
-                                                          size: value.size.toString(),
-                                                          price: value.price.toString(),
-                                                          many: value.quantity.toString(),
-                                                          customerID: CustomerCubit.get(context).userId,
-                                                          productID: value.id.toString(),
-                                                        );
-                                                      });
-                                                    },
-                                                  ),
-                                                  id: ShopCubit.get(context).userId,
-                                                ),
-                                              );
-                                            });
-                                      }
-                                    }
-                                  : null,
-                              hight: 0.07,
-                              width: MediaQuery.of(context).size.width)
-                        ],
-                      ),
-                    ),
                   ),
                 ],
               ),

@@ -1,7 +1,10 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:shopping/modules/Customer/products/cubit/cubit.dart';
 import 'package:shopping/shared/localization/translate.dart';
+import 'package:sizer/sizer.dart';
 
 import '../../../shared/my_colors.dart';
 
@@ -21,158 +24,137 @@ class Cartitemapp extends StatelessWidget {
       this.rate});
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        const SizedBox(
-          height: 10,
-        ),
-        Card(
-          elevation: 0,
-          color: myGrey,
-          margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 4),
-          child: Padding(
-              padding: const EdgeInsets.only(
-                bottom: 5,
-              ),
-              child: Column(
+    return Card(
+      elevation: 2,
+      color: myWhite,
+      margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              CircleAvatar(backgroundImage:NetworkImage(imgurl) ,radius: 6.6.h,),
+              SizedBox(width: 5.w),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.only(top: 5.0, right: 5),
-                    child: Align(
-                      alignment: Alignment.topRight,
-                      child: InkWell(
-                        onTap: () {
-                          ProductCubit.get(context).removeitem(proid);
-                        },
-                        child: Icon(
-                          Icons.cancel_sharp,
-                          color: myBlue,
-                        ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        title,
+                        style: const TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.bold),
+                      ),
+                      Text(
+                        "${mytranslate(context, "price")}:  $price",
+                        style: const TextStyle(
+                            fontWeight: FontWeight.w600,
+                            color: Colors.black54,
+                            fontSize: 15),
+                      ),
+                      Row(
+                        children: [
+                          Text(
+                            mytranslate(context, "totals"), style: const TextStyle(color: Colors.black54, fontWeight: FontWeight.w600, fontSize: 15),
+                          ),
+                          Text(
+                            "${price * quant}",
+                            style: const TextStyle(
+                                color: Colors.lightBlue, fontWeight: FontWeight.bold),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+              const Spacer(),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  Align(
+                    alignment: Alignment.topRight,
+                    child: InkWell(
+                      onTap: () {
+                        ProductCubit.get(context).removeitem(proid);
+                      },
+                      child: Icon(
+                        Icons.cancel_sharp,
+                        color: myBlue,
                       ),
                     ),
                   ),
-                  Row(children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Container(
-                        height: MediaQuery.of(context).size.height * .14,
-                        width: MediaQuery.of(context).size.width * .16,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          // shape: BoxShape.circle,
-                          image: DecorationImage(
-                            image: NetworkImage(imgurl),
+                   SizedBox(height: 4.h,),
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width * .23,
+                    height: MediaQuery.of(context).size.height * .05,
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Expanded(child: Container(
+                          decoration: BoxDecoration(
+                              border: Border.all(color: myBlack),
+                              borderRadius: BorderRadius.circular(15)),
+                          child: InkWell(
+                            child: Center(
+                              child: Icon(
+                                Icons.add,
+                                size: 22,
+                                color: myBlue,
+                              ),
+                            ),
+                            onTap: () {
+                              ProductCubit.get(context).additem(
+                                  proid: proid,
+                                  imgurl: imgurl,
+                                  title: title,
+                                  price: price,
+                                  size: size,
+                                  qua: quant);
+                            },
+                          ),
+                        )),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 8.0,right: 8.0),
+                          child: Text(
+                            quant.toString(),
+                            style: TextStyle(
+                              color: myBlue,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20,
+                            ),
                           ),
                         ),
-                      ),
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text(
-                                title,
-                                style: const TextStyle(
-                                    fontSize: 18, fontWeight: FontWeight.bold),
+                        Expanded(
+                          child: InkWell(
+                            onTap: () {
+                              ProductCubit.get(context).removesingleitem(proid);
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: Colors.red,
+                                  border: Border.all(color: myBlack),
+                                  borderRadius: BorderRadius.circular(15)),
+                              child: Icon(
+                               MdiIcons.minus,
+                                size: 22,
+                                color: myWhite,
                               ),
                             ),
-                            SizedBox(
-                              width: MediaQuery.of(context).size.width * .30,
-                            ),
-                          ],
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 10.0),
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                "${mytranslate(context, "pricee")} $price",
-                                style: const TextStyle(
-                                    fontWeight: FontWeight.w600,
-                                    color: Colors.black54,
-                                    fontSize: 15),
-                              ),
-                              const SizedBox(
-                                width: 43,
-                              ),
-                              Container(
-                                alignment: Alignment.center,
-                                width: MediaQuery.of(context).size.width * .29,
-                                height:
-                                    MediaQuery.of(context).size.height * .05,
-                                decoration: BoxDecoration(
-                                    border: Border.all(color: myBlue),
-                                    borderRadius: BorderRadius.circular(10)),
-                                child: Row(
-                                   crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Expanded(
-                                        child: InkWell(
-                                      child: Icon(
-                                        Icons.add,
-                                        size: 22,
-                                        color: myBlue,
-                                      ),
-                                      onTap: () {
-                                        ProductCubit.get(context).additem(
-                                            proid: proid,
-                                            imgurl: imgurl,
-                                            title: title,
-                                            price: price,
-                                            size: size,
-                                            qua: quant);
-                                      },
-                                    )),
-                                    Text(
-                                      quant.toString(),
-                                      style: TextStyle(
-                                        color: myBlue,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 18,
-                                      ),
-                                    ),
-                                    Expanded(
-                                      child: InkWell(
-                                        child: Padding(
-                                          padding: const EdgeInsets.only(bottom: 25.0),
-                                          child: Icon(
-                                            Icons.minimize,
-                                            size: 22,
-                                            color: myBlue,
-                                          ),
-                                        ),
-                                        onTap: () {
-                                          ProductCubit.get(context)
-                                              .removesingleitem(proid);
-                                        },
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
                           ),
                         ),
                       ],
                     ),
-                  ]),
-                  const SizedBox(
-                    height: 8,
                   ),
-                  Text(
-                    "${mytranslate(context, "totals")} ${price * quant}",
-                    style: const TextStyle(
-                        color: Colors.lightBlue, fontWeight: FontWeight.bold),
-                  )
                 ],
-              )),
-        ),
-      ],
+              ),
+            ],
+          ),
+          SizedBox(height: 4.h,)
+        ],
+      ),
     );
   }
 }

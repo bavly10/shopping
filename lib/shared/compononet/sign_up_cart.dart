@@ -35,14 +35,12 @@ class SignupCartDialog extends StatelessWidget {
         key: formKey,
         child: SingleChildScrollView(
           child: Container(
-            width: MediaQuery.of(context).size.width * .99,
             padding: const EdgeInsets.only(
               top: 18.0,
             ),
             margin: const EdgeInsets.only(top: 13.0, right: 8.0),
             child: Column(
               mainAxisSize: MainAxisSize.min,
-              // crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
                 const SizedBox(
                   height: 20.0,
@@ -100,10 +98,7 @@ class SignupCartDialog extends StatelessWidget {
                   controller: emailController,
                   obcure: false,
                   label: mytranslate(context, "email"),
-                  validate: (value) {
-                    if (value!.isEmpty) return "INVALID FIELD";
-                    return null;
-                  },
+                    validate:(value) => value!.isEmpty ?mytranslate(context, "validateEmail") :validateEmail(value)
                 ),
                 MyTextField(
                   prefix: MdiIcons.city,
@@ -111,7 +106,10 @@ class SignupCartDialog extends StatelessWidget {
                   type: TextInputType.streetAddress,
                   obcure: false,
                   label: mytranslate(context, "address"),
-                    validate:(value) => value!.isEmpty ?mytranslate(context, "validateEmail") :validateEmail(value)
+                 validate: (value) {
+                   if (value!.isEmpty) return "INVALID FIELD";
+                   return null;
+                 }
                 ),
                 const SizedBox(height: 24.0),
                 InkWell(
