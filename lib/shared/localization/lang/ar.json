@@ -159,6 +159,11 @@
   "newOrder": "اوووو لقد تحصلت علي اوردر جديد ",
   "dialogOrder":"هل أنت متأكد من تأكيد هذا الطلب؟",
   "about": "من نحن",
-  "paymentDet": "تفاصيل الطلب"
+  "paymentDet": "تفاصيل الطلب",
+  "confirmDialog":"تأكيد",
+  "msgDialog": "هل أنت متأكد أنك ترغب في حذف هذا العنصر؟",
+  "deleteDialog": "مسح",
+  "cacnel": "الغاء",
+  "deleteemoj": " \uD83D\uDE1F مسح"
 
 }

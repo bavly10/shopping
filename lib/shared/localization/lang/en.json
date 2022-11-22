@@ -160,5 +160,11 @@
    "dialogOrder":"Are You Sure to confirm This order?",
    "time": "Date :",
    "about": "About us",
-   "paymentDet": "Payment details"
+   "paymentDet": "Payment details",
+   "confirmDialog":"Confirm",
+   "msgDialog": "Are you sure you wish to delete this item?",
+   "deleteDialog": "Delete",
+   "cacnel": "CANCEL",
+   "deleteemoj": "Delete \uD83D\uDE1F "
+
 }

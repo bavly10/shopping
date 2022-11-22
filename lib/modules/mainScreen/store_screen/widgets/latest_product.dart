@@ -66,7 +66,7 @@ class LatestPro extends StatelessWidget {
                       ),
                       SizedBox(
                         height: 15.h,
-                        child:  MyCachedNetWorkImage(logo: productsItem.image!,radius: 35.0,)
+                        child:  Hero(tag: productsItem.id!,child: MyCachedNetWorkImage(logo: productsItem.image!,radius: 35.0,))
                       ),
                       Text(
                         productsItem.title!,

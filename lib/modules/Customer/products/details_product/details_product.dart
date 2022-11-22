@@ -53,8 +53,7 @@ class DetailsProduct extends StatelessWidget {
                             alignment: Alignment.topCenter,
                             child: Padding(
                                 padding: const EdgeInsets.only(top: 10),
-                                child: CustomImageContainer(
-                                    image: model.data!.images!))),
+                                child: Hero(tag: model,child: CustomImageContainer(image: model.data!.images!)))),
                         const SizedBox(height: 15,),
                         CustomContainerDetails(
                           id: model.data!.id,
