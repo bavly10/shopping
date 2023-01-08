@@ -164,6 +164,7 @@
   "msgDialog": "هل أنت متأكد أنك ترغب في حذف هذا العنصر؟",
   "deleteDialog": "مسح",
   "cacnel": "الغاء",
-  "deleteemoj": " \uD83D\uDE1F مسح"
+  "deleteemoj": " \uD83D\uDE1F مسح",
+  "pay": "دفع"
 
 }

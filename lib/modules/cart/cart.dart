@@ -41,7 +41,10 @@ class CartScreen extends StatelessWidget {
             floatingActionButton: x?null:(
                 FloatingActionButton(
               elevation: 2,
-              child: const Icon(MdiIcons.goKart),
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(mytranslate(context, "pay")),
+              ),
               onPressed: () async{
                await cubit.getEarn();
               },

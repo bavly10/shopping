@@ -127,7 +127,7 @@ class _LoginState extends State<Login> {
                     height: 25,
                   ),
                   MyTextField(
-                      validate:(value) => value!.isEmpty ?mytranslate(context, "validateEmail") :validateEmail(value),
+                     validate:(value)  {if (value!.isEmpty) return mytranslate(context, "validateEmail");},
                       label: mytranslate(context, "hintogin"),
                       controller: emailcontroller,
                       prefix: Icons.account_circle,

@@ -165,6 +165,7 @@
    "msgDialog": "Are you sure you wish to delete this item?",
    "deleteDialog": "Delete",
    "cacnel": "CANCEL",
-   "deleteemoj": "Delete \uD83D\uDE1F "
+   "deleteemoj": "Delete \uD83D\uDE1F ",
+   "pay": "Pay"
 
 }

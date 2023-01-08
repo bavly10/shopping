@@ -78,11 +78,11 @@ class MoreProCustomer extends StatelessWidget {
                                 (context, index) => search.text.isEmpty
                                     ? Padding(
                                         padding: const EdgeInsets.all(5.0),
-                                        child: LatestPro(productsItem: cubit[index]),
+                                        child: LatestPro(productsItem: cubit[index],index: index,),
                                       )
                                     : Padding(
                                         padding: const EdgeInsets.all(5.0),
-                                        child: LatestPro(productsItem: model[index],),
+                                        child: LatestPro(productsItem: model[index],index: index,),
                                       ),
                                 childCount: search.text.isEmpty
                                     ? cubit.length

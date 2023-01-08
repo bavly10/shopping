@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hex_color/flutter_hex_color.dart';
 import 'package:shopping/Cubit/cubit.dart';
 import 'package:shopping/Cubit/states.dart';
-import 'package:shopping/modules/Customer/cubit/cubit.dart';
 import 'package:shopping/modules/mainScreen/store_screen/moreProducts.dart';
 import 'package:shopping/modules/mainScreen/store_screen/widgets/best_seller_Card.dart';
 import 'package:shopping/modules/mainScreen/store_screen/widgets/drawer.dart';
@@ -203,7 +202,7 @@ class StoreScreen extends StatelessWidget {
                                   crossAxisSpacing: 18,
                                   childAspectRatio: .650),
                           childrenDelegate: SliverChildBuilderDelegate(
-                              (context, index) => LatestPro(productsItem: cubit.list[index]),
+                              (context, index) => LatestPro(productsItem: cubit.list[index],index: index),
                               childCount: cubit.list.length)),
                     ),
             ]),

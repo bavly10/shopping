@@ -28,8 +28,8 @@ class CustomerScreen extends StatelessWidget {
             mainAxisSpacing:16,
             crossAxisSpacing:2,
             pattern: [
-              const WovenGridTile(13 / 22, crossAxisRatio: .8),
-              const WovenGridTile(13 / 22, crossAxisRatio: .8,
+              const WovenGridTile(13 / 20, crossAxisRatio: .8),
+              const WovenGridTile(13 /20, crossAxisRatio: .8,
               ),
             ],
           ),
@@ -62,13 +62,6 @@ class CustomerScreen extends StatelessWidget {
         width:25.h,
         child: Column(
           children: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: CustomRating(
-                rate: pro.rate,
-                star: myWhite,
-              ),
-            ),
             SizedBox(
               height:22.h,
               width: double.infinity,
@@ -80,6 +73,13 @@ class CustomerScreen extends StatelessWidget {
                   color: myWhite,
                   fontSize: 18,
                   fontWeight: FontWeight.bold),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(2.0),
+              child: CustomRating(
+                rate: pro.rate,
+                star: myWhite,
+              ),
             ),
           ],
         ),

@@ -98,7 +98,7 @@ class SignupCartDialog extends StatelessWidget {
                   controller: emailController,
                   obcure: false,
                   label: mytranslate(context, "email"),
-                    validate:(value) => value!.isEmpty ?mytranslate(context, "validateEmail") :validateEmail(value)
+                  validate:(value)  {if (value!.isEmpty) return mytranslate(context, "validateEmail");},
                 ),
                 MyTextField(
                   prefix: MdiIcons.city,

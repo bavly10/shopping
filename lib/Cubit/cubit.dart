@@ -400,4 +400,14 @@ class ShopCubit extends Cubit<ShopStates> {
     }
     );
   }
+  int? iconHeart;
+  void changeColor(int i){
+    iconHeart=i;
+    emit(ColorProduct());
+  }
+  int? cartHeart;
+  void changeCart(int i){
+    cartHeart=i;
+    emit(ColorProduct());
+  }
 }

@@ -15,19 +15,19 @@ import 'package:sizer/sizer.dart';
 
 class LatestPro extends StatelessWidget {
   final ProductsItem productsItem;
-  const LatestPro({Key? key, required this.productsItem}) : super(key: key);
+  final int index;
+   LatestPro({Key? key, required this.productsItem,required this.index}) : super(key: key);
   @override
   Widget build(BuildContext context) {
         return BlocConsumer<ShopCubit,ShopStates>(
           listener: (ctx,state){
-            if(state is AppInsertDatabaseState){
-              myToast(message:"${productsItem.title} ${mytranslate(context, "donefav")}");
-            }else if (state is AppInsertsDatabaseState){
+            if (state is AppInsertsDatabaseState){
               myToast(message:mytranslate(context, "morefav"));
             }
           },
           builder: (ctx,state){
             final cubit=ShopCubit.get(context);
+            final iconHeart=ShopCubit.get(context).iconHeart;
             return InkWell(
               onDoubleTap: (){},
               onTap: (){
@@ -42,7 +42,7 @@ class LatestPro extends StatelessWidget {
                 child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Align(
+                     Align(
                         alignment: Alignment.topRight,
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
@@ -50,15 +50,18 @@ class LatestPro extends StatelessWidget {
                             height:5.h,
                             width:6.h,
                             decoration: BoxDecoration(
-                                color: Colors.black,
+                                color:iconHeart==index?Colors.red:Colors.black,
                                 shape: BoxShape.rectangle,
                                 borderRadius: BorderRadius.circular(10)),
                             child: Center(
                               child: InkWell(
                                 onTap: (){
-                                  cubit.insertDatabase(title:productsItem.title!,img:productsItem.image ,price: productsItem.price ,proid:productsItem.id,);
+                                  cubit.insertDatabase(title:productsItem.title!,img:productsItem.image ,price: productsItem.price ,proid:productsItem.id,).then((value) {
+                                    myToast(message:"${productsItem.title} ${mytranslate(context, "donefav")}");
+                                  });
+                                  cubit.changeColor(index);
                                 },
-                                child: const Icon(Icons.favorite,  color: Colors.white, size: 18,),
+                                child:const Icon(Icons.favorite,color:Colors.white, size: 18,),
                               ),
                             ),
                           ),
@@ -66,7 +69,7 @@ class LatestPro extends StatelessWidget {
                       ),
                       SizedBox(
                         height: 15.h,
-                        child:  Hero(tag: productsItem.id!,child: MyCachedNetWorkImage(logo: productsItem.image!,radius: 35.0,))
+                        child:  MyCachedNetWorkImage(logo: productsItem.image!,radius: 35.0,)
                       ),
                       Text(
                         productsItem.title!,

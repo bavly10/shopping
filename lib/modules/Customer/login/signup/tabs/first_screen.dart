@@ -24,7 +24,7 @@ class FirstScreen extends StatelessWidget {
             if (s!.isEmpty) return mytranslate(context, "validateName");
           },label:mytranslate(context,"nameEn"),controller: namecontrollerEn,prefix: Icons.account_circle,type: TextInputType.text, obcure: false,),
           const SizedBox(height: 25,),
-          MyTextField(validate:(value) => value!.isEmpty ?mytranslate(context, "validateEmail") :validateEmail(value),label:mytranslate(context,"hintogin"),controller: emailcontroller,prefix: Icons.email_outlined,type: TextInputType.emailAddress,obcure: false),
+          MyTextField(validate:(value)  {if (value!.isEmpty) return mytranslate(context, "validateEmail");},label:mytranslate(context,"hintogin"),controller: emailcontroller,prefix: Icons.email_outlined,type: TextInputType.emailAddress,obcure: false),
           const SizedBox(height: 25,),
           MyTextField(
               validate: (String? s) {
