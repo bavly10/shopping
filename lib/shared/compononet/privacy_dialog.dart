@@ -72,6 +72,7 @@ class PrivacyPolicyDialog extends StatelessWidget {
                                 onChanged: (value) {
                                   cubit.changeChecked(value!);
                                   if (value == true) {
+                                    Navigator.of(context).pop();
                                     showDialog(
                                         context: context,
                                         builder: (context) {
@@ -80,7 +81,6 @@ class PrivacyPolicyDialog extends StatelessWidget {
                                             id: id,
                                           );
                                         });
-                                    // Navigator.of(context).pop();
                                   }
                                   value = false;
                                 }),

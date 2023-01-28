@@ -30,7 +30,6 @@ class SignupCartDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     ShopCubit.get(context).getMyShared();
     return Scaffold(
-      appBar: AppBar(),
       body: Form(
         key: formKey,
         child: SingleChildScrollView(
@@ -42,23 +41,16 @@ class SignupCartDialog extends StatelessWidget {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
-                const SizedBox(
-                  height: 20.0,
-                ),
+                const CircleAvatar(radius:100,backgroundImage:ExactAssetImage("assets/logo.png"),),
                 Text(
                   mytranslate(context, "reg"),
-                  style: const TextStyle(fontWeight: FontWeight.w600),
+                  style: const TextStyle(fontSize: 20,fontWeight: FontWeight.w600),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text.rich(
                     TextSpan(
                       children: <InlineSpan>[
-                        TextSpan(text: CheckDialog.phoneCheckController.text),
-                        const WidgetSpan(
-                            child: SizedBox(
-                          width: 10,
-                        )),
                         WidgetSpan(
                           child: Text(
                             mytranslate(context, "no"),
@@ -69,6 +61,11 @@ class SignupCartDialog extends StatelessWidget {
                                 fontStyle: FontStyle.italic),
                           ),
                         ),
+                        const WidgetSpan(
+                            child: SizedBox(
+                              width: 10,
+                            )),
+                        TextSpan(text: CheckDialog.phoneCheckController.text),
                       ],
                     ),
                     // textAlign: TextAlign,

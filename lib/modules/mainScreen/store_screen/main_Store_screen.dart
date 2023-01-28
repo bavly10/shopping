@@ -15,9 +15,8 @@ import 'package:shopping/shared/localization/translate.dart';
 import 'package:shopping/shared/my_colors.dart';
 import 'package:sizer/sizer.dart';
 
-
 class StoreScreen extends StatelessWidget {
-  String? adress, phone, image, rate,long;
+  String? adress, phone, image, rate, long;
   final String title;
   int? id;
 
@@ -38,8 +37,7 @@ class StoreScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     ShopCubit.get(context).getProductCustomer(id);
     ShopCubit.get(context).latestproducts(id: id);
-    return BlocBuilder<ShopCubit, ShopStates>(
-        builder: (context, state) {
+    return BlocBuilder<ShopCubit, ShopStates>(builder: (context, state) {
       var cubit = ShopCubit.get(context);
       var latest = ShopCubit.get(context).latestPro;
       return AdvancedDrawer(
@@ -158,12 +156,14 @@ class StoreScreen extends StatelessWidget {
                         style: const TextStyle(
                             fontSize: 22, fontWeight: FontWeight.bold)),
                   ),
-                 const  Spacer(),
-                 TextButton(
+                  const Spacer(),
+                  TextButton(
                       onPressed: () {
                         ShopCubit.get(context).lists = [];
-                        ShopCubit.get(context).getProductCustomerPagination(id).then((value) =>
-                            navigateTo(context, MoreProCustomer(id!)));
+                        ShopCubit.get(context)
+                            .getProductCustomerPagination(id)
+                            .then((value) =>
+                                navigateTo(context, MoreProCustomer(id!)));
                       },
                       child: Text(
                         mytranslate(context, "more"),
@@ -175,7 +175,7 @@ class StoreScreen extends StatelessWidget {
                       )),
                 ],
               ),
-              Padding(
+               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
                     "${mytranslate(context, "have")} ${cubit.list.length} ${mytranslate(context, "prod")}"),
@@ -202,7 +202,9 @@ class StoreScreen extends StatelessWidget {
                                   crossAxisSpacing: 18,
                                   childAspectRatio: .650),
                           childrenDelegate: SliverChildBuilderDelegate(
-                              (context, index) => LatestPro(productsItem: cubit.list[index],index: index),
+                              (context, index) => LatestPro(
+                                  productsItem: cubit.list[index],
+                                  index: index),
                               childCount: cubit.list.length)),
                     ),
             ]),

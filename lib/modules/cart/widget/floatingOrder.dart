@@ -168,8 +168,7 @@ class MyFloating extends StatelessWidget {
                                 builder: (context) {
                                   return PrivacyPolicyDialog(
                                     text: salla!.data,
-                                    id: ShopCubit.get(context)
-                                        .userId,
+                                    id: ShopCubit.get(context).userId,
                                     widget: SignupCartDialog(
                                       onTaps: () {
                                         cubit.items.forEach(
@@ -203,36 +202,22 @@ class MyFloating extends StatelessWidget {
                                 builder: (context) {
                                   return PrivacyPolicyDialog(
                                     text: salla!.data,
-                                    id: ShopCubit.get(context)
-                                        .userId,
+                                    id: ShopCubit.get(context).userId,
                                     widget: CheckDialog(
                                       widget: SignupCartDialog(
                                         onTaps: () {
-                                          cubit.items.forEach(
-                                                  (key,
-                                                  value) async {
-                                                await cubit
-                                                    .createOrder(
-                                                  size: value.size
-                                                      .toString(),
-                                                  price: value.price
-                                                      .toString(),
-                                                  many: value
-                                                      .quantity
-                                                      .toString(),
-                                                  customerID:
-                                                  CustomerCubit.get(
-                                                      context)
-                                                      .userId,
-                                                  productID: value
-                                                      .id
-                                                      .toString(),
+                                          cubit.items.forEach((key, value) async {
+                                                await cubit.createOrder(
+                                                  size: value.size.toString(),
+                                                  price: value.price.toString(),
+                                                  many: value.quantity.toString(),
+                                                  customerID: CustomerCubit.get(context).userId,
+                                                  productID: value.id.toString(),
                                                 );
                                               });
                                         },
                                       ),
-                                      id: ShopCubit.get(context)
-                                          .userId,
+                                      id: ShopCubit.get(context).userId,
                                     ),
                                   );
                                 });
