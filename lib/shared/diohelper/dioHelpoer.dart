@@ -15,7 +15,6 @@ class DioHelper {
           'api_password': '&-q^Tm9\$!5fY3nXj',
           'lang': lang ?? "en"
         }));
-    print(lang);
   }
 
   static Future<Response> getData(

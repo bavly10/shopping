@@ -9,11 +9,10 @@ import 'package:sizer/sizer.dart';
 
 class PrivacyPolicyDialog extends StatelessWidget {
   String? text;
-  Widget? widget;
   int? id;
   final GlobalKey<ScaffoldState> skey = GlobalKey<ScaffoldState>();
 
-  PrivacyPolicyDialog({Key? key, this.text, this.widget, this.id})
+  PrivacyPolicyDialog({Key? key, this.text,this.id})
       : super(key: key);
 
   @override
@@ -77,7 +76,6 @@ class PrivacyPolicyDialog extends StatelessWidget {
                                         context: context,
                                         builder: (context) {
                                           return CheckDialog(
-                                            widget: widget!,
                                             id: id,
                                           );
                                         });

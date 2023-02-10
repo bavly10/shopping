@@ -94,7 +94,11 @@ class LoadingLatestProduct extends ShopStates {}
 class GettingLatestProductSucess extends ShopStates {}
 class GettingLatestProductError extends ShopStates {}
 class SearchingProduct extends ShopStates {}
+class LoadingVersion extends ShopStates {}
+class SuccessVersion extends ShopStates {}
+class FailVersion extends ShopStates {}
 class ColorProduct extends ShopStates {}
+
 
 
 

@@ -29,6 +29,7 @@ class CheckingCustomerSucessState extends CustomerStates {}
 
 class CheckingCustomerErrorState extends CustomerStates {}
 
+class InsertCustomerLoadingState extends CustomerStates {}
 class InsertCustomerSucessState extends CustomerStates {}
 
 class InsertCustomerErrorState extends CustomerStates {}

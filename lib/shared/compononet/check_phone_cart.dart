@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shopping/shared/compononet/sign_up_cart.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import 'package:shopping/shared/compononet/myToast.dart';
@@ -9,12 +10,11 @@ import 'package:shopping/shared/my_colors.dart';
 import '../../modules/Customer/cubit/cubit.dart';
 
 class CheckDialog extends StatelessWidget {
-  final Widget widget;
   String? phoneStore;
   int? id;
 
   final formKey = GlobalKey<FormState>();
-  CheckDialog({Key? key, required this.widget, this.phoneStore, this.id})
+  CheckDialog({Key? key, this.phoneStore, this.id})
       : super(key: key);
   static TextEditingController phoneCheckController = TextEditingController();
 
@@ -110,7 +110,7 @@ class CheckDialog extends StatelessWidget {
                                   barrierDismissible: false,
                                     context: context,
                                     builder: (context) {
-                                      return widget;
+                                      return SignUpCartDialog.SignUpCartDialog();
                                     });
                               } else {
                                 CustomerCubit.get(context).connectStore(context: context, userId: id)
@@ -119,7 +119,7 @@ class CheckDialog extends StatelessWidget {
                                       barrierDismissible: false,
                                       context: context,
                                       builder: (context) {
-                                        return widget;
+                                        return SignUpCartDialog.SignUpCartDialog();
                                       });
                                 });
                               }

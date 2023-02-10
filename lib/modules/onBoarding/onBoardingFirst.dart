@@ -15,13 +15,15 @@ import 'package:sizer/sizer.dart';
 
 
 class OnBoardingFirst extends StatelessWidget {
-  const OnBoardingFirst({Key? key}) : super(key: key);
+   String x="0";
+   OnBoardingFirst({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     var splashModel = ShopCubit.get(context).splashModel?.data;
     return BlocBuilder<ShopCubit, ShopStates>(
       builder: (ctx, state) {
         final cubit = ShopCubit.get(context);
+        final cubitVer = ShopCubit.get(context).version;
         return Scaffold(
           appBar: AppBar(
             elevation: 0,
@@ -58,7 +60,7 @@ class OnBoardingFirst extends StatelessWidget {
               ),
             ],
           ),
-          body: state is cons_Change_Loading
+          body: cubitVer!.data.ver.contains(x)
               ? const CircularProgressIndicator()
               : splashModel == null
                   ? const ErrorPage()

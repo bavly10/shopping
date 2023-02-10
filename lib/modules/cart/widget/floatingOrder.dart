@@ -28,12 +28,7 @@ class MyFloating extends StatelessWidget {
     var salla = ProductCubit.get(context).privacySalla;
     return BlocConsumer<ProductCubit,ProductStates>(
       listener: (ctx,state){
-        if (state is InsertOrderSucessState) {
-          navigateToFinish(context, const SuccessOrder(phone: "06510355051",));
-        } else if (state is InsertOrderErrorState) {
-          navigateToFinish(context, const FailedOrder());
-          ProductCubit.get(context).accept = false;
-        } else if (state is ShopEarnLoadingState ){
+       if (state is ShopEarnLoadingState ){
           myToast(message:mytranslate(context, "loading"));
         }else if (state is ErrorEarnState){
           myToast(message:mytranslate(context, "error"));
@@ -169,56 +164,6 @@ class MyFloating extends StatelessWidget {
                                   return PrivacyPolicyDialog(
                                     text: salla!.data,
                                     id: ShopCubit.get(context).userId,
-                                    widget: SignupCartDialog(
-                                      onTaps: () {
-                                        cubit.items.forEach(
-                                                (key, value) async {
-                                              await cubit
-                                                  .createOrder(
-                                                size: value.size
-                                                    .toString(),
-                                                price: value.price
-                                                    .toString(),
-                                                many: value.quantity
-                                                    .toString(),
-                                                customerID:
-                                                CustomerCubit.get(
-                                                    context)
-                                                    .userId,
-                                                productID: value.id
-                                                    .toString(),
-                                              );
-                                            });
-                                        ProductCubit.get(
-                                            context)
-                                            .accept = false;
-                                      },
-                                    ),
-                                  );
-                                });
-                          } else {
-                            showDialog(
-                                context: context,
-                                builder: (context) {
-                                  return PrivacyPolicyDialog(
-                                    text: salla!.data,
-                                    id: ShopCubit.get(context).userId,
-                                    widget: CheckDialog(
-                                      widget: SignupCartDialog(
-                                        onTaps: () {
-                                          cubit.items.forEach((key, value) async {
-                                                await cubit.createOrder(
-                                                  size: value.size.toString(),
-                                                  price: value.price.toString(),
-                                                  many: value.quantity.toString(),
-                                                  customerID: CustomerCubit.get(context).userId,
-                                                  productID: value.id.toString(),
-                                                );
-                                              });
-                                        },
-                                      ),
-                                      id: ShopCubit.get(context).userId,
-                                    ),
                                   );
                                 });
                           }
@@ -233,7 +178,6 @@ class MyFloating extends StatelessWidget {
           ),
         );
       },
-
     );
   }
 }

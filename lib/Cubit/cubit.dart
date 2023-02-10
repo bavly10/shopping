@@ -7,6 +7,7 @@ import 'package:shopping/model/categoryModel.dart';
 import 'package:shopping/model/latest_product.dart';
 import 'package:shopping/model/privacy_policy.dart';
 import 'package:shopping/model/splash.dart';
+import 'package:shopping/model/version.dart';
 import 'package:shopping/modules/Customer/login/main.dart';
 
 import 'package:shopping/modules/cart/cart.dart';
@@ -409,5 +410,21 @@ class ShopCubit extends Cubit<ShopStates> {
   void changeCart(int i){
     cartHeart=i;
     emit(ColorProduct());
+  }
+
+  /////////////////newVersion/////////
+
+  Version? version;
+  int x=1;
+  Future<void> getVersion() async {
+    emit(LoadingVersion());
+    DioHelper.getData(url: versionn).then((value) {
+      version = Version.fromJson(value.data);
+      debugPrint("done version model ${version!.data.ver}");
+      emit(SuccessVersion());
+    }).catchError((onError) {
+      debugPrint(onError.toString());
+      emit(FailVersion());
+    });
   }
 }

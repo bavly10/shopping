@@ -487,6 +487,7 @@ class ProductCubit extends Cubit<ProductStates> {
     return {..._items};
   }
 
+
   OwnerEarn? ownerEarn;
   Future <void> getEarn() async {
     emit(ShopEarnLoadingState());
@@ -546,6 +547,9 @@ class ProductCubit extends Cubit<ProductStates> {
     emit(ShopAddItems());
   }
 
+  void removeCart(){
+    return _items.clear();
+  }
   void removeitem(String proid) {
     _items.remove(proid);
     emit(ShopRemoveItems());
@@ -592,6 +596,7 @@ class ProductCubit extends Cubit<ProductStates> {
 
   ////////////////create order////////////////////////////
   Future createOrder({productID, many, customerID, size, price}) async {
+    emit(InsertOrderLoadingState());
     Map<String, dynamic> data = {
       "product_id": productID,
       "price": price,
