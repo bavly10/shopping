@@ -13,7 +13,7 @@ class DioHelper {
         headers: {
           'Content-Type': 'application/json',
           'api_password': '&-q^Tm9\$!5fY3nXj',
-          'lang': lang
+          'lang': lang ?? "en"
         }));
     print(lang);
   }

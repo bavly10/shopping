@@ -24,7 +24,7 @@ class ShopCubit extends Cubit<ShopStates> {
   static ShopCubit get(context) => BlocProvider.of(context);
   // ignore: non_constant_identifier_names
   Locale? locale_cubit;
-  String? lang;
+  String? lang="en";
   static bool xtranslate = false;
 
   void changeLang(lang) async {
