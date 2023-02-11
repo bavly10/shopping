@@ -69,6 +69,7 @@ class CheckingDialog extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(left: 12.0, right: 12.0),
                     child: MyTextField(
+                      readonly: false,
                         type: TextInputType.number,
                         prefix: Icons.phone,
                         controller: phoneCheckController,

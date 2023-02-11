@@ -127,6 +127,7 @@ class _LoginState extends State<Login> {
                     height: 25,
                   ),
                   MyTextField(
+                      readonly: false,
                      validate:(value)  {if (value!.isEmpty) return mytranslate(context, "validateEmail");},
                       label: mytranslate(context, "hintogin"),
                       controller: emailcontroller,
@@ -137,6 +138,7 @@ class _LoginState extends State<Login> {
                     height: 25,
                   ),
                   MyTextField(
+                      readonly: false,
                       validate: (String? s) {
                         if (s!.isEmpty) {
                           return mytranslate(context, "validatePass");

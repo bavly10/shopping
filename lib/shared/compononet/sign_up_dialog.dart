@@ -104,6 +104,7 @@ class SignupDialog extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.only(bottom: 12.0, top: 12),
                       child: MyTextField(
+                        readonly: false,
                         prefix: Icons.person_outline,
                         controller: nameController,
                         obcure: false,
@@ -116,6 +117,7 @@ class SignupDialog extends StatelessWidget {
                       ),
                     ),
                     MyTextField(
+                      readonly: false,
                       prefix: Icons.email_outlined,
                       type: TextInputType.emailAddress,
                       controller: emailController,
@@ -127,6 +129,7 @@ class SignupDialog extends StatelessWidget {
                       },
                     ),
                     MyTextField(
+                      readonly: false,
                       prefix: MdiIcons.city,
                       controller: addressController,
                       type: TextInputType.streetAddress,

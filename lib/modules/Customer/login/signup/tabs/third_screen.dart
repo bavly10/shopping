@@ -19,10 +19,10 @@ class ThirdScreen extends StatelessWidget {
           children: [
             MyTextField(validate: (String? s) {
               if (s!.isEmpty) return mytranslate(context, "validateStore");
-            },label:mytranslate(context,"namestore"),controller: storecotroller,prefix: Icons.account_circle,type: TextInputType.text, obcure: false,),
+            },  readonly: false,label:mytranslate(context,"namestore"),controller: storecotroller,prefix: Icons.account_circle,type: TextInputType.text, obcure: false,),
             MyTextField(validate: (String? s) {
               if (s!.isEmpty) return mytranslate(context, "validateStore");
-            },label:mytranslate(context,"namestoreEn"),controller: storecotrollerEn,prefix: Icons.account_circle,type: TextInputType.text, obcure: false,),
+            },  readonly: false,label:mytranslate(context,"namestoreEn"),controller: storecotrollerEn,prefix: Icons.account_circle,type: TextInputType.text, obcure: false,),
             const SizedBox(height: 25,),
             myRow(context)
           ],

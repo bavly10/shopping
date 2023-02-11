@@ -11,6 +11,8 @@ class MyTextField extends StatelessWidget {
   String? Function(String?)? validate;
   late String label;
   IconData? prefix;
+  int? maxline=1;
+  bool readonly=false;
   IconData? suffix;
   late bool obcure;
   void Function()? suffixPressed;
@@ -22,8 +24,10 @@ class MyTextField extends StatelessWidget {
     this.onSubmit,
     this.onTap,
     this.validate,
+    this.maxline,
     required this.label,
     this.prefix,
+    required this.readonly,
     this.suffix,
     this.suffixPressed,
   }) : super(key: key);
@@ -45,6 +49,8 @@ class MyTextField extends StatelessWidget {
             obscureText: obcure,
             keyboardType: type,
             validator: validate,
+            readOnly: readonly,
+            maxLines: maxline,
             controller: controller,
             decoration: InputDecoration(
                 suffix: InkWell(

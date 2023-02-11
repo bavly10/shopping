@@ -22,7 +22,7 @@ class SecondScreen extends StatelessWidget {
          children: [
            MyTextField(validate: (String? s) {
              if (s!.isEmpty) return mytranslate(context, "validateNumber");
-           },label:mytranslate(context,"mobile"),controller: mobilecontroller,prefix: Icons.account_circle,type: TextInputType.phone, obcure: false,),
+           },  readonly: false,label:mytranslate(context,"mobile"),controller: mobilecontroller,prefix: Icons.account_circle,type: TextInputType.phone, obcure: false,),
            const SizedBox(height: 25,),
            DropdownButton(
              hint: cubit.mycity == null
@@ -61,7 +61,7 @@ class SecondScreen extends StatelessWidget {
            const SizedBox(height: 25,),
            MyTextField(validate: (String? s) {
              if (s!.isEmpty) return mytranslate(context, "location");
-           },label:mytranslate(context,"location"),controller: AdressController,prefix: Icons.account_circle,type: TextInputType.url, obcure: false,),
+           },  readonly: false,label:mytranslate(context,"location"),controller: AdressController,prefix: Icons.account_circle,type: TextInputType.url, obcure: false,),
          ],
        );
      },

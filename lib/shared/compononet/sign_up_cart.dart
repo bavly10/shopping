@@ -52,61 +52,43 @@ class SignUpCartDialog extends StatelessWidget {
             child: SingleChildScrollView(
               child: Container(
                 padding: const EdgeInsets.only(
-                  top: 18.0,
+                  top: 10.0,
                 ),
                 margin: const EdgeInsets.only(top: 13.0, right: 8.0),
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
-                    const CircleAvatar(radius:100,backgroundImage:ExactAssetImage("assets/logo.png"),),
+                    const Center(child:  CircleAvatar(radius:80,backgroundImage:ExactAssetImage("assets/logo.png"),)),
                     Text(
                       mytranslate(context, "reg"),
-                      style: const TextStyle(fontSize: 20,fontWeight: FontWeight.w600),
+                      style: const TextStyle(fontSize: 16,fontWeight: FontWeight.w600),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text.rich(
-                        TextSpan(
-                          children: <InlineSpan>[
-                            WidgetSpan(
-                              child: Text(
-                                mytranslate(context, "no"),
-                                style: TextStyle(
-                                    color: myBlue,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 18,
-                                    fontStyle: FontStyle.italic),
-                              ),
-                            ),
-                            const WidgetSpan(
-                                child: SizedBox(
-                                  width: 10,
-                                )),
-                            TextSpan(text: CheckDialog.phoneCheckController.text),
-                          ],
-                        ),
-                        // textAlign: TextAlign,
+                    Divider(color: myBlack,),
+                    Center(
+                      child: Text(
+                        CheckDialog.phoneCheckController.text,
                         style: TextStyle(
-                            fontSize: 18,
+                            color: myBlue,
                             fontWeight: FontWeight.bold,
-                            color: Colors.yellow[900]),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: 12.0, top: 12),
-                      child: MyTextField(
-                        prefix: Icons.person_outline,
-                        controller: nameController,
-                        obcure: false,
-                        type: TextInputType.name,
-                        label: mytranslate(context, "name"),
-                        validate: (value) {
-                          if (value!.isEmpty) return "INVALID FIELD";
-                          return null;
-                        },
+                            fontSize: 18,
+                            fontStyle: FontStyle.italic),
                       ),
                     ),
                     MyTextField(
+                      readonly: false,
+                      prefix: Icons.person_outline,
+                      controller: nameController,
+                      obcure: false,
+                      type: TextInputType.name,
+                      label: mytranslate(context, "name"),
+                      validate: (value) {
+                        if (value!.isEmpty) return "INVALID FIELD";
+                        return null;
+                      },
+                    ),
+                    MyTextField(
+                      readonly: false,
                       prefix: Icons.email_outlined,
                       type: TextInputType.emailAddress,
                       controller: emailController,
@@ -115,10 +97,11 @@ class SignUpCartDialog extends StatelessWidget {
                       validate:(value)  {if (value!.isEmpty) return mytranslate(context, "validateEmail");},
                     ),
                     MyTextField(
-                        prefix: MdiIcons.city,
+                        readonly: false,
                         controller: addressController,
-                        type: TextInputType.streetAddress,
+                        type: TextInputType.multiline,
                         obcure: false,
+                        maxline: 5,
                         label: mytranslate(context, "address"),
                         validate: (value) {
                           if (value!.isEmpty) return "INVALID FIELD";
@@ -126,47 +109,45 @@ class SignUpCartDialog extends StatelessWidget {
                         }
                     ),
                     const SizedBox(height: 24.0),
-                    InkWell(
-                        onDoubleTap: (){},
-                        child: Container(
-                          width: MediaQuery.of(context).size.width * .5,
-                          padding: const EdgeInsets.all(15),
-                          decoration: BoxDecoration(
-                            shape: BoxShape.rectangle,
-                            color: myBlue,
-                            borderRadius: const BorderRadius.only(
-                                topLeft: Radius.circular(16.0),
-                                topRight: Radius.circular(16.0),
-                                bottomLeft: Radius.circular(16.0),
-                                bottomRight: Radius.circular(16.0)),
+                    Center(
+                      child: InkWell(
+                          onDoubleTap: (){},
+                          child: Container(
+                            width: MediaQuery.of(context).size.width * .5,
+                            padding: const EdgeInsets.all(15),
+                            decoration: BoxDecoration(
+                              shape: BoxShape.rectangle,
+                              color: myBlue,
+                              borderRadius:  BorderRadius.circular(16.0),
+                            ),
+                            child: state is InsertOrderLoadingState ? const CircularProgressIndicator(color: Colors.white12,):Text(
+                              mytranslate(context, "verify"),
+                              style: const TextStyle(
+                                  color: Colors.white, fontSize: 20.0),
+                              textAlign: TextAlign.center,
+                            ),
                           ),
-                          child: state is InsertOrderLoadingState ? const CircularProgressIndicator(color: Colors.white12,):Text(
-                            mytranslate(context, "verify"),
-                            style: const TextStyle(
-                                color: Colors.white, fontSize: 25.0),
-                            textAlign: TextAlign.center,
-                          ),
-                        ),
-                        onTap: () async {
-                          FocusScope.of(context).unfocus();
-                          if (formKey.currentState!.validate()) {
-                            await CustomerCubit.get(context).createUser(
-                                name: nameController.text,
-                                address: addressController.text,
-                                email: emailController.text,
-                                phone: CheckDialog.phoneCheckController.text)
-                                .then((value) => {
-                            cubit.items.forEach((key, value) async {
-                            await cubit.createOrder(size: value.size.toString(), price: value.price.toString(), many: value.quantity.toString(),
-                            customerID: CustomerCubit.get(context).userId, productID: value.id.toString() );
-                            }),
-                            ProductCubit.get(context).accept = false
-                            }).whenComplete(() => {
-                            navigateToFinish(context, const SuccessOrder(phone: "06510355051",)),
-                                ProductCubit.get(context).removeCart()
-                            });
-                          }
-                        })
+                          onTap: () async {
+                            FocusScope.of(context).unfocus();
+                            if (formKey.currentState!.validate()) {
+                              await CustomerCubit.get(context).createUser(
+                                  name: nameController.text,
+                                  address: addressController.text,
+                                  email: emailController.text,
+                                  phone: CheckDialog.phoneCheckController.text)
+                                  .then((value) => {
+                              cubit.items.forEach((key, value) async {
+                              await cubit.createOrder(size: value.size.toString(), price: value.price.toString(), many: value.quantity.toString(),
+                              customerID: CustomerCubit.get(context).userId, productID: value.id.toString() );
+                              }),
+                              ProductCubit.get(context).accept = false
+                              }).whenComplete(() => {
+                              navigateToFinish(context, const SuccessOrder(phone: "06510355051",)),
+                                  ProductCubit.get(context).removeCart()
+                              });
+                            }
+                          }),
+                    )
                   ],
                 ),
               ),

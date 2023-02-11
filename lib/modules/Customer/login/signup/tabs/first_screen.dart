@@ -19,17 +19,18 @@ class FirstScreen extends StatelessWidget {
         children: [
           MyTextField(validate: (String? s) {
             if (s!.isEmpty) return mytranslate(context, "validateName");
-          },label:mytranslate(context,"name"),controller: namecontroller,prefix: Icons.account_circle,type: TextInputType.text, obcure: false,),
+          },  readonly: false,label:mytranslate(context,"name"),controller: namecontroller,prefix: Icons.account_circle,type: TextInputType.text, obcure: false,),
           MyTextField(validate: (String? s) {
             if (s!.isEmpty) return mytranslate(context, "validateName");
-          },label:mytranslate(context,"nameEn"),controller: namecontrollerEn,prefix: Icons.account_circle,type: TextInputType.text, obcure: false,),
+          },  readonly: false,label:mytranslate(context,"nameEn"),controller: namecontrollerEn,prefix: Icons.account_circle,type: TextInputType.text, obcure: false,),
           const SizedBox(height: 25,),
-          MyTextField(validate:(value)  {if (value!.isEmpty) return mytranslate(context, "validateEmail");},label:mytranslate(context,"hintogin"),controller: emailcontroller,prefix: Icons.email_outlined,type: TextInputType.emailAddress,obcure: false),
+          MyTextField(  readonly: false,validate:(value)  {if (value!.isEmpty) return mytranslate(context, "validateEmail");},label:mytranslate(context,"hintogin"),controller: emailcontroller,prefix: Icons.email_outlined,type: TextInputType.emailAddress,obcure: false),
           const SizedBox(height: 25,),
           MyTextField(
               validate: (String? s) {
                 if (s!.isEmpty) return mytranslate(context, "validatePass");
               },
+            readonly: false,
               label: mytranslate(context, "hintpassword"),
               controller: passcontroller,
               prefix: Icons.lock,
