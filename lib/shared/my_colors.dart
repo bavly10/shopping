@@ -19,7 +19,7 @@ LinearGradient myLinears=const LinearGradient(
   begin: Alignment.topRight,
   end: Alignment.bottomLeft,
   colors: [
-   Colors.redAccent,
-   Colors.red
+   Colors.white,
+    Colors.black
   ],
 );

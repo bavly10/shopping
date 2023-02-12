@@ -13,10 +13,13 @@ import 'package:shopping/shared/localization/translate.dart';
 import 'package:shopping/shared/my_colors.dart';
 import 'package:sizer/sizer.dart';
 
+import '../../shared/compononet/versionDialog.dart';
 
 class OnBoardingFirst extends StatelessWidget {
-   String x="0";
-   OnBoardingFirst({Key? key}) : super(key: key);
+  String x = "1";
+
+  OnBoardingFirst({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     var splashModel = ShopCubit.get(context).splashModel?.data;
@@ -60,35 +63,42 @@ class OnBoardingFirst extends StatelessWidget {
               ),
             ],
           ),
-          body: cubitVer!.data.ver.contains(x)
-              ? const CircularProgressIndicator()
-              : splashModel == null
-                  ? const ErrorPage()
-                  : Column(
-                      children: [
-                        SizedBox(
-                          width: double.infinity,
-                          height: 60.h,
-                          child: MyCachedNetWorkImage(logo: splashModel.splash!,radius: 25.0,),
+          body: splashModel == null
+              ? const ErrorPage()
+              : Stack(children: [
+                  Column(
+                    children: [
+                      SizedBox(
+                        width: double.infinity,
+                        height: 60.h,
+                        child: MyCachedNetWorkImage(
+                          logo: splashModel.splash!,
+                          radius: 25.0,
                         ),
-                        const Spacer(),
-                        Padding(
-                            padding: EdgeInsets.symmetric(vertical: 5.h, horizontal: 5.h),
-                            child: BlueButton(
-                                title: Text(mytranslate(context, "get"),
-                                    style: TextStyle(
-                                        color: myWhite,
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.bold)),
-                                hight: 0.09,
-                                width: 0.80,
-                                icon: Icons.arrow_back,
-                                onpress: () {
+                      ),
+                      const Spacer(),
+                      cubitVer!.data.ver.contains(x)
+                          ? const SizedBox():Padding(
+                          padding: EdgeInsets.symmetric(
+                              vertical: 5.h, horizontal: 5.h),
+                          child: BlueButton(
+                              title: Text(mytranslate(context, "get"),
+                                  style: TextStyle(
+                                      color: myWhite,
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold)),
+                              hight: 0.09,
+                              width: 0.80,
+                              icon: Icons.arrow_back,
+                              onpress: () {
                                 navigateToFinish(context, OnBoardingScreen());
-                                 // navigateToFinish(context, Maps());
-                                }))
-                      ],
-                    ),
+                              }))
+                    ],
+                  ),
+            cubitVer.data.ver.contains(x)
+                ? const VersionDialog()
+                : const SizedBox(),
+                ]),
         );
       },
     );

@@ -59,7 +59,7 @@ dependencies:
   intl: ^0.17.0
   device_preview: ^1.1.0
   slide_popup_dialog_null_safety: ^1.0.0
-
+  open_store: ^0.5.0
 
 dev_dependencies:
   flutter_test:

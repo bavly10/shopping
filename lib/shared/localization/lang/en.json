@@ -165,6 +165,8 @@
    "deleteDialog": "Delete",
    "cacnel": "CANCEL",
    "deleteemoj": "Delete \uD83D\uDE1F ",
-   "pay": "Pay"
+   "pay": "Pay",
+   "ver": "OOh New Update is Already to Install",
+   "updatever":"UPDATE NOW"
 
 }
