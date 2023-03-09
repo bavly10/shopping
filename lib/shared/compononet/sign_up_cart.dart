@@ -142,6 +142,7 @@ class SignUpCartDialog extends StatelessWidget {
                               }),
                               ProductCubit.get(context).accept = false
                               }).whenComplete(() => {
+                                ///Payment Here Web view Navigate
                               navigateToFinish(context, const SuccessOrder(phone: "06510355051",)),
                                   ProductCubit.get(context).removeCart()
                               });

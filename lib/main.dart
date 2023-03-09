@@ -27,10 +27,7 @@ void main() async {
   await CashHelper.init();
   DioHelper.init();
   runApp(MyApp());
-  // runApp(DevicePreview(
-  //       enabled: !kReleaseMode,
-  //       builder: (context) => MyApp(), // Wrap your app
-  //     ),);
+
 }
 
 class MyApp extends StatelessWidget {

@@ -13,6 +13,7 @@ import 'package:shopping/modules/Customer/login/main.dart';
 import 'package:shopping/modules/cart/cart.dart';
 import 'package:shopping/modules/mainScreen/Setting/setting.dart';
 import 'package:shopping/modules/mainScreen/screen/HomeScreen.dart';
+import 'package:shopping/shared/Api/api.dart';
 import 'package:shopping/shared/diohelper/dioHelpoer.dart';
 import 'package:shopping/shared/network.dart';
 import 'package:shopping/shared/shared_prefernces.dart';
@@ -96,14 +97,13 @@ class ShopCubit extends Cubit<ShopStates> {
   SplashModel? splashModel;
   Future<void> getSplashData() async {
     emit(LoadingSplash());
-    DioHelper.getData(url: splash).then((value) {
-      splashModel = SplashModel.fromJson(value.data);
-      print("done Splash model ${splashModel!.status}");
+    Map<String,dynamic> data=await Api().get(splash);
+    splashModel = SplashModel.fromJson(data);
+    if(splashModel!.status==true){
       emit(DoneSplash());
-    }).catchError((onError) {
-      print(onError.toString());
+    }else{
       emit(ErrorSplash());
-    });
+    }
   }
 
   //////////////////////////
@@ -114,7 +114,6 @@ class ShopCubit extends Cubit<ShopStates> {
     Map<String, dynamic> data = {"type": type};
     DioHelper.postData(url: category, data: data).then((value) {
       categoryModel = CategoryModel.fromJson(value.data);
-      print("done categoryModel ${categoryModel!.status}");
       emit(DoneCat());
     }).catchError((onError) {
       print(onError.toString());
@@ -202,9 +201,7 @@ class ShopCubit extends Cubit<ShopStates> {
         pageCurrent = 1;
       } else {
         for (var value in res) {
-          final pro = list.indexWhere(
-                (element) => element.id == value["id"].toString(),
-          );
+          final pro = list.indexWhere((element) => element.id == value["id"].toString(),);
           if (pro >= 0) {
             list[pro] = ProductsItem(
               id: value["id"].toString(),

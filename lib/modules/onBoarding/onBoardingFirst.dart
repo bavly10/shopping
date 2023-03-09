@@ -4,6 +4,7 @@ import 'package:shopping/Cubit/cubit.dart';
 import 'package:shopping/Cubit/states.dart';
 import 'package:shopping/model/language.dart';
 import 'package:shopping/modules/onBoarding/onBoarding_screen.dart';
+import 'package:shopping/modules/zorar.dart';
 import 'package:shopping/shared/compononet/MyCachedNetworkImage.dart';
 import 'package:shopping/shared/compononet/blueButton.dart';
 import 'package:shopping/shared/compononet/componotents.dart';
@@ -16,7 +17,7 @@ import 'package:sizer/sizer.dart';
 import '../../shared/compononet/versionDialog.dart';
 
 class OnBoardingFirst extends StatelessWidget {
-  String x = "1";
+  String x = "0";
 
   OnBoardingFirst({Key? key}) : super(key: key);
 
@@ -91,6 +92,7 @@ class OnBoardingFirst extends StatelessWidget {
                               width: 0.80,
                               icon: Icons.arrow_back,
                               onpress: () {
+                                //navigateTo(context, Zorar());
                                 navigateToFinish(context, OnBoardingScreen());
                               }))
                     ],
