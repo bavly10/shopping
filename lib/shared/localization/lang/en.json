@@ -17,6 +17,7 @@
    "signup1": "please do\nFill in your store information",
    "signup2": "Create a new account",
    "name": "Name",
+   "lname": "Last Name",
    "nameEn": "Name In English",
    "mobile": "Mobile Number",
    "address": "Address",

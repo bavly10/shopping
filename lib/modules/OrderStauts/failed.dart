@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hex_color/flutter_hex_color.dart';
 import 'package:shopping/modules/mainScreen/mainScreen.dart';
+import 'package:shopping/modules/onBoarding/onBoarding_screen.dart';
+import 'package:shopping/modules/payment/cubit/cubit.dart';
 import 'package:shopping/shared/localization/translate.dart';
 import 'package:shopping/shared/my_colors.dart';
 
@@ -24,60 +26,70 @@ class FailedOrder extends StatelessWidget {
           ])),
       child: Scaffold(
         backgroundColor: Colors.transparent,
-        body: Padding(
-          padding: const EdgeInsets.only(top: 250, right: 12, left: 12),
-          child: Center(
-            child: Column(
-              children: [
-                Container(
-                  decoration: const BoxDecoration(
-                      shape: BoxShape.circle, color: Colors.white),
-                  child: Icon(
-                    Icons.cancel_sharp,
-                    color: myBlue,
-                    size: 76,
-                  ),
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                decoration: const BoxDecoration(
+                    shape: BoxShape.circle, color: Colors.white),
+                child: Icon(
+                  Icons.cancel_sharp,
+                  color: myBlue,
+                  size: 76,
                 ),
-                const SizedBox(
-                  height: 10,
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              Padding(
+                padding: const EdgeInsets.all(12.0),
+                child: Column(
+                  children: [
+                    Text(mytranslate(context, "fail"),
+                        style: const TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 35)),
+                    Text("${PaymentCubit.get(context).message}",
+                        style: const TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20)),
+                  ],
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(12.0),
-                  child: Text(mytranslate(context, "fail"),
-                      style: const TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 35)),
-                ),
-                Text(
-                  mytranslate(context, "again"),
-                  style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(27.0),
-                  child: MaterialButton(
-                      minWidth: MediaQuery.of(context).size.width * .5,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30.0),
-                      ),
-                      onPressed: () {
-                        navigateTo(context, MainScreen());
-                      },
-                      textColor: myBlue,
-                      color: Colors.white,
-                      child: Text(
-                        mytranslate(context, "ok"),
-                        style: TextStyle(
-                            color: myBlue,
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold),
-                      )),
-                ),
-              ],
-            ),
+              ),
+              TextButton(
+                onPressed: (){
+                  navigateToFinish(context, CartScreen());
+                },
+                child: Text(mytranslate(context, "again"),
+                style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold),
+              )),
+              Padding(
+                padding: const EdgeInsets.all(27.0),
+                child: MaterialButton(
+                    minWidth: MediaQuery.of(context).size.width * .5,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30.0),
+                    ),
+                    onPressed: () {
+                      navigateTo(context,OnBoardingScreen());
+                    },
+                    textColor: myBlue,
+                    color: Colors.white,
+                    child: Text(
+                      mytranslate(context, "ok"),
+                      style: TextStyle(
+                          color: myBlue,
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold),
+                    )),
+              ),
+            ],
           ),
         ),
       ),

@@ -7,6 +7,10 @@ import 'package:shopping/modules/Customer/products/cubit/cubit.dart';
 import 'package:shopping/modules/Customer/products/cubit/states.dart';
 import 'package:shopping/modules/OrderStauts/Success.dart';
 import 'package:shopping/modules/OrderStauts/failed.dart';
+import 'package:shopping/modules/cart/widget/floatingOrder.dart';
+import 'package:shopping/modules/payment/cubit/cubit.dart';
+import 'package:shopping/modules/payment/cubit/state.dart';
+import 'package:shopping/modules/payment/payment.dart';
 import 'package:shopping/shared/compononet/componotents.dart';
 import 'package:shopping/shared/compononet/myToast.dart';
 import 'package:shopping/shared/compononet/textField.dart';
@@ -22,30 +26,21 @@ import 'check_phone_cart.dart';
 
 class SignUpCartDialog extends StatelessWidget {
   String? phoneStore;
+  final amout;
   final formKey = GlobalKey<FormState>();
-
-  SignUpCartDialog.SignUpCartDialog({Key? key, this.phoneStore}) : super(key: key);
-  TextEditingController nameController = TextEditingController();
-  TextEditingController phoneController = TextEditingController();
-  TextEditingController addressController = TextEditingController();
-  TextEditingController emailController = TextEditingController();
+  SignUpCartDialog.SignUpCartDialog({Key? key, this.phoneStore,this.amout}) : super(key: key);
+  static TextEditingController lastNameController = TextEditingController();
+  static TextEditingController firstNameController = TextEditingController();
+  static TextEditingController phoneController = TextEditingController();
+  static TextEditingController addressController = TextEditingController();
+  static TextEditingController emailController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     ShopCubit.get(context).getMyShared();
-    return BlocConsumer<ProductCubit,ProductStates>(
-      listener: (ctx,state){
-        if (state is InsertOrderSucessState) {
-
-        } else if (state is InsertOrderErrorState) {
-          navigateToFinish(context, const FailedOrder());
-          ProductCubit.get(context).accept = false;
-        }else{
-
-        }
-      },
+    return BlocBuilder<PaymentCubit,PaymentStates>(
       builder: (ctx,state){
-        final cubit = ProductCubit.get(context);
+        final cubit = PaymentCubit.get(context);
         return Scaffold(
           body: Form(
             key: formKey,
@@ -75,17 +70,40 @@ class SignUpCartDialog extends StatelessWidget {
                             fontStyle: FontStyle.italic),
                       ),
                     ),
-                    MyTextField(
-                      readonly: false,
-                      prefix: Icons.person_outline,
-                      controller: nameController,
-                      obcure: false,
-                      type: TextInputType.name,
-                      label: mytranslate(context, "name"),
-                      validate: (value) {
-                        if (value!.isEmpty) return "INVALID FIELD";
-                        return null;
-                      },
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        SizedBox(
+                          width: 200,
+                          child: MyTextField(
+                            readonly: false,
+                            prefix: Icons.person_outline,
+                            controller: firstNameController,
+                            obcure: false,
+                            type: TextInputType.name,
+                            label: mytranslate(context, "name"),
+                            validate: (value) {
+                              if (value!.isEmpty) return "INVALID FIELD";
+                              return null;
+                            },
+                          ),
+                        ),
+                        SizedBox(
+                          width: 150,
+                          child: MyTextField(
+                            readonly: false,
+                            prefix: Icons.person_outline,
+                            controller: lastNameController,
+                            obcure: false,
+                            type: TextInputType.name,
+                            label: mytranslate(context, "lname"),
+                            validate: (value) {
+                              if (value!.isEmpty) return "INVALID FIELD";
+                              return null;
+                            },
+                          ),
+                        ),
+                      ],
                     ),
                     MyTextField(
                       readonly: false,
@@ -120,31 +138,19 @@ class SignUpCartDialog extends StatelessWidget {
                               color: myBlue,
                               borderRadius:  BorderRadius.circular(16.0),
                             ),
-                            child: state is InsertOrderLoadingState ? const CircularProgressIndicator(color: Colors.white12,):Text(
+                            child: state is PaymentLoading ? const CircularProgressIndicator(color: Colors.white12,):Text(
                               mytranslate(context, "verify"),
                               style: const TextStyle(
                                   color: Colors.white, fontSize: 20.0),
                               textAlign: TextAlign.center,
                             ),
                           ),
-                          onTap: () async {
+                          onTap: () {
                             FocusScope.of(context).unfocus();
                             if (formKey.currentState!.validate()) {
-                              await CustomerCubit.get(context).createUser(
-                                  name: nameController.text,
-                                  address: addressController.text,
-                                  email: emailController.text,
-                                  phone: CheckDialog.phoneCheckController.text)
-                                  .then((value) => {
-                              cubit.items.forEach((key, value) async {
-                              await cubit.createOrder(size: value.size.toString(), price: value.price.toString(), many: value.quantity.toString(),
-                              customerID: CustomerCubit.get(context).userId, productID: value.id.toString() );
-                              }),
-                              ProductCubit.get(context).accept = false
-                              }).whenComplete(() => {
-                                ///Payment Here Web view Navigate
-                              navigateToFinish(context, const SuccessOrder(phone: "06510355051",)),
-                                  ProductCubit.get(context).removeCart()
+                                cubit.getLink(lastName:lastNameController.text,address: addressController.text,phone: CheckDialog.phoneCheckController.text,
+                                    email: emailController.text,amount:MyFloating.result.toString(),firstName: firstNameController.text).then((value) => {
+                                navigateTo(context, Payment(url: "${cubit.url}",code: "${cubit.codeTran}",))
                               });
                             }
                           }),

@@ -28,3 +28,5 @@ String forgetPass = "https://kash5tak.com/password/reset";
 String sallaPrivacy = "/privacy-policy-sala";
 String updateOrder = "/read-talap";
 String versionn = "/ver";
+String paymentLink="https://secure.innovatepayments.com/gateway/mobile.xml";
+String paymentStatus="https://secure.innovatepayments.com/gateway/mobile_complete.xml";

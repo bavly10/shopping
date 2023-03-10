@@ -35,7 +35,6 @@ class MyTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      //height: MediaQuery.of(context).size.height * .08,
       child: Container(
           decoration: BoxDecoration(boxShadow: [
             BoxShadow(

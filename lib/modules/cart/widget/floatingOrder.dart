@@ -21,6 +21,7 @@ class MyFloating extends StatelessWidget {
   double? priceShip = 0.0;
   double? priceOwner = 0.0;
   final GlobalKey<ScaffoldState> skey = GlobalKey<ScaffoldState>();
+  static double? result;
    MyFloating({Key? key}) : super(key: key);
 
   @override
@@ -44,7 +45,7 @@ class MyFloating extends StatelessWidget {
         ownerEarn.data?.ownerEarnActive == "true"
             ? priceOwner = double.parse("${ownerEarn.data?.ownerEarn}")
             : priceOwner = 0.0;
-        double result = totalamount + priceShip! + priceOwner!;
+           result = totalamount + priceShip! + priceOwner!;
         return Expanded(
           key: skey,
           child: SingleChildScrollView(

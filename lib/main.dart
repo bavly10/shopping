@@ -13,6 +13,7 @@ import 'package:shopping/modules/Customer/cubit/cubit.dart';
 import 'package:shopping/modules/Customer/login/cubit/cubit.dart';
 import 'package:shopping/modules/Customer/products/cubit/cubit.dart';
 import 'package:shopping/modules/Splash_screen/splash.dart';
+import 'package:shopping/modules/payment/cubit/cubit.dart';
 import 'package:shopping/shared/diohelper/dioHelpoer.dart';
 import 'package:shopping/shared/localization/set_localization.dart';
 import 'package:shopping/shared/my_colors.dart';
@@ -41,6 +42,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => ProductCubit()..getPrivacyPolicy()),
         BlocProvider(create: (context) => CustomerOrderCubit()..getOrders(context: context)),
         BlocProvider(create: (context) => CustomerCubit()..getStatisticCustomer(LoginCubit.get(context).loginModel?.data?.id, context)),
+        BlocProvider(create: (context) => PaymentCubit()),
       ],
       child: BlocBuilder<ShopCubit, ShopStates>(
         builder: (context, state) {
