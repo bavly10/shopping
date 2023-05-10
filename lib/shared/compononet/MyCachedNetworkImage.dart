@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import 'package:shopping/shared/my_colors.dart';
+import 'package:myshoop/shared/my_colors.dart';
 
 class MyCachedNetWorkImage extends StatelessWidget {
   final String logo;

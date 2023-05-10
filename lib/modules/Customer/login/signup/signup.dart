@@ -2,19 +2,19 @@ import 'package:animated_background/animated_background.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:shopping/modules/Customer/login/cubit/cubit.dart';
-import 'package:shopping/modules/Customer/login/cubit/state.dart';
-import 'package:shopping/modules/Customer/login/login/login.dart';
-import 'package:shopping/modules/Customer/login/signup/tabs/first_screen.dart';
-import 'package:shopping/modules/Customer/login/signup/tabs/second_screen.dart';
-import 'package:shopping/modules/Customer/login/signup/tabs/third_screen.dart';
-import 'package:shopping/shared/compononet/blueButton.dart';
-import 'package:shopping/shared/compononet/componotents.dart';
-import 'package:shopping/shared/compononet/dialog.dart';
-import 'package:shopping/shared/compononet/privacy_signup.dart';
-import 'package:shopping/shared/compononet/rowLogin.dart';
-import 'package:shopping/shared/localization/translate.dart';
-import 'package:shopping/shared/my_colors.dart';
+import 'package:myshoop/modules/Customer/login/cubit/cubit.dart';
+import 'package:myshoop/modules/Customer/login/cubit/state.dart';
+import 'package:myshoop/modules/Customer/login/login/login.dart';
+import 'package:myshoop/modules/Customer/login/signup/tabs/first_screen.dart';
+import 'package:myshoop/modules/Customer/login/signup/tabs/second_screen.dart';
+import 'package:myshoop/modules/Customer/login/signup/tabs/third_screen.dart';
+import 'package:myshoop/shared/compononet/blueButton.dart';
+import 'package:myshoop/shared/compononet/componotents.dart';
+import 'package:myshoop/shared/compononet/dialog.dart';
+import 'package:myshoop/shared/compononet/privacy_signup.dart';
+import 'package:myshoop/shared/compononet/rowLogin.dart';
+import 'package:myshoop/shared/localization/translate.dart';
+import 'package:myshoop/shared/my_colors.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class Signup extends StatefulWidget{
@@ -41,7 +41,7 @@ class _SignupState extends State<Signup> with TickerProviderStateMixin{
                 pressTitle: 'OK',
                 context: context,
                 icon: Icons.error,
-                bigTitle: "shopping",
+                bigTitle: "myshoop",
                 content:
                 "${state.response.msg} ${mytranslate(context, "errorregister")}",
                 pressColor: Colors.red,
@@ -52,7 +52,7 @@ class _SignupState extends State<Signup> with TickerProviderStateMixin{
                 pressTitle: 'OK',
                 context: context,
                 icon: Icons.done,
-                bigTitle: "shopping",
+                bigTitle: "myshoop",
                 content: state.response.msg,
                 pressColor: Colors.lightBlueAccent,
                 iconColor: Colors.green);

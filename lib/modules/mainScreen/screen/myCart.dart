@@ -1,15 +1,13 @@
-import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import 'package:shopping/modules/Customer/products/cubit/cubit.dart';
-import 'package:shopping/modules/Customer/products/cubit/states.dart';
-import 'package:shopping/modules/cart/cart.dart';
-import 'package:shopping/shared/compononet/LoagingDialog.dart';
-import 'package:shopping/shared/compononet/componotents.dart';
-import 'package:shopping/shared/compononet/myToast.dart';
-import 'package:shopping/shared/localization/translate.dart';
-import 'package:shopping/shared/my_colors.dart';
+import 'package:myshoop/modules/Customer/products/cubit/cubit.dart';
+import 'package:myshoop/modules/Customer/products/cubit/states.dart';
+import 'package:myshoop/modules/cart/cart.dart';
+import 'package:myshoop/shared/compononet/componotents.dart';
+import 'package:myshoop/shared/localization/translate.dart';
+import 'package:myshoop/shared/my_colors.dart';
+import 'package:badges/badges.dart' as badges;
 
 class CartWidget extends StatelessWidget {
   const CartWidget({Key? key}) : super(key: key);
@@ -41,28 +39,26 @@ class CartWidget extends StatelessWidget {
                   },
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: Badge(
-                      animationDuration: const Duration(milliseconds: 300),
-                      position: BadgePosition.topEnd(top: -13),
-                      animationType: BadgeAnimationType.fade,
-                      showBadge: true,
-                      toAnimate: true,
-                      shape: BadgeShape.circle,
-                      badgeColor: Colors.red,
-                      borderRadius: BorderRadius.circular(10),
-                      badgeContent: //  if (x != 0)
-                      Text(
-                        "${cubit.itemcount}",
-                        style: const TextStyle(
-                            color: Colors.white,
-                            fontSize:14,
-                            fontWeight: FontWeight.bold),
+                    child:  badges.Badge(
+                      badgeContent:
+                      Row(
+                        children: [
+                          Text(
+                            "${cubit.itemcount}",
+                            style: const TextStyle(
+                                color: Colors.white,
+                                fontSize:14,
+                                fontWeight: FontWeight.bold),
+                          ),
+                          const Icon(Icons.add_shopping_cart_outlined, color: Colors.white, size: 25),
+                        ],
                       ),
-                      child: Icon(
-                       MdiIcons.cartArrowDown,
-                        color: myWhite,
-                        size: 30,
-                      ),
+                      badgeAnimation: const badges.BadgeAnimation.rotation(
+                        animationDuration: Duration(seconds: 2),
+                        loopAnimation: false,
+                        curve: Curves.fastOutSlowIn,
+                        colorChangeAnimationCurve: Curves.easeInCubic,
+                      toAnimate: true,),
                     ),
                   ),
                 ),

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import 'package:shopping/modules/Customer/login/cubit/cubit.dart';
-import 'package:shopping/modules/Customer/login/cubit/state.dart';
-import 'package:shopping/shared/compononet/textField.dart';
-import 'package:shopping/shared/localization/translate.dart';
-import 'package:shopping/shared/my_colors.dart';
-import 'package:shopping/shared/strings.dart';
+import 'package:myshoop/modules/Customer/login/cubit/cubit.dart';
+import 'package:myshoop/modules/Customer/login/cubit/state.dart';
+import 'package:myshoop/shared/compononet/textField.dart';
+import 'package:myshoop/shared/localization/translate.dart';
+import 'package:myshoop/shared/my_colors.dart';
+import 'package:myshoop/shared/strings.dart';
 
 class SecondScreen extends StatelessWidget {
    SecondScreen({Key? key}) : super(key: key);

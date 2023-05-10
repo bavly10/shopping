@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shopping/modules/Customer/MyOrders/cubit/cubit.dart';
-import 'package:shopping/modules/Customer/MyOrders/cubit/state.dart';
-import 'package:shopping/shared/localization/translate.dart';
+import 'package:myshoop/modules/Customer/MyOrders/cubit/cubit.dart';
+import 'package:myshoop/modules/Customer/MyOrders/cubit/state.dart';
+import 'package:myshoop/shared/localization/translate.dart';
 
 class MyTextFiledSearch extends StatelessWidget {
   final TextEditingController search;

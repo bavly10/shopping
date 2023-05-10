@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shopping/modules/Customer/login/cubit/cubit.dart';
-import 'package:shopping/modules/Customer/login/cubit/state.dart';
-import 'package:shopping/modules/Customer/login/login/login.dart';
-import 'package:shopping/modules/Customer/login/signup/signup.dart';
-import 'package:shopping/shared/compononet/privacy_signup.dart';
-import 'package:shopping/shared/my_colors.dart';
+import 'package:myshoop/modules/Customer/login/cubit/cubit.dart';
+import 'package:myshoop/modules/Customer/login/cubit/state.dart';
+import 'package:myshoop/modules/Customer/login/login/login.dart';
+import 'package:myshoop/modules/Customer/login/signup/signup.dart';
+import 'package:myshoop/shared/compononet/privacy_signup.dart';
+import 'package:myshoop/shared/my_colors.dart';
 
 class MainLogin extends StatelessWidget {
   const MainLogin({Key? key}) : super(key: key);

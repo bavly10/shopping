@@ -1,6 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:shopping/shared/compononet/MyCachedNetworkImage.dart';
+import 'package:myshoop/shared/compononet/MyCachedNetworkImage.dart';
 
 class onBoardingItem extends StatelessWidget {
   String splashModel;

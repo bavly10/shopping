@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:shopping/modules/onBoarding/onBoardingFirst.dart';
-import 'package:shopping/shared/compononet/componotents.dart';
-import 'package:shopping/shared/my_colors.dart';
+import 'package:myshoop/modules/onBoarding/onBoardingFirst.dart';
+import 'package:myshoop/shared/compononet/componotents.dart';
+import 'package:myshoop/shared/my_colors.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -16,7 +16,7 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
   void initState() {
     super.initState();
     Timer(
-        const Duration(milliseconds:3500), () => { navigateToFinish(context, OnBoardingFirst(),)});
+        const Duration(milliseconds:3500), () => navigateToFinish(context, OnBoardingFirst(),));
   }
   late final AnimationController _controller = AnimationController(
     duration: const Duration(seconds:2),

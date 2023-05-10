@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:open_store/open_store.dart';
-import 'package:shopping/shared/localization/translate.dart';
+import 'package:myshoop/shared/localization/translate.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class VersionDialog extends StatelessWidget {
@@ -12,7 +12,7 @@ class VersionDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return AlertDialog(
       backgroundColor: Colors.grey[300],
-      alignment: Alignment.center,
+
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25.0)),
       elevation: 0.0,
       content: dialogContent(context),

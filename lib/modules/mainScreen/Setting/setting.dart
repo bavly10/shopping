@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shopping/Cubit/cubit.dart';
-import 'package:shopping/Cubit/states.dart';
-import 'package:shopping/model/language.dart';
-import 'package:shopping/modules/mainScreen/Setting/Fav/Fav.dart';
-import 'package:shopping/shared/compononet/LoagingDialog.dart';
-import 'package:shopping/shared/compononet/componotents.dart';
-import 'package:shopping/shared/compononet/myToast.dart';
-import 'package:shopping/shared/diohelper/dioHelpoer.dart';
-import 'package:shopping/shared/localization/translate.dart';
-import 'package:shopping/shared/my_colors.dart';
+import 'package:myshoop/Cubit/cubit.dart';
+import 'package:myshoop/Cubit/states.dart';
+import 'package:myshoop/model/language.dart';
+import 'package:myshoop/modules/mainScreen/Setting/Fav/Fav.dart';
+import 'package:myshoop/shared/compononet/LoagingDialog.dart';
+import 'package:myshoop/shared/compononet/componotents.dart';
+import 'package:myshoop/shared/compononet/myToast.dart';
+import 'package:myshoop/shared/diohelper/dioHelpoer.dart';
+import 'package:myshoop/shared/localization/translate.dart';
+import 'package:myshoop/shared/my_colors.dart';
 
 import 'widget/CustomListTile.dart';
 class Setting extends StatelessWidget {

@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:shopping/modules/Customer/Static/widgets/custom_chart.dart';
-import 'package:shopping/modules/Customer/Static/widgets/warning_container.dart';
-import 'package:shopping/modules/Customer/cubit/cubit.dart';
-import 'package:shopping/modules/Customer/cubit/state.dart';
-import 'package:shopping/shared/compononet/componotents.dart';
-import 'package:shopping/shared/compononet/no_result_search.dart';
-import 'package:shopping/shared/localization/translate.dart';
-import 'package:shopping/shared/my_colors.dart';
+import 'package:myshoop/modules/Customer/Static/widgets/custom_chart.dart';
+import 'package:myshoop/modules/Customer/Static/widgets/warning_container.dart';
+import 'package:myshoop/modules/Customer/cubit/cubit.dart';
+import 'package:myshoop/modules/Customer/cubit/state.dart';
+import 'package:myshoop/shared/compononet/componotents.dart';
+import 'package:myshoop/shared/compononet/no_result_search.dart';
+import 'package:myshoop/shared/localization/translate.dart';
+import 'package:myshoop/shared/my_colors.dart';
 
 import '../../../model/earning_model.dart';
 

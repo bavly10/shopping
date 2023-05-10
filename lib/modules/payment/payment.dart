@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
-import 'package:shopping/modules/Customer/cubit/cubit.dart';
-import 'package:shopping/modules/Customer/products/cubit/cubit.dart';
-import 'package:shopping/modules/Customer/products/cubit/states.dart';
-import 'package:shopping/modules/OrderStauts/Success.dart';
-import 'package:shopping/modules/OrderStauts/failed.dart';
-import 'package:shopping/modules/payment/cubit/cubit.dart';
-import 'package:shopping/modules/payment/cubit/state.dart';
-import 'package:shopping/shared/compononet/check_phone_cart.dart';
-import 'package:shopping/shared/compononet/componotents.dart';
-import 'package:shopping/shared/compononet/sign_up_cart.dart';
+import 'package:myshoop/modules/Customer/cubit/cubit.dart';
+import 'package:myshoop/modules/Customer/products/cubit/cubit.dart';
+import 'package:myshoop/modules/Customer/products/cubit/states.dart';
+import 'package:myshoop/modules/OrderStauts/Success.dart';
+import 'package:myshoop/modules/OrderStauts/failed.dart';
+import 'package:myshoop/modules/payment/cubit/cubit.dart';
+import 'package:myshoop/modules/payment/cubit/state.dart';
+import 'package:myshoop/shared/compononet/check_phone_cart.dart';
+import 'package:myshoop/shared/compononet/componotents.dart';
+import 'package:myshoop/shared/compononet/sign_up_cart.dart';
 
 class Payment extends StatelessWidget {
   final String url;

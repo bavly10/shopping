@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:shopping/shared/my_colors.dart';
+import 'package:myshoop/shared/my_colors.dart';
 
 class BorderSignup extends StatelessWidget {
   final bool color;

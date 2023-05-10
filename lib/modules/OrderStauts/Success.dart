@@ -2,11 +2,11 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_hex_color/flutter_hex_color.dart';
-import 'package:shopping/modules/cart/cart.dart';
-import 'package:shopping/modules/mainScreen/mainScreen.dart';
-import 'package:shopping/shared/compononet/componotents.dart';
-import 'package:shopping/shared/localization/translate.dart';
-import 'package:shopping/shared/my_colors.dart';
+import 'package:myshoop/modules/cart/cart.dart';
+import 'package:myshoop/modules/mainScreen/mainScreen.dart';
+import 'package:myshoop/shared/compononet/componotents.dart';
+import 'package:myshoop/shared/localization/translate.dart';
+import 'package:myshoop/shared/my_colors.dart';
 
 class SuccessOrder extends StatelessWidget {
   final String phone;

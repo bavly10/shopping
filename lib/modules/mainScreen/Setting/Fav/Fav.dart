@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shopping/Cubit/cubit.dart';
-import 'package:shopping/Cubit/states.dart';
-import 'package:shopping/modules/mainScreen/Setting/Fav/widgets/buildCard.dart';
-import 'package:shopping/modules/mainScreen/Setting/Fav/widgets/empty.dart';
-import 'package:shopping/shared/compononet/arrowBack.dart';
-import 'package:shopping/shared/localization/translate.dart';
+import 'package:myshoop/Cubit/cubit.dart';
+import 'package:myshoop/Cubit/states.dart';
+import 'package:myshoop/modules/mainScreen/Setting/Fav/widgets/buildCard.dart';
+import 'package:myshoop/modules/mainScreen/Setting/Fav/widgets/empty.dart';
+import 'package:myshoop/shared/compononet/arrowBack.dart';
+import 'package:myshoop/shared/localization/translate.dart';
 
 class Favorite extends StatelessWidget {
   const Favorite({Key? key}) : super(key: key);

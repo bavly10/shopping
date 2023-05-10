@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:shopping/shared/my_colors.dart';
+import 'package:myshoop/shared/my_colors.dart';
 
 navigateTo(context, widget) =>
     Navigator.push(context, MaterialPageRoute(builder: (context) => widget));

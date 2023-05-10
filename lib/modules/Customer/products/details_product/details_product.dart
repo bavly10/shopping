@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shopping/modules/Customer/products/cubit/cubit.dart';
-import 'package:shopping/modules/Customer/products/cubit/states.dart';
-import 'package:shopping/modules/Customer/products/details_product/widgets/background_container.dart';
-import 'package:shopping/modules/Customer/products/details_product/widgets/container_details.dart';
-import 'package:shopping/modules/Customer/products/details_product/widgets/image_container.dart';
-import 'package:shopping/modules/cart/cart.dart';
-import 'package:shopping/shared/compononet/LoagingDialog.dart';
-import 'package:shopping/shared/compononet/componotents.dart';
-import 'package:shopping/shared/compononet/myToast.dart';
-import 'package:shopping/shared/localization/translate.dart';
-import 'package:shopping/shared/my_colors.dart';
+import 'package:myshoop/modules/Customer/products/cubit/cubit.dart';
+import 'package:myshoop/modules/Customer/products/cubit/states.dart';
+import 'package:myshoop/modules/Customer/products/details_product/widgets/background_container.dart';
+import 'package:myshoop/modules/Customer/products/details_product/widgets/container_details.dart';
+import 'package:myshoop/modules/Customer/products/details_product/widgets/image_container.dart';
+import 'package:myshoop/modules/cart/cart.dart';
+import 'package:myshoop/shared/compononet/LoagingDialog.dart';
+import 'package:myshoop/shared/compononet/componotents.dart';
+import 'package:myshoop/shared/compononet/myToast.dart';
+import 'package:myshoop/shared/localization/translate.dart';
+import 'package:myshoop/shared/my_colors.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../../mainScreen/mainScreen.dart';
@@ -44,7 +44,7 @@ class DetailsProduct extends StatelessWidget {
                           arrowBack: () {
                             Navigator.pop(context);
                           },
-                          cartShopping: () {
+                          cartmyshoop: () {
                             ProductCubit.get(context).getEarn();
                           },
                           x: cubit.itemcount,

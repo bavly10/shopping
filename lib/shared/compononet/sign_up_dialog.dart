@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import 'package:shopping/Cubit/cubit.dart';
-import 'package:shopping/modules/Customer/cubit/cubit.dart';
-import 'package:shopping/shared/compononet/myToast.dart';
-import 'package:shopping/shared/compononet/textField.dart';
-import 'package:shopping/shared/compononet/verification_phone_dialog.dart';
+import 'package:myshoop/Cubit/cubit.dart';
+import 'package:myshoop/modules/Customer/cubit/cubit.dart';
+import 'package:myshoop/shared/compononet/myToast.dart';
+import 'package:myshoop/shared/compononet/textField.dart';
+import 'package:myshoop/shared/compononet/verification_phone_dialog.dart';
 
-import 'package:shopping/shared/localization/translate.dart';
-import 'package:shopping/shared/my_colors.dart';
+import 'package:myshoop/shared/localization/translate.dart';
+import 'package:myshoop/shared/my_colors.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import 'connection_dialog.dart';

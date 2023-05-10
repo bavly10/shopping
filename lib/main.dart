@@ -5,19 +5,19 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:shopping/Cubit/cubit.dart';
-import 'package:shopping/Cubit/my_observer.dart';
-import 'package:shopping/Cubit/states.dart';
-import 'package:shopping/modules/Customer/MyOrders/cubit/cubit.dart';
-import 'package:shopping/modules/Customer/cubit/cubit.dart';
-import 'package:shopping/modules/Customer/login/cubit/cubit.dart';
-import 'package:shopping/modules/Customer/products/cubit/cubit.dart';
-import 'package:shopping/modules/Splash_screen/splash.dart';
-import 'package:shopping/modules/payment/cubit/cubit.dart';
-import 'package:shopping/shared/diohelper/dioHelpoer.dart';
-import 'package:shopping/shared/localization/set_localization.dart';
-import 'package:shopping/shared/my_colors.dart';
-import 'package:shopping/shared/shared_prefernces.dart';
+import 'package:myshoop/Cubit/cubit.dart';
+import 'package:myshoop/Cubit/my_observer.dart';
+import 'package:myshoop/Cubit/states.dart';
+import 'package:myshoop/modules/Customer/MyOrders/cubit/cubit.dart';
+import 'package:myshoop/modules/Customer/cubit/cubit.dart';
+import 'package:myshoop/modules/Customer/login/cubit/cubit.dart';
+import 'package:myshoop/modules/Customer/products/cubit/cubit.dart';
+import 'package:myshoop/modules/Splash_screen/splash.dart';
+import 'package:myshoop/modules/payment/cubit/cubit.dart';
+import 'package:myshoop/shared/diohelper/dioHelpoer.dart';
+import 'package:myshoop/shared/localization/set_localization.dart';
+import 'package:myshoop/shared/my_colors.dart';
+import 'package:myshoop/shared/shared_prefernces.dart';
 import 'package:sizer/sizer.dart';
 
 void main() async {
@@ -34,7 +34,7 @@ void main() async {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom]);
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: [SystemUiOverlay.bottom]);
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (context) => ShopCubit()..getSplashData()..getVersion()..getLocale()..createDatabase()),
@@ -49,7 +49,6 @@ class MyApp extends StatelessWidget {
           final cubit = ShopCubit.get(context);
           return Sizer (builder: (context, orientation, deviceType){
             return MaterialApp(
-              useInheritedMediaQuery: true,
               locale: cubit.locale_cubit,
               localizationsDelegates: const [
                 SetLocalztion.localizationsDelegate,

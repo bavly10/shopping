@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
-import 'package:shopping/modules/Customer/login/cubit/cubit.dart';
-import 'package:shopping/modules/Customer/login/cubit/state.dart';
-import 'package:shopping/modules/Customer/customer_home_screen.dart';
-import 'package:shopping/shared/compononet/blueButton.dart';
-import 'package:shopping/shared/compononet/componotents.dart';
-import 'package:shopping/shared/compononet/dialog.dart';
-import 'package:shopping/shared/compononet/rowLogin.dart';
-import 'package:shopping/shared/compononet/textField.dart';
-import 'package:shopping/shared/error_compon.dart';
-import 'package:shopping/shared/localization/translate.dart';
-import 'package:shopping/shared/my_colors.dart';
-import 'package:shopping/shared/network.dart';
+import 'package:myshoop/modules/Customer/login/cubit/cubit.dart';
+import 'package:myshoop/modules/Customer/login/cubit/state.dart';
+import 'package:myshoop/modules/Customer/customer_home_screen.dart';
+import 'package:myshoop/shared/compononet/blueButton.dart';
+import 'package:myshoop/shared/compononet/componotents.dart';
+import 'package:myshoop/shared/compononet/dialog.dart';
+import 'package:myshoop/shared/compononet/rowLogin.dart';
+import 'package:myshoop/shared/compononet/textField.dart';
+import 'package:myshoop/shared/error_compon.dart';
+import 'package:myshoop/shared/localization/translate.dart';
+import 'package:myshoop/shared/my_colors.dart';
+import 'package:myshoop/shared/network.dart';
 
 
 class Login extends StatefulWidget {
@@ -138,11 +138,13 @@ class _LoginState extends State<Login> {
                     height: 25,
                   ),
                   MyTextField(
+                    maxline: 1,
                       readonly: false,
                       validate: (String? s) {
                         if (s!.isEmpty) {
                           return mytranslate(context, "validatePass");
                         }
+                        return null;
                       },
                       label: mytranslate(context, "hintpassword"),
                       controller: passcontroller,

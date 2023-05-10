@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:shopping/shared/compononet/sign_up_cart.dart';
+import 'package:myshoop/shared/compononet/sign_up_cart.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import 'package:shopping/shared/compononet/myToast.dart';
-import 'package:shopping/shared/compononet/textField.dart';
-import 'package:shopping/shared/localization/translate.dart';
-import 'package:shopping/shared/my_colors.dart';
+import 'package:myshoop/shared/compononet/myToast.dart';
+import 'package:myshoop/shared/compononet/textField.dart';
+import 'package:myshoop/shared/localization/translate.dart';
+import 'package:myshoop/shared/my_colors.dart';
 
 import '../../modules/Customer/cubit/cubit.dart';
 

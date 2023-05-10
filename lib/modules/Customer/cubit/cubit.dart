@@ -5,16 +5,16 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:shopping/Cubit/cubit.dart';
-import 'package:shopping/model/ProductsCustomer.dart';
-import 'package:shopping/model/Stactic.dart';
-import 'package:shopping/model/cart.dart';
-import 'package:shopping/model/latest_product.dart';
-import 'package:shopping/model/user_model.dart';
-import 'package:shopping/modules/Customer/cubit/state.dart';
-import 'package:shopping/shared/diohelper/dioHelpoer.dart';
-import 'package:shopping/shared/network.dart';
-import 'package:shopping/shared/shared_prefernces.dart';
+import 'package:myshoop/Cubit/cubit.dart';
+import 'package:myshoop/model/ProductsCustomer.dart';
+import 'package:myshoop/model/Stactic.dart';
+import 'package:myshoop/model/cart.dart';
+import 'package:myshoop/model/latest_product.dart';
+import 'package:myshoop/model/user_model.dart';
+import 'package:myshoop/modules/Customer/cubit/state.dart';
+import 'package:myshoop/shared/diohelper/dioHelpoer.dart';
+import 'package:myshoop/shared/network.dart';
+import 'package:myshoop/shared/shared_prefernces.dart';
 
 class CustomerCubit extends Cubit<CustomerStates> {
   CustomerCubit() : super(Customer_InitalState());

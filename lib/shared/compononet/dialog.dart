@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:shopping/shared/my_colors.dart';
+import 'package:myshoop/shared/my_colors.dart';
 
 My_CustomAlertDialog(
     {Color? iconColor,
@@ -126,7 +126,7 @@ class DialogButton extends StatelessWidget {
       width: width,
       height: height,
       decoration: BoxDecoration(
-          color: color ?? Theme.of(context).accentColor,
+          color: color ?? Theme.of(context).cardColor,
           gradient: gradient,
           borderRadius: radius ?? BorderRadius.circular(6),
           border: border ?? Border.all(color: Colors.transparent, width: 0)),

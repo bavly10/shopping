@@ -1,11 +1,11 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:shopping/Cubit/cubit.dart';
-import 'package:shopping/modules/onBoarding/onBoardingFirst.dart';
-import 'package:shopping/shared/compononet/blueButton.dart';
-import 'package:shopping/shared/localization/translate.dart';
-import 'package:shopping/shared/my_colors.dart';
+import 'package:myshoop/Cubit/cubit.dart';
+import 'package:myshoop/modules/onBoarding/onBoardingFirst.dart';
+import 'package:myshoop/shared/compononet/blueButton.dart';
+import 'package:myshoop/shared/localization/translate.dart';
+import 'package:myshoop/shared/my_colors.dart';
 
 class ErrorPage extends StatelessWidget {
   const ErrorPage({key});

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:shopping/shared/compononet/componotents.dart';
-import 'package:shopping/shared/localization/translate.dart';
+import 'package:myshoop/shared/compononet/componotents.dart';
+import 'package:myshoop/shared/localization/translate.dart';
 
 import '../../../../shared/my_colors.dart';
 

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:shopping/model/myOrderCustomer.dart';
-import 'package:shopping/shared/compononet/MyCachedNetworkImage.dart';
-import 'package:shopping/shared/compononet/orderDialog.dart';
-import 'package:shopping/shared/localization/translate.dart';
-import 'package:shopping/shared/my_colors.dart';
+import 'package:myshoop/model/myOrderCustomer.dart';
+import 'package:myshoop/shared/compononet/MyCachedNetworkImage.dart';
+import 'package:myshoop/shared/compononet/orderDialog.dart';
+import 'package:myshoop/shared/localization/translate.dart';
+import 'package:myshoop/shared/my_colors.dart';
 import 'package:sizer/sizer.dart';
 
 class EXPTile extends StatelessWidget {

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:shopping/Cubit/cubit.dart';
-import 'package:shopping/model/categoryModel.dart';
-import 'package:shopping/shared/compononet/MyCachedNetworkImage.dart';
-import 'package:shopping/shared/localization/translate.dart';
-import 'package:shopping/shared/my_colors.dart';
+import 'package:myshoop/Cubit/cubit.dart';
+import 'package:myshoop/model/categoryModel.dart';
+import 'package:myshoop/shared/compononet/MyCachedNetworkImage.dart';
+import 'package:myshoop/shared/localization/translate.dart';
+import 'package:myshoop/shared/my_colors.dart';
 import 'package:sizer/sizer.dart';
 
 class CategoryScreen extends StatelessWidget {

@@ -1,14 +1,14 @@
-import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import 'package:shopping/shared/my_colors.dart';
+import 'package:myshoop/shared/my_colors.dart';
 import 'package:sizer/sizer.dart';
+import 'package:badges/badges.dart' as badges;
 
 class CustomBackgroundContainer extends StatelessWidget {
   void Function()? arrowBack;
-  void Function()? cartShopping;
+  void Function()? cartmyshoop;
   int? x;
-  CustomBackgroundContainer({this.arrowBack, this.cartShopping, this.x});
+  CustomBackgroundContainer({this.arrowBack, this.cartmyshoop, this.x});
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -34,31 +34,35 @@ class CustomBackgroundContainer extends StatelessWidget {
             const Spacer(),
             InkWell(
               onDoubleTap: (){},
-              onTap: cartShopping,
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Badge(
-                  animationDuration: const Duration(milliseconds: 300),
-                  position: BadgePosition.topEnd(top: -13),
-                  animationType: BadgeAnimationType.fade,
-                  showBadge: true,
-                  toAnimate: true,
-                  shape: BadgeShape.circle,
-                  badgeColor: Colors.red,
-                  borderRadius: BorderRadius.circular(10),
-                  badgeContent: //  if (x != 0)
-                      Text(
-                    x.toString(),
-                    style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold),
-                  ),
-                  child: Icon(
-                    Icons.shopping_cart_outlined,
-                    color: myBlue,
-                    size: 35,
-                  ),
+              onTap: cartmyshoop,
+              child:  badges.Badge(
+                badgeContent:
+                    Row(
+                      children: [
+                        Container(
+                          padding: const EdgeInsets.all(8),
+                          decoration: BoxDecoration(shape: BoxShape.circle,color: myWhite),
+                          child: Text(
+                            x.toString(),
+                            style:  TextStyle(
+                                color: myBlue,
+                                fontSize: 14,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                        const Icon(Icons.add_shopping_cart_outlined, color: Colors.black, size: 25),
+                      ],
+                    ),
+                badgeAnimation: const badges.BadgeAnimation.rotation(
+                  animationDuration: Duration(seconds:2),
+                  curve: Curves.fastOutSlowIn,
+                ),
+                badgeStyle: badges.BadgeStyle(
+                  shape: badges.BadgeShape.circle,
+                  padding: EdgeInsets.all(5),
+                  badgeColor: myBlue,
+                  borderRadius: BorderRadius.circular(4),
+                  elevation: 0,
                 ),
               ),
             )

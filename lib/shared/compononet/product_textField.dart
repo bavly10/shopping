@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:shopping/shared/my_colors.dart';
+import 'package:myshoop/shared/my_colors.dart';
 
 class MyProTextField extends StatelessWidget {
   late TextEditingController controller;

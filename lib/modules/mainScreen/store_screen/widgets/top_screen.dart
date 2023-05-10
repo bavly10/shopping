@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hex_color/flutter_hex_color.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:shopping/shared/compononet/custom_rating.dart';
-import 'package:shopping/shared/my_colors.dart';
+import 'package:myshoop/shared/compononet/custom_rating.dart';
+import 'package:myshoop/shared/my_colors.dart';
 
 import '../../../../shared/compononet/popup_dialog.dart';
 

@@ -3,15 +3,15 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import 'package:shopping/modules/Customer/MyOrders/Search/search.dart';
-import 'package:shopping/modules/Customer/MyOrders/cubit/cubit.dart';
-import 'package:shopping/modules/Customer/MyOrders/cubit/state.dart';
-import 'package:shopping/modules/Customer/MyOrders/widget/EXPTile.dart';
-import 'package:shopping/modules/Customer/MyOrders/widget/pages_container.dart';
-import 'package:shopping/shared/compononet/arrowBack.dart';
-import 'package:shopping/shared/compononet/no_result_search.dart';
-import 'package:shopping/shared/localization/translate.dart';
-import 'package:shopping/shared/my_colors.dart';
+import 'package:myshoop/modules/Customer/MyOrders/Search/search.dart';
+import 'package:myshoop/modules/Customer/MyOrders/cubit/cubit.dart';
+import 'package:myshoop/modules/Customer/MyOrders/cubit/state.dart';
+import 'package:myshoop/modules/Customer/MyOrders/widget/EXPTile.dart';
+import 'package:myshoop/modules/Customer/MyOrders/widget/pages_container.dart';
+import 'package:myshoop/shared/compononet/arrowBack.dart';
+import 'package:myshoop/shared/compononet/no_result_search.dart';
+import 'package:myshoop/shared/localization/translate.dart';
+import 'package:myshoop/shared/my_colors.dart';
 
 class Orders extends StatelessWidget {
  Orders({Key? key}) : super(key: key);

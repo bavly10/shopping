@@ -5,16 +5,16 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:shopping/model/responceModel.dart';
-import 'package:shopping/model/CustomerModel.dart';
-import 'package:shopping/modules/Customer/login/cubit/state.dart';
-import 'package:shopping/modules/Customer/login/signup/tabs/first_screen.dart';
-import 'package:shopping/modules/Customer/login/signup/tabs/four_screen.dart';
-import 'package:shopping/modules/Customer/login/signup/tabs/second_screen.dart';
-import 'package:shopping/modules/Customer/login/signup/tabs/third_screen.dart';
-import 'package:shopping/shared/diohelper/dioHelpoer.dart';
-import 'package:shopping/shared/network.dart';
-import 'package:shopping/shared/shared_prefernces.dart';
+import 'package:myshoop/model/responceModel.dart';
+import 'package:myshoop/model/CustomerModel.dart';
+import 'package:myshoop/modules/Customer/login/cubit/state.dart';
+import 'package:myshoop/modules/Customer/login/signup/tabs/first_screen.dart';
+import 'package:myshoop/modules/Customer/login/signup/tabs/four_screen.dart';
+import 'package:myshoop/modules/Customer/login/signup/tabs/second_screen.dart';
+import 'package:myshoop/modules/Customer/login/signup/tabs/third_screen.dart';
+import 'package:myshoop/shared/diohelper/dioHelpoer.dart';
+import 'package:myshoop/shared/network.dart';
+import 'package:myshoop/shared/shared_prefernces.dart';
 
 import '../../../../model/privacy_policy.dart';
 

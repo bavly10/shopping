@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import 'package:shopping/modules/cart/widget/floatingOrder.dart';
-import 'package:shopping/shared/compononet/myToast.dart';
+import 'package:myshoop/modules/cart/widget/floatingOrder.dart';
+import 'package:myshoop/shared/compononet/myToast.dart';
 import 'package:slide_popup_dialog_null_safety/slide_popup_dialog.dart' as slideDialog;
-import 'package:shopping/modules/Customer/products/cubit/cubit.dart';
-import 'package:shopping/modules/Customer/products/cubit/states.dart';
-import 'package:shopping/modules/cart/widget/widget_cart.dart';
-import 'package:shopping/shared/localization/translate.dart';
-import 'package:shopping/shared/my_colors.dart';
+import 'package:myshoop/modules/Customer/products/cubit/cubit.dart';
+import 'package:myshoop/modules/Customer/products/cubit/states.dart';
+import 'package:myshoop/modules/cart/widget/widget_cart.dart';
+import 'package:myshoop/shared/localization/translate.dart';
+import 'package:myshoop/shared/my_colors.dart';
 
 
 class CartScreen extends StatelessWidget {

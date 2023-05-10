@@ -3,8 +3,8 @@ import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shopping/modules/payment/Api/Api.dart';
-import 'package:shopping/modules/payment/cubit/state.dart';
+import 'package:myshoop/modules/payment/Api/Api.dart';
+import 'package:myshoop/modules/payment/cubit/state.dart';
 import 'package:xml/xml.dart' as xml;
 
 class PaymentCubit extends Cubit<PaymentStates> {

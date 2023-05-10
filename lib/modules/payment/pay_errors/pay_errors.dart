@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hex_color/flutter_hex_color.dart';
-import 'package:shopping/shared/localization/translate.dart';
+import 'package:myshoop/shared/localization/translate.dart';
 
 class PaymentError extends StatelessWidget {
   final dynamic mytext;

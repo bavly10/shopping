@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:shopping/Cubit/cubit.dart';
-import 'package:shopping/Cubit/states.dart';
-import 'package:shopping/modules/Customer/cubit/cubit.dart';
-import 'package:shopping/modules/Customer/cubit/state.dart';
-import 'package:shopping/modules/Customer/products/cubit/cubit.dart';
-import 'package:shopping/modules/Customer/products/details_product/details_product.dart';
-import 'package:shopping/modules/mainScreen/store_screen/widgets/latest_product.dart';
-import 'package:shopping/shared/compononet/arrowBack.dart';
-import 'package:shopping/shared/compononet/componotents.dart';
-import 'package:shopping/shared/compononet/myToast.dart';
-import 'package:shopping/shared/localization/translate.dart';
-import 'package:shopping/shared/my_colors.dart';
+import 'package:myshoop/Cubit/cubit.dart';
+import 'package:myshoop/Cubit/states.dart';
+import 'package:myshoop/modules/Customer/cubit/cubit.dart';
+import 'package:myshoop/modules/Customer/cubit/state.dart';
+import 'package:myshoop/modules/Customer/products/cubit/cubit.dart';
+import 'package:myshoop/modules/Customer/products/details_product/details_product.dart';
+import 'package:myshoop/modules/mainScreen/store_screen/widgets/latest_product.dart';
+import 'package:myshoop/shared/compononet/arrowBack.dart';
+import 'package:myshoop/shared/compononet/componotents.dart';
+import 'package:myshoop/shared/compononet/myToast.dart';
+import 'package:myshoop/shared/localization/translate.dart';
+import 'package:myshoop/shared/my_colors.dart';
 
 import '../../../shared/compononet/no_result_search.dart';
 

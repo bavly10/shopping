@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shopping/modules/Customer/MyOrders/NewOrder/NoOrder.dart';
-import 'package:shopping/modules/Customer/MyOrders/cubit/cubit.dart';
-import 'package:shopping/modules/Customer/MyOrders/cubit/state.dart';
-import 'package:shopping/modules/Customer/MyOrders/widget/EXPTile.dart';
-import 'package:shopping/shared/localization/translate.dart';
-import 'package:shopping/shared/my_colors.dart';
+import 'package:myshoop/modules/Customer/MyOrders/NewOrder/NoOrder.dart';
+import 'package:myshoop/modules/Customer/MyOrders/cubit/cubit.dart';
+import 'package:myshoop/modules/Customer/MyOrders/cubit/state.dart';
+import 'package:myshoop/modules/Customer/MyOrders/widget/EXPTile.dart';
+import 'package:myshoop/shared/localization/translate.dart';
+import 'package:myshoop/shared/my_colors.dart';
 
 class NewOrder extends StatelessWidget {
   const NewOrder({Key? key}) : super(key: key);

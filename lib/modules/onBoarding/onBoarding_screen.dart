@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shopping/Cubit/cubit.dart';
-import 'package:shopping/Cubit/states.dart';
-import 'package:shopping/model/splash.dart';
-import 'package:shopping/modules/onBoarding/widget/on_boarding_item.dart';
-import 'package:shopping/shared/compononet/LoagingDialog.dart';
-import 'package:shopping/shared/compononet/error_page.dart';
-import 'package:shopping/shared/localization/translate.dart';
-import 'package:shopping/shared/my_colors.dart';
+import 'package:myshoop/Cubit/cubit.dart';
+import 'package:myshoop/Cubit/states.dart';
+import 'package:myshoop/model/splash.dart';
+import 'package:myshoop/modules/onBoarding/widget/on_boarding_item.dart';
+import 'package:myshoop/shared/compononet/LoagingDialog.dart';
+import 'package:myshoop/shared/compononet/error_page.dart';
+import 'package:myshoop/shared/localization/translate.dart';
+import 'package:myshoop/shared/my_colors.dart';
 import 'package:sizer/sizer.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 

@@ -3,8 +3,8 @@ import 'dart:io';
 import 'package:carousel_slider/carousel_options.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:shopping/model/product_info.dart';
-import 'package:shopping/model/show_product_model.dart';
+import 'package:myshoop/model/product_info.dart';
+import 'package:myshoop/model/show_product_model.dart';
 import 'package:sizer/sizer.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 

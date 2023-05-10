@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:shopping/shared/network.dart';
+import 'package:myshoop/shared/network.dart';
 
 class PaymentApi{
   final dio = Dio(BaseOptions(

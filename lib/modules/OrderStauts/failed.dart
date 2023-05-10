@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hex_color/flutter_hex_color.dart';
-import 'package:shopping/modules/mainScreen/mainScreen.dart';
-import 'package:shopping/modules/onBoarding/onBoarding_screen.dart';
-import 'package:shopping/modules/payment/cubit/cubit.dart';
-import 'package:shopping/shared/localization/translate.dart';
-import 'package:shopping/shared/my_colors.dart';
+import 'package:myshoop/modules/mainScreen/mainScreen.dart';
+import 'package:myshoop/modules/onBoarding/onBoarding_screen.dart';
+import 'package:myshoop/modules/payment/cubit/cubit.dart';
+import 'package:myshoop/shared/localization/translate.dart';
+import 'package:myshoop/shared/my_colors.dart';
 
 import '../../shared/compononet/componotents.dart';
 import '../cart/cart.dart';

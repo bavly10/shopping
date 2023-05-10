@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shopping/Cubit/cubit.dart';
-import 'package:shopping/Cubit/states.dart';
-import 'package:shopping/modules/mainScreen/screen/Welcomebage.dart';
-import 'package:shopping/modules/mainScreen/screen/cateogry.dart';
-import 'package:shopping/modules/mainScreen/screen/customer.dart';
-import 'package:shopping/modules/mainScreen/screen/myCart.dart';
-import 'package:shopping/shared/compononet/arrowBack.dart';
-import 'package:shopping/shared/localization/translate.dart';
-import 'package:shopping/shared/my_colors.dart';
-import 'package:simple_animations/simple_animations.dart';
+import 'package:myshoop/Cubit/cubit.dart';
+import 'package:myshoop/Cubit/states.dart';
+import 'package:myshoop/modules/mainScreen/screen/Welcomebage.dart';
+import 'package:myshoop/modules/mainScreen/screen/cateogry.dart';
+import 'package:myshoop/modules/mainScreen/screen/customer.dart';
+import 'package:myshoop/modules/mainScreen/screen/myCart.dart';
+import 'package:myshoop/shared/compononet/arrowBack.dart';
+import 'package:myshoop/shared/localization/translate.dart';
+import 'package:myshoop/shared/my_colors.dart';
+
 
 class HomeScreen extends StatelessWidget {
   HomeScreen({Key? key}) : super(key: key);
@@ -97,67 +97,58 @@ class HomeScreen extends StatelessWidget {
   Widget myAppBarSearch(context) {
     return Padding(
       padding: const EdgeInsets.all(12.0),
-      child: PlayAnimationBuilder<double>(
-        tween: Tween(begin: 0.0, end: MediaQuery.of(context).size.width * 0.75),
-        duration: const Duration(seconds: 1),
-        delay: const Duration(milliseconds: 20),
-        curve: Curves.easeOut,
-        builder: (context, value, child) {
-          return Row(
-            children: [
-              Container(
-                width: value,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(35.0),
-                    color: Colors.grey),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Card(
+      child: Row(
+        children: [
+          Container(
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(35.0),
+                color: Colors.grey),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Card(
+                  color: Colors.grey,
+                  shape: const StadiumBorder(
+                    side: BorderSide(
+                      style: BorderStyle.solid,
                       color: Colors.grey,
-                      shape: const StadiumBorder(
-                        side: BorderSide(
-                          style: BorderStyle.solid,
-                          color: Colors.grey,
-                          width: 6.0,
-                        ),
-                      ),
-                      elevation: 1,
-                      child: Icon(
-                        Icons.search_sharp,
-                        size: 50,
-                        color: myBlue,
-                      ),
+                      width: 6.0,
                     ),
-                    const SizedBox(
-                      width: 5,
-                    ),
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.50,
-                      child: TextField(
-                        autofocus: true,
-                        controller: search,
-                        onChanged: (value) {
-                          ShopCubit.get(context).searchCateogry(value);
-                        },
-                        decoration: InputDecoration(
-                          border: InputBorder.none,
-                          hintText: mytranslate(context, "search"),
-                        ),
-                      ),
-                    ),
-                  ],
+                  ),
+                  elevation: 1,
+                  child: Icon(
+                    Icons.search_sharp,
+                    size: 50,
+                    color: myBlue,
+                  ),
                 ),
-              ),
-              const Spacer(),
-              MyArrowBack(
-                onPress: () {
-                  ShopCubit.get(context).changeSearchAppBar();
-                },
-              )
-            ],
-          );
-        },
+                const SizedBox(
+                  width: 5,
+                ),
+                SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.50,
+                  child: TextField(
+                    autofocus: true,
+                    controller: search,
+                    onChanged: (value) {
+                      ShopCubit.get(context).searchCateogry(value);
+                    },
+                    decoration: InputDecoration(
+                      border: InputBorder.none,
+                      hintText: mytranslate(context, "search"),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const Spacer(),
+          MyArrowBack(
+            onPress: () {
+              ShopCubit.get(context).changeSearchAppBar();
+            },
+          )
+        ],
       ),
     );
   }

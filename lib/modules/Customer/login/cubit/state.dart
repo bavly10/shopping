@@ -1,5 +1,5 @@
-import 'package:shopping/model/responceModel.dart';
-import 'package:shopping/model/CustomerModel.dart';
+import 'package:myshoop/model/responceModel.dart';
+import 'package:myshoop/model/CustomerModel.dart';
 
 abstract class LoginStates {}
 

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:shopping/model/ProductsCustomer.dart';
-import 'package:shopping/shared/my_colors.dart';
+import 'package:myshoop/model/ProductsCustomer.dart';
+import 'package:myshoop/shared/my_colors.dart';
 
 class ProductCard extends StatelessWidget {
   final ProductsItem productsItem;

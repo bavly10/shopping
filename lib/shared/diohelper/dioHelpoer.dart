@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shopping/Cubit/cubit.dart';
-import 'package:shopping/shared/shared_prefernces.dart';
+import 'package:myshoop/Cubit/cubit.dart';
+import 'package:myshoop/shared/shared_prefernces.dart';
 
 class DioHelper {
   static late Dio dio;

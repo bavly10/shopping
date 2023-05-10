@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:shopping/shared/localization/translate.dart';
-import 'package:shopping/shared/my_colors.dart';
+import 'package:myshoop/shared/localization/translate.dart';
+import 'package:myshoop/shared/my_colors.dart';
 
 class ErrorNetworkDialog extends StatelessWidget {
   const ErrorNetworkDialog({Key? key,}) : super(key: key);

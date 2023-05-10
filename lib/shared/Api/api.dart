@@ -1,8 +1,8 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:shopping/shared/diohelper/dioHelpoer.dart';
-import 'package:shopping/shared/network.dart';
+import 'package:myshoop/shared/diohelper/dioHelpoer.dart';
+import 'package:myshoop/shared/network.dart';
 
 class Api{
   Future<dynamic> get(String url) async {

@@ -6,9 +6,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hex_color/flutter_hex_color.dart';
 
 import 'package:image_picker/image_picker.dart';
-import 'package:shopping/modules/Customer/cubit/state.dart';
-import 'package:shopping/shared/compononet/arrowBack.dart';
-import 'package:shopping/shared/localization/translate.dart';
+import 'package:myshoop/modules/Customer/cubit/state.dart';
+import 'package:myshoop/shared/compononet/arrowBack.dart';
+import 'package:myshoop/shared/localization/translate.dart';
 
 import '../../../shared/compononet/borderSignup.dart';
 import '../../../shared/compononet/componotents.dart';

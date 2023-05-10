@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:shopping/modules/Customer/MyOrders/cubit/cubit.dart';
+import 'package:myshoop/modules/Customer/MyOrders/cubit/cubit.dart';
 
 import '../../../../shared/my_colors.dart';
 

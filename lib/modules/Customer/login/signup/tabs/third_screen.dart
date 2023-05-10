@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shopping/modules/Customer/login/cubit/cubit.dart';
-import 'package:shopping/modules/Customer/login/cubit/state.dart';
-import 'package:shopping/shared/compononet/borderSignup.dart';
-import 'package:shopping/shared/compononet/textField.dart';
-import 'package:shopping/shared/localization/translate.dart';
+import 'package:myshoop/modules/Customer/login/cubit/cubit.dart';
+import 'package:myshoop/modules/Customer/login/cubit/state.dart';
+import 'package:myshoop/shared/compononet/borderSignup.dart';
+import 'package:myshoop/shared/compononet/textField.dart';
+import 'package:myshoop/shared/localization/translate.dart';
 
 class ThirdScreen extends StatelessWidget {
   static TextEditingController storecotroller=TextEditingController();

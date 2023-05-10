@@ -1,14 +1,14 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:shopping/Cubit/cubit.dart';
-import 'package:shopping/model/ProCustomer.dart';
-import 'package:shopping/modules/mainScreen/store_screen/main_Store_screen.dart';
-import 'package:shopping/shared/compononet/MyCachedNetworkImage.dart';
-import 'package:shopping/shared/compononet/componotents.dart';
-import 'package:shopping/shared/compononet/custom_rating.dart';
-import 'package:shopping/shared/localization/translate.dart';
-import 'package:shopping/shared/my_colors.dart';
+import 'package:myshoop/Cubit/cubit.dart';
+import 'package:myshoop/model/ProCustomer.dart';
+import 'package:myshoop/modules/mainScreen/store_screen/main_Store_screen.dart';
+import 'package:myshoop/shared/compononet/MyCachedNetworkImage.dart';
+import 'package:myshoop/shared/compononet/componotents.dart';
+import 'package:myshoop/shared/compononet/custom_rating.dart';
+import 'package:myshoop/shared/localization/translate.dart';
+import 'package:myshoop/shared/my_colors.dart';
 import 'package:sizer/sizer.dart';
 
 // ignore: must_be_immutable

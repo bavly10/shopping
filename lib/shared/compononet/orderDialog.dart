@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shopping/modules/Customer/MyOrders/cubit/cubit.dart';
-import 'package:shopping/modules/Customer/MyOrders/cubit/state.dart';
-import 'package:shopping/shared/compononet/blueButton.dart';
-import 'package:shopping/shared/compononet/myToast.dart';
-import 'package:shopping/shared/localization/translate.dart';
-import 'package:shopping/shared/my_colors.dart';
+import 'package:myshoop/modules/Customer/MyOrders/cubit/cubit.dart';
+import 'package:myshoop/modules/Customer/MyOrders/cubit/state.dart';
+import 'package:myshoop/shared/compononet/blueButton.dart';
+import 'package:myshoop/shared/compononet/myToast.dart';
+import 'package:myshoop/shared/localization/translate.dart';
+import 'package:myshoop/shared/my_colors.dart';
 import 'package:sizer/sizer.dart';
 
 
@@ -28,7 +28,7 @@ class ConfirmOrderDialog extends StatelessWidget {
       },
       builder: (ctx,state){
         return AlertDialog(
-          alignment: Alignment.center,
+
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25.0)),
           elevation: 0.0,
           content: dialogContent(context),

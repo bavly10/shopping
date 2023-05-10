@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:shopping/shared/my_colors.dart';
+import 'package:myshoop/shared/my_colors.dart';
 
 // ignore: must_be_immutable
 class MyArrowBack extends StatelessWidget {

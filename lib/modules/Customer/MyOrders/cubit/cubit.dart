@@ -1,10 +1,10 @@
 import 'dart:core';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shopping/Cubit/cubit.dart';
-import 'package:shopping/model/myOrderCustomer.dart';
-import 'package:shopping/modules/Customer/MyOrders/cubit/state.dart';
-import 'package:shopping/shared/diohelper/dioHelpoer.dart';
-import 'package:shopping/shared/network.dart';
+import 'package:myshoop/Cubit/cubit.dart';
+import 'package:myshoop/model/myOrderCustomer.dart';
+import 'package:myshoop/modules/Customer/MyOrders/cubit/state.dart';
+import 'package:myshoop/shared/diohelper/dioHelpoer.dart';
+import 'package:myshoop/shared/network.dart';
 
 class CustomerOrderCubit extends Cubit<CustomerOrderStates> {
   CustomerOrderCubit() : super(CustomerOrder_InitalState());
