@@ -5,12 +5,9 @@ import 'package:myshoop/model/ProCustomer.dart';
 import 'package:myshoop/model/ProductsCustomer.dart';
 import 'package:myshoop/model/categoryModel.dart';
 import 'package:myshoop/model/latest_product.dart';
-import 'package:myshoop/model/privacy_policy.dart';
 import 'package:myshoop/model/splash.dart';
 import 'package:myshoop/model/version.dart';
 import 'package:myshoop/modules/Customer/login/main.dart';
-
-import 'package:myshoop/modules/cart/cart.dart';
 import 'package:myshoop/modules/mainScreen/Setting/setting.dart';
 import 'package:myshoop/modules/mainScreen/screen/HomeScreen.dart';
 import 'package:myshoop/shared/Api/api.dart';
@@ -18,17 +15,21 @@ import 'package:myshoop/shared/diohelper/dioHelpoer.dart';
 import 'package:myshoop/shared/network.dart';
 import 'package:myshoop/shared/shared_prefernces.dart';
 import 'package:sqflite/sqflite.dart';
+import 'dart:ui' as ui;
 
-import '../model/shippingcompanies.dart';
 
 class ShopCubit extends Cubit<ShopStates> {
   ShopCubit() : super(Shop_InitalState());
   static ShopCubit get(context) => BlocProvider.of(context);
   // ignore: non_constant_identifier_names
   Locale? locale_cubit;
-  String? lang="en";
+  String? lang;
   static bool xtranslate = false;
 
+  void getCruunetLang(){
+    Locale deviceLocal=ui.window.locale;
+     lang=deviceLocal.languageCode;
+  }
   void changeLang(lang) async {
     Locale currentLocale = await setLocale(lang.lang_Code);
     changLocale(currentLocale);
